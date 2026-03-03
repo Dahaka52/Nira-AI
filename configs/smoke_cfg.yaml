@@ -1,0 +1,40 @@
+current_config: Unsaved
+llamacpp_cache_type_k: q8_0
+llamacpp_cache_type_v: q8_0
+llamacpp_ctx: 8192
+llamacpp_extra_args: --flash-attn on
+llamacpp_filepath: C:\Nirmita\bin\llamacpp\llama-server.exe
+llamacpp_gpu_id: 0
+llamacpp_model_filepath: C:\Nirmita\models\Mistral-Nemo-Instruct-2407-absolute-heresy.i1-Q4_K_M.gguf
+llamacpp_ngl: 40
+microphone:
+  device_index: 7
+  device_name: Fifine
+  enabled: true
+  min_silence_ms: 400
+  min_speech_ms: 250
+  pre_roll_ms: 300
+  vad_threshold: 0.12
+operations:
+- id: sherpa
+  provider: cpu
+  role: stt
+  ws_url: ws://localhost:6006
+- id: llamacpp
+  max_length: 500
+  role: t2t
+  stream: true
+  temperature: 0.7
+  top_k: 40
+  top_p: 0.95
+- id: filter_clean
+  role: filter_text
+- id: chunker_sentence
+  role: filter_text
+prompter:
+  character_name: ????
+  character_prompt_filename: nira.md
+  history_length: 50
+  instruction_prompt_filename: instruction.md
+  scene_prompt_filename: scene.md
+spacy_model: en_core_web_sm

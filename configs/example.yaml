@@ -1,0 +1,109 @@
+# Enabled operations
+# Uncomment the ones you want to use by default
+# operations:
+# STT
+# - role: stt
+#   id: sherpa
+#   ws_url: ws://localhost:6006
+#   provider: cpu # cpu|cuda
+#   gpu_id: 0
+#   model_dir: C:\Nirmita\models\vosk-model-small-streaming-ru
+#   model_variant: int8 # int8|fp32|chunk64
+#   decoding_method: modified_beam_search
+#   num_active_paths: 4
+#   use_endpoint: 0
+  
+  # T2T
+# - role: t2t
+#   id: kobold
+#   max_context_length: 2048
+#   max_length: 100
+#   quiet: true
+#   rep_pen: 1.1
+#   rep_pen_range: 256
+#   rep_pen_slope: 1
+#   temperature: 0.5
+#   tfs: 1
+#   top_a: 0
+#   top_k: 100
+#   top_p: 0.9
+#   typical: 1
+# - role: t2t
+#   id: openai
+#   base_url: https://api.openai.com/v1/
+#   model: gpt-4o
+#   temperature: 1
+#   top_p: 0.9
+#   presence_penalty: 1
+#   frequency_penalty: 1
+
+  # Text filters
+# - role: filter_text
+#   id: filter_clean
+# - role: filter_text
+#   id: emotion_roberta
+# - role: filter_text
+#   id: mod_koala
+# - role: filter_text
+#   id: chunker_sentence
+
+  # TTS
+  # (в этой сборке модули TTS не подключены)
+
+  # Audio filters
+# - role: filter_audio
+#   id: pitch
+#   pitch_amount: 0
+# - role: filter_audio
+#   id: rvc
+#   voice: my-voice-model
+#   f0_up_key: 0
+#   f0_method: rmvpe
+#   f0_file: null
+#   index_file: null
+#   index_rate: 0.0
+#   filter_radius: 3
+#   resample_sr: 0
+#   rms_mix_rate: 0
+#   protect: 0.5
+
+  # MCP LLM (can use any from T2T)
+# - role: mcp
+#   id: openai
+#   base_url: https://api.openai.com/v1/
+#   model: gpt-4o
+#   temperature: 0.25
+#   top_p: 0.9
+#   presence_penalty: 0.2
+#   frequency_penalty: 0.2
+
+  # Embedding model
+# - role: embedding
+#   id: openai
+#   base_url: https://api.openai.com/v1/
+#   model: text-embedding-3-small
+
+# Connect MCP servers, example commented
+# mcp: [] # Remove "[]" if adding servers
+# - id: example_server
+#   command: python
+#   args: ["example_mcp_server.py"]
+#   cwd: "path/to/server/directory"
+
+# Prompter
+# prompter:
+#   instruction_prompt_filename: 'example.txt'
+#   character_prompt_filename: 'example.txt'
+#   scene_prompt_filename: 'example.txt'
+
+#   character_name: "J.A.I.son"
+#   name_translations:
+#     "old name": "new name"
+#   history_length: 20
+
+# Kobold
+# kobold_filepath: E:\\jaison-core\\models\\kobold\\koboldcpp_cu12.exe # must be absolute
+# kcpps_filepath: E:\\jaison-core\\models\\kobold\\save.kcpps # must be absolute
+
+# Spacy NLP
+# spacy_model: en_core_web_sm
