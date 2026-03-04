@@ -68,7 +68,9 @@ function App() {
         ttftMs: 0,
         e2eTtftMs: 0,
         ttsStartMs: 0,
-        e2eTtsStartMs: 0
+        e2eTtsStartMs: 0,
+        ttsProviderLatencyMs: 0,
+        lastRtf: 0
     });
 
     const scrollRef = useRef<HTMLDivElement>(null);
@@ -153,6 +155,15 @@ function App() {
                 if (data.payload?.start) {
                     setStatus('thinking');
                     setIsThinking(true);
+                    setMetrics(prev => ({
+                        ...prev,
+                        tps: 0,
+                        ttftMs: 0,
+                        e2eTtftMs: 0,
+                        ttsStartMs: 0,
+                        e2eTtsStartMs: 0,
+                        ttsProviderLatencyMs: 0
+                    }));
                     return;
                 }
 
@@ -216,7 +227,12 @@ function App() {
                 const content = result.content || result.filtered_text;
 
                 // Runtime metrics from backend streaming
-                if (result.tps !== undefined) {
+                if (
+                    result.tps !== undefined ||
+                    result.ttft_ms !== undefined ||
+                    result.e2e_ttft_ms !== undefined ||
+                    result.latency !== undefined
+                ) {
                     setMetrics(prev => ({
                         ...prev,
                         tps: result.tps ?? prev.tps,
@@ -224,12 +240,26 @@ function App() {
                         e2eTtftMs: result.e2e_ttft_ms ?? prev.e2eTtftMs
                     }));
                 }
-                if (result.tts_start_ms !== undefined || result.e2e_tts_start_ms !== undefined) {
+                if (
+                    result.tts_start_ms !== undefined ||
+                    result.e2e_tts_start_ms !== undefined ||
+                    result.tts_provider_latency_ms !== undefined
+                ) {
                     setMetrics(prev => ({
                         ...prev,
                         ttsStartMs: result.tts_start_ms ?? prev.ttsStartMs,
-                        e2eTtsStartMs: result.e2e_tts_start_ms ?? prev.e2eTtsStartMs
+                        e2eTtsStartMs: result.e2e_tts_start_ms ?? prev.e2eTtsStartMs,
+                        ttsProviderLatencyMs: result.tts_provider_latency_ms ?? prev.ttsProviderLatencyMs
                     }));
+                }
+                if (result.tts_rtf !== undefined) {
+                    const nextRtf = Number(result.tts_rtf);
+                    if (Number.isFinite(nextRtf) && nextRtf > 0) {
+                        setMetrics(prev => ({
+                            ...prev,
+                            lastRtf: nextRtf
+                        }));
+                    }
                 }
 
                 if (content && !result.history) {
@@ -388,12 +418,21 @@ function App() {
                             </div>
                         </div>
                         <div className="stat-card">
-                            <div className="stat-label">TTS Start</div>
+                            <div className="stat-label">TTFAudio</div>
                             <div className="stat-value">
                                 {(metrics.e2eTtsStartMs || metrics.ttsStartMs || 0)}ms
                                 <span style={{ fontSize: '0.6rem', color: 'var(--text-dim)', marginLeft: '6px' }}>
                                     {metrics.e2eTtsStartMs ? 'e2e' : 'tts'}
                                 </span>
+                            </div>
+                            <div style={{ marginTop: '4px', fontSize: '0.65rem', color: 'var(--text-dim)' }}>
+                                provider {(metrics.ttsProviderLatencyMs || 0)}ms
+                            </div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-label">RTF (last phrase)</div>
+                            <div className="stat-value">
+                                {(metrics.lastRtf > 0 ? metrics.lastRtf : 0).toFixed(3)}
                             </div>
                         </div>
                     </div>

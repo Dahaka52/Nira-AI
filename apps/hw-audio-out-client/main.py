@@ -123,6 +123,8 @@ class PCM16OutputPlayer:
         rebuffer_ms: int,
         rebuffer_max_wait_ms: int,
         chunk_fade_ms: int,
+        start_fade_ms: int,
+        reset_resampler_on_stream_start: bool,
         clear_on_stop: bool,
         output_gain_db: float,
     ):
@@ -141,9 +143,12 @@ class PCM16OutputPlayer:
         self.rebuffer_ms = int(max(0, rebuffer_ms))
         self.rebuffer_max_wait_ms = int(max(0, rebuffer_max_wait_ms))
         self.chunk_fade_ms = int(max(0, chunk_fade_ms))
+        self.start_fade_ms = int(max(0, start_fade_ms))
+        self.reset_resampler_on_stream_start = bool(reset_resampler_on_stream_start)
         self.prebuffer_bytes = int(self.sample_rate * self.frame_bytes * self.prebuffer_ms / 1000.0)
         self.rebuffer_bytes = int(self.sample_rate * self.frame_bytes * self.rebuffer_ms / 1000.0)
         self.chunk_fade_samples = int(self.sample_rate * self.chunk_fade_ms / 1000.0)
+        self.start_fade_samples = int(self.sample_rate * self.start_fade_ms / 1000.0)
         self.output_gain = float(10.0 ** (output_gain_db / 20.0))
 
         self._stream = None
@@ -158,6 +163,8 @@ class PCM16OutputPlayer:
         self._need_rebuffer = False
         self._need_rebuffer_since = 0.0
         self._stream_ended = False
+        self._pending_stream_start_fade = False
+        self._active_job_id: Optional[str] = None
 
     async def start(self) -> None:
         if self._stream is not None:
@@ -350,11 +357,47 @@ class PCM16OutputPlayer:
             self._need_rebuffer = False
             self._need_rebuffer_since = 0.0
             self._stream_ended = False
+            self._pending_stream_start_fade = False
+            self._active_job_id = None
         self._ratecv_state = None
         self._ratecv_src_sr = None
 
-    async def mark_stream_end(self) -> None:
+    async def begin_stream(self, job_id: Optional[str]) -> None:
+        jid = str(job_id or "").strip() or None
+        dropped_bytes = 0
         with self._lock:
+            if jid and self._active_job_id and self._active_job_id != jid:
+                dropped_bytes = len(self._buffer)
+                if dropped_bytes > 0:
+                    self._buffer.clear()
+                self._primed = False
+                self._need_rebuffer = False
+                self._need_rebuffer_since = 0.0
+            if jid:
+                self._active_job_id = jid
+            self._stream_ended = False
+            self._pending_stream_start_fade = True
+        if dropped_bytes > 0:
+            print(f"[AUDIO_OUT] Switched response stream, dropped {dropped_bytes} pending bytes.")
+        if self.reset_resampler_on_stream_start:
+            self._ratecv_state = None
+            self._ratecv_src_sr = None
+
+    def is_job_active(self, job_id: Optional[str]) -> bool:
+        jid = str(job_id or "").strip()
+        if not jid:
+            return True
+        with self._lock:
+            if self._active_job_id is None:
+                self._active_job_id = jid
+                return True
+            return self._active_job_id == jid
+
+    async def mark_stream_end(self, job_id: Optional[str] = None) -> None:
+        jid = str(job_id or "").strip()
+        with self._lock:
+            if jid and self._active_job_id and self._active_job_id != jid:
+                return
             self._stream_ended = True
             if len(self._buffer) <= 0:
                 self._need_rebuffer = False
@@ -382,6 +425,22 @@ class PCM16OutputPlayer:
         ramp = np.linspace(0.0, 1.0, num=fade, endpoint=True, dtype=np.float32)
         arr[:fade] *= ramp
         arr[-fade:] *= ramp[::-1]
+        np.clip(arr, -32768, 32767, out=arr)
+        return arr.astype(np.int16).tobytes()
+
+    def _apply_start_fade(self, pcm_bytes: bytes) -> bytes:
+        """One-shot fade-in for new phrase start to suppress leading click/pop."""
+        if self.start_fade_samples <= 0:
+            return pcm_bytes
+        arr = np.frombuffer(pcm_bytes, dtype=np.int16).astype(np.float32)
+        n = int(arr.size)
+        if n <= 0:
+            return pcm_bytes
+        fade = min(self.start_fade_samples, n)
+        if fade <= 0:
+            return pcm_bytes
+        ramp = np.linspace(0.0, 1.0, num=fade, endpoint=True, dtype=np.float32)
+        arr[:fade] *= ramp
         np.clip(arr, -32768, 32767, out=arr)
         return arr.astype(np.int16).tobytes()
 
@@ -435,6 +494,13 @@ class PCM16OutputPlayer:
             self._ratecv_src_sr = None
 
         pcm_bytes = self._apply_gain(pcm_bytes)
+        apply_start_fade = False
+        with self._lock:
+            if self._pending_stream_start_fade:
+                self._pending_stream_start_fade = False
+                apply_start_fade = True
+        if apply_start_fade:
+            pcm_bytes = self._apply_start_fade(pcm_bytes)
         pcm_bytes = self._apply_chunk_fade(pcm_bytes)
         if not pcm_bytes:
             return
@@ -476,6 +542,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--rebuffer_ms", type=int, default=420)
     parser.add_argument("--rebuffer_max_wait_ms", type=int, default=350)
     parser.add_argument("--chunk_fade_ms", type=int, default=0)
+    parser.add_argument("--start_fade_ms", type=int, default=2)
+    parser.add_argument("--reset_resampler_on_stream_start", type=int, default=1)
     parser.add_argument("--clear_on_stop", type=int, default=1)
     parser.add_argument("--output_gain_db", type=float, default=0.0)
     parser.add_argument("--reconnect_delay_ms", type=int, default=1200)
@@ -503,15 +571,19 @@ async def handle_ws_message(message: str, player: PCM16OutputPlayer) -> None:
     body = payload.get("response")
     if not isinstance(body, dict):
         return
+    job_id = str(body.get("job_id", "")).strip() or None
+    if body.get("start") is not None:
+        await player.begin_stream(job_id)
+        return
     # JAIson WS envelope for jobs uses {finished, success, result}. It does not expose
     # a nested "status" field, so treat finished=true as end-of-stream for response jobs.
     finished = bool(body.get("finished", False))
     if finished:
-        await player.mark_stream_end()
+        await player.mark_stream_end(job_id=job_id)
         return
     status = str(body.get("status", "")).strip().lower()
     if status in ("success", "cancelled", "error"):
-        await player.mark_stream_end()
+        await player.mark_stream_end(job_id=job_id)
         return
     result = body.get("result")
     if not isinstance(result, dict):
@@ -521,8 +593,12 @@ async def handle_ws_message(message: str, player: PCM16OutputPlayer) -> None:
     if event_type == "stop_audio":
         if player.clear_on_stop:
             await player.clear()
+        else:
+            await player.mark_stream_end(job_id=job_id)
         return
     if event_type != "audio_chunk":
+        return
+    if not player.is_job_active(job_id):
         return
 
     # Backend emits audio payload as "audio_bytes". Keep "content" as legacy fallback.
@@ -564,6 +640,8 @@ async def run() -> None:
         rebuffer_ms=args.rebuffer_ms,
         rebuffer_max_wait_ms=args.rebuffer_max_wait_ms,
         chunk_fade_ms=args.chunk_fade_ms,
+        start_fade_ms=args.start_fade_ms,
+        reset_resampler_on_stream_start=bool(int(args.reset_resampler_on_stream_start)),
         clear_on_stop=bool(int(args.clear_on_stop)),
         output_gain_db=args.output_gain_db,
     )

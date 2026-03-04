@@ -208,6 +208,8 @@ audio_output:
   rebuffer_ms: 32
   rebuffer_max_wait_ms: 90
   chunk_fade_ms: 0
+  start_fade_ms: 2
+  reset_resampler_on_stream_start: true
   clear_on_stop: true
   output_gain_db: 0.0
   reconnect_delay_ms: 1200

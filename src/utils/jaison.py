@@ -930,6 +930,18 @@ class JAIson(metaclass=Singleton):
                     async for audio_chunk_out in self.op_manager.use_operation(OpRoles.TTS, text_chunk_out):
                         # Apply tts filters
                         async for final_audio_chunk_out in self.op_manager.use_operation(OpRoles.FILTER_AUDIO, audio_chunk_out):
+                            for metric_key in (
+                                "tts_provider_latency_ms",
+                                "tts_rtf",
+                                "tts_audio_s",
+                                "tts_total_ms",
+                                "tts_first_chunk_ms",
+                                "tts_max_gap_ms",
+                                "tts_chunks",
+                                "tts_text_len",
+                            ):
+                                if metric_key in audio_chunk_out and metric_key not in final_audio_chunk_out:
+                                    final_audio_chunk_out[metric_key] = audio_chunk_out[metric_key]
                             # Broadcast results (single WS event per PCM chunk).
                             audio_event = {
                                 "audio_bytes": base64.b64encode(final_audio_chunk_out["audio_bytes"]).decode("utf-8"),
@@ -938,6 +950,18 @@ class JAIson(metaclass=Singleton):
                                 "ch": final_audio_chunk_out["ch"],
                                 "event": "audio_chunk",
                             }
+                            for metric_key in (
+                                "tts_provider_latency_ms",
+                                "tts_rtf",
+                                "tts_audio_s",
+                                "tts_total_ms",
+                                "tts_first_chunk_ms",
+                                "tts_max_gap_ms",
+                                "tts_chunks",
+                                "tts_text_len",
+                            ):
+                                if metric_key in final_audio_chunk_out:
+                                    audio_event[metric_key] = final_audio_chunk_out[metric_key]
                             # First-audio metrics (time to first playable TTS chunk)
                             if not first_audio_sent:
                                 first_audio_sent = True

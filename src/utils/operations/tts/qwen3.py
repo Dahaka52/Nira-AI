@@ -415,6 +415,7 @@ class Qwen3TTS(TTSOperation):
             last_chunk_at: Optional[float] = None
             max_gap_ms = 0.0
             trailing = b""
+            pending_chunk: Optional[Dict[str, Any]] = None
 
             try:
                 async with httpx.AsyncClient(timeout=timeout) as client:
@@ -457,7 +458,9 @@ class Qwen3TTS(TTSOperation):
 
                             emitted_chunks += 1
                             emitted_bytes += len(raw_chunk)
-                            yield {"audio_bytes": bytes(raw_chunk), "sr": int(self.sample_rate)}
+                            if pending_chunk is not None:
+                                yield pending_chunk
+                            pending_chunk = {"audio_bytes": bytes(raw_chunk), "sr": int(self.sample_rate)}
 
                         if trailing:
                             logging.warning("Qwen3 sidecar dropped trailing unaligned bytes: %s", len(trailing))
@@ -469,6 +472,18 @@ class Qwen3TTS(TTSOperation):
                 audio_s = float(emitted_bytes) / float(max(1, int(self.sample_rate) * int(self.sample_width) * int(self.channels)))
                 total_s = float(total_ms) / 1000.0
                 rtf = (total_s / audio_s) if audio_s > 0 else -1.0
+                stream_stats = {
+                    "tts_chunks": int(emitted_chunks),
+                    "tts_total_ms": int(total_ms),
+                    "tts_audio_s": float(audio_s),
+                    "tts_rtf": float(rtf),
+                    "tts_first_chunk_ms": int(first_chunk_ms if first_chunk_ms is not None else -1),
+                    "tts_max_gap_ms": float(max_gap_ms),
+                    "tts_text_len": int(len(text)),
+                }
+                if pending_chunk is not None:
+                    pending_chunk.update(stream_stats)
+                    yield pending_chunk
                 logging.info(
                     "Qwen3 stream stats: chunks=%s bytes=%s first_chunk_ms=%s max_gap_ms=%.1f total_ms=%s audio_s=%.3f rtf=%.3f text_len=%s",
                     emitted_chunks,
@@ -541,4 +556,15 @@ class Qwen3TTS(TTSOperation):
             if first_chunk:
                 first_chunk = False
                 chunk["tts_provider_latency_ms"] = int((time.perf_counter() - started) * 1000)
+            for key in (
+                "tts_chunks",
+                "tts_total_ms",
+                "tts_audio_s",
+                "tts_rtf",
+                "tts_first_chunk_ms",
+                "tts_max_gap_ms",
+                "tts_text_len",
+            ):
+                if key in out:
+                    chunk[key] = out[key]
             yield chunk

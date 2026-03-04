@@ -120,3 +120,682 @@
 [1m[1;34m[2026-03-05 00:05:23,566][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 15653.241499996511 ms[0m
 [1m[1;34m[2026-03-05 00:05:23,566][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 15653.388999999152 ms[0m
 [1m[1;34m[2026-03-05 00:05:23,567][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job 6fff7f40-2886-4514-929e-65cf44b84636 completed. Content: 'О, маги! Я обожаю эту тему! Знаешь, в моем мире есть магия, и есть маги. Но это не те маги, которых ...'[0m
+[1m[1;34m[2026-03-05 00:25:14,933][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::109 start]:[0m Starting JAIson application layer.[0m
+[1m[1;34m[2026-03-05 00:25:14,957][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::332 load_operations_from_config]:[0m Active STT from config: sherpa_ru[0m
+[1m[1;34m[2026-03-05 00:25:14,957][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::334 load_operations_from_config]:[0m Active TTS from config: qwen3[0m
+[1m[1;34m[2026-03-05 00:25:16,647][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting STT operation sherpa_ru[0m
+[1m[1;34m[2026-03-05 00:25:16,648][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type sherpa_stt[0m
+[1m[1;34m[2026-03-05 00:25:16,649][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process sherpa_stt when it is already unloaded[0m
+[1m[1;34m[2026-03-05 00:25:16,650][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::85 _prepare_hotwords_file]:[0m Sherpa STT hotwords validated: 3 entries[0m
+[1m[1;34m[2026-03-05 00:25:16,651][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::295 reload]:[0m Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5[0m
+[1m[1;34m[2026-03-05 00:25:16,651][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::307 reload]:[0m Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5[0m
+[1m[1;34m[2026-03-05 00:25:20,976][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting T2T operation llamacpp[0m
+[1m[1;34m[2026-03-05 00:25:20,976][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type llamacpp[0m
+[1m[1;34m[2026-03-05 00:25:20,980][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::81 reload]:[0m Opened Llama.cpp server (PID: 33396) on port 11642 (GPU: 0)[0m
+[1m[1;34m[2026-03-05 00:25:20,980][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::89 reload]:[0m Waiting for llama-server to be ready at http://127.0.0.1:11642/health ...[0m
+[1m[1;34m[2026-03-05 00:25:25,183][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::101 reload]:[0m llama-server is ready! (attempt 8, port 11642)[0m
+[1m[1;34m[2026-03-05 00:25:25,185][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting FILTER_TEXT operation filter_clean[0m
+[1m[1;34m[2026-03-05 00:25:25,809][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting FILTER_TEXT operation chunker_sentence[0m
+[1m[1;34m[2026-03-05 00:25:26,292][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting TTS operation qwen3[0m
+[1m[1;34m[2026-03-05 00:25:26,292][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type qwen3_tts[0m
+[1m[1;34m[2026-03-05 00:25:26,292][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::201 reload]:[0m Qwen3 TTS SoX bin detected: C:\Nirmita\apps\tts-qwen3-server\third_party\sox\sox-14.4.2-win32\sox-14.4.2[0m
+[1m[1;34m[2026-03-05 00:25:26,293][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::205 reload]:[0m Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv312\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 1 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-Base --language russian --dtype bfloat16 --attn_implementation flash_attention_2 --use_compile 1 --sample_rate 24000 --sample_width 2 --channels 1 --voice_mode voice_clone --runtime_flavor dffdeeq --qwen_tts_repo_path C:\Nirmita\apps\dffdeeq_Qwen3-TTS-streaming-main --ref_audio_path C:\Nirmita\Nira_voice.wav --ref_text  --x_vector_only_mode 1 --emit_every_frames 4 --decode_window_frames 32 --overlap_samples 0 --max_frames 128 --use_optimized_decode 1 --do_sample 0 --top_p 0.9 --top_k 50 --temperature 0.8 --dynamic_max_frames 0 --dynamic_chars_per_second 11.5 --dynamic_frame_budget_mul 1.05 --dynamic_min_frames 20 --dynamic_max_frames_cap 128 --max_concurrent 1 --preload_on_start 1 --warmup_on_start 1 --warmup_text Привет. --warmup_chunks 1 --first_chunk_timeout_s 120 --stream_idle_timeout_s 60 --compile_mode reduce-overhead --compile_use_cuda_graphs 0 --compile_codebook_predictor 1 --compile_talker 1 --compile_cudagraph_skip_dynamic_graphs 0[0m
+[1m[1;34m[2026-03-05 00:25:26,293][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::206 reload]:[0m Qwen3 TTS GPU pin: provider=cuda gpu_id=1 device=cuda:0 CUDA_VISIBLE_DEVICES=1[0m
+[1m[1;34m[2026-03-05 00:26:15,902][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::238 reload]:[0m Qwen3 TTS sidecar is ready at http://127.0.0.1:6116/health[0m
+[1m[1;34m[2026-03-05 00:26:16,222][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type hw_mic[0m
+[1m[1;34m[2026-03-05 00:26:16,223][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process hw_mic when it is already unloaded[0m
+[ProcessManager] Starting Hardware Microphone (hw-mic-client)...
+[1m[1;34m[2026-03-05 00:26:16,229][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type hw_audio_out[0m
+[1m[1;34m[2026-03-05 00:26:16,229][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process hw_audio_out when it is already unloaded[0m
+[ProcessManager] Starting Hardware Audio Output (hw-audio-out-client)...
+[1m[1;34m[2026-03-05 00:26:16,234][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::142 start]:[0m JAIson application layer has started.[0m
+[1m[1;34m[2026-03-05 00:26:16,235][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[logging.py::106 info]:[0m Running on http://127.0.0.1:7272 (CTRL + C to quit)[0m
+[1m[1;34m[2026-03-05 00:26:16,560][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-05 00:26:16 +0200] [33224] [INFO] 127.0.0.1:6014 GET / 1.1 101 - 1513
+[AUDIO_OUT] Selected by name: [52] CABLE Input (VB-Audio Virtual Cable) (Windows WASAPI)
+[AUDIO_OUT] Listening WS=ws://127.0.0.1:7272/ and streaming to CABLE Input (VB-Audio Virtual Cable) (ID: 52, hostapi: Windows WASAPI, sr=48000)
+========================================================
+[1m[1;34m[2026-03-05 00:26:16,871][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-05 00:26:16 +0200] [33224] [INFO] 127.0.0.1:6020 GET / 1.1 101 - 505
+[AUDIO_OUT] WebSocket connected.
+[INFO] Loading Silero VAD ONNX Session (CPU)...
+[MIC] Selected by name: [67] Микрофон (2- fifine Microphone) (Windows WASAPI)
+[INFO] SoundDevice Listening on: Микрофон (2- fifine Microphone) (ID: 67, hostapi: Windows WASAPI)
+========================================================
+
+[1m[1;34m[2026-03-05 00:26:20,769][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::86 ws]:[0m Closed websocket connection[0m
+[2026-03-05 00:26:21 +0200] [33224] [INFO] 127.0.0.1:13651 GET /api/config 1.1 200 5749 1521
+[2026-03-05 00:26:21 +0200] [33224] [INFO] 127.0.0.1:13653 GET /api/config 1.1 200 5749 506
+[2026-03-05 00:26:21 +0200] [33224] [INFO] 127.0.0.1:13655 GET /api/context/history 1.1 200 59 1511
+[2026-03-05 00:26:21 +0200] [33224] [INFO] 127.0.0.1:4932 GET /api/context/history 1.1 200 59 506
+[1m[1;34m[2026-03-05 00:26:21,732][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-05 00:26:21 +0200] [33224] [INFO] 127.0.0.1:2273 GET / 1.1 101 - 507
+[2026-03-05 00:26:34 +0200] [33224] [INFO] 127.0.0.1:4828 POST /api/context/conversation/speech_start 1.1 200 71 1002
+[VAD] Голос! (Prob: 0.001, RMS: 0.0270) Завершена (3360ms, speech: 2432ms).
+[2026-03-05 00:26:35 +0200] [33224] [INFO] 127.0.0.1:4828 POST /api/context/conversation/audio 1.1 200 142 23802
+
+[API] Фраза отправлена (107520 байт).
+[1m[1;34m[2026-03-05 00:26:36,197][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=6 latency_ms=278 source=mic turn=cb89484d-1461-4e29-9061-f94d74966134 utterance=b7b3c105-714f-4a85-9d16-641d65b0de86[0m
+
+[1m[1;34m[2026-03-05 00:26:36,455][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 18dab24e-a9d2-42c8-8ca3-21cbd1a9e856[0m
+[1m[1;34m[2026-03-05 00:26:36,456][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job fac90fe1-c4f9-4f09-83d4-cd6ca79b0ebe[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0087) Завершена (864ms, speech: 128ms).
+[2026-03-05 00:26:36 +0200] [33224] [INFO] 127.0.0.1:4828 POST /api/context/conversation/audio 1.1 200 142 3027
+
+[API] Фраза отправлена (27648 байт).
+[1m[1;34m[2026-03-05 00:26:36,986][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=48 source=mic turn=cb89484d-1461-4e29-9061-f94d74966134 utterance=110685df-93cf-4db0-a520-45d3c92301bb[0m
+[1m[1;34m[2026-03-05 00:26:37,160][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 702.0532000024104 ms[0m
+[AUDIO_OUT] PCM chunk #1: bytes=16382 sr=48000 rms=0.0146 peak=0.2187
+[AUDIO_OUT] Rebuffering: 0/3072 bytes
+[AUDIO_OUT] PCM chunk #2: bytes=16384 sr=48000 rms=0.0014 peak=0.0059
+[AUDIO_OUT] PCM chunk #3: bytes=16384 sr=48000 rms=0.0408 peak=0.2392
+[1m[1;34m[2026-03-05 00:26:39,540][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::472 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=15 bytes=122742 first_chunk_ms=501 max_gap_ms=271.0 total_ms=2379 audio_s=2.557 rtf=0.930 text_len=25[0m
+[1m[1;34m[2026-03-05 00:26:39,540][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 2380.1544000016293 ms[0m
+[1m[1;34m[2026-03-05 00:26:39,541][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 2380.2999000035925 ms[0m
+[1m[1;34m[2026-03-05 00:26:39,541][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 2380.447000003187 ms[0m
+[1m[1;34m[2026-03-05 00:26:39,541][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job fac90fe1-c4f9-4f09-83d4-cd6ca79b0ebe completed. Content: 'Привет, я Нира! Как дела?...'[0m
+
+[2026-03-05 00:26:41 +0200] [33224] [INFO] 127.0.0.1:4828 POST /api/context/conversation/speech_start 1.1 200 71 1004
+[VAD] Голос! (Prob: 0.001, RMS: 0.0141) Завершена (2304ms, speech: 1568ms).
+[2026-03-05 00:26:43 +0200] [33224] [INFO] 127.0.0.1:4828 POST /api/context/conversation/audio 1.1 200 142 2609
+
+[API] Фраза отправлена (73728 байт).
+[1m[1;34m[2026-03-05 00:26:43,658][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=15 latency_ms=89 source=mic turn=4490bfba-7423-4de4-a1ff-184906fe03e8 utterance=69509f79-bffd-4ad5-8df9-077dd2aa78e1[0m
+[1m[1;34m[2026-03-05 00:26:43,924][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 39d3fb29-0b79-409a-9edb-71c0e10d14ec[0m
+[1m[1;34m[2026-03-05 00:26:43,924][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job 1daf6761-a82f-473b-91f7-72fa3fdd88d8[0m
+[1m[1;34m[2026-03-05 00:26:44,363][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 438.2448999967892 ms[0m
+[AUDIO_OUT] Rebuffering: 0/3072 bytes
+[1m[1;34m[2026-03-05 00:26:49,164][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::472 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=35 bytes=280148 first_chunk_ms=301 max_gap_ms=309.0 total_ms=4800 audio_s=5.836 rtf=0.822 text_len=45[0m
+[1m[1;34m[2026-03-05 00:26:49,164][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 4800.6477000017185 ms[0m
+[1m[1;34m[2026-03-05 00:26:49,164][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 4800.7785999943735 ms[0m
+[1m[1;34m[2026-03-05 00:26:49,164][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 4800.9480000037 ms[0m
+[1m[1;34m[2026-03-05 00:26:49,165][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job 1daf6761-a82f-473b-91f7-72fa3fdd88d8 completed. Content: 'У меня все отлично, спасибо! Как насчет тебя?...'[0m
+[2026-03-05 00:26:50 +0200] [33224] [INFO] 127.0.0.1:11093 POST /api/context/conversation/speech_start 1.1 200 71 1516
+[VAD] Голос! (Prob: 0.001, RMS: 0.0120) Завершена (1952ms, speech: 1120ms).
+[2026-03-05 00:26:50 +0200] [33224] [INFO] 127.0.0.1:11093 POST /api/context/conversation/audio 1.1 200 142 2027
+
+[API] Фраза отправлена (62464 байт).
+
+[1m[1;34m[2026-03-05 00:26:50,679][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=102 source=mic turn=1423d87f-cfe7-4b16-8af9-cab3fb944f7b utterance=3c4280d8-960b-43af-913e-c7f00b63fc71[0m
+[2026-03-05 00:26:50 +0200] [33224] [INFO] 127.0.0.1:11093 POST /api/context/conversation/speech_start 1.1 200 71 1574
+[VAD] Голос! (Prob: 0.001, RMS: 0.0137) Завершена (736ms, speech: 192ms).
+[2026-03-05 00:26:51 +0200] [33224] [INFO] 127.0.0.1:11093 POST /api/context/conversation/audio 1.1 200 142 1574
+
+[API] Фраза отправлена (23552 байт).
+[1m[1;34m[2026-03-05 00:26:51,288][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=40 source=mic turn=1423d87f-cfe7-4b16-8af9-cab3fb944f7b utterance=53ea6ee1-c13f-4f94-85c6-b305145f992c[0m
+
+[VAD] Голос! (Prob: 0.001, RMS: 0.0252) Завершена (2176ms, speech: 1344ms).
+[2026-03-05 00:26:53 +0200] [33224] [INFO] 127.0.0.1:11093 POST /api/context/conversation/audio 1.1 200 142 2534
+
+[API] Фраза отправлена (69632 байт).
+[1m[1;34m[2026-03-05 00:26:53,420][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=15 latency_ms=91 source=mic turn=1423d87f-cfe7-4b16-8af9-cab3fb944f7b utterance=f4e1dc9a-faf6-475f-9c2a-5a899bd89e2d[0m
+[1m[1;34m[2026-03-05 00:26:53,685][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 677f3778-bfde-4e97-ad41-73e425a7a5ff[0m
+[1m[1;34m[2026-03-05 00:26:53,685][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job 24b62bad-d1ba-4b30-a42a-d6a014f21fe1[0m
+[1m[1;34m[2026-03-05 00:26:54,062][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 376.06359999335837 ms[0m
+[AUDIO_OUT] Rebuffering: 0/3072 bytes
+
+[2026-03-05 00:26:54 +0200] [33224] [INFO] 127.0.0.1:11093 POST /api/context/conversation/speech_start 1.1 200 71 1005
+[VAD] Голос! (Prob: 0.001, RMS: 0.0162) Завершена (1632ms, speech: 672ms).
+[2026-03-05 00:26:56 +0200] [33224] [INFO] 127.0.0.1:11093 POST /api/context/conversation/audio 1.1 200 142 5425
+
+[API] Фраза отправлена (52224 байт).
+[1m[1;34m[2026-03-05 00:26:56,144][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=6 latency_ms=73 source=mic turn=1423d87f-cfe7-4b16-8af9-cab3fb944f7b utterance=6366edb6-b77a-408f-ac4d-d07835c6c436[0m
+[1m[1;34m[2026-03-05 00:26:56,303][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::472 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=16 bytes=130354 first_chunk_ms=296 max_gap_ms=263.6 total_ms=2240 audio_s=2.716 rtf=0.825 text_len=25[0m
+[1m[1;34m[2026-03-05 00:26:56,303][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 2240.664500001003 ms[0m
+[1m[1;34m[2026-03-05 00:26:56,303][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 2240.802400003304 ms[0m
+[1m[1;34m[2026-03-05 00:26:56,304][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 2240.94660000992 ms[0m
+[1m[1;34m[2026-03-05 00:26:56,304][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job 24b62bad-d1ba-4b30-a42a-d6a014f21fe1 completed. Content: 'Отлично! Чем занимаешься?...'[0m
+[1m[1;34m[2026-03-05 00:26:56,403][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 456802bb-5991-454a-9288-e024bf8c01e5[0m
+[1m[1;34m[2026-03-05 00:26:56,403][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job bcf18f45-067b-4571-99a2-d7897dcd25e7[0m
+[1m[1;34m[2026-03-05 00:26:56,811][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 405.8303000056185 ms[0m
+[AUDIO_OUT] Rebuffering: 612/3072 bytes
+[1m[1;34m[2026-03-05 00:26:58,812][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::472 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=15 bytes=122742 first_chunk_ms=300 max_gap_ms=243.2 total_ms=2001 audio_s=2.557 rtf=0.783 text_len=34[0m
+[1m[1;34m[2026-03-05 00:26:58,812][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 2001.516399992397 ms[0m
+[1m[1;34m[2026-03-05 00:26:58,812][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 2001.66779999563 ms[0m
+[1m[1;34m[2026-03-05 00:26:58,812][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 2001.79740000749 ms[0m
+[1m[1;34m[2026-03-05 00:26:58,813][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job bcf18f45-067b-4571-99a2-d7897dcd25e7 completed. Content: 'Привет, меня зовут Нира! Как дела?...'[0m
+[2026-03-05 00:27:02 +0200] [33224] [INFO] 127.0.0.1:11107 POST /api/context/conversation/speech_start 1.1 200 71 2060
+[VAD] Голос! (Prob: 0.001, RMS: 0.0075) Завершена (2976ms, speech: 1984ms).
+[2026-03-05 00:27:03 +0200] [33224] [INFO] 127.0.0.1:11107 POST /api/context/conversation/audio 1.1 200 142 2022
+
+[API] Фраза отправлена (95232 байт).
+[1m[1;34m[2026-03-05 00:27:03,929][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=26 latency_ms=121 source=mic turn=7c3d9702-6cbd-4f0e-9ef9-6aa25480178c utterance=2a683be6-b5e6-4983-a345-c81d60d6681a[0m
+[1m[1;34m[2026-03-05 00:27:03,929][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::482 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-03-05 00:27:04,193][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job d8633068-705c-417c-96d6-9953e9f2c12a[0m
+[1m[1;34m[2026-03-05 00:27:04,193][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job 10770169-4afe-47c1-ace4-ea157262d582[0m
+
+[2026-03-05 00:27:05 +0200] [33224] [INFO] 127.0.0.1:11107 POST /api/context/conversation/speech_start 1.1 200 71 507
+[1m[1;34m[2026-03-05 00:27:06,196][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 2001.9267000025138 ms[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0128) Завершена (1088ms, speech: 352ms).
+[2026-03-05 00:27:06 +0200] [33224] [INFO] 127.0.0.1:11107 POST /api/context/conversation/audio 1.1 200 142 1609
+
+[API] Фраза отправлена (34816 байт).
+[1m[1;34m[2026-03-05 00:27:06,318][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=41 source=mic turn=7c3d9702-6cbd-4f0e-9ef9-6aa25480178c utterance=36be9831-ed97-4872-b284-fc3764aa6328[0m
+[AUDIO_OUT] Rebuffering: 0/3072 bytes
+[1m[1;34m[2026-03-05 00:27:13,703][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::472 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=53 bytes=433748 first_chunk_ms=363 max_gap_ms=358.2 total_ms=7462 audio_s=9.036 rtf=0.826 text_len=127[0m
+[1m[1;34m[2026-03-05 00:27:13,703][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 7462.990999993053 ms[0m
+[1m[1;34m[2026-03-05 00:27:21,153][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::472 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=56 bytes=456718 first_chunk_ms=301 max_gap_ms=280.1 total_ms=7449 audio_s=9.515 rtf=0.783 text_len=121[0m
+[1m[1;34m[2026-03-05 00:27:21,153][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 7449.4141999894055 ms[0m
+[1m[1;34m[2026-03-05 00:27:25,051][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::472 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=30 bytes=237874 first_chunk_ms=292 max_gap_ms=268.5 total_ms=3897 audio_s=4.956 rtf=0.786 text_len=59[0m
+[1m[1;34m[2026-03-05 00:27:25,051][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 3897.985699994024 ms[0m
+[1m[1;34m[2026-03-05 00:27:25,051][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 18855.08910000499 ms[0m
+[1m[1;34m[2026-03-05 00:27:25,051][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 18855.247400002554 ms[0m
+[1m[1;34m[2026-03-05 00:27:25,052][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job 10770169-4afe-47c1-ace4-ea157262d582 completed. Content: 'Маги - это такие люди, которые могут творить волшебство и колдовать. Один раз я знала мага, который ...'[0m
+[2026-03-05 00:27:25 +0200] [33224] [INFO] 127.0.0.1:11125 POST /api/context/conversation/speech_start 1.1 200 71 0
+[VAD] Голос! (Prob: 0.001, RMS: 0.0308) Завершена (3072ms, speech: 2080ms).
+[2026-03-05 00:27:26 +0200] [33224] [INFO] 127.0.0.1:11125 POST /api/context/conversation/audio 1.1 200 142 2015
+
+[API] Фраза отправлена (98304 байт).
+[1m[1;34m[2026-03-05 00:27:26,929][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=140 source=mic turn=a89119aa-d4fc-4b2d-aff4-6c22f70c7e57 utterance=df5f9fdb-3693-47f5-a000-2783b1c194e4[0m
+
+[2026-03-05 00:27:28 +0200] [33224] [INFO] 127.0.0.1:11125 POST /api/context/conversation/speech_start 1.1 200 71 1510
+[VAD] Голос! (Prob: 0.001, RMS: 0.0155) Завершена (992ms, speech: 256ms).
+[2026-03-05 00:27:29 +0200] [33224] [INFO] 127.0.0.1:11125 POST /api/context/conversation/audio 1.1 200 142 1511
+
+[API] Фраза отправлена (31744 байт).
+[1m[1;34m[2026-03-05 00:27:29,384][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=37 source=mic turn=a89119aa-d4fc-4b2d-aff4-6c22f70c7e57 utterance=dd64faf9-4b1d-4c3b-9446-d99666f37193[0m
+[2026-03-05 00:27:48 +0200] [33224] [INFO] 127.0.0.1:11129 POST /api/context/conversation/speech_start 1.1 200 71 1003
+[VAD] Голос! (Prob: 0.001, RMS: 0.0216) Завершена (2720ms, speech: 1856ms).
+[2026-03-05 00:27:49 +0200] [33224] [INFO] 127.0.0.1:11129 POST /api/context/conversation/audio 1.1 200 142 1515
+
+[API] Фраза отправлена (87040 байт).
+
+[1m[1;34m[2026-03-05 00:27:49,786][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=18 latency_ms=118 source=mic turn=add83559-6421-42be-9a7b-e796b00ff568 utterance=1961496c-caf4-41c8-a3d3-12112216a939[0m
+[2026-03-05 00:27:49 +0200] [33224] [INFO] 127.0.0.1:11129 POST /api/context/conversation/speech_start 1.1 200 71 997
+[VAD] Голос! (Prob: 0.001, RMS: 0.0139) Завершена (1088ms, speech: 352ms).
+[2026-03-05 00:27:50 +0200] [33224] [INFO] 127.0.0.1:11129 POST /api/context/conversation/audio 1.1 200 142 1510
+
+[API] Фраза отправлена (34816 байт).
+[1m[1;34m[2026-03-05 00:27:50,728][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=42 source=mic turn=add83559-6421-42be-9a7b-e796b00ff568 utterance=c8dc2d8b-12ca-4e5d-9a27-2a2c84a6a92c[0m
+
+[2026-03-05 00:27:53 +0200] [33224] [INFO] 127.0.0.1:11129 POST /api/context/conversation/speech_start 1.1 200 71 1003
+[VAD] Голос! (Prob: 0.001, RMS: 0.0188) Завершена (1120ms, speech: 384ms).
+[2026-03-05 00:27:54 +0200] [33224] [INFO] 127.0.0.1:11129 POST /api/context/conversation/audio 1.1 200 142 2078
+
+[API] Фраза отправлена (35840 байт).
+[1m[1;34m[2026-03-05 00:27:54,110][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=64 source=mic turn=5a1aac8b-0d3b-4802-8927-97cdbee19677 utterance=6c209f77-b8c1-4b22-9837-f61e41cec477[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0093) Завершена (1024ms, speech: 288ms).
+
+[2026-03-05 00:28:00 +0200] [33224] [INFO] 127.0.0.1:11135 POST /api/context/conversation/speech_start 1.1 200 71 1004
+[VAD] Голос! (Prob: 0.001, RMS: 0.0622) Завершена (1920ms, speech: 800ms).
+[2026-03-05 00:28:01 +0200] [33224] [INFO] 127.0.0.1:11135 POST /api/context/conversation/audio 1.1 200 142 2535
+
+[API] Фраза отправлена (61440 байт).
+[1m[1;34m[2026-03-05 00:28:01,478][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=5 latency_ms=71 source=mic turn=442dfd66-f02a-4980-b8b1-19aeab2efe34 utterance=a93aa593-2a0b-43d2-9415-6d960a901e86[0m
+[1m[1;34m[2026-03-05 00:28:01,479][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 10deb683-2abe-4aa4-9574-22a9324d5d83[0m
+[1m[1;34m[2026-03-05 00:28:01,479][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job 6a028e51-5743-43b4-8208-c91b0c7b4f7d[0m
+[2026-03-05 00:28:01 +0200] [33224] [INFO] 127.0.0.1:11138 POST /api/context/conversation/audio 1.1 200 142 4552
+
+[API] Фраза отправлена (32768 байт).
+[1m[1;34m[2026-03-05 00:28:01,718][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job a7208760-7ca6-4d89-b825-1395401083eb[0m
+[1m[1;34m[2026-03-05 00:28:01,718][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::581 _commit_pending_voice_turn]:[0m Voice turn committed as context-only (no RESPONSE job).[0m
+[1m[1;34m[2026-03-05 00:28:01,744][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=49 source=mic turn=bc2da14b-339d-45b3-ba12-9b19f0bb2c1b utterance=dc7fae58-f2b5-4bb9-b53a-71e7db308c42[0m
+[1m[1;34m[2026-03-05 00:28:02,714][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 1233.0523999989964 ms[0m
+[AUDIO_OUT] Rebuffering: 0/3072 bytes
+[2026-03-05 00:28:09 +0200] [33224] [INFO] 127.0.0.1:11144 POST /api/context/conversation/speech_start 1.1 200 71 1004
+[1m[1;34m[2026-03-05 00:28:09,631][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::472 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=59 bytes=479828 first_chunk_ms=417 max_gap_ms=253.2 total_ms=6900 audio_s=9.996 rtf=0.690 text_len=120[0m
+[1m[1;34m[2026-03-05 00:28:09,631][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 6900.45060000557 ms[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0181) Завершена (2944ms, speech: 1632ms).
+[2026-03-05 00:28:10 +0200] [33224] [INFO] 127.0.0.1:11144 POST /api/context/conversation/audio 1.1 200 142 2516
+
+[API] Фраза отправлена (94208 байт).
+[1m[1;34m[2026-03-05 00:28:10,632][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=105 source=mic turn=09e49f44-a65e-44df-be8e-4f59fb74aa42 utterance=605259c1-d322-42e7-b7e6-899d72137627[0m
+[1m[1;34m[2026-03-05 00:28:11,481][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::472 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=13 bytes=103420 first_chunk_ms=222 max_gap_ms=489.3 total_ms=1849 audio_s=2.155 rtf=0.858 text_len=26[0m
+[1m[1;34m[2026-03-05 00:28:11,481][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 1850.246000001789 ms[0m
+[1m[1;34m[2026-03-05 00:28:11,481][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 8767.654899987974 ms[0m
+[1m[1;34m[2026-03-05 00:28:11,481][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 8767.769600002794 ms[0m
+[1m[1;34m[2026-03-05 00:28:11,482][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job 6a028e51-5743-43b4-8208-c91b0c7b4f7d completed. Content: 'Я обожаю слушать музыку и танцевать! Особенно люблю веселые мелодии, которые заставляют двигаться но...'[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0105) Завершена (1120ms, speech: 384ms).
+[2026-03-05 00:28:17 +0200] [33224] [INFO] 127.0.0.1:11151 POST /api/context/conversation/speech_start 1.1 200 71 504
+
+[2026-03-05 00:28:18 +0200] [33224] [INFO] 127.0.0.1:11151 POST /api/context/conversation/speech_start 1.1 200 71 1003
+[2026-03-05 00:28:18 +0200] [33224] [INFO] 127.0.0.1:11152 POST /api/context/conversation/audio 1.1 200 142 4019
+[VAD] Голос! (Prob: 0.001, RMS: 0.0095)
+[API] Фраза отправлена (35840 байт).
+[1m[1;34m[2026-03-05 00:28:18,796][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=56 source=mic turn=83a799c2-19ee-4de5-801c-6d792fcfdb7e utterance=8f49fe61-7348-4ea4-b2de-6b932f2f79f7[0m
+ Завершена (2976ms, speech: 2144ms).
+[2026-03-05 00:28:20 +0200] [33224] [INFO] 127.0.0.1:11152 POST /api/context/conversation/audio 1.1 200 142 1515
+
+[API] Фраза отправлена (95232 байт).
+[1m[1;34m[2026-03-05 00:28:21,022][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=28 latency_ms=96 source=mic turn=4a1ff93a-bcac-4f04-85f6-9c5d4e816db4 utterance=ad2f4f69-0c55-414b-ac2a-67a398408c3f[0m
+[1m[1;34m[2026-03-05 00:28:21,022][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::482 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-03-05 00:28:21,288][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job ef4080f3-5a4e-44c7-bac3-641c0001e440[0m
+[1m[1;34m[2026-03-05 00:28:21,288][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job 05ebbd26-d402-4f00-87ac-ae31eba85d54[0m
+
+[1m[1;34m[2026-03-05 00:28:21,755][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 465.9176999994088 ms[0m
+[2026-03-05 00:28:21 +0200] [33224] [INFO] 127.0.0.1:11152 POST /api/context/conversation/speech_start 1.1 200 71 504
+[VAD] Голос! (Prob: 0.001, RMS: 0.0285) Завершена (896ms, speech: 160ms).
+[2026-03-05 00:28:22 +0200] [33224] [INFO] 127.0.0.1:11152 POST /api/context/conversation/audio 1.1 200 142 2512
+
+[API] Фраза отправлена (28672 байт).
+[1m[1;34m[2026-03-05 00:28:22,306][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=31 source=mic turn=4a1ff93a-bcac-4f04-85f6-9c5d4e816db4 utterance=e3d9d64f-1cb3-49d5-aced-435664c80f75[0m
+[1m[1;34m[2026-03-05 00:28:22,307][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::268 _record_stt_metrics]:[0m STT metrics(window=20): avg_latency_ms=84 empty_rate=0.600 stop_cmd_recall=0.000[0m
+[AUDIO_OUT] Rebuffering: 0/3072 bytes
+[1m[1;34m[2026-03-05 00:28:29,637][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::472 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=60 bytes=491382 first_chunk_ms=394 max_gap_ms=307.2 total_ms=7882 audio_s=10.237 rtf=0.770 text_len=26[0m
+[1m[1;34m[2026-03-05 00:28:29,638][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 7882.534000003943 ms[0m
+[1m[1;34m[2026-03-05 00:28:29,638][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 7882.646600002772 ms[0m
+[1m[1;34m[2026-03-05 00:28:29,638][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 7882.7530999988085 ms[0m
+[1m[1;34m[2026-03-05 00:28:29,638][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job 05ebbd26-d402-4f00-87ac-ae31eba85d54 completed. Content: 'Поднятно? А что это такое?...'[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0159) Завершена (864ms, speech: 128ms).
+[2026-03-05 00:28:35 +0200] [33224] [INFO] 127.0.0.1:11166 POST /api/context/conversation/audio 1.1 200 142 2021
+
+[API] Фраза отправлена (27648 байт).
+[1m[1;34m[2026-03-05 00:28:35,220][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=28 source=mic turn=63826fef-4996-4d3e-a91e-88bbf4a55691 utterance=00b35d1c-0ba6-41bd-a01d-9b56eb9c8f75[0m
+
+[2026-03-05 00:28:36 +0200] [33224] [INFO] 127.0.0.1:11166 POST /api/context/conversation/speech_start 1.1 200 71 1049
+[VAD] Голос! (Prob: 0.001, RMS: 0.0160) Завершена (2720ms, speech: 1856ms).
+[2026-03-05 00:28:38 +0200] [33224] [INFO] 127.0.0.1:11166 POST /api/context/conversation/audio 1.1 200 142 2520
+
+[API] Фраза отправлена (87040 байт).
+[1m[1;34m[2026-03-05 00:28:38,834][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=19 latency_ms=88 source=mic turn=3f114a55-d30e-46ff-9445-c686ec1abad8 utterance=db3a4d61-be9c-43c5-be0a-93838082efef[0m
+[1m[1;34m[2026-03-05 00:28:39,091][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job e92355b9-6108-4902-afa2-4be940c7a431[0m
+[1m[1;34m[2026-03-05 00:28:39,091][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job 8be67870-2bae-4486-a2ef-299012e9f23c[0m
+[1m[1;34m[2026-03-05 00:28:39,546][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 454.36590000463184 ms[0m
+[AUDIO_OUT] Rebuffering: 0/3072 bytes
+[1m[1;34m[2026-03-05 00:28:41,534][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::472 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=13 bytes=99618 first_chunk_ms=424 max_gap_ms=442.0 total_ms=1987 audio_s=2.075 rtf=0.957 text_len=24[0m
+[1m[1;34m[2026-03-05 00:28:41,534][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 1987.6889000006486 ms[0m
+[1m[1;34m[2026-03-05 00:28:41,534][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 1987.7970999950776 ms[0m
+[1m[1;34m[2026-03-05 00:28:41,534][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 1987.8982999944128 ms[0m
+[1m[1;34m[2026-03-05 00:28:41,535][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job 8be67870-2bae-4486-a2ef-299012e9f23c completed. Content: 'Привет, меня зовут Нира!...'[0m
+
+[2026-03-05 00:28:42 +0200] [33224] [INFO] 127.0.0.1:11166 POST /api/context/conversation/speech_start 1.1 200 71 1006
+[VAD] Голос! (Prob: 0.001, RMS: 0.0079) Завершена (3232ms, speech: 2080ms).
+[2026-03-05 00:28:45 +0200] [33224] [INFO] 127.0.0.1:11166 POST /api/context/conversation/audio 1.1 200 142 2523
+
+[API] Фраза отправлена (103424 байт).
+[1m[1;34m[2026-03-05 00:28:45,736][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=21 latency_ms=110 source=mic turn=9876be8d-bd32-4412-ace8-58521d3a9168 utterance=79b36b55-e6ac-42b9-ac3b-d68735a0b1b1[0m
+[1m[1;34m[2026-03-05 00:28:45,736][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::482 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-03-05 00:28:46,003][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job b34860d3-a648-4734-ba9a-fed66fcaad8a[0m
+[1m[1;34m[2026-03-05 00:28:46,003][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job dafcf9e1-221a-483a-9985-6d3a1e271200[0m
+[1m[1;34m[2026-03-05 00:28:46,429][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 426.13630001142155 ms[0m
+[2026-03-05 00:28:46 +0200] [33224] [INFO] 127.0.0.1:3842 GET /api/config 1.1 200 5749 3025
+[2026-03-05 00:28:46 +0200] [33224] [INFO] 127.0.0.1:4377 GET /api/config 1.1 200 5749 0
+[2026-03-05 00:28:46 +0200] [33224] [INFO] 127.0.0.1:7657 GET /api/context/history 1.1 200 5470 504
+[2026-03-05 00:28:46 +0200] [33224] [INFO] 127.0.0.1:3001 GET /api/context/history 1.1 200 5470 1005
+[AUDIO_OUT] Rebuffering: 0/3072 bytes
+[1m[1;34m[2026-03-05 00:28:48,765][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::472 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=19 bytes=153462 first_chunk_ms=287 max_gap_ms=262.3 total_ms=2334 audio_s=3.197 rtf=0.730 text_len=26[0m
+[1m[1;34m[2026-03-05 00:28:48,765][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 2334.271700005047 ms[0m
+[1m[1;34m[2026-03-05 00:28:48,765][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 2334.3835000123363 ms[0m
+[1m[1;34m[2026-03-05 00:28:48,765][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 2334.501299992553 ms[0m
+[1m[1;34m[2026-03-05 00:28:48,765][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job dafcf9e1-221a-483a-9985-6d3a1e271200 completed. Content: 'А что еще ты хочешь знать?...'[0m
+[1m[1;34m[2026-03-05 00:28:53,049][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::86 ws]:[0m Closed websocket connection[0m
+[2026-03-05 00:28:53 +0200] [33224] [INFO] 127.0.0.1:8499 GET /api/config 1.1 200 5749 507
+[2026-03-05 00:28:53 +0200] [33224] [INFO] 127.0.0.1:8501 GET /api/config 1.1 200 5749 1007
+[2026-03-05 00:28:53 +0200] [33224] [INFO] 127.0.0.1:5461 GET /api/context/history 1.1 200 5684 1511
+[2026-03-05 00:28:53 +0200] [33224] [INFO] 127.0.0.1:13792 GET /api/context/history 1.1 200 5684 507
+[1m[1;34m[2026-03-05 00:28:53,487][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-05 00:28:53 +0200] [33224] [INFO] 127.0.0.1:5174 GET / 1.1 101 - 1023
+[2026-03-05 00:28:56 +0200] [33224] [INFO] 127.0.0.1:5176 POST /api/context/conversation/speech_start 1.1 200 71 1006
+[VAD] Голос! (Prob: 0.001, RMS: 0.0190) Завершена (9216ms, speech: 8480ms).
+[2026-03-05 00:29:06 +0200] [33224] [INFO] 127.0.0.1:5183 POST /api/context/conversation/audio 1.1 200 142 3533
+
+[API] Фраза отправлена (294912 байт).
+[1m[1;34m[2026-03-05 00:29:06,995][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=111 latency_ms=300 source=mic turn=f24758a2-221e-49f7-8d52-edaa63f7ab0d utterance=1f941e91-ad4b-416b-a031-ae178d8ca479[0m
+[1m[1;34m[2026-03-05 00:29:06,995][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::482 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-03-05 00:29:07,261][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 0ce119e5-e409-4568-85d5-250677248aa0[0m
+[1m[1;34m[2026-03-05 00:29:07,261][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job 24b8d0b9-5d50-4512-a864-c2234f917309[0m
+[1m[1;34m[2026-03-05 00:29:08,104][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 842.7025999990292 ms[0m
+[AUDIO_OUT] Rebuffering: 0/3072 bytes
+[1m[1;34m[2026-03-05 00:29:15,276][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::472 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=58 bytes=468274 first_chunk_ms=473 max_gap_ms=255.5 total_ms=7171 audio_s=9.756 rtf=0.735 text_len=103[0m
+[1m[1;34m[2026-03-05 00:29:15,277][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 7171.499000003678 ms[0m
+[1m[1;34m[2026-03-05 00:29:15,277][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 7171.602899994468 ms[0m
+[1m[1;34m[2026-03-05 00:29:15,277][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 7171.699500002433 ms[0m
+[1m[1;34m[2026-03-05 00:29:15,277][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job 24b8d0b9-5d50-4512-a864-c2234f917309 completed. Content: 'Я рассказывала про Солнцестояние, это праздник, который отмечают в летнее время. А что ты видела ноч...'[0m
+[2026-03-05 00:30:39 +0200] [33224] [INFO] 127.0.0.1:12496 POST /api/context/conversation/speech_start 1.1 200 71 503
+[VAD] Голос! (Prob: 0.001, RMS: 0.0081) Завершена (4352ms, speech: 3232ms).
+[2026-03-05 00:30:42 +0200] [33224] [INFO] 127.0.0.1:12496 POST /api/context/conversation/audio 1.1 200 142 2519
+
+[API] Фраза отправлена (139264 байт).
+[1m[1;34m[2026-03-05 00:30:43,041][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=15 latency_ms=148 source=mic turn=975c9bd7-f6a6-4c08-a549-21416b120159 utterance=96f9eeea-60d3-46b0-b53a-f5a6305c96f0[0m
+[1m[1;34m[2026-03-05 00:30:43,301][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job f259623b-036c-487c-a179-3fb667ab87af[0m
+[1m[1;34m[2026-03-05 00:30:43,301][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job de6390ab-98a2-43e5-a3dc-698d54c558f4[0m
+[1m[1;34m[2026-03-05 00:30:43,857][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 555.0122999993619 ms[0m
+[AUDIO_OUT] Rebuffering: 0/3072 bytes
+[1m[1;34m[2026-03-05 00:30:46,653][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::472 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=25 bytes=199542 first_chunk_ms=325 max_gap_ms=233.7 total_ms=2795 audio_s=4.157 rtf=0.672 text_len=46[0m
+[1m[1;34m[2026-03-05 00:30:46,653][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 2796.2188000092283 ms[0m
+[1m[1;34m[2026-03-05 00:30:46,653][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 2796.324499999173 ms[0m
+[1m[1;34m[2026-03-05 00:30:46,653][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 2796.420800004853 ms[0m
+[1m[1;34m[2026-03-05 00:30:46,654][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job de6390ab-98a2-43e5-a3dc-698d54c558f4 completed. Content: 'Как дела, друзья? Какой у вас сегодня настрой?...'[0m
+[1m[1;34m[2026-03-05 00:34:24,972][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::109 start]:[0m Starting JAIson application layer.[0m
+[1m[1;34m[2026-03-05 00:34:24,996][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::332 load_operations_from_config]:[0m Active STT from config: sherpa_ru[0m
+[1m[1;34m[2026-03-05 00:34:24,996][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::334 load_operations_from_config]:[0m Active TTS from config: qwen3[0m
+[1m[1;34m[2026-03-05 00:34:26,751][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting STT operation sherpa_ru[0m
+[1m[1;34m[2026-03-05 00:34:26,751][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type sherpa_stt[0m
+[1m[1;34m[2026-03-05 00:34:26,752][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process sherpa_stt when it is already unloaded[0m
+[1m[1;34m[2026-03-05 00:34:26,754][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::85 _prepare_hotwords_file]:[0m Sherpa STT hotwords validated: 3 entries[0m
+[1m[1;34m[2026-03-05 00:34:26,754][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::295 reload]:[0m Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5[0m
+[1m[1;34m[2026-03-05 00:34:26,754][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::307 reload]:[0m Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5[0m
+[1m[1;34m[2026-03-05 00:34:31,084][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting T2T operation llamacpp[0m
+[1m[1;34m[2026-03-05 00:34:31,084][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type llamacpp[0m
+[1m[1;34m[2026-03-05 00:34:31,088][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::81 reload]:[0m Opened Llama.cpp server (PID: 26100) on port 12361 (GPU: 0)[0m
+[1m[1;34m[2026-03-05 00:34:31,089][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::89 reload]:[0m Waiting for llama-server to be ready at http://127.0.0.1:12361/health ...[0m
+[1m[1;34m[2026-03-05 00:34:35,258][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::101 reload]:[0m llama-server is ready! (attempt 8, port 12361)[0m
+[1m[1;34m[2026-03-05 00:34:35,260][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting FILTER_TEXT operation filter_clean[0m
+[1m[1;34m[2026-03-05 00:34:35,901][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting FILTER_TEXT operation chunker_sentence[0m
+[1m[1;34m[2026-03-05 00:34:36,372][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting TTS operation qwen3[0m
+[1m[1;34m[2026-03-05 00:34:36,372][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type qwen3_tts[0m
+[1m[1;34m[2026-03-05 00:34:36,372][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::201 reload]:[0m Qwen3 TTS SoX bin detected: C:\Nirmita\apps\tts-qwen3-server\third_party\sox\sox-14.4.2-win32\sox-14.4.2[0m
+[1m[1;34m[2026-03-05 00:34:36,373][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::205 reload]:[0m Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv312\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 1 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-Base --language russian --dtype bfloat16 --attn_implementation flash_attention_2 --use_compile 1 --sample_rate 24000 --sample_width 2 --channels 1 --voice_mode voice_clone --runtime_flavor dffdeeq --qwen_tts_repo_path C:\Nirmita\apps\dffdeeq_Qwen3-TTS-streaming-main --ref_audio_path C:\Nirmita\Nira_voice.wav --ref_text  --x_vector_only_mode 1 --emit_every_frames 4 --decode_window_frames 32 --overlap_samples 0 --max_frames 128 --use_optimized_decode 1 --do_sample 0 --top_p 0.9 --top_k 50 --temperature 0.8 --dynamic_max_frames 0 --dynamic_chars_per_second 11.5 --dynamic_frame_budget_mul 1.05 --dynamic_min_frames 20 --dynamic_max_frames_cap 128 --max_concurrent 1 --preload_on_start 1 --warmup_on_start 1 --warmup_text Привет. --warmup_chunks 1 --first_chunk_timeout_s 120 --stream_idle_timeout_s 60 --compile_mode reduce-overhead --compile_use_cuda_graphs 0 --compile_codebook_predictor 1 --compile_talker 1 --compile_cudagraph_skip_dynamic_graphs 0[0m
+[1m[1;34m[2026-03-05 00:34:36,373][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::206 reload]:[0m Qwen3 TTS GPU pin: provider=cuda gpu_id=1 device=cuda:0 CUDA_VISIBLE_DEVICES=1[0m
+[1m[1;34m[2026-03-05 00:35:29,166][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::238 reload]:[0m Qwen3 TTS sidecar is ready at http://127.0.0.1:6116/health[0m
+[1m[1;34m[2026-03-05 00:35:29,491][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type hw_mic[0m
+[1m[1;34m[2026-03-05 00:35:29,491][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process hw_mic when it is already unloaded[0m
+[ProcessManager] Starting Hardware Microphone (hw-mic-client)...
+[1m[1;34m[2026-03-05 00:35:29,498][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type hw_audio_out[0m
+[1m[1;34m[2026-03-05 00:35:29,499][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process hw_audio_out when it is already unloaded[0m
+[ProcessManager] Starting Hardware Audio Output (hw-audio-out-client)...
+[1m[1;34m[2026-03-05 00:35:29,503][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::142 start]:[0m JAIson application layer has started.[0m
+[1m[1;34m[2026-03-05 00:35:29,505][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[logging.py::106 info]:[0m Running on http://127.0.0.1:7272 (CTRL + C to quit)[0m
+[1m[1;34m[2026-03-05 00:35:29,569][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-05 00:35:29 +0200] [16392] [INFO] 127.0.0.1:13642 GET / 1.1 101 - 1510
+[AUDIO_OUT] Selected by name: [52] CABLE Input (VB-Audio Virtual Cable) (Windows WASAPI)
+[AUDIO_OUT] Listening WS=ws://127.0.0.1:7272/ and streaming to CABLE Input (VB-Audio Virtual Cable) (ID: 52, hostapi: Windows WASAPI, sr=48000)
+========================================================
+[1m[1;34m[2026-03-05 00:35:30,158][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-05 00:35:30 +0200] [16392] [INFO] 127.0.0.1:13648 GET / 1.1 101 - 1006
+[AUDIO_OUT] WebSocket connected.
+[INFO] Loading Silero VAD ONNX Session (CPU)...
+[MIC] Selected by name: [67] Микрофон (2- fifine Microphone) (Windows WASAPI)
+[INFO] SoundDevice Listening on: Микрофон (2- fifine Microphone) (ID: 67, hostapi: Windows WASAPI)
+========================================================
+
+[2026-03-05 00:35:42 +0200] [16392] [INFO] 127.0.0.1:13654 POST /api/context/conversation/speech_start 1.1 200 71 1511
+[VAD] Голос! (Prob: 0.001, RMS: 0.0115) Завершена (2208ms, speech: 1472ms).
+[2026-03-05 00:35:42 +0200] [16392] [INFO] 127.0.0.1:13654 POST /api/context/conversation/audio 1.1 200 142 15095
+
+[API] Фраза отправлена (70656 байт).
+[1m[1;34m[2026-03-05 00:35:43,012][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=6 latency_ms=94 source=mic turn=50cd67ab-40bb-43e9-9fb8-86a5d22fbf0a utterance=748c36c8-64fc-4243-8a12-84fa224a0b11[0m
+[1m[1;34m[2026-03-05 00:35:43,271][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 921afdc6-4729-4359-8203-38630f522e29[0m
+[1m[1;34m[2026-03-05 00:35:43,271][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job 38688f0d-68a3-40df-98dc-a3ab8d79e10b[0m
+[1m[1;34m[2026-03-05 00:35:43,579][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 307.16140000731684 ms[0m
+[1m[1;34m[2026-03-05 00:35:43,611][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::86 ws]:[0m Closed websocket connection[0m
+[2026-03-05 00:35:44 +0200] [16392] [INFO] 127.0.0.1:14419 GET /api/config 1.1 200 5749 4027
+[2026-03-05 00:35:44 +0200] [16392] [INFO] 127.0.0.1:6656 GET /api/config 1.1 200 5749 1513
+[2026-03-05 00:35:44 +0200] [16392] [INFO] 127.0.0.1:6658 GET /api/context/history 1.1 200 165 1512
+[2026-03-05 00:35:44 +0200] [16392] [INFO] 127.0.0.1:9352 GET /api/context/history 1.1 200 165 505
+[AUDIO_OUT] PCM chunk #1: bytes=16382 sr=48000 rms=0.0089 peak=0.0556
+[AUDIO_OUT] PCM chunk #2: bytes=16384 sr=48000 rms=0.0015 peak=0.0052
+[1m[1;34m[2026-03-05 00:35:44,494][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-05 00:35:44 +0200] [16392] [INFO] 127.0.0.1:3706 GET / 1.1 101 - 503
+[AUDIO_OUT] PCM chunk #3: bytes=16384 sr=48000 rms=0.1965 peak=0.5781
+[1m[1;34m[2026-03-05 00:35:47,323][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::487 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=23 bytes=180238 first_chunk_ms=502 max_gap_ms=325.5 total_ms=3743 audio_s=3.755 rtf=0.997 text_len=17[0m
+[1m[1;34m[2026-03-05 00:35:47,323][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 3743.6903000052553 ms[0m
+[1m[1;34m[2026-03-05 00:35:47,323][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 3743.831900006626 ms[0m
+[1m[1;34m[2026-03-05 00:35:47,323][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 3743.97609999869 ms[0m
+[1m[1;34m[2026-03-05 00:35:47,324][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::988 response_pipeline]:[0m Response job 38688f0d-68a3-40df-98dc-a3ab8d79e10b completed. Content: 'Привет! Как дела?...'[0m
+[1m[1;34m[2026-03-05 00:35:47,889][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::86 ws]:[0m Closed websocket connection[0m
+[2026-03-05 00:35:47 +0200] [16392] [INFO] 127.0.0.1:7377 GET /api/config 1.1 200 5749 506
+[2026-03-05 00:35:47 +0200] [16392] [INFO] 127.0.0.1:7379 GET /api/config 1.1 200 5749 508
+[2026-03-05 00:35:47 +0200] [16392] [INFO] 127.0.0.1:7381 GET /api/context/history 1.1 200 335 1006
+[2026-03-05 00:35:48 +0200] [16392] [INFO] 127.0.0.1:14742 GET /api/context/history 1.1 200 335 0
+[1m[1;34m[2026-03-05 00:35:48,269][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-05 00:35:48 +0200] [16392] [INFO] 127.0.0.1:11051 GET / 1.1 101 - 1004
+[2026-03-05 00:35:50 +0200] [16392] [INFO] 127.0.0.1:11053 POST /api/context/conversation/speech_start 1.1 200 71 1003
+[VAD] Голос! (Prob: 0.001, RMS: 0.0113) Завершена (3712ms, speech: 2848ms).
+[2026-03-05 00:35:52 +0200] [16392] [INFO] 127.0.0.1:11053 POST /api/context/conversation/audio 1.1 200 142 1512
+
+[API] Фраза отправлена (118784 байт).
+[1m[1;34m[2026-03-05 00:35:52,626][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=24 latency_ms=165 source=mic turn=b897715d-781f-4f7b-9c4d-7163e42a4e4f utterance=85233b2a-eae1-410b-9854-513c4000d3f6[0m
+[1m[1;34m[2026-03-05 00:35:52,887][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job a850ad77-c13d-47f0-be5b-01a3e5b42ba6[0m
+[1m[1;34m[2026-03-05 00:35:52,887][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job b7228040-494e-4580-beb7-34d8c74596be[0m
+[1m[1;34m[2026-03-05 00:35:53,724][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 834.8563999898033 ms[0m
+[1m[1;34m[2026-03-05 00:36:02,098][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::487 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=60 bytes=491382 first_chunk_ms=443 max_gap_ms=292.4 total_ms=8374 audio_s=10.237 rtf=0.818 text_len=99[0m
+[1m[1;34m[2026-03-05 00:36:02,099][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 8375.290399999358 ms[0m
+[1m[1;34m[2026-03-05 00:36:02,099][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 8375.427400009357 ms[0m
+[1m[1;34m[2026-03-05 00:36:02,099][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 8375.566100003198 ms[0m
+[1m[1;34m[2026-03-05 00:36:02,100][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::988 response_pipeline]:[0m Response job b7228040-494e-4580-beb7-34d8c74596be completed. Content: 'Ну привет! Как жизнь? У меня всё как обычно — кодом балуюсь, в играх тусуюсь. А ты чем занимаешься?...'[0m
+[2026-03-05 00:36:13 +0200] [16392] [INFO] 127.0.0.1:11062 POST /api/context/conversation/speech_start 1.1 200 71 1510
+[VAD] Голос! (Prob: 0.001, RMS: 0.0115) Завершена (2464ms, speech: 1376ms).
+[2026-03-05 00:36:14 +0200] [16392] [INFO] 127.0.0.1:11062 POST /api/context/conversation/audio 1.1 200 142 2019
+
+[API] Фраза отправлена (78848 байт).
+[1m[1;34m[2026-03-05 00:36:14,847][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=7 latency_ms=119 source=mic turn=fa830a5b-7e5e-4d67-a176-9e77b6ffe213 utterance=9bf82a78-a354-492d-8d9c-812e2dbd2510[0m
+[1m[1;34m[2026-03-05 00:36:15,108][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 07980e62-84c4-4117-ad07-d476c480c507[0m
+[1m[1;34m[2026-03-05 00:36:15,108][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job fa6eabe4-1d3c-46c9-8ce4-a5d38c45ebf9[0m
+[1m[1;34m[2026-03-05 00:36:15,618][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 508.5574999975506 ms[0m
+[1m[1;34m[2026-03-05 00:36:19,315][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::487 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=26 bytes=207154 first_chunk_ms=395 max_gap_ms=282.4 total_ms=3697 audio_s=4.316 rtf=0.857 text_len=24[0m
+[1m[1;34m[2026-03-05 00:36:19,315][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 3697.7486000105273 ms[0m
+[1m[1;34m[2026-03-05 00:36:19,315][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 3697.8844000113895 ms[0m
+[1m[1;34m[2026-03-05 00:36:19,315][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 3698.0343000032008 ms[0m
+[1m[1;34m[2026-03-05 00:36:19,316][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::988 response_pipeline]:[0m Response job fa6eabe4-1d3c-46c9-8ce4-a5d38c45ebf9 completed. Content: 'А, привет! Я Нира, а ты?...'[0m
+[2026-03-05 00:36:22 +0200] [16392] [INFO] 127.0.0.1:11067 POST /api/context/conversation/speech_start 1.1 200 71 499
+[VAD] Голос! (Prob: 0.001, RMS: 0.0160) Завершена (4160ms, speech: 2976ms).
+[2026-03-05 00:36:25 +0200] [16392] [INFO] 127.0.0.1:11067 POST /api/context/conversation/audio 1.1 200 142 20173
+
+[API] Фраза отправлена (133120 байт).
+[1m[1;34m[2026-03-05 00:36:25,531][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=8 latency_ms=174 source=mic turn=76fd6079-0cca-4d2a-a253-ecbc3f59dbc6 utterance=79e55320-b773-43ab-bbaf-f58108e729f1[0m
+[1m[1;34m[2026-03-05 00:36:25,791][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 8ddc6f2b-0ede-40f2-b953-f958ee246d46[0m
+[1m[1;34m[2026-03-05 00:36:25,791][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::581 _commit_pending_voice_turn]:[0m Voice turn committed as context-only (no RESPONSE job).[0m
+[2026-03-05 00:36:36 +0200] [16392] [INFO] 127.0.0.1:11074 POST /api/context/conversation/speech_start 1.1 200 71 1509
+[VAD] Голос! (Prob: 0.001, RMS: 0.0379) Завершена (1760ms, speech: 960ms).
+[2026-03-05 00:36:36 +0200] [16392] [INFO] 127.0.0.1:11074 POST /api/context/conversation/audio 1.1 200 142 2509
+
+[API] Фраза отправлена (56320 байт).
+[1m[1;34m[2026-03-05 00:36:37,029][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=5 latency_ms=70 source=mic turn=65e583bd-41d0-4700-a676-21df9d0486a5 utterance=33cafbf1-4509-4c30-a8ef-db52cb82ea0e[0m
+[1m[1;34m[2026-03-05 00:36:37,284][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job d3715751-774b-408a-baf6-f66301958f0f[0m
+[1m[1;34m[2026-03-05 00:36:37,284][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::581 _commit_pending_voice_turn]:[0m Voice turn committed as context-only (no RESPONSE job).[0m
+[2026-03-05 00:36:44 +0200] [16392] [INFO] 127.0.0.1:11741 POST /api/context/conversation/speech_start 1.1 200 71 1003
+[VAD] Голос! (Prob: 0.001, RMS: 0.0089) Завершена (3136ms, speech: 2112ms).
+[2026-03-05 00:36:46 +0200] [16392] [INFO] 127.0.0.1:11741 POST /api/context/conversation/audio 1.1 200 142 2519
+
+[API] Фраза отправлена (100352 байт).
+[1m[1;34m[2026-03-05 00:36:46,123][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=4 latency_ms=114 source=mic turn=35530ab3-a866-4e83-9357-bfd7f54c60f4 utterance=a2dbf977-4194-4401-87aa-87a63ceb74f9[0m
+[1m[1;34m[2026-03-05 00:36:46,375][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job ee01b16f-9ef1-482b-9fd5-8edeeebb67ba[0m
+[1m[1;34m[2026-03-05 00:36:46,375][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::581 _commit_pending_voice_turn]:[0m Voice turn committed as context-only (no RESPONSE job).[0m
+
+[2026-03-05 00:36:48 +0200] [16392] [INFO] 127.0.0.1:11741 POST /api/context/conversation/speech_start 1.1 200 71 1003
+[VAD] Голос! (Prob: 0.001, RMS: 0.0102) Завершена (1056ms, speech: 320ms).
+[2026-03-05 00:36:48 +0200] [16392] [INFO] 127.0.0.1:11741 POST /api/context/conversation/audio 1.1 200 142 2526
+
+[API] Фраза отправлена (33792 байт).
+[1m[1;34m[2026-03-05 00:36:48,860][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=31 source=mic turn=35530ab3-a866-4e83-9357-bfd7f54c60f4 utterance=4b87837e-a07b-4dfe-aeae-93008bb3abd5[0m
+[VAD] Голос! (Prob: 0.003, RMS: 0.1005) Завершена (1952ms, speech: 1216ms).
+[2026-03-05 00:36:50 +0200] [16392] [INFO] 127.0.0.1:11741 POST /api/context/conversation/audio 1.1 200 142 2512
+
+[API] Фраза отправлена (62464 байт).
+[1m[1;34m[2026-03-05 00:36:50,717][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=18 latency_ms=69 source=mic turn=35530ab3-a866-4e83-9357-bfd7f54c60f4 utterance=51135a40-c1fc-4348-a39f-160e69a8094a[0m
+[1m[1;34m[2026-03-05 00:36:50,973][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job ff419aa8-5398-452e-bdc3-8d44c4ff720a[0m
+[1m[1;34m[2026-03-05 00:36:50,973][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job b3b8b519-b6c8-4153-94d7-8995607ed84b[0m
+[1m[1;34m[2026-03-05 00:36:51,977][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 1003.0086999904597 ms[0m
+[1m[1;34m[2026-03-05 00:36:58,093][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::487 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=51 bytes=414582 first_chunk_ms=367 max_gap_ms=252.0 total_ms=6116 audio_s=8.637 rtf=0.708 text_len=114[0m
+[1m[1;34m[2026-03-05 00:36:58,093][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 6117.045300008613 ms[0m
+[1m[1;34m[2026-03-05 00:36:58,094][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 6117.176900006598 ms[0m
+[1m[1;34m[2026-03-05 00:36:58,094][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 6117.293899995275 ms[0m
+[1m[1;34m[2026-03-05 00:36:58,095][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::988 response_pipeline]:[0m Response job b3b8b519-b6c8-4153-94d7-8995607ed84b completed. Content: 'Ого, ты прямо как я — любишь поболтать о всяком. А что за игры тебя интересуют? И есть ли у тебя люб...'[0m
+[2026-03-05 00:37:04 +0200] [16392] [INFO] 127.0.0.1:3044 POST /api/context/conversation/speech_start 1.1 200 71 1003
+[VAD] Голос! (Prob: 0.001, RMS: 0.0077) Завершена (3328ms, speech: 2336ms).
+[2026-03-05 00:37:06 +0200] [16392] [INFO] 127.0.0.1:3044 POST /api/context/conversation/audio 1.1 200 142 1525
+
+[API] Фраза отправлена (106496 байт).
+[1m[1;34m[2026-03-05 00:37:06,225][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=9 latency_ms=117 source=mic turn=8589c6dc-90c8-4188-858d-92c8f8b66fe1 utterance=c0239c4b-937b-4bf6-b836-92ed305b97c1[0m
+[1m[1;34m[2026-03-05 00:37:06,484][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job a8aef8dc-729d-48ea-ae8f-4442e553db85[0m
+[1m[1;34m[2026-03-05 00:37:06,484][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::581 _commit_pending_voice_turn]:[0m Voice turn committed as context-only (no RESPONSE job).[0m
+[2026-03-05 00:37:12 +0200] [16392] [INFO] 127.0.0.1:3047 POST /api/context/conversation/speech_start 1.1 200 71 505
+[VAD] Голос! (Prob: 0.001, RMS: 0.0179) Завершена (3648ms, speech: 2880ms).
+[2026-03-05 00:37:14 +0200] [16392] [INFO] 127.0.0.1:3047 POST /api/context/conversation/audio 1.1 200 142 2515
+
+[API] Фраза отправлена (116736 байт).
+[1m[1;34m[2026-03-05 00:37:14,731][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=26 latency_ms=114 source=mic turn=fd26f892-f479-4060-864a-ad6156c4fb11 utterance=4509f359-5dce-47fe-b7a9-fa8ee47fe9ef[0m
+[1m[1;34m[2026-03-05 00:37:14,731][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::482 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-03-05 00:37:14,996][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job fb9eb9a9-72e5-4409-b16b-2249427b52c2[0m
+[1m[1;34m[2026-03-05 00:37:14,996][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job 23a25930-381c-4cfb-ac5d-abecebd87d6b[0m
+[1m[1;34m[2026-03-05 00:37:17,084][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 2086.6457000083756 ms[0m
+[1m[1;34m[2026-03-05 00:37:24,629][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::487 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=60 bytes=491382 first_chunk_ms=485 max_gap_ms=286.9 total_ms=7518 audio_s=10.237 rtf=0.734 text_len=122[0m
+[1m[1;34m[2026-03-05 00:37:24,630][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 7519.399500000873 ms[0m
+[1m[1;34m[2026-03-05 00:37:31,908][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::487 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=60 bytes=491382 first_chunk_ms=275 max_gap_ms=292.1 total_ms=7278 audio_s=10.237 rtf=0.711 text_len=109[0m
+[1m[1;34m[2026-03-05 00:37:31,909][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 7278.3146999863675 ms[0m
+[1m[1;34m[2026-03-05 00:37:34,398][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::487 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=19 bytes=149518 first_chunk_ms=273 max_gap_ms=340.0 total_ms=2489 audio_s=3.115 rtf=0.799 text_len=42[0m
+[1m[1;34m[2026-03-05 00:37:34,398][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 2489.9035000125878 ms[0m
+[1m[1;34m[2026-03-05 00:37:34,398][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 17314.801600005012 ms[0m
+[1m[1;34m[2026-03-05 00:37:34,399][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 17314.91559999995 ms[0m
+[1m[1;34m[2026-03-05 00:37:34,400][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::988 response_pipeline]:[0m Response job 23a25930-381c-4cfb-ac5d-abecebd87d6b completed. Content: 'Окей, слушай! Однажды, в далеком королевстве, жили два мага. Один был могущественный и гордый, а дру...'[0m
+[1m[1;34m[2026-03-05 00:37:53,063][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::109 start]:[0m Starting JAIson application layer.[0m
+[1m[1;34m[2026-03-05 00:37:53,085][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::332 load_operations_from_config]:[0m Active STT from config: sherpa_ru[0m
+[1m[1;34m[2026-03-05 00:37:53,085][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::334 load_operations_from_config]:[0m Active TTS from config: qwen3[0m
+[1m[1;34m[2026-03-05 00:37:54,775][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting STT operation sherpa_ru[0m
+[1m[1;34m[2026-03-05 00:37:54,775][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type sherpa_stt[0m
+[1m[1;34m[2026-03-05 00:37:54,776][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process sherpa_stt when it is already unloaded[0m
+[1m[1;34m[2026-03-05 00:37:54,779][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::85 _prepare_hotwords_file]:[0m Sherpa STT hotwords validated: 3 entries[0m
+[1m[1;34m[2026-03-05 00:37:54,779][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::295 reload]:[0m Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5[0m
+[1m[1;34m[2026-03-05 00:37:54,779][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::307 reload]:[0m Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5[0m
+[1m[1;34m[2026-03-05 00:37:59,102][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting T2T operation llamacpp[0m
+[1m[1;34m[2026-03-05 00:37:59,102][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type llamacpp[0m
+[1m[1;34m[2026-03-05 00:37:59,107][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::81 reload]:[0m Opened Llama.cpp server (PID: 40520) on port 8106 (GPU: 0)[0m
+[1m[1;34m[2026-03-05 00:37:59,107][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::89 reload]:[0m Waiting for llama-server to be ready at http://127.0.0.1:8106/health ...[0m
+[1m[1;34m[2026-03-05 00:38:03,275][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::101 reload]:[0m llama-server is ready! (attempt 8, port 8106)[0m
+[1m[1;34m[2026-03-05 00:38:03,277][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting FILTER_TEXT operation filter_clean[0m
+[1m[1;34m[2026-03-05 00:38:03,888][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting FILTER_TEXT operation chunker_sentence[0m
+[1m[1;34m[2026-03-05 00:38:04,356][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting TTS operation qwen3[0m
+[1m[1;34m[2026-03-05 00:38:04,358][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type qwen3_tts[0m
+[1m[1;34m[2026-03-05 00:38:04,358][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::201 reload]:[0m Qwen3 TTS SoX bin detected: C:\Nirmita\apps\tts-qwen3-server\third_party\sox\sox-14.4.2-win32\sox-14.4.2[0m
+[1m[1;34m[2026-03-05 00:38:04,358][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::205 reload]:[0m Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv312\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 1 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-Base --language russian --dtype bfloat16 --attn_implementation flash_attention_2 --use_compile 1 --sample_rate 24000 --sample_width 2 --channels 1 --voice_mode voice_clone --runtime_flavor dffdeeq --qwen_tts_repo_path C:\Nirmita\apps\dffdeeq_Qwen3-TTS-streaming-main --ref_audio_path C:\Nirmita\Nira_voice.wav --ref_text  --x_vector_only_mode 1 --emit_every_frames 4 --decode_window_frames 32 --overlap_samples 0 --max_frames 128 --use_optimized_decode 1 --do_sample 0 --top_p 0.9 --top_k 50 --temperature 0.8 --dynamic_max_frames 0 --dynamic_chars_per_second 11.5 --dynamic_frame_budget_mul 1.05 --dynamic_min_frames 20 --dynamic_max_frames_cap 128 --max_concurrent 1 --preload_on_start 1 --warmup_on_start 1 --warmup_text Привет. --warmup_chunks 1 --first_chunk_timeout_s 120 --stream_idle_timeout_s 60 --compile_mode reduce-overhead --compile_use_cuda_graphs 0 --compile_codebook_predictor 1 --compile_talker 1 --compile_cudagraph_skip_dynamic_graphs 0[0m
+[1m[1;34m[2026-03-05 00:38:04,359][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::206 reload]:[0m Qwen3 TTS GPU pin: provider=cuda gpu_id=1 device=cuda:0 CUDA_VISIBLE_DEVICES=1[0m
+[1m[1;34m[2026-03-05 00:38:52,965][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::238 reload]:[0m Qwen3 TTS sidecar is ready at http://127.0.0.1:6116/health[0m
+[1m[1;34m[2026-03-05 00:38:53,290][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type hw_mic[0m
+[1m[1;34m[2026-03-05 00:38:53,291][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process hw_mic when it is already unloaded[0m
+[ProcessManager] Starting Hardware Microphone (hw-mic-client)...
+[1m[1;34m[2026-03-05 00:38:53,296][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type hw_audio_out[0m
+[1m[1;34m[2026-03-05 00:38:53,296][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process hw_audio_out when it is already unloaded[0m
+[ProcessManager] Starting Hardware Audio Output (hw-audio-out-client)...
+[1m[1;34m[2026-03-05 00:38:53,301][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::142 start]:[0m JAIson application layer has started.[0m
+[1m[1;34m[2026-03-05 00:38:53,302][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[logging.py::106 info]:[0m Running on http://127.0.0.1:7272 (CTRL + C to quit)[0m
+[1m[1;34m[2026-03-05 00:38:53,422][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-05 00:38:53 +0200] [20760] [INFO] 127.0.0.1:6804 GET / 1.1 101 - 3027
+[AUDIO_OUT] Selected by name: [52] CABLE Input (VB-Audio Virtual Cable) (Windows WASAPI)
+[AUDIO_OUT] Listening WS=ws://127.0.0.1:7272/ and streaming to CABLE Input (VB-Audio Virtual Cable) (ID: 52, hostapi: Windows WASAPI, sr=48000)
+========================================================
+[1m[1;34m[2026-03-05 00:38:53,915][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-05 00:38:53 +0200] [20760] [INFO] 127.0.0.1:6810 GET / 1.1 101 - 1511
+[AUDIO_OUT] WebSocket connected.
+[INFO] Loading Silero VAD ONNX Session (CPU)...
+[MIC] Selected by name: [67] Микрофон (2- fifine Microphone) (Windows WASAPI)
+[INFO] SoundDevice Listening on: Микрофон (2- fifine Microphone) (ID: 67, hostapi: Windows WASAPI)
+========================================================
+
+[2026-03-05 00:38:57 +0200] [20760] [INFO] 127.0.0.1:6812 POST /api/context/conversation/speech_start 1.1 200 71 507
+[VAD] Голос! (Prob: 0.000, RMS: 0.0215) Завершена (1632ms, speech: 736ms).
+[2026-03-05 00:38:57 +0200] [20760] [INFO] 127.0.0.1:6812 POST /api/context/conversation/audio 1.1 200 142 15193
+
+[API] Фраза отправлена (52224 байт).
+[1m[1;34m[2026-03-05 00:38:57,868][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=6 latency_ms=72 source=mic turn=e9170f97-f145-413b-abb7-662f78f6859a utterance=3a7cd11c-33c6-42dd-a40a-0d1f7bff6e32[0m
+[1m[1;34m[2026-03-05 00:38:58,142][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 37993622-8a33-4ee2-a280-7d2a8b2445ff[0m
+[1m[1;34m[2026-03-05 00:38:58,142][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job 5dc493f2-cbf9-4615-8e0e-dec1de9a73cb[0m
+[1m[1;34m[2026-03-05 00:38:58,487][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 344.2226000042865 ms[0m
+[AUDIO_OUT] PCM chunk #1: bytes=16382 sr=48000 rms=0.0077 peak=0.0376
+[AUDIO_OUT] PCM chunk #2: bytes=16384 sr=48000 rms=0.0013 peak=0.0050
+[AUDIO_OUT] PCM chunk #3: bytes=16384 sr=48000 rms=0.0012 peak=0.0043
+[1m[1;34m[2026-03-05 00:39:03,604][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::487 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=40 bytes=326228 first_chunk_ms=439 max_gap_ms=259.5 total_ms=5115 audio_s=6.796 rtf=0.753 text_len=17[0m
+[1m[1;34m[2026-03-05 00:39:03,604][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 5116.228699989733 ms[0m
+[1m[1;34m[2026-03-05 00:39:03,604][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 5116.3384999963455 ms[0m
+[1m[1;34m[2026-03-05 00:39:03,604][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 5116.449100009049 ms[0m
+[1m[1;34m[2026-03-05 00:39:03,604][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::988 response_pipeline]:[0m Response job 5dc493f2-cbf9-4615-8e0e-dec1de9a73cb completed. Content: 'Привет! Как дела?...'[0m
+[2026-03-05 00:39:07 +0200] [20760] [INFO] 127.0.0.1:6817 POST /api/context/conversation/speech_start 1.1 200 71 1511
+[VAD] Голос! (Prob: 0.001, RMS: 0.0452) Завершена (2144ms, speech: 1408ms).
+[2026-03-05 00:39:08 +0200] [20760] [INFO] 127.0.0.1:6817 POST /api/context/conversation/audio 1.1 200 142 1529
+
+[API] Фраза отправлена (68608 байт).
+[1m[1;34m[2026-03-05 00:39:08,340][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=26 latency_ms=75 source=mic turn=d9fbf120-9683-456f-9458-6241d3d6c40e utterance=91f0f3d7-ca86-4be9-88c7-4987524fc2ab[0m
+[1m[1;34m[2026-03-05 00:39:08,340][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::482 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-03-05 00:39:08,605][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 1b8c91af-e999-4c44-9b3c-aa1efc686def[0m
+[1m[1;34m[2026-03-05 00:39:08,605][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job 28cafbe4-ed2d-47b1-95f2-96cb574bcbe5[0m
+[1m[1;34m[2026-03-05 00:39:10,489][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 1883.059100000537 ms[0m
+[1m[1;34m[2026-03-05 00:39:16,604][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::487 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=51 bytes=414582 first_chunk_ms=420 max_gap_ms=268.0 total_ms=6089 audio_s=8.637 rtf=0.705 text_len=115[0m
+[1m[1;34m[2026-03-05 00:39:16,604][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 6089.821800007485 ms[0m
+[1m[1;34m[2026-03-05 00:39:23,820][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::487 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=60 bytes=491382 first_chunk_ms=245 max_gap_ms=280.6 total_ms=7216 audio_s=10.237 rtf=0.705 text_len=53[0m
+[1m[1;34m[2026-03-05 00:39:23,820][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 7216.849600008572 ms[0m
+[1m[1;34m[2026-03-05 00:39:29,022][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::487 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=41 bytes=330034 first_chunk_ms=258 max_gap_ms=307.1 total_ms=5201 audio_s=6.876 rtf=0.756 text_len=108[0m
+[1m[1;34m[2026-03-05 00:39:29,022][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 5201.702999998815 ms[0m
+[1m[1;34m[2026-03-05 00:39:29,022][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 18533.518700001878 ms[0m
+[1m[1;34m[2026-03-05 00:39:29,022][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 18533.615599997574 ms[0m
+[1m[1;34m[2026-03-05 00:39:29,024][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::988 response_pipeline]:[0m Response job 28cafbe4-ed2d-47b1-95f2-96cb574bcbe5 completed. Content: 'О, магов! Так вот, однажды в волшебном мире, где магию использовали как электричество, был один маг ...'[0m
+[2026-03-05 00:39:34 +0200] [20760] [INFO] 127.0.0.1:13434 POST /api/context/conversation/speech_start 1.1 200 71 507
+[VAD] Голос! (Prob: 0.001, RMS: 0.0136) Завершена (1920ms, speech: 1184ms).
+[2026-03-05 00:39:34 +0200] [20760] [INFO] 127.0.0.1:13434 POST /api/context/conversation/audio 1.1 200 142 2580
+
+[API] Фраза отправлена (61440 байт).
+[1m[1;34m[2026-03-05 00:39:34,841][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=8 latency_ms=94 source=mic turn=6e230bf2-c397-42f3-9364-1b214e622c40 utterance=257cf005-a435-4c2d-8217-a78f0ff9b145[0m
+[1m[1;34m[2026-03-05 00:39:35,105][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 9134064b-7ba0-48d6-b6d2-dde221b11b35[0m
+[1m[1;34m[2026-03-05 00:39:35,105][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::581 _commit_pending_voice_turn]:[0m Voice turn committed as context-only (no RESPONSE job).[0m
+[2026-03-05 00:39:42 +0200] [20760] [INFO] 127.0.0.1:13437 POST /api/context/conversation/speech_start 1.1 200 71 1002
+[VAD] Голос! (Prob: 0.001, RMS: 0.0778) Завершена (2976ms, speech: 1888ms).
+[2026-03-05 00:39:44 +0200] [20760] [INFO] 127.0.0.1:13437 POST /api/context/conversation/audio 1.1 200 142 3517
+
+[API] Фраза отправлена (95232 байт).
+[1m[1;34m[2026-03-05 00:39:44,441][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=8 latency_ms=96 source=mic turn=485653ee-3306-4609-a0c9-cf79d0bed271 utterance=6eddcf6a-1198-481d-aea4-64c2469e7238[0m
+[1m[1;34m[2026-03-05 00:39:44,694][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job d93cf66a-b93c-4906-bcdc-1e99da21c104[0m
+[1m[1;34m[2026-03-05 00:39:44,694][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::581 _commit_pending_voice_turn]:[0m Voice turn committed as context-only (no RESPONSE job).[0m
+
+[2026-03-05 00:39:47 +0200] [20760] [INFO] 127.0.0.1:13437 POST /api/context/conversation/speech_start 1.1 200 71 1006
+[VAD] Голос! (Prob: 0.001, RMS: 0.0234) Завершена (2112ms, speech: 1376ms).
+[2026-03-05 00:39:49 +0200] [20760] [INFO] 127.0.0.1:13437 POST /api/context/conversation/audio 1.1 200 142 1533
+
+[API] Фраза отправлена (67584 байт).
+[1m[1;34m[2026-03-05 00:39:49,536][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=19 latency_ms=71 source=mic turn=2ae4cc45-f454-4c96-a0c2-53ad4470728a utterance=bf1bc10c-1dd2-42b7-b344-b634e47c593c[0m
+[1m[1;34m[2026-03-05 00:39:49,793][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job b5cdb722-1891-4765-888f-ab1f8cec7890[0m
+[1m[1;34m[2026-03-05 00:39:49,793][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job 73752792-6984-4013-a454-151c99106e88[0m
+[1m[1;34m[2026-03-05 00:39:50,179][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 385.14430000213906 ms[0m
+
+[2026-03-05 00:39:50 +0200] [20760] [INFO] 127.0.0.1:13437 POST /api/context/conversation/speech_start 1.1 200 71 1006
+[VAD] Голос! (Prob: 0.001, RMS: 0.0342) Завершена (1280ms, speech: 544ms).
+[2026-03-05 00:39:51 +0200] [20760] [INFO] 127.0.0.1:13437 POST /api/context/conversation/audio 1.1 200 142 1512
+
+[API] Фраза отправлена (40960 байт).
+[1m[1;34m[2026-03-05 00:39:51,232][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=66 source=mic turn=2ae4cc45-f454-4c96-a0c2-53ad4470728a utterance=240cc632-8f27-4a83-ba51-74c18fe95004[0m
+
+[2026-03-05 00:39:51 +0200] [20760] [INFO] 127.0.0.1:13437 POST /api/context/conversation/speech_start 1.1 200 71 1005
+[1m[1;34m[2026-03-05 00:39:52,290][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::487 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=17 bytes=138102 first_chunk_ms=375 max_gap_ms=220.5 total_ms=2110 audio_s=2.877 rtf=0.733 text_len=15[0m
+[1m[1;34m[2026-03-05 00:39:52,290][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 2110.7482999941567 ms[0m
+[1m[1;34m[2026-03-05 00:39:52,291][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 2110.8779000060167 ms[0m
+[1m[1;34m[2026-03-05 00:39:52,291][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 2110.993900001631 ms[0m
+[1m[1;34m[2026-03-05 00:39:52,291][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::988 response_pipeline]:[0m Response job 73752792-6984-4013-a454-151c99106e88 completed. Content: 'Окей, я слушаю!...'[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0341) Завершена (1312ms, speech: 576ms).
+[2026-03-05 00:39:52 +0200] [20760] [INFO] 127.0.0.1:13437 POST /api/context/conversation/audio 1.1 200 142 2018
+
+[API] Фраза отправлена (41984 байт).
+[1m[1;34m[2026-03-05 00:39:52,559][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=55 source=mic turn=2ae4cc45-f454-4c96-a0c2-53ad4470728a utterance=af150ab4-d171-4e49-a750-081486305e49[0m
+[2026-03-05 00:40:11 +0200] [20760] [INFO] 127.0.0.1:13448 POST /api/context/conversation/speech_start 1.1 200 71 504
+[VAD] Голос! (Prob: 0.001, RMS: 0.0098) Завершена (1728ms, speech: 576ms).
+[2026-03-05 00:40:11 +0200] [20760] [INFO] 127.0.0.1:13448 POST /api/context/conversation/audio 1.1 200 142 1504
+
+[API] Фраза отправлена (55296 байт).
+[1m[1;34m[2026-03-05 00:40:11,643][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=69 source=mic turn=8741ca98-79f5-4c43-82ea-7d8855b01c39 utterance=691d9c66-cef8-4841-8c6c-d6cc5d2fd734[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0084) Завершена (992ms, speech: 256ms).
+[2026-03-05 00:40:57 +0200] [20760] [INFO] 127.0.0.1:5147 POST /api/context/conversation/speech_start 1.1 200 71 1003
+[2026-03-05 00:40:58 +0200] [20760] [INFO] 127.0.0.1:5148 POST /api/context/conversation/audio 1.1 200 142 1511
+
+[API] Фраза отправлена (31744 байт).
+[1m[1;34m[2026-03-05 00:40:59,018][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=41 source=mic turn=985195db-1002-4813-b6f9-9a2aed06c1a8 utterance=5c34a4e7-f9cf-4ab8-a333-9aaef337e2e3[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0096) Завершена (928ms, speech: 192ms).
+[2026-03-05 00:41:43 +0200] [20760] [INFO] 127.0.0.1:2807 POST /api/context/conversation/speech_start 1.1 200 71 1001
+[2026-03-05 00:41:45 +0200] [20760] [INFO] 127.0.0.1:2808 POST /api/context/conversation/audio 1.1 200 142 1510
+
+[API] Фраза отправлена (29696 байт).
+[1m[1;34m[2026-03-05 00:41:45,244][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=39 source=mic turn=f3984ba1-4ab5-4614-a721-a5564067a27a utterance=d4fb4f81-32cf-4d48-919c-a9491e5f22f0[0m
+
+[2026-03-05 00:41:47 +0200] [20760] [INFO] 127.0.0.1:2808 POST /api/context/conversation/speech_start 1.1 200 71 1002
+[VAD] Голос! (Prob: 0.001, RMS: 0.0081) Завершена (1088ms, speech: 352ms).
+[2026-03-05 00:41:47 +0200] [20760] [INFO] 127.0.0.1:2808 POST /api/context/conversation/audio 1.1 200 142 2014
+
+[API] Фраза отправлена (34816 байт).
+[1m[1;34m[2026-03-05 00:41:47,728][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=35 source=mic turn=ec643f0c-532e-4deb-b4c0-33c57a2bbdf0 utterance=f2ab1c33-12e9-46ea-b4b8-a9a2703e1fff[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0090) Завершена (1280ms, speech: 256ms).
+[2026-03-05 00:42:07 +0200] [20760] [INFO] 127.0.0.1:2502 POST /api/context/conversation/speech_start 1.1 200 71 1008
+
+[2026-03-05 00:42:07 +0200] [20760] [INFO] 127.0.0.1:2502 POST /api/context/conversation/speech_start 1.1 200 71 506
+[2026-03-05 00:42:09 +0200] [20760] [INFO] 127.0.0.1:2503 POST /api/context/conversation/audio 1.1 200 142 1504
+[VAD] Голос! (Prob: 0.001, RMS: 0.0309)
+[API] Фраза отправлена (40960 байт).
+[1m[1;34m[2026-03-05 00:42:09,461][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=55 source=mic turn=56f3f003-f399-4e22-ba4d-9087ea55bed0 utterance=80f6ca76-c36c-4356-becd-846f3a111e70[0m
+ Завершена (3296ms, speech: 2528ms).
+[2026-03-05 00:42:10 +0200] [20760] [INFO] 127.0.0.1:2503 POST /api/context/conversation/audio 1.1 200 142 2513
+
+[API] Фраза отправлена (105472 байт).
+[1m[1;34m[2026-03-05 00:42:10,946][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=18 latency_ms=113 source=mic turn=50f6bef4-29ad-4e1a-8c27-47870a4c6ba2 utterance=232a0ead-5693-4dcb-ac92-26fe98ce6537[0m
+[1m[1;34m[2026-03-05 00:42:11,211][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job b19a3d06-e36c-4016-b286-a1720d41b24a[0m
+[1m[1;34m[2026-03-05 00:42:11,211][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job 690dbada-8d6f-4755-910d-ada283e09a5e[0m
+[1m[1;34m[2026-03-05 00:42:11,722][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 510.09609999891836 ms[0m
+[1m[1;34m[2026-03-05 00:42:19,675][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::487 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=60 bytes=491382 first_chunk_ms=412 max_gap_ms=318.2 total_ms=7952 audio_s=10.237 rtf=0.777 text_len=21[0m
+[1m[1;34m[2026-03-05 00:42:19,675][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 7953.259199988679 ms[0m
+[1m[1;34m[2026-03-05 00:42:19,676][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 7953.3955000079 ms[0m
+[1m[1;34m[2026-03-05 00:42:19,676][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 7953.531599996495 ms[0m
+[1m[1;34m[2026-03-05 00:42:19,676][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::988 response_pipeline]:[0m Response job 690dbada-8d6f-4755-910d-ada283e09a5e completed. Content: 'Расскажи мне анекдот!...'[0m
