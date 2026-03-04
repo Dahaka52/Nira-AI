@@ -138,6 +138,7 @@ class PCM16OutputPlayer:
         self._buffer = bytearray()
         self._lock = threading.Lock()
         self._last_underflow_print = 0.0
+        self._debug_chunks_seen = 0
 
     async def start(self) -> None:
         if self._stream is not None:
@@ -256,6 +257,19 @@ class PCM16OutputPlayer:
         if not pcm_bytes:
             return
 
+        if self._debug_chunks_seen < 3:
+            try:
+                arr = np.frombuffer(pcm_bytes, dtype=np.int16).astype(np.float32) / 32768.0
+                rms = float(np.sqrt(np.mean(arr * arr))) if arr.size else 0.0
+                peak = float(np.max(np.abs(arr))) if arr.size else 0.0
+                print(
+                    f"[AUDIO_OUT] PCM chunk #{self._debug_chunks_seen + 1}: "
+                    f"bytes={len(pcm_bytes)} sr={self.sample_rate} rms={rms:.4f} peak={peak:.4f}"
+                )
+            except Exception:
+                print(f"[AUDIO_OUT] PCM chunk #{self._debug_chunks_seen + 1}: bytes={len(pcm_bytes)} sr={self.sample_rate}")
+            self._debug_chunks_seen += 1
+
         with self._lock:
             overflow = (len(self._buffer) + len(pcm_bytes)) - self.max_buffer_bytes
             if overflow > 0:
@@ -284,8 +298,16 @@ def parse_args() -> argparse.Namespace:
 
 async def handle_ws_message(message: str, player: PCM16OutputPlayer) -> None:
     try:
-        payload = json.loads(message)
+        payload_raw = json.loads(message)
     except Exception:
+        return
+
+    # Quart WS server emits create_response(...) tuple -> JSON array [body, status]
+    if isinstance(payload_raw, list):
+        payload = payload_raw[0] if payload_raw else {}
+    else:
+        payload = payload_raw
+    if not isinstance(payload, dict):
         return
 
     event_name = payload.get("message")

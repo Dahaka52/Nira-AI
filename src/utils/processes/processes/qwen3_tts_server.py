@@ -132,6 +132,7 @@ class Qwen3TTSProcess(BaseProcess):
             ("language", "--language"),
             ("dtype", "--dtype"),
             ("attn_implementation", "--attn_implementation"),
+            ("use_compile", "--use_compile"),
             ("sample_rate", "--sample_rate"),
             ("sample_width", "--sample_width"),
             ("channels", "--channels"),

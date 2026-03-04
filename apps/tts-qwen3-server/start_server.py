@@ -84,6 +84,7 @@ class ServerConfig:
     repetition_penalty_window: int = 100
     max_concurrent: int = 1
     instruct_prefix: str = ""
+    use_compile: bool = False
 
 
 class Qwen3Runtime:
@@ -178,9 +179,14 @@ class Qwen3Runtime:
 
                 if hasattr(model, "enable_streaming_optimizations"):
                     try:
+                        use_compile = bool(getattr(self.cfg, "use_compile", False))
+                        if use_compile:
+                            logging.info("Qwen3 runtime: enabling compile-based streaming optimizations.")
+                        else:
+                            logging.info("Qwen3 runtime: compile optimizations are disabled (use_compile=false).")
                         model.enable_streaming_optimizations(
                             decode_window_frames=int(decode_window_frames),
-                            use_compile=True,
+                            use_compile=use_compile,
                             compile_mode="reduce-overhead",
                         )
                     except Exception as exc:
@@ -252,7 +258,50 @@ class Qwen3Runtime:
 
         stream_fn = getattr(self._model, "stream_generate_custom_voice", None)
         if stream_fn is None:
-            raise RuntimeError("Loaded qwen_tts model does not support stream_generate_custom_voice().")
+            # Compatibility fallback for official qwen_tts builds that only expose
+            # generate_custom_voice() (non-streaming API).
+            gen_fn = getattr(self._model, "generate_custom_voice", None)
+            if gen_fn is None:
+                raise RuntimeError(
+                    "Loaded qwen_tts model does not support stream_generate_custom_voice() "
+                    "or generate_custom_voice()."
+                )
+
+            logging.warning(
+                "Qwen3 runtime fallback: stream_generate_custom_voice() is unavailable. "
+                "Using generate_custom_voice() chunked fallback."
+            )
+            gen_kwargs = {
+                "text": req.text,
+                "speaker": speaker,
+                "language": language,
+                "max_new_tokens": max_new_tokens,
+            }
+            if instruct:
+                gen_kwargs["instruct"] = instruct
+            # keep only conservative generation kwargs supported across builds
+            gen_kwargs.update({
+                "do_sample": True,
+                "top_p": 0.9,
+                "temperature": 0.8,
+            })
+            wavs, sr = gen_fn(**gen_kwargs)
+            if not wavs:
+                return
+
+            pcm_all = _to_pcm16_bytes(wavs[0])
+            if not pcm_all:
+                return
+
+            sr_i = int(sr)
+            chunk_ms = 40
+            chunk_samples = max(1, int(sr_i * (chunk_ms / 1000.0)))
+            chunk_bytes = chunk_samples * 2  # mono int16
+            for off in range(0, len(pcm_all), chunk_bytes):
+                part = pcm_all[off:off + chunk_bytes]
+                if part:
+                    yield part, sr_i
+            return
 
         try:
             iterator = stream_fn(**stream_kwargs)
@@ -319,7 +368,8 @@ def build_app(cfg: ServerConfig) -> FastAPI:
                     if tag is sentinel:
                         break
                     if tag == "error":
-                        raise RuntimeError(payload)
+                        logging.error("Qwen3 sidecar stream worker failed: %s", payload)
+                        break
                     if first:
                         first = False
                         logging.info("Qwen3 sidecar first-audio latency_ms=%s", int((time.perf_counter() - started) * 1000))
@@ -364,6 +414,7 @@ def parse_args() -> ServerConfig:
     parser.add_argument("--repetition_penalty_window", type=int, default=100)
     parser.add_argument("--max_concurrent", type=int, default=1)
     parser.add_argument("--instruct_prefix", type=str, default="")
+    parser.add_argument("--use_compile", type=int, default=0)
     ns = parser.parse_args()
     return ServerConfig(
         host=ns.host,
@@ -389,6 +440,7 @@ def parse_args() -> ServerConfig:
         repetition_penalty_window=ns.repetition_penalty_window,
         max_concurrent=ns.max_concurrent,
         instruct_prefix=ns.instruct_prefix,
+        use_compile=bool(int(ns.use_compile)),
     )
 
 
