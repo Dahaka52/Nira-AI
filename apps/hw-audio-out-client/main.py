@@ -328,7 +328,10 @@ async def handle_ws_message(message: str, player: PCM16OutputPlayer) -> None:
     if event_type != "audio_chunk":
         return
 
-    b64_chunk = result.get("content")
+    # Backend emits audio payload as "audio_bytes". Keep "content" as legacy fallback.
+    b64_chunk = result.get("audio_bytes")
+    if not b64_chunk:
+        b64_chunk = result.get("content")
     if not b64_chunk:
         return
 

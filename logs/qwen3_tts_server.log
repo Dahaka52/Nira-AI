@@ -1,0 +1,66 @@
+2026-03-04 06:03:54,266 WARNING [qwen3_tts_sidecar] flash-attn is unavailable on this runtime; using attn_implementation=sdpa
+INFO:     Started server process [12200]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:6116 (Press CTRL+C to quit)
+INFO:     127.0.0.1:5131 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:5134 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9431 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\Nirmita\.conda\lib\logging\__init__.py", line 1103, in emit
+    stream.write(msg + self.terminator)
+ValueError: I/O operation on closed file
+Call stack:
+  File "C:\Nirmita\.conda\lib\threading.py", line 973, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\Nirmita\.conda\lib\threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "C:\Nirmita\.conda\lib\threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\start_server.py", line 356, in worker
+    for pcm_bytes, _sr in runtime.stream_custom_voice(req):
+  File "C:\Nirmita\apps\tts-qwen3-server\start_server.py", line 235, in stream_custom_voice
+    self._ensure_model_loaded(
+  File "C:\Nirmita\apps\tts-qwen3-server\start_server.py", line 173, in _ensure_model_loaded
+    model = Qwen3TTSModel.from_pretrained(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv\lib\site-packages\qwen_tts\inference\qwen3_tts_model.py", line 112, in from_pretrained
+    model = AutoModel.from_pretrained(pretrained_model_name_or_path, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv\lib\site-packages\transformers\models\auto\auto_factory.py", line 549, in from_pretrained
+    config, kwargs = AutoConfig.from_pretrained(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv\lib\site-packages\transformers\models\auto\configuration_auto.py", line 1372, in from_pretrained
+    return config_class.from_dict(config_dict, **unused_kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv\lib\site-packages\transformers\configuration_utils.py", line 801, in from_dict
+    logger.warning_once("`torch_dtype` is deprecated! Use `dtype` instead!")
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv\lib\site-packages\transformers\utils\logging.py", line 328, in warning_once
+    self.warning(*args, **kwargs)
+Message: '`torch_dtype` is deprecated! Use `dtype` instead!'
+Arguments: ()
+2026-03-04 06:04:15,073 INFO [qwen3_tts_sidecar] speaker_encoder_config is None. Initializing talker model with default values
+2026-03-04 06:04:15,075 INFO [qwen3_tts_sidecar] talker_config is None. Initializing talker model with default values
+2026-03-04 06:04:15,075 INFO [qwen3_tts_sidecar] speaker_encoder_config is None. Initializing talker model with default values
+2026-03-04 06:04:15,075 INFO [qwen3_tts_sidecar] code_predictor_config is None. Initializing code_predictor model with default values
+2026-03-04 06:04:15,075 INFO [qwen3_tts_sidecar] code_predictor_config is None. Initializing code_predictor model with default values
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<?, ?it/s]
+2026-03-04 06:04:18,718 INFO [qwen3_tts_sidecar] encoder_config is None. Initializing encoder with default values
+2026-03-04 06:04:18,718 INFO [qwen3_tts_sidecar] decoder_config is None. Initializing decoder with default values
+2026-03-04 06:04:22,855 INFO [qwen3_tts_sidecar] Qwen3 runtime: compile optimizations are disabled (use_compile=false).
+[Tokenizer] Enabling streaming optimizations...
+  use_compile=False, compile_mode=reduce-overhead
+  use_cuda_graphs=True (manual)
+[Tokenizer] Note: compile_mode='reduce-overhead' already includes CUDA graphs
+[Tokenizer] Manual CUDA graph capture skipped (not needed)
+2026-03-04 06:04:22,855 INFO [qwen3_tts_sidecar] Qwen3 model loaded: Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice (attn=sdpa)
+2026-03-04 06:04:26,812 INFO [qwen3_tts_sidecar] Qwen3 sidecar first-audio latency_ms=12044
+INFO:     127.0.0.1:9434 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+2026-03-04 06:04:32,268 INFO [qwen3_tts_sidecar] Qwen3 sidecar first-audio latency_ms=2311
+INFO:     127.0.0.1:9447 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+2026-03-04 06:05:05,623 INFO [qwen3_tts_sidecar] Qwen3 sidecar first-audio latency_ms=2677
+INFO:     127.0.0.1:9454 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+2026-03-04 06:05:12,447 INFO [qwen3_tts_sidecar] Qwen3 sidecar first-audio latency_ms=2329
+INFO:     127.0.0.1:8084 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+2026-03-04 06:06:54,910 INFO [qwen3_tts_sidecar] Qwen3 sidecar first-audio latency_ms=2280
+INFO:     127.0.0.1:8085 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+2026-03-04 06:07:01,536 INFO [qwen3_tts_sidecar] Qwen3 sidecar first-audio latency_ms=2248
+INFO:     127.0.0.1:8098 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+2026-03-04 06:07:15,554 INFO [qwen3_tts_sidecar] Qwen3 sidecar first-audio latency_ms=2569

@@ -79,3 +79,157 @@ Since you are not providing a certificate, you cannot use your microphone from w
 2026-03-04 05:59:50,250 INFO [start_server.py:750] Accepting 640 samples from ('127.0.0.1', 1907)
 2026-03-04 05:59:50,274 INFO [start_server.py:745] Received Done from ('127.0.0.1', 1907)
 2026-03-04 05:59:50,274 INFO [start_server.py:718] Disconnected: ('127.0.0.1', 1907). Number of connections: 0/200
+2026-03-04 06:00:03,284 INFO [server.py:529] connection open
+2026-03-04 06:00:03,284 INFO [start_server.py:734] Connected: ('127.0.0.1', 13833). Number of connections: 1/200
+2026-03-04 06:00:03,286 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 13833)
+2026-03-04 06:00:03,293 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 13833)
+2026-03-04 06:00:03,293 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 13833)
+2026-03-04 06:00:03,295 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 13833)
+2026-03-04 06:00:03,320 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 13833)
+2026-03-04 06:00:03,320 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 13833)
+2026-03-04 06:00:03,321 INFO [start_server.py:750] Accepting 1792 samples from ('127.0.0.1', 13833)
+2026-03-04 06:00:03,322 INFO [start_server.py:745] Received Done from ('127.0.0.1', 13833)
+2026-03-04 06:00:03,350 INFO [start_server.py:718] Disconnected: ('127.0.0.1', 13833). Number of connections: 0/200
+2026-03-04 06:00:17,231 INFO [server.py:529] connection open
+2026-03-04 06:00:17,231 INFO [start_server.py:734] Connected: ('127.0.0.1', 13271). Number of connections: 1/200
+2026-03-04 06:00:17,232 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 13271)
+2026-03-04 06:00:17,235 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 13271)
+2026-03-04 06:00:17,236 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 13271)
+2026-03-04 06:00:17,237 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 13271)
+2026-03-04 06:00:17,259 INFO [start_server.py:750] Accepting 1536 samples from ('127.0.0.1', 13271)
+2026-03-04 06:00:17,260 INFO [start_server.py:745] Received Done from ('127.0.0.1', 13271)
+2026-03-04 06:00:17,260 INFO [start_server.py:718] Disconnected: ('127.0.0.1', 13271). Number of connections: 0/200
+2026-03-04 06:00:17,711 INFO [server.py:529] connection open
+2026-03-04 06:00:17,711 INFO [start_server.py:734] Connected: ('127.0.0.1', 13273). Number of connections: 1/200
+2026-03-04 06:00:17,712 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 13273)
+2026-03-04 06:00:17,718 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 13273)
+2026-03-04 06:00:17,718 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 13273)
+2026-03-04 06:00:17,719 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 13273)
+2026-03-04 06:00:17,746 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 13273)
+2026-03-04 06:00:17,748 INFO [start_server.py:750] Accepting 896 samples from ('127.0.0.1', 13273)
+2026-03-04 06:00:17,749 INFO [start_server.py:745] Received Done from ('127.0.0.1', 13273)
+2026-03-04 06:00:17,752 INFO [start_server.py:718] Disconnected: ('127.0.0.1', 13273). Number of connections: 0/200
+2026-03-04 06:00:40,711 INFO [server.py:529] connection open
+2026-03-04 06:00:40,711 INFO [start_server.py:734] Connected: ('127.0.0.1', 10215). Number of connections: 1/200
+2026-03-04 06:00:40,711 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10215)
+2026-03-04 06:00:40,718 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10215)
+2026-03-04 06:00:40,718 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10215)
+2026-03-04 06:00:40,719 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10215)
+2026-03-04 06:00:40,741 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10215)
+2026-03-04 06:00:40,742 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10215)
+2026-03-04 06:00:40,742 INFO [start_server.py:750] Accepting 768 samples from ('127.0.0.1', 10215)
+2026-03-04 06:00:40,742 INFO [start_server.py:745] Received Done from ('127.0.0.1', 10215)
+2026-03-04 06:00:40,767 INFO [start_server.py:718] Disconnected: ('127.0.0.1', 10215). Number of connections: 0/200
+2026-03-04 06:00:41,333 INFO [server.py:529] connection open
+2026-03-04 06:00:41,333 INFO [start_server.py:734] Connected: ('127.0.0.1', 10216). Number of connections: 1/200
+2026-03-04 06:00:41,335 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10216)
+2026-03-04 06:00:41,339 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10216)
+2026-03-04 06:00:41,339 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10216)
+2026-03-04 06:00:41,340 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10216)
+2026-03-04 06:00:41,362 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10216)
+2026-03-04 06:00:41,362 INFO [start_server.py:750] Accepting 384 samples from ('127.0.0.1', 10216)
+2026-03-04 06:00:41,363 INFO [start_server.py:745] Received Done from ('127.0.0.1', 10216)
+2026-03-04 06:00:41,364 INFO [start_server.py:718] Disconnected: ('127.0.0.1', 10216). Number of connections: 0/200
+2026-03-04 06:00:44,880 INFO [server.py:529] connection open
+2026-03-04 06:00:44,880 INFO [start_server.py:734] Connected: ('127.0.0.1', 10218). Number of connections: 1/200
+2026-03-04 06:00:44,882 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10218)
+2026-03-04 06:00:44,886 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10218)
+2026-03-04 06:00:44,886 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10218)
+2026-03-04 06:00:44,887 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10218)
+2026-03-04 06:00:44,913 INFO [start_server.py:750] Accepting 1536 samples from ('127.0.0.1', 10218)
+2026-03-04 06:00:44,913 INFO [start_server.py:745] Received Done from ('127.0.0.1', 10218)
+2026-03-04 06:00:44,913 INFO [start_server.py:718] Disconnected: ('127.0.0.1', 10218). Number of connections: 0/200
+2026-03-04 06:00:49,042 INFO [server.py:529] connection open
+2026-03-04 06:00:49,042 INFO [start_server.py:734] Connected: ('127.0.0.1', 10220). Number of connections: 1/200
+2026-03-04 06:00:49,043 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10220)
+2026-03-04 06:00:49,051 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10220)
+2026-03-04 06:00:49,051 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10220)
+2026-03-04 06:00:49,052 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10220)
+2026-03-04 06:00:49,079 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10220)
+2026-03-04 06:00:49,079 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10220)
+2026-03-04 06:00:49,080 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 10220)
+2026-03-04 06:00:49,080 INFO [start_server.py:750] Accepting 1152 samples from ('127.0.0.1', 10220)
+2026-03-04 06:00:49,106 INFO [start_server.py:745] Received Done from ('127.0.0.1', 10220)
+2026-03-04 06:00:49,107 INFO [start_server.py:718] Disconnected: ('127.0.0.1', 10220). Number of connections: 0/200
+2026-03-04 06:01:52,427 INFO [server.py:529] connection open
+2026-03-04 06:01:52,427 INFO [start_server.py:734] Connected: ('127.0.0.1', 14036). Number of connections: 1/200
+2026-03-04 06:01:52,428 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14036)
+2026-03-04 06:01:52,433 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14036)
+2026-03-04 06:01:52,434 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14036)
+2026-03-04 06:01:52,434 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14036)
+2026-03-04 06:01:52,461 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14036)
+2026-03-04 06:01:52,462 INFO [start_server.py:750] Accepting 384 samples from ('127.0.0.1', 14036)
+2026-03-04 06:01:52,462 INFO [start_server.py:745] Received Done from ('127.0.0.1', 14036)
+2026-03-04 06:01:52,463 INFO [start_server.py:718] Disconnected: ('127.0.0.1', 14036). Number of connections: 0/200
+2026-03-04 06:02:26,048 INFO [server.py:529] connection open
+2026-03-04 06:02:26,048 INFO [start_server.py:734] Connected: ('127.0.0.1', 14045). Number of connections: 1/200
+2026-03-04 06:02:26,049 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14045)
+2026-03-04 06:02:26,056 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14045)
+2026-03-04 06:02:26,057 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14045)
+2026-03-04 06:02:26,058 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14045)
+2026-03-04 06:02:26,082 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14045)
+2026-03-04 06:02:26,084 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14045)
+2026-03-04 06:02:26,084 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14045)
+2026-03-04 06:02:26,085 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14045)
+2026-03-04 06:02:26,109 INFO [start_server.py:750] Accepting 2560 samples from ('127.0.0.1', 14045)
+2026-03-04 06:02:26,109 INFO [start_server.py:745] Received Done from ('127.0.0.1', 14045)
+2026-03-04 06:02:26,133 INFO [start_server.py:718] Disconnected: ('127.0.0.1', 14045). Number of connections: 0/200
+2026-03-04 06:02:28,391 INFO [server.py:529] connection open
+2026-03-04 06:02:28,391 INFO [start_server.py:734] Connected: ('127.0.0.1', 14047). Number of connections: 1/200
+2026-03-04 06:02:28,392 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14047)
+2026-03-04 06:02:28,400 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14047)
+2026-03-04 06:02:28,400 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14047)
+2026-03-04 06:02:28,400 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14047)
+2026-03-04 06:02:28,428 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14047)
+2026-03-04 06:02:28,429 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14047)
+2026-03-04 06:02:28,429 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14047)
+2026-03-04 06:02:28,429 INFO [start_server.py:750] Accepting 1664 samples from ('127.0.0.1', 14047)
+2026-03-04 06:02:28,448 INFO [start_server.py:745] Received Done from ('127.0.0.1', 14047)
+2026-03-04 06:02:28,449 INFO [start_server.py:718] Disconnected: ('127.0.0.1', 14047). Number of connections: 0/200
+2026-03-04 06:02:29,379 INFO [server.py:529] connection open
+2026-03-04 06:02:29,379 INFO [start_server.py:734] Connected: ('127.0.0.1', 14048). Number of connections: 1/200
+2026-03-04 06:02:29,380 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14048)
+2026-03-04 06:02:29,386 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14048)
+2026-03-04 06:02:29,386 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14048)
+2026-03-04 06:02:29,386 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14048)
+2026-03-04 06:02:29,413 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14048)
+2026-03-04 06:02:29,414 INFO [start_server.py:750] Accepting 1920 samples from ('127.0.0.1', 14048)
+2026-03-04 06:02:29,414 INFO [start_server.py:745] Received Done from ('127.0.0.1', 14048)
+2026-03-04 06:02:29,441 INFO [start_server.py:718] Disconnected: ('127.0.0.1', 14048). Number of connections: 0/200
+2026-03-04 06:02:32,770 INFO [server.py:529] connection open
+2026-03-04 06:02:32,770 INFO [start_server.py:734] Connected: ('127.0.0.1', 14050). Number of connections: 1/200
+2026-03-04 06:02:32,771 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14050)
+2026-03-04 06:02:32,777 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14050)
+2026-03-04 06:02:32,777 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14050)
+2026-03-04 06:02:32,777 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14050)
+2026-03-04 06:02:32,805 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14050)
+2026-03-04 06:02:32,805 INFO [start_server.py:750] Accepting 896 samples from ('127.0.0.1', 14050)
+2026-03-04 06:02:32,805 INFO [start_server.py:745] Received Done from ('127.0.0.1', 14050)
+2026-03-04 06:02:32,806 INFO [start_server.py:718] Disconnected: ('127.0.0.1', 14050). Number of connections: 0/200
+2026-03-04 06:02:36,359 INFO [server.py:529] connection open
+2026-03-04 06:02:36,359 INFO [start_server.py:734] Connected: ('127.0.0.1', 14051). Number of connections: 1/200
+2026-03-04 06:02:36,360 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14051)
+2026-03-04 06:02:36,365 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14051)
+2026-03-04 06:02:36,366 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14051)
+2026-03-04 06:02:36,366 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14051)
+2026-03-04 06:02:36,394 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14051)
+2026-03-04 06:02:36,395 INFO [start_server.py:750] Accepting 384 samples from ('127.0.0.1', 14051)
+2026-03-04 06:02:36,395 INFO [start_server.py:745] Received Done from ('127.0.0.1', 14051)
+2026-03-04 06:02:36,396 INFO [start_server.py:718] Disconnected: ('127.0.0.1', 14051). Number of connections: 0/200
+2026-03-04 06:02:39,010 INFO [server.py:529] connection open
+2026-03-04 06:02:39,011 INFO [start_server.py:734] Connected: ('127.0.0.1', 14053). Number of connections: 1/200
+2026-03-04 06:02:39,011 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14053)
+2026-03-04 06:02:39,017 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14053)
+2026-03-04 06:02:39,017 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14053)
+2026-03-04 06:02:39,018 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14053)
+2026-03-04 06:02:39,045 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14053)
+2026-03-04 06:02:39,046 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14053)
+2026-03-04 06:02:39,046 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14053)
+2026-03-04 06:02:39,047 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14053)
+2026-03-04 06:02:39,069 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14053)
+2026-03-04 06:02:39,069 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14053)
+2026-03-04 06:02:39,070 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14053)
+2026-03-04 06:02:39,094 INFO [start_server.py:750] Accepting 3200 samples from ('127.0.0.1', 14053)
+2026-03-04 06:02:39,094 INFO [start_server.py:750] Accepting 2560 samples from ('127.0.0.1', 14053)
+2026-03-04 06:02:39,095 INFO [start_server.py:745] Received Done from ('127.0.0.1', 14053)
+2026-03-04 06:02:39,118 INFO [start_server.py:718] Disconnected: ('127.0.0.1', 14053). Number of connections: 0/200

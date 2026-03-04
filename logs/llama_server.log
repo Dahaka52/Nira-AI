@@ -18,7 +18,7 @@ common_init_result: fitting params to device memory, for bugs during this step t
 llama_params_fit_impl: projected to use 7526 MiB of device memory vs. 11018 MiB of free device memory
 llama_params_fit_impl: will leave 3491 >= 1024 MiB of free device memory, no changes needed
 llama_params_fit: successfully fit params to free device memory
-llama_params_fit: fitting params to free memory took 0.40 seconds
+llama_params_fit: fitting params to free memory took 0.35 seconds
 llama_model_load_from_file_impl: using device CUDA0 (NVIDIA GeForce RTX 5070) (0000:0a:00.0) - 11018 MiB free
 llama_model_loader: loaded meta data with 53 key-value pairs and 363 tensors from C:\Nirmita\models\Mistral-Nemo-Instruct-2407-absolute-heresy.i1-Q4_K_M.gguf (version GGUF V3 (latest))
 llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
@@ -136,3 +136,57 @@ print_info: LF token              = 1010 'Ċ'
 print_info: EOG token             = 2 '</s>'
 print_info: max token length      = 150
 load_tensors: loading model tensors, this can take a while... (mmap = true, direct_io = false)
+load_tensors: offloading output layer to GPU
+load_tensors: offloading 39 repeating layers to GPU
+load_tensors: offloaded 40/41 layers to GPU
+load_tensors:   CPU_Mapped model buffer size =   525.62 MiB
+load_tensors:        CUDA0 model buffer size =  6597.68 MiB
+..........................................................................................
+common_init_result: added </s> logit bias = -inf
+llama_context: constructing llama_context
+llama_context: n_seq_max     = 4
+llama_context: n_ctx         = 8192
+llama_context: n_ctx_seq     = 8192
+llama_context: n_batch       = 2048
+llama_context: n_ubatch      = 512
+llama_context: causal_attn   = 1
+llama_context: flash_attn    = enabled
+llama_context: kv_unified    = true
+llama_context: freq_base     = 1000000.0
+llama_context: freq_scale    = 1
+llama_context: n_ctx_seq (8192) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+llama_context:  CUDA_Host  output buffer size =     2.00 MiB
+llama_kv_cache:        CPU KV buffer size =    17.00 MiB
+llama_kv_cache:      CUDA0 KV buffer size =   663.00 MiB
+llama_kv_cache: size =  680.00 MiB (  8192 cells,  40 layers,  4/1 seqs), K (q8_0):  340.00 MiB, V (q8_0):  340.00 MiB
+sched_reserve: reserving ...
+sched_reserve:      CUDA0 compute buffer size =   266.00 MiB
+sched_reserve:  CUDA_Host compute buffer size =    36.01 MiB
+sched_reserve: graph nodes  = 1247
+sched_reserve: graph splits = 13 (with bs=512), 2 (with bs=1)
+sched_reserve: reserve took 6.06 ms, sched copies = 1
+common_init_from_params: warming up the model with an empty run - please wait ... (--no-warmup to disable)
+srv    load_model: initializing slots, n_slots = 4
+no implementations specified for speculative decoding
+slot   load_model: id  0 | task -1 | speculative decoding context not initialized
+slot   load_model: id  0 | task -1 | new slot, n_ctx = 8192
+no implementations specified for speculative decoding
+slot   load_model: id  1 | task -1 | speculative decoding context not initialized
+slot   load_model: id  1 | task -1 | new slot, n_ctx = 8192
+no implementations specified for speculative decoding
+slot   load_model: id  2 | task -1 | speculative decoding context not initialized
+slot   load_model: id  2 | task -1 | new slot, n_ctx = 8192
+no implementations specified for speculative decoding
+slot   load_model: id  3 | task -1 | speculative decoding context not initialized
+slot   load_model: id  3 | task -1 | new slot, n_ctx = 8192
+srv    load_model: prompt cache is enabled, size limit: 8192 MiB
+srv    load_model: use `--cache-ram 0` to disable the prompt cache
+srv    load_model: for more info see https://github.com/ggml-org/llama.cpp/pull/16391
+init: chat template, example_format: '[INST]Hello[/INST]Hi there</s>[INST]You are a helpful assistant
+
+How are you?[/INST]'
+srv          init: init: chat template, thinking = 0
+main: model loaded
+main: server is listening on http://127.0.0.1:4252
+main: starting the main loop...
+srv  update_slots: all slots are idle
