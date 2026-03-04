@@ -2,11 +2,10 @@
 
 import argparse
 import asyncio
-import contextlib
-import io
 import logging
 import threading
 import time
+import traceback
 from dataclasses import dataclass
 from typing import Any, Dict, Iterable, Optional
 
@@ -92,6 +91,9 @@ class ServerConfig:
     max_concurrent: int = 1
     instruct_prefix: str = ""
     use_compile: bool = False
+    compile_mode: str = "reduce-overhead"
+    compile_use_cuda_graphs: bool = False
+    compile_codebook_predictor: bool = False
     preload_on_start: bool = True
     warmup_on_start: bool = True
     warmup_text: str = "Привет."
@@ -114,21 +116,14 @@ class Qwen3Runtime:
         self._load_error = None
 
         try:
-            with io.StringIO() as _stdout, io.StringIO() as _stderr:
-                with contextlib.redirect_stdout(_stdout), contextlib.redirect_stderr(_stderr):
-                    import qwen_tts  # noqa: F401
-                captured = (_stdout.getvalue() + _stderr.getvalue()).strip()
-            if captured:
-                lower = captured.lower()
-                if "flash-attn is not installed" in lower:
-                    logging.warning(
-                        "flash-attn is unavailable on this runtime; using attn_implementation=%s",
-                        self.cfg.attn_implementation or "default",
-                    )
-                elif "sox could not be found" in lower:
-                    logging.warning("SoX binary not found in PATH for qwen_tts runtime.")
-                else:
-                    logging.info("qwen_tts import notes: %s", captured.replace("\n", " ")[:400])
+            import importlib.util
+            import qwen_tts  # noqa: F401
+
+            if importlib.util.find_spec("flash_attn") is None:
+                logging.warning(
+                    "flash-attn is unavailable on this runtime; using attn_implementation=%s",
+                    self.cfg.attn_implementation or "default",
+                )
         except Exception as exc:
             self._import_error = exc
             logging.error("Qwen3 runtime unavailable: %s", exc)
@@ -204,6 +199,25 @@ class Qwen3Runtime:
                     torch.set_float32_matmul_precision("high")
                 except Exception:
                     pass
+                try:
+                    torch.backends.cuda.matmul.allow_tf32 = True
+                    torch.backends.cudnn.allow_tf32 = True
+                    torch.backends.cudnn.benchmark = True
+                except Exception:
+                    pass
+
+                compile_mode = str(getattr(self.cfg, "compile_mode", "reduce-overhead") or "reduce-overhead")
+                compile_use_cuda_graphs = bool(getattr(self.cfg, "compile_use_cuda_graphs", False))
+                compile_codebook_predictor = bool(getattr(self.cfg, "compile_codebook_predictor", False))
+
+                # Dynamic-shape cudagraph churn can destabilize long-running sessions on Windows.
+                # Prefer skipping dynamic graph capture unless explicitly requested.
+                if use_compile:
+                    try:
+                        torch._inductor.config.triton.cudagraph_skip_dynamic_graphs = True
+                        torch._inductor.config.triton.cudagraph_dynamic_shape_warn_limit = None
+                    except Exception:
+                        pass
 
                 model = Qwen3TTSModel.from_pretrained(
                     model_id,
@@ -215,14 +229,30 @@ class Qwen3Runtime:
                 if hasattr(model, "enable_streaming_optimizations"):
                     try:
                         if use_compile:
-                            logging.info("Qwen3 runtime: enabling compile-based streaming optimizations.")
+                            logging.info(
+                                "Qwen3 runtime: enabling compile optimizations "
+                                "(mode=%s, cuda_graphs=%s, codebook_predictor=%s).",
+                                compile_mode,
+                                compile_use_cuda_graphs,
+                                compile_codebook_predictor,
+                            )
                         else:
                             logging.info("Qwen3 runtime: compile optimizations are disabled (use_compile=false).")
-                        model.enable_streaming_optimizations(
-                            decode_window_frames=int(decode_window_frames),
-                            use_compile=use_compile,
-                            compile_mode="reduce-overhead",
-                        )
+                        try:
+                            model.enable_streaming_optimizations(
+                                decode_window_frames=int(decode_window_frames),
+                                use_compile=use_compile,
+                                use_cuda_graphs=compile_use_cuda_graphs,
+                                compile_mode=compile_mode,
+                                compile_codebook_predictor=compile_codebook_predictor,
+                            )
+                        except TypeError:
+                            # Fallback for forks that expose shorter signature.
+                            model.enable_streaming_optimizations(
+                                decode_window_frames=int(decode_window_frames),
+                                use_compile=use_compile,
+                                compile_mode=compile_mode,
+                            )
                     except Exception as exc:
                         logging.warning("enable_streaming_optimizations failed: %s", exc)
 
@@ -476,7 +506,11 @@ def build_app(cfg: ServerConfig) -> FastAPI:
                         for pcm_bytes, _sr in runtime.stream_custom_voice(req):
                             loop.call_soon_threadsafe(queue.put_nowait, ("chunk", pcm_bytes))
                     except Exception as exc:
-                        loop.call_soon_threadsafe(queue.put_nowait, ("error", str(exc)))
+                        err = {
+                            "error": repr(exc),
+                            "traceback": traceback.format_exc(),
+                        }
+                        loop.call_soon_threadsafe(queue.put_nowait, ("error", err))
                     finally:
                         loop.call_soon_threadsafe(queue.put_nowait, (sentinel, None))
 
@@ -488,7 +522,17 @@ def build_app(cfg: ServerConfig) -> FastAPI:
                     if tag is sentinel:
                         break
                     if tag == "error":
-                        logging.error("Qwen3 sidecar stream worker failed: %s", payload)
+                        if isinstance(payload, dict):
+                            logging.error("Qwen3 sidecar stream worker failed: %s", payload.get("error"))
+                            tb = str(payload.get("traceback", "") or "").strip()
+                            if tb:
+                                logging.error("Qwen3 sidecar worker traceback:\n%s", tb)
+                            detail = str(payload.get("error", "stream worker failure"))
+                        else:
+                            detail = str(payload or "stream worker failure")
+                            logging.error("Qwen3 sidecar stream worker failed: %s", detail)
+                        if first:
+                            raise RuntimeError(detail)
                         break
                     if first:
                         first = False
@@ -536,6 +580,9 @@ def parse_args() -> ServerConfig:
     parser.add_argument("--max_concurrent", type=int, default=1)
     parser.add_argument("--instruct_prefix", type=str, default="")
     parser.add_argument("--use_compile", type=int, default=0)
+    parser.add_argument("--compile_mode", type=str, default="reduce-overhead")
+    parser.add_argument("--compile_use_cuda_graphs", type=int, default=0)
+    parser.add_argument("--compile_codebook_predictor", type=int, default=0)
     parser.add_argument("--preload_on_start", type=int, default=1)
     parser.add_argument("--warmup_on_start", type=int, default=1)
     parser.add_argument("--warmup_text", type=str, default="Привет.")
@@ -572,6 +619,9 @@ def parse_args() -> ServerConfig:
         max_concurrent=ns.max_concurrent,
         instruct_prefix=ns.instruct_prefix,
         use_compile=bool(int(ns.use_compile)),
+        compile_mode=ns.compile_mode,
+        compile_use_cuda_graphs=bool(int(ns.compile_use_cuda_graphs)),
+        compile_codebook_predictor=bool(int(ns.compile_codebook_predictor)),
         preload_on_start=bool(int(ns.preload_on_start)),
         warmup_on_start=bool(int(ns.warmup_on_start)),
         warmup_text=ns.warmup_text,

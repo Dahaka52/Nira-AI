@@ -156,6 +156,9 @@ class Qwen3TTSProcess(BaseProcess):
             ("warmup_speaker", "--warmup_speaker"),
             ("warmup_language", "--warmup_language"),
             ("warmup_chunks", "--warmup_chunks"),
+            ("compile_mode", "--compile_mode"),
+            ("compile_use_cuda_graphs", "--compile_use_cuda_graphs"),
+            ("compile_codebook_predictor", "--compile_codebook_predictor"),
         ):
             if key in runtime_cfg and runtime_cfg[key] is not None:
                 cmd.extend([arg_name, str(runtime_cfg[key])])

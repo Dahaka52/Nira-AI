@@ -270,6 +270,19 @@ class Qwen3TTS(TTSOperation):
             "repetition_penalty_window",
             "max_concurrent",
             "sox_bin_dir",
+            "use_compile",
+            "compile_mode",
+            "compile_use_cuda_graphs",
+            "compile_codebook_predictor",
+            "preload_on_start",
+            "warmup_on_start",
+            "warmup_text",
+            "warmup_emit_every_frames",
+            "warmup_decode_window_frames",
+            "warmup_max_new_tokens",
+            "warmup_speaker",
+            "warmup_language",
+            "warmup_chunks",
         ):
             # Keep explicit nested process.* as source of truth.
             # Top-level fields are only backward-compatible defaults.
@@ -547,24 +560,57 @@ class Qwen3TTS(TTSOperation):
         }
         url = f"{self.base_url}{self.stream_endpoint}"
         timeout = httpx.Timeout(timeout=self.request_timeout_s, connect=self.connect_timeout_s)
-        async with httpx.AsyncClient(timeout=timeout) as client:
-            async with client.stream("POST", url, json=payload) as response:
-                if response.status_code != 200:
-                    message = (await response.aread()).decode("utf-8", errors="ignore")
-                    raise RuntimeError(f"Qwen3 sidecar stream failed ({response.status_code}): {message}")
-                for_header_sr = response.headers.get("x-sample-rate")
-                if for_header_sr:
-                    try:
-                        self.sample_rate = int(for_header_sr)
-                    except Exception:
-                        pass
+        max_attempts = 2 if (self.process_autostart and self._runner is not None) else 1
+        last_exc: Optional[Exception] = None
+        for attempt in range(1, max_attempts + 1):
+            emitted_chunks = 0
+            try:
+                async with httpx.AsyncClient(timeout=timeout) as client:
+                    async with client.stream("POST", url, json=payload) as response:
+                        if response.status_code != 200:
+                            message = (await response.aread()).decode("utf-8", errors="ignore")
+                            raise RuntimeError(f"Qwen3 sidecar stream failed ({response.status_code}): {message}")
+                        for_header_sr = response.headers.get("x-sample-rate")
+                        if for_header_sr:
+                            try:
+                                self.sample_rate = int(for_header_sr)
+                            except Exception:
+                                pass
 
-                async for raw_chunk in response.aiter_bytes(chunk_size=self.sidecar_read_chunk_bytes):
-                    if raw_chunk:
-                        yield {
-                            "audio_bytes": bytes(raw_chunk),
-                            "sr": int(self.sample_rate),
-                        }
+                        async for raw_chunk in response.aiter_bytes(chunk_size=self.sidecar_read_chunk_bytes):
+                            if raw_chunk:
+                                emitted_chunks += 1
+                                yield {
+                                    "audio_bytes": bytes(raw_chunk),
+                                    "sr": int(self.sample_rate),
+                                }
+
+                if emitted_chunks <= 0:
+                    raise RuntimeError("Qwen3 sidecar returned 200 but produced no audio bytes.")
+                return
+            except Exception as exc:
+                last_exc = exc
+                can_retry = attempt < max_attempts and emitted_chunks == 0
+                if not can_retry:
+                    break
+                logging.warning(
+                    "Qwen3 sidecar request failed before first chunk (attempt %s/%s): %s",
+                    attempt,
+                    max_attempts,
+                    exc,
+                )
+                try:
+                    await self._runner.ensure_healthy()
+                    health = await self._runner.health()
+                    if health.get("port"):
+                        self.base_url = f"http://127.0.0.1:{int(health['port'])}"
+                        url = f"{self.base_url}{self.stream_endpoint}"
+                    await asyncio.sleep(0.2)
+                except Exception as restart_exc:
+                    logging.warning("Qwen3 sidecar auto-recovery failed: %s", restart_exc)
+                    break
+
+        raise RuntimeError(f"Qwen3 sidecar stream failed: {last_exc}")
 
     async def _generate(
         self,
