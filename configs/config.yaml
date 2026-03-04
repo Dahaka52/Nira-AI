@@ -58,7 +58,7 @@ operations:
   - role: filter_text
     id: chunker_sentence
     mode: "sentence"             # sentence | full
-    max_chars: 80                # Доп. разрез слишком длинных предложений для стабильного realtime TTS
+    max_chars: 140               # Менее агрессивный разрез: меньше шансов рваных длинных фраз
 
   # TTS (Qwen3) - активен через tts_active_id: "qwen3".
   # Для отключения поставь tts_active_id: null
@@ -88,13 +88,13 @@ operations:
     emit_every_frames: 4
     decode_window_frames: 32
     overlap_samples: 0
-    max_frames: 56
-    max_text_chars: 90
+    max_frames: 128
+    max_text_chars: 220
     dynamic_max_frames: false
     dynamic_chars_per_second: 11.5
     dynamic_frame_budget_mul: 1.05
     dynamic_min_frames: 20
-    dynamic_max_frames_cap: 56
+    dynamic_max_frames_cap: 128
     use_optimized_decode: true
     do_sample: false
     top_p: 0.9
@@ -112,7 +112,7 @@ operations:
       runtime_flavor: "dffdeeq"
       qwen_tts_repo_path: "C:\\Nirmita\\apps\\dffdeeq_Qwen3-TTS-streaming-main"
       voice_mode: "voice_clone"
-      ref_audio_path: "C:\\Nirmita\\kuklina-1.wav"
+      ref_audio_path: "C:\\Nirmita\\Nira_voice.wav"
       ref_text: ""
       x_vector_only_mode: 1
       python_executable: "C:\\Nirmita\\apps\\tts-qwen3-server\\.venv312\\Scripts\\python.exe"
@@ -127,7 +127,7 @@ operations:
       emit_every_frames: 4
       decode_window_frames: 32
       overlap_samples: 0
-      max_frames: 56
+      max_frames: 128
       use_optimized_decode: 1
       do_sample: 0
       top_p: 0.9
@@ -137,7 +137,7 @@ operations:
       dynamic_chars_per_second: 11.5
       dynamic_frame_budget_mul: 1.05
       dynamic_min_frames: 20
-      dynamic_max_frames_cap: 56
+      dynamic_max_frames_cap: 128
       sox_bin_dir: "C:\\Nirmita\\apps\\tts-qwen3-server\\third_party\\sox\\sox-14.4.2-win32\\sox-14.4.2"
       model_id: "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
       max_concurrent: 1
