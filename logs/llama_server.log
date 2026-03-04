@@ -190,3 +190,67 @@ main: model loaded
 main: server is listening on http://127.0.0.1:4649
 main: starting the main loop...
 srv  update_slots: all slots are idle
+srv  params_from_: Chat format: Content-only
+slot get_availabl: id  3 | task -1 | selected slot by LRU, t_last = -1
+slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  3 | task 0 | processing task, is_child = 0
+slot update_slots: id  3 | task 0 | new prompt, n_ctx_slot = 4096, n_keep = 0, task.n_tokens = 298
+slot update_slots: id  3 | task 0 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  3 | task 0 | prompt processing progress, n_tokens = 298, batch.n_tokens = 298, progress = 1.000000
+slot update_slots: id  3 | task 0 | prompt done, n_tokens = 298, batch.n_tokens = 298
+slot init_sampler: id  3 | task 0 | init sampler, took 0.04 ms, tokens: text = 298, total = 298
+slot print_timing: id  3 | task 0 | 
+prompt eval time =     157.66 ms /   298 tokens (    0.53 ms per token,  1890.19 tokens per second)
+       eval time =     128.95 ms /     7 tokens (   18.42 ms per token,    54.28 tokens per second)
+      total time =     286.61 ms /   305 tokens
+slot      release: id  3 | task 0 | stop processing: n_tokens = 304, truncated = 0
+srv  update_slots: all slots are idle
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+srv  params_from_: Chat format: Content-only
+slot get_availabl: id  2 | task -1 | selected slot by LRU, t_last = -1
+slot launch_slot_: id  2 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  2 | task 8 | processing task, is_child = 0
+slot update_slots: id  2 | task 8 | new prompt, n_ctx_slot = 4096, n_keep = 0, task.n_tokens = 313
+slot update_slots: id  2 | task 8 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  2 | task 8 | prompt processing progress, n_tokens = 313, batch.n_tokens = 313, progress = 1.000000
+slot update_slots: id  2 | task 8 | prompt done, n_tokens = 313, batch.n_tokens = 313
+slot init_sampler: id  2 | task 8 | init sampler, took 0.03 ms, tokens: text = 313, total = 313
+slot print_timing: id  2 | task 8 | 
+prompt eval time =     131.04 ms /   313 tokens (    0.42 ms per token,  2388.55 tokens per second)
+       eval time =     242.86 ms /    13 tokens (   18.68 ms per token,    53.53 tokens per second)
+      total time =     373.90 ms /   326 tokens
+slot      release: id  2 | task 8 | stop processing: n_tokens = 325, truncated = 0
+srv  update_slots: all slots are idle
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+srv  params_from_: Chat format: Content-only
+slot get_availabl: id  1 | task -1 | selected slot by LRU, t_last = -1
+slot launch_slot_: id  1 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  1 | task 22 | processing task, is_child = 0
+slot update_slots: id  1 | task 22 | new prompt, n_ctx_slot = 4096, n_keep = 0, task.n_tokens = 333
+slot update_slots: id  1 | task 22 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  1 | task 22 | prompt processing progress, n_tokens = 333, batch.n_tokens = 333, progress = 1.000000
+slot update_slots: id  1 | task 22 | prompt done, n_tokens = 333, batch.n_tokens = 333
+slot init_sampler: id  1 | task 22 | init sampler, took 0.04 ms, tokens: text = 333, total = 333
+slot print_timing: id  1 | task 22 | 
+prompt eval time =     308.09 ms /   333 tokens (    0.93 ms per token,  1080.84 tokens per second)
+       eval time =     283.05 ms /    15 tokens (   18.87 ms per token,    52.99 tokens per second)
+      total time =     591.14 ms /   348 tokens
+slot      release: id  1 | task 22 | stop processing: n_tokens = 347, truncated = 0
+srv  update_slots: all slots are idle
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+srv  params_from_: Chat format: Content-only
+slot get_availabl: id  0 | task -1 | selected slot by LRU, t_last = -1
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 38 | processing task, is_child = 0
+slot update_slots: id  0 | task 38 | new prompt, n_ctx_slot = 4096, n_keep = 0, task.n_tokens = 356
+slot update_slots: id  0 | task 38 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 38 | prompt processing progress, n_tokens = 356, batch.n_tokens = 356, progress = 1.000000
+slot update_slots: id  0 | task 38 | prompt done, n_tokens = 356, batch.n_tokens = 356
+slot init_sampler: id  0 | task 38 | init sampler, took 0.05 ms, tokens: text = 356, total = 356
+slot print_timing: id  0 | task 38 | 
+prompt eval time =     146.51 ms /   356 tokens (    0.41 ms per token,  2429.93 tokens per second)
+       eval time =     858.58 ms /    46 tokens (   18.66 ms per token,    53.58 tokens per second)
+      total time =    1005.08 ms /   402 tokens
+slot      release: id  0 | task 38 | stop processing: n_tokens = 401, truncated = 0
+srv  update_slots: all slots are idle
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
