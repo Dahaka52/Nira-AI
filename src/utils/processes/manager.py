@@ -17,6 +17,7 @@ class ProcessType(Enum):
     LLAMACPP = "llamacpp"
     SHERPA = "sherpa_stt"
     HW_MIC = "hw_mic"
+    HW_AUDIO_OUT = "hw_audio_out"
     QWEN3_TTS = "qwen3_tts"
 
 class ProcessManager(metaclass=Singleton):
@@ -50,6 +51,12 @@ class ProcessManager(metaclass=Singleton):
                 if process_config is not None:
                     self.loaded_processes[ProcessType.HW_MIC].set_runtime_config(process_config)
                 await self.loaded_processes[ProcessType.HW_MIC].reload()
+            case ProcessType.HW_AUDIO_OUT:
+                from .processes.hw_audio_out import HwAudioOutProcess
+                self.loaded_processes[ProcessType.HW_AUDIO_OUT] = HwAudioOutProcess()
+                if process_config is not None:
+                    self.loaded_processes[ProcessType.HW_AUDIO_OUT].set_runtime_config(process_config)
+                await self.loaded_processes[ProcessType.HW_AUDIO_OUT].reload()
             case ProcessType.QWEN3_TTS:
                 from .processes.qwen3_tts_server import Qwen3TTSProcess
                 self.loaded_processes[ProcessType.QWEN3_TTS] = Qwen3TTSProcess()

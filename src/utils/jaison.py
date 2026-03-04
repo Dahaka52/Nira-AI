@@ -134,6 +134,11 @@ class JAIson(metaclass=Singleton):
             await self.process_manager.link("core_hw_mic", ProcessType.HW_MIC)
         except Exception as e:
             logging.error(f"Could not start HW_MIC process: {e}")
+        # Start audio output if enabled
+        try:
+            await self.process_manager.link("core_hw_audio_out", ProcessType.HW_AUDIO_OUT)
+        except Exception as e:
+            logging.error(f"Could not start HW_AUDIO_OUT process: {e}")
 
         logging.info("JAIson application layer has started.")
         
@@ -146,6 +151,15 @@ class JAIson(metaclass=Singleton):
         self._immediate_audio_active = 0
         await self.op_manager.close_operation_all()
         await self.mcp_manager.close()
+        from utils.processes.manager import ProcessType
+        for link_id, process_type in (
+            ("core_hw_mic", ProcessType.HW_MIC),
+            ("core_hw_audio_out", ProcessType.HW_AUDIO_OUT),
+        ):
+            try:
+                await self.process_manager.unlink(link_id, process_type)
+            except Exception:
+                pass
         await self.process_manager.unload()
         logging.info("JAIson application layer has been shut down")
 

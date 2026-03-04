@@ -142,6 +142,22 @@ microphone:
   respond_to_short_emotes: true
   short_emote_words: ["ха-ха", "хаха", "ахах", "ахаха", "хм", "гм", "лол", "ржу"]
 
+# Realtime TTS audio output routing (UI does not play audio).
+# Output is sent to selected Windows playback device, e.g. VB-Cable/Voicemeeter Input.
+audio_output:
+  enabled: true
+  ws_url: "ws://127.0.0.1:7272/"
+  device_name: "CABLE Input"
+  device_hostapi: "WASAPI"
+  device_index: null
+  sample_rate: 24000
+  channels: 1
+  blocksize: 256
+  max_buffer_ms: 700
+  clear_on_stop: true
+  output_gain_db: 0.0
+  reconnect_delay_ms: 1200
+
 # Prompter settings
 prompter:
   instruction_prompt_filename: 'instruction.md'

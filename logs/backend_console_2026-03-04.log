@@ -872,3 +872,231 @@
 [1m[1;34m[2026-03-04 02:47:49,888][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 54.19190000247909 ms[0m
 [1m[1;34m[2026-03-04 02:47:49,888][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 54.371799997170456 ms[0m
 [1m[1;34m[2026-03-04 02:47:49,889][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::952 response_pipeline]:[0m Response job b53f5aba-c43e-4e85-a622-68d5aa5bae96 completed. Content: 'Альфред был одним из самых могущественных магов своего времени, его имя гремело на весь мир. Он влад...'[0m
+[1m[1;34m[2026-03-04 04:59:42,565][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::110 start]:[0m Starting JAIson application layer.[0m
+[1m[1;34m[2026-03-04 04:59:42,583][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::332 load_operations_from_config]:[0m Active STT from config: sherpa_ru[0m
+[1m[1;34m[2026-03-04 04:59:42,583][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::334 load_operations_from_config]:[0m Active TTS from config: qwen3[0m
+[1m[1;34m[2026-03-04 04:59:44,280][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting STT operation sherpa_ru[0m
+[1m[1;34m[2026-03-04 04:59:44,280][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type sherpa_stt[0m
+[1m[1;34m[2026-03-04 04:59:44,281][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process sherpa_stt when it is already unloaded[0m
+[1m[1;34m[2026-03-04 04:59:44,283][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::85 _prepare_hotwords_file]:[0m Sherpa STT hotwords validated: 3 entries[0m
+[1m[1;34m[2026-03-04 04:59:44,283][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::295 reload]:[0m Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5[0m
+[1m[1;34m[2026-03-04 04:59:44,283][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::307 reload]:[0m Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5[0m
+[1m[1;34m[2026-03-04 04:59:48,605][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting T2T operation llamacpp[0m
+[1m[1;34m[2026-03-04 04:59:48,605][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type llamacpp[0m
+[1m[1;34m[2026-03-04 04:59:48,609][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::81 reload]:[0m Opened Llama.cpp server (PID: 31456) on port 10636 (GPU: 0)[0m
+[1m[1;34m[2026-03-04 04:59:48,609][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::89 reload]:[0m Waiting for llama-server to be ready at http://127.0.0.1:10636/health ...[0m
+[1m[1;34m[2026-03-04 04:59:52,773][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::101 reload]:[0m llama-server is ready! (attempt 8, port 10636)[0m
+[1m[1;34m[2026-03-04 04:59:52,774][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting FILTER_TEXT operation filter_clean[0m
+[1m[1;34m[2026-03-04 04:59:53,388][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting FILTER_TEXT operation chunker_sentence[0m
+[1m[1;34m[2026-03-04 04:59:53,858][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting TTS operation qwen3[0m
+[1m[1;34m[2026-03-04 04:59:53,858][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type qwen3_tts[0m
+[1m[1;34m[2026-03-04 04:59:53,860][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::166 reload]:[0m Qwen3 TTS SoX bin detected: C:\Nirmita\apps\tts-qwen3-server\third_party\sox\sox-14.4.2-win32\sox-14.4.2[0m
+[1m[1;34m[2026-03-04 04:59:53,860][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::170 reload]:[0m Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 1 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice --speaker serena --language russian --dtype bfloat16 --attn_implementation sdpa --sample_rate 24000 --sample_width 2 --channels 1 --emit_every_frames 12 --decode_window_frames 80 --first_chunk_emit_every 5 --first_chunk_decode_window 48 --first_chunk_frames 48 --max_concurrent 1[0m
+[1m[1;34m[2026-03-04 04:59:53,860][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::171 reload]:[0m Qwen3 TTS GPU pin: provider=cuda gpu_id=1 device=cuda:0 CUDA_VISIBLE_DEVICES=1[0m
+[1m[1;34m[2026-03-04 05:00:00,969][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::199 reload]:[0m Qwen3 TTS sidecar is ready at http://127.0.0.1:6116/health[0m
+[1m[1;34m[2026-03-04 05:00:01,290][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type hw_mic[0m
+[1m[1;34m[2026-03-04 05:00:01,291][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process hw_mic when it is already unloaded[0m
+[ProcessManager] Starting Hardware Microphone (hw-mic-client)...
+[1m[1;34m[2026-03-04 05:00:01,296][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type hw_audio_out[0m
+[1m[1;34m[2026-03-04 05:00:01,298][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process hw_audio_out when it is already unloaded[0m
+[ProcessManager] Starting Hardware Audio Output (hw-audio-out-client)...
+[1m[1;34m[2026-03-04 05:00:01,303][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::143 start]:[0m JAIson application layer has started.[0m
+[1m[1;34m[2026-03-04 05:00:01,303][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[logging.py::106 info]:[0m Running on http://127.0.0.1:7272 (CTRL + C to quit)[0m
+[AUDIO_OUT] Selected by name: [52] CABLE Input (VB-Audio Virtual Cable) (Windows WASAPI)
+[AUDIO_OUT] WARNING: sample_rate 24000 not accepted by device. Falling back to 48000.
+[AUDIO_OUT] Listening WS=ws://127.0.0.1:7272/ and streaming to CABLE Input (VB-Audio Virtual Cable) (ID: 52, hostapi: Windows WASAPI, sr=48000)
+========================================================
+[1m[1;34m[2026-03-04 05:00:01,943][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 05:00:01 +0200] [1956] [INFO] 127.0.0.1:1440 GET / 1.1 101 - 1010
+[AUDIO_OUT] WebSocket connected.
+[INFO] Loading Silero VAD ONNX Session (CPU)...
+[MIC] Selected by name: [67] Микрофон (2- fifine Microphone) (Windows WASAPI)
+[INFO] SoundDevice Listening on: Микрофон (2- fifine Microphone) (ID: 67, hostapi: Windows WASAPI)
+========================================================
+
+[1m[1;34m[2026-03-04 05:00:04,058][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 05:00:04 +0200] [1956] [INFO] 127.0.0.1:14291 GET / 1.1 101 - 1006
+[2026-03-04 05:00:58 +0200] [1956] [INFO] 127.0.0.1:10628 POST /api/context/conversation/speech_start 1.1 200 71 504
+[VAD] Голос! (Prob: 0.001, RMS: 0.0158) Завершена (2912ms, speech: 2176ms).
+[2026-03-04 05:00:59 +0200] [1956] [INFO] 127.0.0.1:10628 POST /api/context/conversation/audio 1.1 200 142 15248
+
+[API] Фраза отправлена (93184 байт).
+[1m[1;34m[2026-03-04 05:00:59,773][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=4 latency_ms=110 source=mic turn=ab2ff216-1e35-475f-a0b1-a76f87900bd5 utterance=a15339d8-2415-4cc8-a35b-a5f88556dddb[0m
+[1m[1;34m[2026-03-04 05:01:00,026][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new context_conversation_add_text job 7c6373a1-a479-478d-b29d-2c84033e67a2[0m
+[1m[1;34m[2026-03-04 05:01:00,026][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new response job fc1c39a0-206b-4c9a-84e8-23688b50f472[0m
+[AUDIO_OUT] WS disconnected: 'list' object has no attribute 'get'. Reconnect in 1.2s.
+[1m[1;34m[2026-03-04 05:01:00,039][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::86 ws]:[0m Closed websocket connection[0m
+[1m[1;34m[2026-03-04 05:01:00,350][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 321.8619999970542 ms[0m
+[1m[1;34m[2026-03-04 05:01:01,240][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 05:01:01 +0200] [1956] [INFO] 127.0.0.1:10646 GET / 1.1 101 - 1512
+[AUDIO_OUT] WebSocket connected.
+[VAD] Голос! (Prob: 0.001, RMS: 0.0097) Завершена (864ms, speech: 128ms).
+[1m[1;34m[2026-03-04 05:01:06,453][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::86 ws]:[0m Closed websocket connection[0m
+[2026-03-04 05:01:06 +0200] [1956] [INFO] 127.0.0.1:11709 GET /api/config 1.1 200 4565 1006
+[2026-03-04 05:01:07 +0200] [1956] [INFO] 127.0.0.1:11711 GET /api/config 1.1 200 4565 507
+[2026-03-04 05:01:07 +0200] [1956] [INFO] 127.0.0.1:11713 GET /api/context/history 1.1 200 153 505
+[2026-03-04 05:01:07 +0200] [1956] [INFO] 127.0.0.1:14118 GET /api/context/history 1.1 200 153 505
+[2026-03-04 05:01:07 +0200] [1956] [INFO] 127.0.0.1:14119 POST /api/context/conversation/audio 1.1 200 142 2006
+
+[API] Фраза отправлена (27648 байт).
+[1m[1;34m[2026-03-04 05:01:07,152][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=37 source=mic turn=841dbf8f-64a4-4aa3-8242-86fb80787d64 utterance=fdaa4f7e-91ce-4af7-a440-a3044b8e0714[0m
+[1m[1;34m[2026-03-04 05:01:07,254][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 05:01:07 +0200] [1956] [INFO] 127.0.0.1:7569 GET / 1.1 101 - 505
+
+[2026-03-04 05:01:09 +0200] [1956] [INFO] 127.0.0.1:14119 POST /api/context/conversation/speech_start 1.1 200 71 506
+[VAD] Голос! (Prob: 0.001, RMS: 0.0406) Завершена (3136ms, speech: 2016ms).
+[2026-03-04 05:01:12 +0200] [1956] [INFO] 127.0.0.1:14119 POST /api/context/conversation/audio 1.1 200 142 2605
+
+[API] Фраза отправлена (100352 байт).
+[1m[1;34m[2026-03-04 05:01:12,671][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=29 latency_ms=147 source=mic turn=28039a14-1c99-4c27-90af-dff137e15da2 utterance=5ade9697-1cc4-4f3d-9140-4f67d7e14723[0m
+[1m[1;34m[2026-03-04 05:01:12,672][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::483 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-03-04 05:01:12,672][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::477 _clear_current_job]:[0m Job fc1c39a0-206b-4c9a-84e8-23688b50f472 (response) is being cancelled due to: user_speaking_significant[0m
+[1m[1;34m[2026-03-04 05:01:12,673][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::757 _process_job_loop]:[0m Job fc1c39a0-206b-4c9a-84e8-23688b50f472 (response) was cancelled.[0m
+[AUDIO_OUT] WS disconnected: 'list' object has no attribute 'get'. Reconnect in 1.2s.
+[1m[1;34m[2026-03-04 05:01:12,674][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::86 ws]:[0m Closed websocket connection[0m
+[1m[1;34m[2026-03-04 05:01:12,923][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new context_conversation_add_text job 752a65bd-d06b-481a-a08b-2dcd5844838f[0m
+[1m[1;34m[2026-03-04 05:01:12,924][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new response job ceccf43b-030b-4f0f-ab7a-b6ad1dc16ff1[0m
+[1m[1;34m[2026-03-04 05:01:13,351][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 426.04579999897396 ms[0m
+[1m[1;34m[2026-03-04 05:01:13,877][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 05:01:13 +0200] [1956] [INFO] 127.0.0.1:7588 GET / 1.1 101 - 1514
+[AUDIO_OUT] WebSocket connected.
+[VAD] Голос! (Prob: 0.001, RMS: 0.0078) Завершена (864ms, speech: 128ms).
+[2026-03-04 05:01:27 +0200] [1956] [INFO] 127.0.0.1:7602 POST /api/context/conversation/audio 1.1 200 142 1564
+
+[API] Фраза отправлена (27648 байт).
+[1m[1;34m[2026-03-04 05:01:27,256][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=40 source=mic turn=17f6713b-4d8b-40cb-bc72-33ae6b816f5c utterance=0e2ea35a-2503-45ec-a946-6db7a998c4c2[0m
+[1m[1;34m[2026-03-04 05:01:33,548][0m [1m[1;30m[41m[ERROR][0m [1m[1;33m[jaison.py::763 _process_job_loop]:[0m Job ceccf43b-030b-4f0f-ab7a-b6ad1dc16ff1 failed with error: peer closed connection without sending complete message body (incomplete chunked read)[0m
+Traceback (most recent call last):
+  File "C:\Nirmita\.conda\lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "C:\Nirmita\.conda\lib\site-packages\httpx\_transports\default.py", line 271, in __aiter__
+    async for part in self._httpcore_stream:
+  File "C:\Nirmita\.conda\lib\site-packages\httpcore\_async\connection_pool.py", line 407, in __aiter__
+    raise exc from None
+  File "C:\Nirmita\.conda\lib\site-packages\httpcore\_async\connection_pool.py", line 403, in __aiter__
+    async for part in self._stream:
+  File "C:\Nirmita\.conda\lib\site-packages\httpcore\_async\http11.py", line 342, in __aiter__
+    raise exc
+  File "C:\Nirmita\.conda\lib\site-packages\httpcore\_async\http11.py", line 334, in __aiter__
+    async for chunk in self._connection._receive_response_body(**kwargs):
+  File "C:\Nirmita\.conda\lib\site-packages\httpcore\_async\http11.py", line 203, in _receive_response_body
+    event = await self._receive_event(timeout=timeout)
+  File "C:\Nirmita\.conda\lib\site-packages\httpcore\_async\http11.py", line 213, in _receive_event
+    with map_exceptions({h11.RemoteProtocolError: RemoteProtocolError}):
+  File "C:\Nirmita\.conda\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "C:\Nirmita\.conda\lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.RemoteProtocolError: peer closed connection without sending complete message body (incomplete chunked read)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Nirmita\src\utils\jaison.py", line 745, in _process_job_loop
+    await self.job_current
+  File "C:\Nirmita\src\utils\jaison.py", line 931, in response_pipeline
+    async for audio_chunk_out in self.op_manager.use_operation(OpRoles.TTS, text_chunk_out):
+  File "C:\Nirmita\src\utils\operations\base\operation.py", line 21, in __call__
+    async for chunk_out in self._generate(**kwargs):
+  File "C:\Nirmita\src\utils\operations\tts\qwen3.py", line 552, in _generate
+    async for out in stream_iter(clean_text, instruct):
+  File "C:\Nirmita\src\utils\operations\tts\qwen3.py", line 525, in _stream_sidecar_bytes
+    async for raw_chunk in response.aiter_bytes(chunk_size=self.sidecar_read_chunk_bytes):
+  File "C:\Nirmita\.conda\lib\site-packages\httpx\_models.py", line 997, in aiter_bytes
+    async for raw_bytes in self.aiter_raw():
+  File "C:\Nirmita\.conda\lib\site-packages\httpx\_models.py", line 1055, in aiter_raw
+    async for raw_stream_bytes in self.stream:
+  File "C:\Nirmita\.conda\lib\site-packages\httpx\_client.py", line 176, in __aiter__
+    async for chunk in self._stream:
+  File "C:\Nirmita\.conda\lib\site-packages\httpx\_transports\default.py", line 270, in __aiter__
+    with map_httpcore_exceptions():
+  File "C:\Nirmita\.conda\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "C:\Nirmita\.conda\lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.RemoteProtocolError: peer closed connection without sending complete message body (incomplete chunked read)
+[1m[1;34m[2026-03-04 05:01:33,552][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::86 ws]:[0m Closed websocket connection[0m
+[AUDIO_OUT] WS disconnected: 'list' object has no attribute 'get'. Reconnect in 1.2s.
+[1m[1;34m[2026-03-04 05:01:34,753][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 05:01:34 +0200] [1956] [INFO] 127.0.0.1:7604 GET / 1.1 101 - 1003
+[AUDIO_OUT] WebSocket connected.
+[2026-03-04 05:01:48 +0200] [1956] [INFO] 127.0.0.1:7606 POST /api/context/conversation/speech_start 1.1 200 71 1003
+[VAD] Голос! (Prob: 0.001, RMS: 0.1354) Завершена (2592ms, speech: 1856ms).
+[2026-03-04 05:01:49 +0200] [1956] [INFO] 127.0.0.1:7606 POST /api/context/conversation/audio 1.1 200 142 3627
+
+[API] Фраза отправлена (82944 байт).
+[1m[1;34m[2026-03-04 05:01:49,636][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=32 latency_ms=94 source=mic turn=134bfbea-fe9e-4cd7-8df7-504660ffe5e3 utterance=4af4bc7a-011e-4ea4-b0db-3f4fb4a0b6ad[0m
+[1m[1;34m[2026-03-04 05:01:49,637][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::483 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-03-04 05:01:49,638][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::86 ws]:[0m Closed websocket connection[0m
+[AUDIO_OUT] WS disconnected: 'list' object has no attribute 'get'. Reconnect in 1.2s.
+[1m[1;34m[2026-03-04 05:01:49,892][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new context_conversation_add_text job e94af071-a585-42ea-8b0f-622350c62eaf[0m
+[1m[1;34m[2026-03-04 05:01:49,892][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new response job b7e3a03e-ac08-468d-83c9-b0052e1d764b[0m
+[1m[1;34m[2026-03-04 05:01:50,840][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 05:01:50 +0200] [1956] [INFO] 127.0.0.1:7609 GET / 1.1 101 - 1028
+[AUDIO_OUT] WebSocket connected.
+[1m[1;34m[2026-03-04 05:01:50,856][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::86 ws]:[0m Closed websocket connection[0m
+[AUDIO_OUT] WS disconnected: 'list' object has no attribute 'get'. Reconnect in 1.2s.
+[1m[1;34m[2026-03-04 05:01:52,058][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 05:01:52 +0200] [1956] [INFO] 127.0.0.1:7610 GET / 1.1 101 - 0
+[AUDIO_OUT] WebSocket connected.
+[1m[1;34m[2026-03-04 05:01:52,062][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::86 ws]:[0m Closed websocket connection[0m
+[AUDIO_OUT] WS disconnected: 'list' object has no attribute 'get'. Reconnect in 1.2s.
+[1m[1;34m[2026-03-04 05:01:53,264][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 05:01:53 +0200] [1956] [INFO] 127.0.0.1:7611 GET / 1.1 101 - 504
+[AUDIO_OUT] WebSocket connected.
+[1m[1;34m[2026-03-04 05:01:53,268][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::86 ws]:[0m Closed websocket connection[0m
+[AUDIO_OUT] WS disconnected: 'list' object has no attribute 'get'. Reconnect in 1.2s.
+[1m[1;34m[2026-03-04 05:01:53,375][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 3481.192100000044 ms[0m
+[1m[1;34m[2026-03-04 05:01:53,432][0m [1m[1;30m[41m[ERROR][0m [1m[1;33m[jaison.py::763 _process_job_loop]:[0m Job b7e3a03e-ac08-468d-83c9-b0052e1d764b failed with error: peer closed connection without sending complete message body (incomplete chunked read)[0m
+Traceback (most recent call last):
+  File "C:\Nirmita\.conda\lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "C:\Nirmita\.conda\lib\site-packages\httpx\_transports\default.py", line 271, in __aiter__
+    async for part in self._httpcore_stream:
+  File "C:\Nirmita\.conda\lib\site-packages\httpcore\_async\connection_pool.py", line 407, in __aiter__
+    raise exc from None
+  File "C:\Nirmita\.conda\lib\site-packages\httpcore\_async\connection_pool.py", line 403, in __aiter__
+    async for part in self._stream:
+  File "C:\Nirmita\.conda\lib\site-packages\httpcore\_async\http11.py", line 342, in __aiter__
+    raise exc
+  File "C:\Nirmita\.conda\lib\site-packages\httpcore\_async\http11.py", line 334, in __aiter__
+    async for chunk in self._connection._receive_response_body(**kwargs):
+  File "C:\Nirmita\.conda\lib\site-packages\httpcore\_async\http11.py", line 203, in _receive_response_body
+    event = await self._receive_event(timeout=timeout)
+  File "C:\Nirmita\.conda\lib\site-packages\httpcore\_async\http11.py", line 213, in _receive_event
+    with map_exceptions({h11.RemoteProtocolError: RemoteProtocolError}):
+  File "C:\Nirmita\.conda\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "C:\Nirmita\.conda\lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.RemoteProtocolError: peer closed connection without sending complete message body (incomplete chunked read)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Nirmita\src\utils\jaison.py", line 745, in _process_job_loop
+    await self.job_current
+  File "C:\Nirmita\src\utils\jaison.py", line 931, in response_pipeline
+    async for audio_chunk_out in self.op_manager.use_operation(OpRoles.TTS, text_chunk_out):
+  File "C:\Nirmita\src\utils\operations\base\operation.py", line 21, in __call__
+    async for chunk_out in self._generate(**kwargs):
+  File "C:\Nirmita\src\utils\operations\tts\qwen3.py", line 552, in _generate
+    async for out in stream_iter(clean_text, instruct):
+  File "C:\Nirmita\src\utils\operations\tts\qwen3.py", line 525, in _stream_sidecar_bytes
+    async for raw_chunk in response.aiter_bytes(chunk_size=self.sidecar_read_chunk_bytes):
+  File "C:\Nirmita\.conda\lib\site-packages\httpx\_models.py", line 997, in aiter_bytes
+    async for raw_bytes in self.aiter_raw():
+  File "C:\Nirmita\.conda\lib\site-packages\httpx\_models.py", line 1055, in aiter_raw
+    async for raw_stream_bytes in self.stream:
+  File "C:\Nirmita\.conda\lib\site-packages\httpx\_client.py", line 176, in __aiter__
+    async for chunk in self._stream:
+  File "C:\Nirmita\.conda\lib\site-packages\httpx\_transports\default.py", line 270, in __aiter__
+    with map_httpcore_exceptions():
+  File "C:\Nirmita\.conda\lib\contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "C:\Nirmita\.conda\lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.RemoteProtocolError: peer closed connection without sending complete message body (incomplete chunked read)
+[1m[1;34m[2026-03-04 05:01:54,469][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 05:01:54 +0200] [1956] [INFO] 127.0.0.1:7613 GET / 1.1 101 - 1004
+[AUDIO_OUT] WebSocket connected.
