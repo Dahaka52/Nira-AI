@@ -162,6 +162,11 @@ venv.bak/
 **/install.sh
 **/pip-log.txt
 
+# Local TTS sidecar artifacts (do not commit local binaries)
+apps/tts-qwen3-server/third_party/sox/
+apps/tts-qwen3-server/third_party/**/*.zip
+apps/tts-qwen3-server/third_party/**/*.7z
+
 # Spyder project settings
 .spyderproject
 .spyproject

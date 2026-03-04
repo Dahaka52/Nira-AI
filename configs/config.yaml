@@ -70,13 +70,15 @@ operations:
     sample_rate: 24000
     sample_width: 2
     channels: 1
-    language: "Auto"
-    speaker: "Ryan"
+    language: "russian"
+    speaker: "serena"              # serena|vivian|uncle_fu|ryan|aiden|ono_anna|sohee|eric|dylan
+    instruct_prefix: "Весёлый задорный голос, энергичный тон"          # Глобальный стиль голоса (например: "Спокойный мягкий голос, дружелюбный тон.")
     provider: "cuda"             # cpu | cuda
     gpu_id: 1                    # По умолчанию RTX 5060
     model_id: "Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice"
     device: "cuda:1"             # Локальный режим: конкретный GPU. Для sidecar учитывается process.device
     dtype: "bfloat16"
+    attn_implementation: "sdpa"  # flash-attn wheel для Win+Py310 недоступен, используем лучший стабильный backend
     emit_every_frames: 12
     decode_window_frames: 80
     first_chunk_emit_every: 5
@@ -93,6 +95,8 @@ operations:
       gpu_id: 1                  # CUDA_VISIBLE_DEVICES для sidecar
       python_executable: "C:\\Nirmita\\apps\\tts-qwen3-server\\.venv\\Scripts\\python.exe"
       device: "cuda:0"           # внутри sidecar после pin по CUDA_VISIBLE_DEVICES
+      attn_implementation: "sdpa"
+      sox_bin_dir: "C:\\Nirmita\\apps\\tts-qwen3-server\\third_party\\sox\\sox-14.4.2-win32\\sox-14.4.2"
       model_id: "Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice"
       max_concurrent: 1
 

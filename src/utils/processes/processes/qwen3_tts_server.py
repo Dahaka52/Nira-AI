@@ -3,6 +3,7 @@ import logging
 import os
 import socket
 import subprocess
+import glob
 from subprocess import DEVNULL
 
 import httpx
@@ -37,6 +38,36 @@ class Qwen3TTSProcess(BaseProcess):
         port = int(sock.getsockname()[1])
         sock.close()
         return port
+
+    def _resolve_sox_bin_dir(self, runtime_cfg: dict) -> str:
+        explicit = str(runtime_cfg.get("sox_bin_dir", "") or "").strip()
+        if explicit and os.path.isfile(os.path.join(explicit, "sox.exe")):
+            return explicit
+
+        env_hint = str(os.getenv("QWEN3_SOX_BIN_DIR", "") or "").strip()
+        if env_hint and os.path.isfile(os.path.join(env_hint, "sox.exe")):
+            return env_hint
+
+        repo_default = os.path.abspath(
+            os.path.join(
+                os.path.dirname(__file__),
+                "../../../../apps/tts-qwen3-server/third_party/sox/sox-14.4.2-win32/sox-14.4.2",
+            )
+        )
+        if os.path.isfile(os.path.join(repo_default, "sox.exe")):
+            return repo_default
+
+        wildcard = os.path.abspath(
+            os.path.join(
+                os.path.dirname(__file__),
+                "../../../../apps/tts-qwen3-server/third_party/sox/**/sox.exe",
+            )
+        )
+        matches = glob.glob(wildcard, recursive=True)
+        if matches:
+            return os.path.dirname(matches[0])
+
+        return ""
 
     async def reload(self):
         if self.process is not None:
@@ -100,6 +131,7 @@ class Qwen3TTSProcess(BaseProcess):
             ("speaker", "--speaker"),
             ("language", "--language"),
             ("dtype", "--dtype"),
+            ("attn_implementation", "--attn_implementation"),
             ("sample_rate", "--sample_rate"),
             ("sample_width", "--sample_width"),
             ("channels", "--channels"),
@@ -127,6 +159,13 @@ class Qwen3TTSProcess(BaseProcess):
             env["CUDA_VISIBLE_DEVICES"] = str(gpu_id)
         else:
             env.pop("CUDA_VISIBLE_DEVICES", None)
+
+        sox_bin_dir = self._resolve_sox_bin_dir(runtime_cfg)
+        if sox_bin_dir:
+            env["PATH"] = f"{sox_bin_dir}{os.pathsep}{env.get('PATH', '')}"
+            logging.info("Qwen3 TTS SoX bin detected: %s", sox_bin_dir)
+        else:
+            logging.warning("Qwen3 TTS SoX bin not found. Install sox.exe or set process.sox_bin_dir.")
 
         logging.info("Starting Qwen3 TTS Server with command: %s", " ".join(cmd))
         logging.info(

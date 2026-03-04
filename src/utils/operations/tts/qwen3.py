@@ -72,6 +72,7 @@ class Qwen3TTS(TTSOperation):
         self.gpu_id = 1
         self.device = "cuda:1"
         self.dtype = "bfloat16"
+        self.attn_implementation = "sdpa"
         self.max_new_tokens = 1024
 
         # Streaming tuning (fork-dependent; silently downgraded if unsupported)
@@ -189,6 +190,8 @@ class Qwen3TTS(TTSOperation):
                 self.device = f"cuda:{self.gpu_id}"
         if "dtype" in config_d:
             self.dtype = str(config_d["dtype"])
+        if "attn_implementation" in config_d:
+            self.attn_implementation = str(config_d["attn_implementation"]).strip()
         if "max_new_tokens" in config_d:
             self.max_new_tokens = int(config_d["max_new_tokens"])
 
@@ -237,6 +240,7 @@ class Qwen3TTS(TTSOperation):
             "gpu_id",
             "device",
             "dtype",
+            "attn_implementation",
             "sample_rate",
             "sample_width",
             "channels",
@@ -249,6 +253,7 @@ class Qwen3TTS(TTSOperation):
             "repetition_penalty",
             "repetition_penalty_window",
             "max_concurrent",
+            "sox_bin_dir",
         ):
             # Keep explicit nested process.* as source of truth.
             # Top-level fields are only backward-compatible defaults.
@@ -297,6 +302,7 @@ class Qwen3TTS(TTSOperation):
             "gpu_id": self.gpu_id,
             "device": self.device,
             "dtype": self.dtype,
+            "attn_implementation": self.attn_implementation,
             "max_new_tokens": self.max_new_tokens,
             "emit_every_frames": self.emit_every_frames,
             "decode_window_frames": self.decode_window_frames,
@@ -355,6 +361,7 @@ class Qwen3TTS(TTSOperation):
                 self.model_id,
                 torch_dtype=dtype,
                 device_map=self.device,
+                attn_implementation=(self.attn_implementation or None),
             )
 
             # Optimization hooks are optional across forks.
@@ -488,6 +495,7 @@ class Qwen3TTS(TTSOperation):
             "model_id": self.model_id,
             "device": req_device,
             "dtype": self.dtype,
+            "attn_implementation": self.attn_implementation,
             "max_new_tokens": self.max_new_tokens,
             "emit_every_frames": self.emit_every_frames,
             "decode_window_frames": self.decode_window_frames,

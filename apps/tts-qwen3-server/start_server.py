@@ -2,6 +2,8 @@
 
 import argparse
 import asyncio
+import contextlib
+import io
 import logging
 import threading
 import time
@@ -43,6 +45,7 @@ class TTSRequest(BaseModel):
     model_id: Optional[str] = None
     device: Optional[str] = None
     dtype: Optional[str] = None
+    attn_implementation: Optional[str] = None
     sample_rate: Optional[int] = None
     sample_width: Optional[int] = None
     channels: Optional[int] = None
@@ -67,6 +70,7 @@ class ServerConfig:
     gpu_id: int = 1
     device: str = "cuda:0"
     dtype: str = "bfloat16"
+    attn_implementation: str = "sdpa"
     sample_rate: int = 24000
     sample_width: int = 2
     channels: int = 1
@@ -87,12 +91,27 @@ class Qwen3Runtime:
         self.cfg = cfg
         self._model = None
         self._model_id_loaded = None
+        self._attn_impl_loaded = None
         self._lock = threading.Lock()
         self._import_error = None
         self._load_error = None
 
         try:
-            import qwen_tts  # noqa: F401
+            with io.StringIO() as _stdout, io.StringIO() as _stderr:
+                with contextlib.redirect_stdout(_stdout), contextlib.redirect_stderr(_stderr):
+                    import qwen_tts  # noqa: F401
+                captured = (_stdout.getvalue() + _stderr.getvalue()).strip()
+            if captured:
+                lower = captured.lower()
+                if "flash-attn is not installed" in lower:
+                    logging.warning(
+                        "flash-attn is unavailable on this runtime; using attn_implementation=%s",
+                        self.cfg.attn_implementation or "default",
+                    )
+                elif "sox could not be found" in lower:
+                    logging.warning("SoX binary not found in PATH for qwen_tts runtime.")
+                else:
+                    logging.info("qwen_tts import notes: %s", captured.replace("\n", " ")[:400])
         except Exception as exc:
             self._import_error = exc
             logging.error("Qwen3 runtime unavailable: %s", exc)
@@ -110,6 +129,7 @@ class Qwen3Runtime:
             "runtime_provider": self.cfg.provider,
             "runtime_gpu_id": self.cfg.gpu_id,
             "runtime_device": self.cfg.device,
+            "runtime_attn_implementation": self.cfg.attn_implementation,
         }
         if self._import_error is not None:
             payload["detail"] = f"qwen_tts import failed: {self._import_error}"
@@ -125,12 +145,23 @@ class Qwen3Runtime:
             return torch_mod.float32
         return torch_mod.bfloat16
 
-    def _ensure_model_loaded(self, model_id: str, device: str, dtype: str, decode_window_frames: int) -> None:
+    def _ensure_model_loaded(
+        self,
+        model_id: str,
+        device: str,
+        dtype: str,
+        decode_window_frames: int,
+        attn_implementation: str | None,
+    ) -> None:
         if self._import_error is not None:
             raise RuntimeError(f"qwen_tts import failed: {self._import_error}")
 
         with self._lock:
-            if self._model is not None and self._model_id_loaded == model_id:
+            if (
+                self._model is not None
+                and self._model_id_loaded == model_id
+                and self._attn_impl_loaded == (attn_implementation or None)
+            ):
                 return
 
             try:
@@ -142,6 +173,7 @@ class Qwen3Runtime:
                     model_id,
                     torch_dtype=torch_dtype,
                     device_map=device,
+                    attn_implementation=(attn_implementation or None),
                 )
 
                 if hasattr(model, "enable_streaming_optimizations"):
@@ -156,12 +188,14 @@ class Qwen3Runtime:
 
                 self._model = model
                 self._model_id_loaded = model_id
+                self._attn_impl_loaded = attn_implementation or None
                 self._load_error = None
-                logging.info("Qwen3 model loaded: %s", model_id)
+                logging.info("Qwen3 model loaded: %s (attn=%s)", model_id, self._attn_impl_loaded or "default")
             except Exception as exc:
                 self._load_error = exc
                 self._model = None
                 self._model_id_loaded = None
+                self._attn_impl_loaded = None
                 raise
 
     def stream_custom_voice(self, req: TTSRequest) -> Iterable[tuple[bytes, int]]:
@@ -177,6 +211,7 @@ class Qwen3Runtime:
             else:
                 device = cfg.device or f"cuda:{gpu_id}"
         dtype = req.dtype or cfg.dtype
+        attn_implementation = req.attn_implementation or cfg.attn_implementation
         decode_window_frames = int(req.decode_window_frames or cfg.decode_window_frames)
         emit_every_frames = int(req.emit_every_frames or cfg.emit_every_frames)
         first_chunk_emit_every = int(req.first_chunk_emit_every or cfg.first_chunk_emit_every)
@@ -196,6 +231,7 @@ class Qwen3Runtime:
             device=device,
             dtype=dtype,
             decode_window_frames=decode_window_frames,
+            attn_implementation=attn_implementation,
         )
 
         stream_kwargs = {
@@ -314,6 +350,7 @@ def parse_args() -> ServerConfig:
     parser.add_argument("--gpu_id", type=int, default=1, help="GPU id for CUDA mode")
     parser.add_argument("--device", type=str, default="cuda:0")
     parser.add_argument("--dtype", type=str, default="bfloat16")
+    parser.add_argument("--attn_implementation", type=str, default="sdpa", help="eager|sdpa|flash_attention_2")
     parser.add_argument("--sample_rate", type=int, default=24000)
     parser.add_argument("--sample_width", type=int, default=2)
     parser.add_argument("--channels", type=int, default=1)
@@ -338,6 +375,7 @@ def parse_args() -> ServerConfig:
         gpu_id=ns.gpu_id,
         device=ns.device,
         dtype=ns.dtype,
+        attn_implementation=ns.attn_implementation,
         sample_rate=ns.sample_rate,
         sample_width=ns.sample_width,
         channels=ns.channels,
