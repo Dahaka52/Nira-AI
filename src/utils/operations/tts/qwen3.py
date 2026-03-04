@@ -1,4 +1,5 @@
 import asyncio
+import audioop
 import logging
 import re
 import threading
@@ -105,6 +106,8 @@ class Qwen3TTS(TTSOperation):
         self.dynamic_frame_budget_mul = 1.55
         self.dynamic_min_frames = 48
         self.dynamic_max_frames_cap = 220
+        self.dynamic_token_floor = 48
+        self.dynamic_token_span = 32
 
         # Streaming tuning (fork-dependent; silently downgraded if unsupported)
         self.emit_every_frames = 12
@@ -116,6 +119,10 @@ class Qwen3TTS(TTSOperation):
         self.use_optimized_decode = True
         self.repetition_penalty = 1.0
         self.repetition_penalty_window = 100
+        # Optional guard: cut noisy/silent tail in voice_clone streams.
+        self.voice_clone_tail_silence_trim_ms = 0
+        self.voice_clone_tail_silence_rms = 0.0025
+        self.voice_clone_tail_trim_min_audio_ms = 900
 
         # Emotion handling
         self.instruct_prefix = ""
@@ -257,6 +264,10 @@ class Qwen3TTS(TTSOperation):
             self.dynamic_min_frames = int(config_d["dynamic_min_frames"])
         if "dynamic_max_frames_cap" in config_d:
             self.dynamic_max_frames_cap = int(config_d["dynamic_max_frames_cap"])
+        if "dynamic_token_floor" in config_d:
+            self.dynamic_token_floor = int(config_d["dynamic_token_floor"])
+        if "dynamic_token_span" in config_d:
+            self.dynamic_token_span = int(config_d["dynamic_token_span"])
 
         if "emit_every_frames" in config_d:
             self.emit_every_frames = int(config_d["emit_every_frames"])
@@ -276,6 +287,12 @@ class Qwen3TTS(TTSOperation):
             self.repetition_penalty = float(config_d["repetition_penalty"])
         if "repetition_penalty_window" in config_d:
             self.repetition_penalty_window = int(config_d["repetition_penalty_window"])
+        if "voice_clone_tail_silence_trim_ms" in config_d:
+            self.voice_clone_tail_silence_trim_ms = int(config_d["voice_clone_tail_silence_trim_ms"])
+        if "voice_clone_tail_silence_rms" in config_d:
+            self.voice_clone_tail_silence_rms = float(config_d["voice_clone_tail_silence_rms"])
+        if "voice_clone_tail_trim_min_audio_ms" in config_d:
+            self.voice_clone_tail_trim_min_audio_ms = int(config_d["voice_clone_tail_trim_min_audio_ms"])
 
         if "instruct_prefix" in config_d:
             self.instruct_prefix = str(config_d["instruct_prefix"]).strip()
@@ -383,6 +400,11 @@ class Qwen3TTS(TTSOperation):
         assert self.dynamic_frame_budget_mul > 0
         assert self.dynamic_min_frames > 0
         assert self.dynamic_max_frames_cap >= self.dynamic_min_frames
+        assert self.dynamic_token_floor > 0
+        assert self.dynamic_token_span >= 0
+        assert self.voice_clone_tail_silence_trim_ms >= 0
+        assert self.voice_clone_tail_silence_rms >= 0.0
+        assert self.voice_clone_tail_trim_min_audio_ms >= 0
         assert self.process_startup_retries > 0
         assert self.process_startup_backoff_s > 0
 
@@ -422,6 +444,8 @@ class Qwen3TTS(TTSOperation):
             "dynamic_frame_budget_mul": self.dynamic_frame_budget_mul,
             "dynamic_min_frames": self.dynamic_min_frames,
             "dynamic_max_frames_cap": self.dynamic_max_frames_cap,
+            "dynamic_token_floor": self.dynamic_token_floor,
+            "dynamic_token_span": self.dynamic_token_span,
             "emit_every_frames": self.emit_every_frames,
             "decode_window_frames": self.decode_window_frames,
             "first_chunk_emit_every": self.first_chunk_emit_every,
@@ -431,6 +455,9 @@ class Qwen3TTS(TTSOperation):
             "use_optimized_decode": self.use_optimized_decode,
             "repetition_penalty": self.repetition_penalty,
             "repetition_penalty_window": self.repetition_penalty_window,
+            "voice_clone_tail_silence_trim_ms": self.voice_clone_tail_silence_trim_ms,
+            "voice_clone_tail_silence_rms": self.voice_clone_tail_silence_rms,
+            "voice_clone_tail_trim_min_audio_ms": self.voice_clone_tail_trim_min_audio_ms,
             "instruct_prefix": self.instruct_prefix,
             "emotion_map": self.emotion_map,
             "local_preload": self.local_preload,
@@ -542,11 +569,7 @@ class Qwen3TTS(TTSOperation):
         return max(1, est_frames)
 
     def _build_stream_kwargs(self, content: str, instruct: str) -> Dict[str, Any]:
-        effective_max_frames = min(int(self.max_frames), int(self._estimate_max_frames(content)))
-        effective_max_new_tokens = int(self.max_new_tokens)
-        if self.dynamic_max_frames:
-            token_cap = max(96, min(256, int(effective_max_frames + 64)))
-            effective_max_new_tokens = min(effective_max_new_tokens, token_cap)
+        effective_max_frames, effective_max_new_tokens = self._effective_limits(content)
         kwargs = {
             "text": content,
             "language": self.language,
@@ -572,6 +595,17 @@ class Qwen3TTS(TTSOperation):
             kwargs["first_chunk_decode_window"] = self.first_chunk_decode_window
             kwargs["first_chunk_frames"] = self.first_chunk_frames
         return kwargs
+
+    def _effective_limits(self, content: str) -> tuple[int, int]:
+        effective_max_frames = min(int(self.max_frames), int(self._estimate_max_frames(content)))
+        effective_max_new_tokens = int(self.max_new_tokens)
+        if self.dynamic_max_frames:
+            token_cap = max(
+                int(self.dynamic_token_floor),
+                min(192, int(effective_max_frames + int(self.dynamic_token_span))),
+            )
+            effective_max_new_tokens = min(effective_max_new_tokens, token_cap)
+        return max(1, int(effective_max_frames)), max(1, int(effective_max_new_tokens))
 
     async def _stream_local_bytes(self, content: str, instruct: str):
         await self._ensure_local_model_loaded()
@@ -625,11 +659,8 @@ class Qwen3TTS(TTSOperation):
             yield item
 
     async def _stream_sidecar_bytes(self, content: str, instruct: str):
-        effective_max_frames = min(int(self.max_frames), int(self._estimate_max_frames(content)))
-        effective_max_new_tokens = int(self.max_new_tokens)
-        if self.dynamic_max_frames:
-            token_cap = max(96, min(256, int(effective_max_frames + 64)))
-            effective_max_new_tokens = min(effective_max_new_tokens, token_cap)
+        effective_max_frames, effective_max_new_tokens = self._effective_limits(content)
+        is_voice_clone = self.voice_mode in ("voice_clone", "clone", "voice-clone")
 
         req_device = self.device
         if self.provider.startswith("cpu"):
@@ -674,7 +705,7 @@ class Qwen3TTS(TTSOperation):
             "ref_text": self.ref_text,
             "x_vector_only_mode": bool(self.x_vector_only_mode),
         }
-        if self.voice_mode in ("voice_clone", "clone", "voice-clone"):
+        if is_voice_clone:
             logging.info(
                 "Qwen3 voice-clone limits: text_len=%s max_frames=%s max_new_tokens=%s",
                 len(content),
@@ -683,7 +714,7 @@ class Qwen3TTS(TTSOperation):
             )
         url = f"{self.base_url}{self.stream_endpoint}"
         timeout = httpx.Timeout(timeout=self.request_timeout_s, connect=self.connect_timeout_s)
-        max_attempts = 2 if (self.process_autostart and self._runner is not None) else 1
+        max_attempts = 3 if (self.process_autostart and self._runner is not None) else 1
         last_exc: Optional[Exception] = None
         for attempt in range(1, max_attempts + 1):
             emitted_chunks = 0
@@ -693,6 +724,9 @@ class Qwen3TTS(TTSOperation):
             last_chunk_at: Optional[float] = None
             max_gap_ms = 0.0
             trailing = b""
+            tail_silence_ms = 0.0
+            tail_trimmed = False
+            bytes_per_second = float(max(1, int(self.sample_rate) * int(self.sample_width) * int(self.channels)))
             try:
                 async with httpx.AsyncClient(timeout=timeout) as client:
                     async with client.stream("POST", url, json=payload) as response:
@@ -726,6 +760,34 @@ class Qwen3TTS(TTSOperation):
                                 else:
                                     first_chunk_ms = int((now - started_at) * 1000)
                                 last_chunk_at = now
+
+                                if is_voice_clone and int(self.voice_clone_tail_silence_trim_ms) > 0:
+                                    try:
+                                        rms_v = float(audioop.rms(raw_chunk, int(self.sample_width))) / 32768.0
+                                    except Exception:
+                                        rms_v = 1.0
+                                    chunk_ms = (float(len(raw_chunk)) / bytes_per_second) * 1000.0
+                                    if rms_v <= float(self.voice_clone_tail_silence_rms):
+                                        tail_silence_ms += chunk_ms
+                                    else:
+                                        tail_silence_ms = 0.0
+                                    min_audio_bytes = (
+                                        bytes_per_second * float(max(0, int(self.voice_clone_tail_trim_min_audio_ms))) / 1000.0
+                                    )
+                                    if (
+                                        tail_silence_ms >= float(self.voice_clone_tail_silence_trim_ms)
+                                        and float(emitted_bytes) >= min_audio_bytes
+                                    ):
+                                        tail_trimmed = True
+                                        logging.info(
+                                            "Qwen3 voice-clone tail trim: silent_ms=%.0f rms<=%.4f bytes=%s text_len=%s",
+                                            tail_silence_ms,
+                                            float(self.voice_clone_tail_silence_rms),
+                                            emitted_bytes,
+                                            len(content),
+                                        )
+                                        break
+
                                 emitted_chunks += 1
                                 emitted_bytes += len(raw_chunk)
                                 yield {
@@ -742,7 +804,7 @@ class Qwen3TTS(TTSOperation):
                 total_s = float(total_ms) / 1000.0
                 rtf = (total_s / audio_s) if audio_s > 0 else -1.0
                 logging.info(
-                    "Qwen3 stream stats: chunks=%s bytes=%s first_chunk_ms=%s max_gap_ms=%.1f total_ms=%s audio_s=%.3f rtf=%.3f text_len=%s",
+                    "Qwen3 stream stats: chunks=%s bytes=%s first_chunk_ms=%s max_gap_ms=%.1f total_ms=%s audio_s=%.3f rtf=%.3f text_len=%s tail_trimmed=%s",
                     emitted_chunks,
                     emitted_bytes,
                     (first_chunk_ms if first_chunk_ms is not None else -1),
@@ -751,6 +813,7 @@ class Qwen3TTS(TTSOperation):
                     audio_s,
                     rtf,
                     len(content),
+                    int(bool(tail_trimmed)),
                 )
                 return
             except Exception as exc:
@@ -770,7 +833,7 @@ class Qwen3TTS(TTSOperation):
                     if health.get("port"):
                         self.base_url = f"http://127.0.0.1:{int(health['port'])}"
                         url = f"{self.base_url}{self.stream_endpoint}"
-                    await asyncio.sleep(0.2)
+                    await asyncio.sleep(min(1.2, 0.35 * float(attempt)))
                 except Exception as restart_exc:
                     logging.warning("Qwen3 sidecar auto-recovery failed: %s", restart_exc)
                     break

@@ -201,6 +201,24 @@ class PCM16OutputPlayer:
                             if self._need_rebuffer_since > 0.0
                             else 0.0
                         )
+                        stall_flush_ms = max(1200.0, float(self.rebuffer_max_wait_ms) * 3.0)
+                        if len(self._buffer) > 0 and waited_ms >= stall_flush_ms:
+                            # Hard-stall guard: if stream-end signal was missed, do not keep
+                            # tiny residual tails in rebuffer forever.
+                            tail = bytes(self._buffer)
+                            self._buffer.clear()
+                            self._need_rebuffer = False
+                            self._need_rebuffer_since = 0.0
+                            if len(tail) < requested:
+                                tail = tail + (b"\x00" * (requested - len(tail)))
+                            else:
+                                tail = tail[:requested]
+                            print(
+                                f"[AUDIO_OUT] Rebuffer stall guard flushed tail: "
+                                f"{len(tail)} bytes after {int(waited_ms)}ms wait"
+                            )
+                            outdata[:] = tail
+                            return
                         if self.rebuffer_max_wait_ms > 0 and waited_ms >= self.rebuffer_max_wait_ms:
                             dynamic_resume_bytes = max(
                                 int(self.rebuffer_bytes * 0.35),
@@ -247,12 +265,27 @@ class PCM16OutputPlayer:
                         chunk = bytes(self._buffer[:requested])
                         del self._buffer[:requested]
                     elif len(self._buffer) > 0:
-                        # Do not flush tiny tail + zeros (it produces audible "puk"/chirps).
-                        # Keep buffered tail and resume only when rebuffer target is reached.
-                        chunk = b"\x00" * requested
-                        self._need_rebuffer = True
-                        if self._need_rebuffer_since <= 0.0:
-                            self._need_rebuffer_since = time.time()
+                        # If tail is almost a full callback block, play it once padded.
+                        # This avoids sticky near-full tails like 1022/1024 bytes that can
+                        # otherwise keep the player in repeated rebuffer state.
+                        if len(self._buffer) >= int(requested * 0.75):
+                            tail = bytes(self._buffer)
+                            self._buffer.clear()
+                            if len(tail) < requested:
+                                tail = tail + (b"\x00" * (requested - len(tail)))
+                            else:
+                                tail = tail[:requested]
+                            chunk = tail
+                            self._need_rebuffer = True
+                            if self._need_rebuffer_since <= 0.0:
+                                self._need_rebuffer_since = time.time()
+                        else:
+                            # Do not flush tiny tail + zeros (it produces audible clicks).
+                            # Keep buffered tail and resume only when rebuffer target is reached.
+                            chunk = b"\x00" * requested
+                            self._need_rebuffer = True
+                            if self._need_rebuffer_since <= 0.0:
+                                self._need_rebuffer_since = time.time()
                     else:
                         chunk = b"\x00" * requested
                         self._need_rebuffer = True

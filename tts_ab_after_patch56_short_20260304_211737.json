@@ -1,0 +1,27 @@
+[
+  {
+    "case_id": "current_profile",
+    "ok": true,
+    "error": "",
+    "ttfb_ms": 660.9537499971339,
+    "max_gap_ms": 412.61675000714604,
+    "total_ms": 4950.061099996674,
+    "audio_s": 3.837125,
+    "rtf": 1.2900442649110138,
+    "bytes_total": 184182,
+    "sample_rate": 24000,
+    "emit_every_frames": 4,
+    "decode_window_frames": 32,
+    "first_chunk_emit_every": 1,
+    "first_chunk_decode_window": 16,
+    "first_chunk_frames": 16,
+    "max_new_tokens": 112,
+    "max_frames": 56,
+    "overlap_samples": 0,
+    "use_optimized_decode": true,
+    "do_sample": false,
+    "temperature": 0.8,
+    "top_p": 0.9,
+    "top_k": 50
+  }
+]

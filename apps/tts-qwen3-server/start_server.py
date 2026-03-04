@@ -205,6 +205,10 @@ class Qwen3Runtime:
             "cudagraph",
             "triton",
             "compile",
+            "graph capture",
+            "outside graph capture",
+            "cudaerrorstreamcaptureinvalidated",
+            "overwritten by a subsequent run",
             "_is_key_in_tls",
             "assertionerror",
         )
@@ -278,6 +282,21 @@ class Qwen3Runtime:
                 compile_use_cuda_graphs = bool(getattr(self.cfg, "compile_use_cuda_graphs", False))
                 compile_codebook_predictor = bool(getattr(self.cfg, "compile_codebook_predictor", False))
                 compile_talker = bool(getattr(self.cfg, "compile_talker", True))
+
+                # CUDAGraph capture without torch.compile is unstable in this stack and can
+                # produce "Offset increment outside graph capture" under streaming load.
+                if not use_compile:
+                    compile_use_cuda_graphs = False
+                    compile_codebook_predictor = False
+                    compile_talker = False
+
+                # Voice-clone path is highly dynamic; cudagraph capture is error-prone there.
+                if use_compile and cfg_voice_mode == "voice_clone" and compile_use_cuda_graphs:
+                    logging.info(
+                        "Qwen3 runtime: disabling compile_use_cuda_graphs for voice_clone mode "
+                        "(stability guard)."
+                    )
+                    compile_use_cuda_graphs = False
 
                 # Dynamic-shape cudagraph churn can destabilize long-running sessions on Windows.
                 # Prefer skipping dynamic graph capture unless explicitly requested.
@@ -637,10 +656,10 @@ class Qwen3Runtime:
                             temperature=float(stream_kwargs.get("temperature", 0.8)),
                         )
                         if not wavs:
-                            return
+                            raise RuntimeError("generate_voice_clone() produced no wav outputs.")
                         pcm_all = _to_pcm16_bytes(wavs[0])
                         if not pcm_all:
-                            return
+                            raise RuntimeError("generate_voice_clone() produced empty PCM output.")
                         sr_i = int(sr)
                         chunk_ms = 40
                         chunk_samples = max(1, int(sr_i * (chunk_ms / 1000.0)))
@@ -683,11 +702,11 @@ class Qwen3Runtime:
                         )
                         wavs, sr = gen_fn(**gen_kwargs)
                         if not wavs:
-                            return
+                            raise RuntimeError("generate_custom_voice() produced no wav outputs.")
 
                         pcm_all = _to_pcm16_bytes(wavs[0])
                         if not pcm_all:
-                            return
+                            raise RuntimeError("generate_custom_voice() produced empty PCM output.")
 
                         sr_i = int(sr)
                         chunk_ms = 40
@@ -717,25 +736,29 @@ class Qwen3Runtime:
                             stream_kwargs.pop(key, None)
                     iterator = stream_fn(**stream_kwargs)
 
+                emitted_any = False
                 for chunk, sr in iterator:
                     pcm = _to_pcm16_bytes(chunk)
                     if pcm:
+                        emitted_any = True
                         yield pcm, int(sr)
+                if not emitted_any:
+                    raise RuntimeError("Streaming generator returned zero audio chunks.")
                 return
             except Exception as exc:
-                can_retry_non_compile = (
-                    attempt == 1
-                    and not self._compile_runtime_disabled
-                    and self._looks_like_compile_failure(exc)
-                )
+                can_retry_non_compile = attempt == 1 and self._looks_like_compile_failure(exc)
                 if not can_retry_non_compile:
                     raise
 
                 logging.warning(
-                    "Qwen3 compile path failed (%s). Disabling compile for runtime and retrying once.",
+                    "Qwen3 compile/runtime path failed (%s). Disabling compile/cudagraphs and retrying once.",
                     repr(exc),
                 )
                 self._compile_runtime_disabled = True
+                try:
+                    self.cfg.compile_use_cuda_graphs = False
+                except Exception:
+                    pass
                 self._reset_loaded_model()
                 self._ensure_model_loaded(
                     model_id=model_id,
@@ -779,6 +802,7 @@ def build_app(cfg: ServerConfig) -> FastAPI:
                 started = time.perf_counter()
                 first_chunk_timeout_s = max(3.0, float(cfg.first_chunk_timeout_s))
                 stream_idle_timeout_s = max(3.0, float(cfg.stream_idle_timeout_s))
+                first_chunk_deadline = time.perf_counter() + max(30.0, first_chunk_timeout_s * 3.0)
 
                 def worker():
                     try:
@@ -802,9 +826,17 @@ def build_app(cfg: ServerConfig) -> FastAPI:
                         tag, payload = await asyncio.wait_for(queue.get(), timeout=timeout_s)
                     except asyncio.TimeoutError:
                         if first:
+                            now = time.perf_counter()
+                            if now < first_chunk_deadline:
+                                logging.warning(
+                                    "Qwen3 sidecar waiting for first chunk: >%ss (continuing).",
+                                    timeout_s,
+                                )
+                                continue
                             logging.error(
-                                "Qwen3 sidecar stream timeout before first chunk (>%ss).",
-                                timeout_s,
+                                "Qwen3 sidecar stream hard-timeout before first chunk "
+                                "(>%ss, deadline reached).",
+                                int(max(30.0, first_chunk_timeout_s * 3.0)),
                             )
                             return
                         logging.warning("Qwen3 sidecar stream idle timeout (>%ss). Closing stream.", timeout_s)

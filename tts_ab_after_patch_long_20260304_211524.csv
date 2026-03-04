@@ -1,0 +1,2 @@
+case_id,ok,error,ttfb_ms,max_gap_ms,total_ms,audio_s,rtf,bytes_total,sample_rate,emit_every_frames,decode_window_frames,first_chunk_emit_every,first_chunk_decode_window,first_chunk_frames,max_new_tokens,max_frames,overlap_samples,use_optimized_decode,do_sample,temperature,top_p,top_k
+current_profile,True,,685.0122499963618,414.4392000089283,3481.507299999066,2.557125,1.3614928093069623,122742,24000,4,32,1,16,16,112,32,0,True,False,0.8,0.9,50

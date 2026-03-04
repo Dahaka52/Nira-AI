@@ -1,0 +1,27 @@
+[
+  {
+    "case_id": "current_profile",
+    "ok": false,
+    "error": "HTTPConnectionPool(host='127.0.0.1', port=6116): Max retries exceeded with url: /v1/tts/stream (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001AF70BDCA00>: Failed to establish a new connection: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение'))",
+    "ttfb_ms": -1.0,
+    "max_gap_ms": -1.0,
+    "total_ms": -1.0,
+    "audio_s": -1.0,
+    "rtf": -1.0,
+    "bytes_total": 0,
+    "sample_rate": 0,
+    "emit_every_frames": 4,
+    "decode_window_frames": 32,
+    "first_chunk_emit_every": 1,
+    "first_chunk_decode_window": 16,
+    "first_chunk_frames": 16,
+    "max_new_tokens": 112,
+    "max_frames": 56,
+    "overlap_samples": 0,
+    "use_optimized_decode": true,
+    "do_sample": false,
+    "temperature": 0.8,
+    "top_p": 0.9,
+    "top_k": 50
+  }
+]

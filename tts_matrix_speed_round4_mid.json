@@ -1,0 +1,6 @@
+[
+  {"case_id":"mf24_e4_d32_f1_16_16_opt1","emit_every_frames":4,"decode_window_frames":32,"first_chunk_emit_every":1,"first_chunk_decode_window":16,"first_chunk_frames":16,"max_new_tokens":96,"max_frames":24,"overlap_samples":0,"use_optimized_decode":true,"do_sample":false,"temperature":0.8,"top_p":0.9,"top_k":50},
+  {"case_id":"mf32_e4_d32_f1_16_16_opt1","emit_every_frames":4,"decode_window_frames":32,"first_chunk_emit_every":1,"first_chunk_decode_window":16,"first_chunk_frames":16,"max_new_tokens":96,"max_frames":32,"overlap_samples":0,"use_optimized_decode":true,"do_sample":false,"temperature":0.8,"top_p":0.9,"top_k":50},
+  {"case_id":"mf40_e4_d48_f1_24_24_opt1","emit_every_frames":4,"decode_window_frames":48,"first_chunk_emit_every":1,"first_chunk_decode_window":24,"first_chunk_frames":24,"max_new_tokens":112,"max_frames":40,"overlap_samples":0,"use_optimized_decode":true,"do_sample":false,"temperature":0.8,"top_p":0.9,"top_k":50},
+  {"case_id":"mf48_e4_d48_f1_24_24_opt1","emit_every_frames":4,"decode_window_frames":48,"first_chunk_emit_every":1,"first_chunk_decode_window":24,"first_chunk_frames":24,"max_new_tokens":112,"max_frames":48,"overlap_samples":0,"use_optimized_decode":true,"do_sample":false,"temperature":0.8,"top_p":0.9,"top_k":50}
+]

@@ -2562,3 +2562,474 @@ RuntimeError: Qwen3 sidecar stream failed: Qwen3 sidecar returned 200 but produc
 [2026-03-04 19:07:16,509] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation chunker_sentence completed in 26180.590700008906 ms
 [2026-03-04 19:07:16,509] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 26180.68889999995 ms
 [2026-03-04 19:07:16,509] [INFO ] [jaison.py::964 response_pipeline]: Response job 92e0cbc7-eaeb-4875-b2d2-930e3c36d212 completed. Content: 'Привет! Как дела? Какой у тебя любимый компьютерный персонаж?...'
+[2026-03-04 19:43:03,090] [INFO ] [jaison.py::109 start]: Starting JAIson application layer.
+[2026-03-04 19:43:03,112] [INFO ] [manager.py::332 load_operations_from_config]: Active STT from config: sherpa_ru
+[2026-03-04 19:43:03,113] [INFO ] [manager.py::334 load_operations_from_config]: Active TTS from config: qwen3
+[2026-03-04 19:43:04,812] [INFO ] [operation.py::32 start]: Starting STT operation sherpa_ru
+[2026-03-04 19:43:04,813] [INFO ] [manager.py::28 load]: Loading process by type sherpa_stt
+[2026-03-04 19:43:04,814] [WARNI] [base.py::46 unload]: Attempted to unload process sherpa_stt when it is already unloaded
+[2026-03-04 19:43:04,815] [INFO ] [sherpa_server.py::85 _prepare_hotwords_file]: Sherpa STT hotwords validated: 3 entries
+[2026-03-04 19:43:04,815] [INFO ] [sherpa_server.py::295 reload]: Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5
+[2026-03-04 19:43:04,816] [INFO ] [sherpa_server.py::307 reload]: Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5
+[2026-03-04 19:43:09,142] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-03-04 19:43:09,142] [INFO ] [manager.py::28 load]: Loading process by type llamacpp
+[2026-03-04 19:43:09,147] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 32124) on port 6314 (GPU: 0)
+[2026-03-04 19:43:09,147] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:6314/health ...
+[2026-03-04 19:43:13,332] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 6314)
+[2026-03-04 19:43:13,335] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-03-04 19:43:14,021] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation chunker_sentence
+[2026-03-04 19:43:14,517] [INFO ] [operation.py::32 start]: Starting TTS operation qwen3
+[2026-03-04 19:43:14,518] [INFO ] [manager.py::28 load]: Loading process by type qwen3_tts
+[2026-03-04 19:43:14,519] [INFO ] [qwen3_tts_server.py::199 reload]: Qwen3 TTS SoX bin detected: C:\Nirmita\apps\tts-qwen3-server\third_party\sox\sox-14.4.2-win32\sox-14.4.2
+[2026-03-04 19:43:14,520] [INFO ] [qwen3_tts_server.py::203 reload]: Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv312\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 0 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-Base --speaker serena --language russian --dtype bfloat16 --attn_implementation flash_attention_2 --use_compile 0 --sample_rate 24000 --sample_width 2 --channels 1 --voice_mode voice_clone --ref_audio_path C:\Nirmita\Nira_voice.wav --ref_text  --x_vector_only_mode 1 --preload_voice_clone_prompt 1 --emit_every_frames 4 --decode_window_frames 48 --first_chunk_emit_every 1 --first_chunk_decode_window 24 --first_chunk_frames 24 --overlap_samples 0 --max_new_tokens 112 --max_frames 80 --use_optimized_decode 1 --max_concurrent 1 --preload_on_start 1 --warmup_on_start 0 --warmup_text Привет. --warmup_emit_every_frames 4 --warmup_decode_window_frames 48 --warmup_max_new_tokens 96 --warmup_chunks 2 --first_chunk_timeout_s 18 --stream_idle_timeout_s 20 --compile_mode reduce-overhead --compile_use_cuda_graphs 0 --compile_codebook_predictor 0 --compile_talker 0 --allow_compile_voice_clone 0
+[2026-03-04 19:43:14,520] [INFO ] [qwen3_tts_server.py::204 reload]: Qwen3 TTS GPU pin: provider=cuda gpu_id=0 device=cuda:0 CUDA_VISIBLE_DEVICES=0
+[2026-03-04 19:43:28,747] [INFO ] [qwen3_tts_server.py::232 reload]: Qwen3 TTS sidecar is ready at http://127.0.0.1:6116/health
+[2026-03-04 19:43:29,076] [INFO ] [manager.py::28 load]: Loading process by type hw_mic
+[2026-03-04 19:43:29,077] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-03-04 19:43:29,082] [INFO ] [manager.py::28 load]: Loading process by type hw_audio_out
+[2026-03-04 19:43:29,083] [WARNI] [base.py::46 unload]: Attempted to unload process hw_audio_out when it is already unloaded
+[2026-03-04 19:43:29,087] [INFO ] [jaison.py::142 start]: JAIson application layer has started.
+[2026-03-04 19:43:29,088] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-03-04 19:43:29,277] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-03-04 19:43:29,759] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-03-04 19:56:39,907] [INFO ] [jaison.py::109 start]: Starting JAIson application layer.
+[2026-03-04 19:56:39,932] [INFO ] [manager.py::332 load_operations_from_config]: Active STT from config: sherpa_ru
+[2026-03-04 19:56:39,932] [INFO ] [manager.py::334 load_operations_from_config]: Active TTS from config: qwen3
+[2026-03-04 19:56:41,642] [INFO ] [operation.py::32 start]: Starting STT operation sherpa_ru
+[2026-03-04 19:56:41,642] [INFO ] [manager.py::28 load]: Loading process by type sherpa_stt
+[2026-03-04 19:56:41,644] [WARNI] [base.py::46 unload]: Attempted to unload process sherpa_stt when it is already unloaded
+[2026-03-04 19:56:41,645] [INFO ] [sherpa_server.py::85 _prepare_hotwords_file]: Sherpa STT hotwords validated: 3 entries
+[2026-03-04 19:56:41,645] [INFO ] [sherpa_server.py::295 reload]: Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5
+[2026-03-04 19:56:41,645] [INFO ] [sherpa_server.py::307 reload]: Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5
+[2026-03-04 19:56:45,971] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-03-04 19:56:45,971] [INFO ] [manager.py::28 load]: Loading process by type llamacpp
+[2026-03-04 19:56:45,975] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 13336) on port 2012 (GPU: 0)
+[2026-03-04 19:56:45,975] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:2012/health ...
+[2026-03-04 19:56:50,168] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 2012)
+[2026-03-04 19:56:50,169] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-03-04 19:56:50,801] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation chunker_sentence
+[2026-03-04 19:56:51,309] [INFO ] [operation.py::32 start]: Starting TTS operation qwen3
+[2026-03-04 19:56:51,309] [INFO ] [manager.py::28 load]: Loading process by type qwen3_tts
+[2026-03-04 19:56:51,311] [INFO ] [qwen3_tts_server.py::199 reload]: Qwen3 TTS SoX bin detected: C:\Nirmita\apps\tts-qwen3-server\third_party\sox\sox-14.4.2-win32\sox-14.4.2
+[2026-03-04 19:56:51,311] [INFO ] [qwen3_tts_server.py::203 reload]: Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv312\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 0 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-Base --speaker serena --language russian --dtype bfloat16 --attn_implementation flash_attention_2 --use_compile 0 --sample_rate 24000 --sample_width 2 --channels 1 --voice_mode voice_clone --ref_audio_path C:\Nirmita\Nira_voice.wav --ref_text  --x_vector_only_mode 1 --preload_voice_clone_prompt 1 --emit_every_frames 4 --decode_window_frames 48 --first_chunk_emit_every 1 --first_chunk_decode_window 24 --first_chunk_frames 24 --overlap_samples 0 --max_new_tokens 112 --max_frames 80 --use_optimized_decode 1 --max_concurrent 1 --preload_on_start 1 --warmup_on_start 0 --warmup_text Привет. --warmup_emit_every_frames 4 --warmup_decode_window_frames 48 --warmup_max_new_tokens 96 --warmup_chunks 2 --first_chunk_timeout_s 18 --stream_idle_timeout_s 20 --compile_mode reduce-overhead --compile_use_cuda_graphs 0 --compile_codebook_predictor 0 --compile_talker 0 --allow_compile_voice_clone 0
+[2026-03-04 19:56:51,311] [INFO ] [qwen3_tts_server.py::204 reload]: Qwen3 TTS GPU pin: provider=cuda gpu_id=0 device=cuda:0 CUDA_VISIBLE_DEVICES=0
+[2026-03-04 19:57:10,605] [INFO ] [jaison.py::109 start]: Starting JAIson application layer.
+[2026-03-04 19:57:10,628] [INFO ] [manager.py::332 load_operations_from_config]: Active STT from config: sherpa_ru
+[2026-03-04 19:57:10,628] [INFO ] [manager.py::334 load_operations_from_config]: Active TTS from config: qwen3
+[2026-03-04 19:57:12,275] [INFO ] [operation.py::32 start]: Starting STT operation sherpa_ru
+[2026-03-04 19:57:12,275] [INFO ] [manager.py::28 load]: Loading process by type sherpa_stt
+[2026-03-04 19:57:12,277] [WARNI] [base.py::46 unload]: Attempted to unload process sherpa_stt when it is already unloaded
+[2026-03-04 19:57:12,278] [INFO ] [sherpa_server.py::85 _prepare_hotwords_file]: Sherpa STT hotwords validated: 3 entries
+[2026-03-04 19:57:12,278] [INFO ] [sherpa_server.py::295 reload]: Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5
+[2026-03-04 19:57:12,279] [INFO ] [sherpa_server.py::307 reload]: Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5
+[2026-03-04 19:57:16,605] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-03-04 19:57:16,605] [INFO ] [manager.py::28 load]: Loading process by type llamacpp
+[2026-03-04 19:57:16,609] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 38612) on port 13768 (GPU: 0)
+[2026-03-04 19:57:16,609] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:13768/health ...
+[2026-03-04 19:57:20,779] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 13768)
+[2026-03-04 19:57:20,780] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-03-04 19:57:21,360] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation chunker_sentence
+[2026-03-04 19:57:21,829] [INFO ] [operation.py::32 start]: Starting TTS operation qwen3
+[2026-03-04 19:57:21,829] [INFO ] [manager.py::28 load]: Loading process by type qwen3_tts
+[2026-03-04 19:57:21,830] [INFO ] [qwen3_tts_server.py::199 reload]: Qwen3 TTS SoX bin detected: C:\Nirmita\apps\tts-qwen3-server\third_party\sox\sox-14.4.2-win32\sox-14.4.2
+[2026-03-04 19:57:21,830] [INFO ] [qwen3_tts_server.py::203 reload]: Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv312\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 1 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-Base --speaker serena --language russian --dtype bfloat16 --attn_implementation flash_attention_2 --use_compile 0 --sample_rate 24000 --sample_width 2 --channels 1 --voice_mode voice_clone --ref_audio_path C:\Nirmita\Nira_voice.wav --ref_text  --x_vector_only_mode 1 --preload_voice_clone_prompt 1 --emit_every_frames 4 --decode_window_frames 48 --first_chunk_emit_every 1 --first_chunk_decode_window 24 --first_chunk_frames 24 --overlap_samples 0 --max_new_tokens 112 --max_frames 80 --use_optimized_decode 1 --max_concurrent 1 --preload_on_start 1 --warmup_on_start 0 --warmup_text Привет. --warmup_emit_every_frames 4 --warmup_decode_window_frames 48 --warmup_max_new_tokens 96 --warmup_chunks 2 --first_chunk_timeout_s 18 --stream_idle_timeout_s 20 --compile_mode reduce-overhead --compile_use_cuda_graphs 0 --compile_codebook_predictor 0 --compile_talker 0 --allow_compile_voice_clone 0
+[2026-03-04 19:57:21,830] [INFO ] [qwen3_tts_server.py::204 reload]: Qwen3 TTS GPU pin: provider=cuda gpu_id=1 device=cuda:0 CUDA_VISIBLE_DEVICES=1
+[2026-03-04 19:57:37,590] [INFO ] [qwen3_tts_server.py::232 reload]: Qwen3 TTS sidecar is ready at http://127.0.0.1:6116/health
+[2026-03-04 19:57:37,913] [INFO ] [manager.py::28 load]: Loading process by type hw_mic
+[2026-03-04 19:57:37,914] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-03-04 19:57:37,920] [INFO ] [manager.py::28 load]: Loading process by type hw_audio_out
+[2026-03-04 19:57:37,921] [WARNI] [base.py::46 unload]: Attempted to unload process hw_audio_out when it is already unloaded
+[2026-03-04 19:57:37,924] [INFO ] [jaison.py::142 start]: JAIson application layer has started.
+[2026-03-04 19:57:37,925] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-03-04 19:57:38,554] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-03-04 19:57:40,061] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-03-04 20:22:48,022] [INFO ] [jaison.py::109 start]: Starting JAIson application layer.
+[2026-03-04 20:22:48,045] [INFO ] [manager.py::332 load_operations_from_config]: Active STT from config: sherpa_ru
+[2026-03-04 20:22:48,045] [INFO ] [manager.py::334 load_operations_from_config]: Active TTS from config: qwen3
+[2026-03-04 20:22:49,706] [INFO ] [operation.py::32 start]: Starting STT operation sherpa_ru
+[2026-03-04 20:22:49,706] [INFO ] [manager.py::28 load]: Loading process by type sherpa_stt
+[2026-03-04 20:22:49,708] [WARNI] [base.py::46 unload]: Attempted to unload process sherpa_stt when it is already unloaded
+[2026-03-04 20:22:49,709] [INFO ] [sherpa_server.py::85 _prepare_hotwords_file]: Sherpa STT hotwords validated: 3 entries
+[2026-03-04 20:22:49,710] [INFO ] [sherpa_server.py::295 reload]: Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5
+[2026-03-04 20:22:49,710] [INFO ] [sherpa_server.py::307 reload]: Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5
+[2026-03-04 20:22:54,038] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-03-04 20:22:54,038] [INFO ] [manager.py::28 load]: Loading process by type llamacpp
+[2026-03-04 20:22:54,043] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 33604) on port 7950 (GPU: 0)
+[2026-03-04 20:22:54,044] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:7950/health ...
+[2026-03-04 20:22:58,236] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 7950)
+[2026-03-04 20:22:58,238] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-03-04 20:22:58,862] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation chunker_sentence
+[2026-03-04 20:22:59,349] [INFO ] [operation.py::32 start]: Starting TTS operation qwen3
+[2026-03-04 20:22:59,349] [INFO ] [manager.py::28 load]: Loading process by type qwen3_tts
+[2026-03-04 20:22:59,350] [INFO ] [qwen3_tts_server.py::199 reload]: Qwen3 TTS SoX bin detected: C:\Nirmita\apps\tts-qwen3-server\third_party\sox\sox-14.4.2-win32\sox-14.4.2
+[2026-03-04 20:22:59,351] [INFO ] [qwen3_tts_server.py::203 reload]: Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv312\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 1 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-Base --speaker serena --language russian --dtype bfloat16 --attn_implementation flash_attention_2 --use_compile 1 --sample_rate 24000 --sample_width 2 --channels 1 --voice_mode voice_clone --ref_audio_path C:\Nirmita\Nira_voice.wav --ref_text  --x_vector_only_mode 1 --preload_voice_clone_prompt 1 --emit_every_frames 4 --decode_window_frames 48 --first_chunk_emit_every 1 --first_chunk_decode_window 24 --first_chunk_frames 24 --overlap_samples 0 --max_new_tokens 112 --max_frames 80 --use_optimized_decode 1 --max_concurrent 1 --preload_on_start 1 --warmup_on_start 0 --warmup_text Привет. --warmup_emit_every_frames 4 --warmup_decode_window_frames 48 --warmup_max_new_tokens 96 --warmup_chunks 2 --first_chunk_timeout_s 18 --stream_idle_timeout_s 20 --compile_mode max-autotune --compile_use_cuda_graphs 1 --compile_codebook_predictor 1 --compile_talker 1 --allow_compile_voice_clone 1
+[2026-03-04 20:22:59,351] [INFO ] [qwen3_tts_server.py::204 reload]: Qwen3 TTS GPU pin: provider=cuda gpu_id=1 device=cuda:0 CUDA_VISIBLE_DEVICES=1
+[2026-03-04 20:23:17,608] [INFO ] [qwen3_tts_server.py::232 reload]: Qwen3 TTS sidecar is ready at http://127.0.0.1:6116/health
+[2026-03-04 20:23:17,924] [INFO ] [manager.py::28 load]: Loading process by type hw_mic
+[2026-03-04 20:23:17,925] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-03-04 20:23:17,931] [INFO ] [manager.py::28 load]: Loading process by type hw_audio_out
+[2026-03-04 20:23:17,931] [WARNI] [base.py::46 unload]: Attempted to unload process hw_audio_out when it is already unloaded
+[2026-03-04 20:23:17,935] [INFO ] [jaison.py::142 start]: JAIson application layer has started.
+[2026-03-04 20:23:17,936] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-03-04 20:23:18,177] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-03-04 20:23:18,573] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-03-04 20:23:51,115] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-03-04 20:23:51,987] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-03-04 20:23:55,088] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=6 latency_ms=120 source=mic turn=3bb78091-78a7-4138-af65-74ee03d4505e utterance=9fc55a9e-1865-4468-8041-477c073fb69b
+[2026-03-04 20:23:55,348] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job ba1a9575-9d6d-4555-920b-b6097230fd92
+[2026-03-04 20:23:55,348] [INFO ] [jaison.py::443 create_job]: Queued new response job 35c6b593-d1c3-4ddc-89da-6dcc59b80805
+[2026-03-04 20:23:55,767] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 417.30899999674875 ms
+[2026-03-04 20:23:55,767] [INFO ] [qwen3.py::678 _stream_sidecar_bytes]: Qwen3 voice-clone limits: text_len=34 max_frames=57 max_new_tokens=112
+[2026-03-04 20:24:08,248] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=4 latency_ms=53 source=mic turn=19d583cc-e840-486a-b471-03cd6cfeb3ef utterance=bc9f22a0-9d54-4b3a-b096-61b49574f2ec
+[2026-03-04 20:24:08,509] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job b4a993e3-e207-4ba5-b505-c20079c8470b
+[2026-03-04 20:24:08,509] [INFO ] [jaison.py::581 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-03-04 20:24:13,809] [WARNI] [qwen3.py::761 _stream_sidecar_bytes]: Qwen3 sidecar request failed before first chunk (attempt 1/2): Qwen3 sidecar returned 200 but produced no audio bytes.
+[2026-03-04 20:24:16,926] [ERROR] [jaison.py::762 _process_job_loop]: Job 35c6b593-d1c3-4ddc-89da-6dcc59b80805 failed with error: Qwen3 sidecar stream failed: Qwen3 sidecar returned 200 but produced no audio bytes.
+Traceback (most recent call last):
+  File "C:\Nirmita\src\utils\jaison.py", line 744, in _process_job_loop
+    await self.job_current
+  File "C:\Nirmita\src\utils\jaison.py", line 930, in response_pipeline
+    async for audio_chunk_out in self.op_manager.use_operation(OpRoles.TTS, text_chunk_out):
+  File "C:\Nirmita\src\utils\operations\base\operation.py", line 21, in __call__
+    async for chunk_out in self._generate(**kwargs):
+  File "C:\Nirmita\src\utils\operations\tts\qwen3.py", line 802, in _generate
+    async for out in stream_iter(clean_text, instruct):
+  File "C:\Nirmita\src\utils\operations\tts\qwen3.py", line 778, in _stream_sidecar_bytes
+    raise RuntimeError(f"Qwen3 sidecar stream failed: {last_exc}")
+RuntimeError: Qwen3 sidecar stream failed: Qwen3 sidecar returned 200 but produced no audio bytes.
+[2026-03-04 20:24:25,208] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=6 latency_ms=63 source=mic turn=4ad98777-5c35-48c4-b7d8-a6bb4388229e utterance=a9ec02ac-646d-4532-840c-c36b58c15a87
+[2026-03-04 20:24:25,469] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job ba1dc432-4046-499a-8209-890fd537e3a7
+[2026-03-04 20:24:25,470] [INFO ] [jaison.py::443 create_job]: Queued new response job af5945f1-fe49-4957-a005-cc8c8c85e6f4
+[2026-03-04 20:24:25,819] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 348.9622000051895 ms
+[2026-03-04 20:24:25,820] [INFO ] [qwen3.py::678 _stream_sidecar_bytes]: Qwen3 voice-clone limits: text_len=17 max_frames=48 max_new_tokens=112
+[2026-03-04 20:24:38,468] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=33 source=mic turn=cbfc5fe5-fff9-4354-9722-72d01280b4ec utterance=e4efe41d-341c-490c-b150-c1afdb885131
+[2026-03-04 20:25:44,910] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=30 source=mic turn=6a625bae-3ef0-4756-917f-caaac4717e8f utterance=ec1ba337-07e0-429a-92a3-2312adecc826
+[2026-03-04 20:25:50,004] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=59 source=mic turn=35d14108-b984-444b-a6ee-14c7749184b3 utterance=31bc857f-084a-431c-bfb2-d43bb9f82f88
+[2026-03-04 20:25:54,274] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=29 source=mic turn=2004aa87-e226-409b-884d-78d839ca64e7 utterance=fc040ae3-bce5-4082-be94-d519f4511bc1
+[2026-03-04 20:25:59,355] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=31 source=mic turn=47c6a561-73f4-4d70-8b23-d4e6fe2d7319 utterance=a2a17948-7837-4e39-ad98-d24b33fe94bf
+[2026-03-04 20:26:10,240] [INFO ] [jaison.py::109 start]: Starting JAIson application layer.
+[2026-03-04 20:26:10,264] [INFO ] [manager.py::332 load_operations_from_config]: Active STT from config: sherpa_ru
+[2026-03-04 20:26:10,264] [INFO ] [manager.py::334 load_operations_from_config]: Active TTS from config: qwen3
+[2026-03-04 20:26:11,931] [INFO ] [operation.py::32 start]: Starting STT operation sherpa_ru
+[2026-03-04 20:26:11,931] [INFO ] [manager.py::28 load]: Loading process by type sherpa_stt
+[2026-03-04 20:26:11,932] [WARNI] [base.py::46 unload]: Attempted to unload process sherpa_stt when it is already unloaded
+[2026-03-04 20:26:11,934] [INFO ] [sherpa_server.py::85 _prepare_hotwords_file]: Sherpa STT hotwords validated: 3 entries
+[2026-03-04 20:26:11,934] [INFO ] [sherpa_server.py::295 reload]: Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5
+[2026-03-04 20:26:11,934] [INFO ] [sherpa_server.py::307 reload]: Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5
+[2026-03-04 20:26:16,254] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-03-04 20:26:16,254] [INFO ] [manager.py::28 load]: Loading process by type llamacpp
+[2026-03-04 20:26:16,258] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 34460) on port 7996 (GPU: 0)
+[2026-03-04 20:26:16,258] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:7996/health ...
+[2026-03-04 20:26:20,438] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 7996)
+[2026-03-04 20:26:20,439] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-03-04 20:26:21,018] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation chunker_sentence
+[2026-03-04 20:26:21,477] [INFO ] [operation.py::32 start]: Starting TTS operation qwen3
+[2026-03-04 20:26:21,477] [INFO ] [manager.py::28 load]: Loading process by type qwen3_tts
+[2026-03-04 20:26:21,478] [INFO ] [qwen3_tts_server.py::199 reload]: Qwen3 TTS SoX bin detected: C:\Nirmita\apps\tts-qwen3-server\third_party\sox\sox-14.4.2-win32\sox-14.4.2
+[2026-03-04 20:26:21,478] [INFO ] [qwen3_tts_server.py::203 reload]: Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv312\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 1 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-Base --speaker serena --language russian --dtype bfloat16 --attn_implementation flash_attention_2 --use_compile 1 --sample_rate 24000 --sample_width 2 --channels 1 --voice_mode voice_clone --ref_audio_path C:\Nirmita\Nira_voice.wav --ref_text  --x_vector_only_mode 1 --preload_voice_clone_prompt 1 --emit_every_frames 4 --decode_window_frames 48 --first_chunk_emit_every 1 --first_chunk_decode_window 24 --first_chunk_frames 24 --overlap_samples 0 --max_new_tokens 112 --max_frames 80 --use_optimized_decode 1 --max_concurrent 1 --preload_on_start 1 --warmup_on_start 0 --warmup_text Привет. --warmup_emit_every_frames 4 --warmup_decode_window_frames 48 --warmup_max_new_tokens 96 --warmup_chunks 2 --first_chunk_timeout_s 18 --stream_idle_timeout_s 20 --compile_mode max-autotune --compile_use_cuda_graphs 1 --compile_codebook_predictor 1 --compile_talker 1 --allow_compile_voice_clone 1
+[2026-03-04 20:26:21,479] [INFO ] [qwen3_tts_server.py::204 reload]: Qwen3 TTS GPU pin: provider=cuda gpu_id=1 device=cuda:0 CUDA_VISIBLE_DEVICES=1
+[2026-03-04 20:26:38,731] [INFO ] [qwen3_tts_server.py::232 reload]: Qwen3 TTS sidecar is ready at http://127.0.0.1:6116/health
+[2026-03-04 20:26:39,054] [INFO ] [manager.py::28 load]: Loading process by type hw_mic
+[2026-03-04 20:26:39,054] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-03-04 20:26:39,060] [INFO ] [manager.py::28 load]: Loading process by type hw_audio_out
+[2026-03-04 20:26:39,060] [WARNI] [base.py::46 unload]: Attempted to unload process hw_audio_out when it is already unloaded
+[2026-03-04 20:26:39,064] [INFO ] [jaison.py::142 start]: JAIson application layer has started.
+[2026-03-04 20:26:39,065] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-03-04 20:26:39,541] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-03-04 20:26:39,685] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-03-04 20:26:46,770] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=6 latency_ms=87 source=mic turn=02de195d-259f-429a-b397-984c07511119 utterance=42892366-9603-493a-9e6c-a1570bd4e0d4
+[2026-03-04 20:26:47,005] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job 51e87faf-511e-491e-982b-300866abb336
+[2026-03-04 20:26:47,005] [INFO ] [jaison.py::443 create_job]: Queued new response job 30ab3260-47cd-4caf-ab4d-d547733a0e8e
+[2026-03-04 20:26:47,442] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 435.1948999974411 ms
+[2026-03-04 20:26:47,442] [INFO ] [qwen3.py::678 _stream_sidecar_bytes]: Qwen3 voice-clone limits: text_len=17 max_frames=48 max_new_tokens=112
+[2026-03-04 20:27:01,135] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-03-04 20:27:02,031] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-03-04 20:27:05,518] [WARNI] [qwen3.py::761 _stream_sidecar_bytes]: Qwen3 sidecar request failed before first chunk (attempt 1/2): Qwen3 sidecar returned 200 but produced no audio bytes.
+[2026-03-04 20:27:06,207] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=4 latency_ms=93 source=mic turn=854f021b-2c99-4fa4-a644-5dd24e023fa2 utterance=34c32932-d958-4a7f-9778-ecac151ca70e
+[2026-03-04 20:27:06,468] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job b69db78b-5ad0-4301-87ce-e533d9823eb0
+[2026-03-04 20:27:06,468] [INFO ] [jaison.py::443 create_job]: Queued new response job 441a9b71-2335-4445-abcc-9601bb3e7cc3
+[2026-03-04 20:27:23,774] [ERROR] [jaison.py::762 _process_job_loop]: Job 30ab3260-47cd-4caf-ab4d-d547733a0e8e failed with error: Qwen3 sidecar stream failed: Qwen3 sidecar returned 200 but produced no audio bytes.
+Traceback (most recent call last):
+  File "C:\Nirmita\src\utils\jaison.py", line 744, in _process_job_loop
+    await self.job_current
+  File "C:\Nirmita\src\utils\jaison.py", line 930, in response_pipeline
+    async for audio_chunk_out in self.op_manager.use_operation(OpRoles.TTS, text_chunk_out):
+  File "C:\Nirmita\src\utils\operations\base\operation.py", line 21, in __call__
+    async for chunk_out in self._generate(**kwargs):
+  File "C:\Nirmita\src\utils\operations\tts\qwen3.py", line 802, in _generate
+    async for out in stream_iter(clean_text, instruct):
+  File "C:\Nirmita\src\utils\operations\tts\qwen3.py", line 778, in _stream_sidecar_bytes
+    raise RuntimeError(f"Qwen3 sidecar stream failed: {last_exc}")
+RuntimeError: Qwen3 sidecar stream failed: Qwen3 sidecar returned 200 but produced no audio bytes.
+[2026-03-04 20:27:24,136] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 359.3950000067707 ms
+[2026-03-04 20:27:24,136] [INFO ] [qwen3.py::678 _stream_sidecar_bytes]: Qwen3 voice-clone limits: text_len=24 max_frames=48 max_new_tokens=112
+[2026-03-04 20:27:24,921] [WARNI] [qwen3.py::761 _stream_sidecar_bytes]: Qwen3 sidecar request failed before first chunk (attempt 1/2): Qwen3 sidecar returned 200 but produced no audio bytes.
+[2026-03-04 20:27:25,326] [ERROR] [jaison.py::762 _process_job_loop]: Job 441a9b71-2335-4445-abcc-9601bb3e7cc3 failed with error: Qwen3 sidecar stream failed: Qwen3 sidecar returned 200 but produced no audio bytes.
+Traceback (most recent call last):
+  File "C:\Nirmita\src\utils\jaison.py", line 744, in _process_job_loop
+    await self.job_current
+  File "C:\Nirmita\src\utils\jaison.py", line 930, in response_pipeline
+    async for audio_chunk_out in self.op_manager.use_operation(OpRoles.TTS, text_chunk_out):
+  File "C:\Nirmita\src\utils\operations\base\operation.py", line 21, in __call__
+    async for chunk_out in self._generate(**kwargs):
+  File "C:\Nirmita\src\utils\operations\tts\qwen3.py", line 802, in _generate
+    async for out in stream_iter(clean_text, instruct):
+  File "C:\Nirmita\src\utils\operations\tts\qwen3.py", line 778, in _stream_sidecar_bytes
+    raise RuntimeError(f"Qwen3 sidecar stream failed: {last_exc}")
+RuntimeError: Qwen3 sidecar stream failed: Qwen3 sidecar returned 200 but produced no audio bytes.
+[2026-03-04 20:27:25,662] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=8 latency_ms=96 source=mic turn=a44a74cd-2c0b-44eb-a5c5-55a9662e2359 utterance=0b530c81-b58a-40bf-baa5-209d78e7d9e4
+[2026-03-04 20:27:25,924] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job f4b3ea8c-266f-47a5-9a8d-5f0211e8df09
+[2026-03-04 20:27:25,924] [INFO ] [jaison.py::581 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-03-04 20:42:39,670] [INFO ] [jaison.py::109 start]: Starting JAIson application layer.
+[2026-03-04 20:42:39,693] [INFO ] [manager.py::332 load_operations_from_config]: Active STT from config: sherpa_ru
+[2026-03-04 20:42:39,693] [INFO ] [manager.py::334 load_operations_from_config]: Active TTS from config: qwen3
+[2026-03-04 20:42:41,359] [INFO ] [operation.py::32 start]: Starting STT operation sherpa_ru
+[2026-03-04 20:42:41,359] [INFO ] [manager.py::28 load]: Loading process by type sherpa_stt
+[2026-03-04 20:42:41,360] [WARNI] [base.py::46 unload]: Attempted to unload process sherpa_stt when it is already unloaded
+[2026-03-04 20:42:41,362] [INFO ] [sherpa_server.py::85 _prepare_hotwords_file]: Sherpa STT hotwords validated: 3 entries
+[2026-03-04 20:42:41,362] [INFO ] [sherpa_server.py::295 reload]: Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5
+[2026-03-04 20:42:41,362] [INFO ] [sherpa_server.py::307 reload]: Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5
+[2026-03-04 20:42:45,684] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-03-04 20:42:45,684] [INFO ] [manager.py::28 load]: Loading process by type llamacpp
+[2026-03-04 20:42:45,687] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 36764) on port 4514 (GPU: 0)
+[2026-03-04 20:42:45,687] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:4514/health ...
+[2026-03-04 20:42:49,850] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 4514)
+[2026-03-04 20:42:49,852] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-03-04 20:42:50,424] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation chunker_sentence
+[2026-03-04 20:42:50,884] [INFO ] [operation.py::32 start]: Starting TTS operation qwen3
+[2026-03-04 20:42:50,884] [INFO ] [manager.py::28 load]: Loading process by type qwen3_tts
+[2026-03-04 20:42:50,885] [INFO ] [qwen3_tts_server.py::199 reload]: Qwen3 TTS SoX bin detected: C:\Nirmita\apps\tts-qwen3-server\third_party\sox\sox-14.4.2-win32\sox-14.4.2
+[2026-03-04 20:42:50,885] [INFO ] [qwen3_tts_server.py::203 reload]: Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv312\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 1 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-Base --speaker serena --language russian --dtype bfloat16 --attn_implementation flash_attention_2 --use_compile 0 --sample_rate 24000 --sample_width 2 --channels 1 --voice_mode voice_clone --ref_audio_path C:\Nirmita\Nira_voice.wav --ref_text  --x_vector_only_mode 1 --preload_voice_clone_prompt 1 --emit_every_frames 4 --decode_window_frames 48 --first_chunk_emit_every 1 --first_chunk_decode_window 24 --first_chunk_frames 24 --overlap_samples 0 --max_new_tokens 112 --max_frames 80 --use_optimized_decode 1 --max_concurrent 1 --preload_on_start 1 --warmup_on_start 0 --warmup_text Привет. --warmup_emit_every_frames 4 --warmup_decode_window_frames 48 --warmup_max_new_tokens 96 --warmup_chunks 2 --first_chunk_timeout_s 30 --stream_idle_timeout_s 30 --compile_mode reduce-overhead --compile_use_cuda_graphs 0 --compile_codebook_predictor 0 --compile_talker 0 --allow_compile_voice_clone 0
+[2026-03-04 20:42:50,886] [INFO ] [qwen3_tts_server.py::204 reload]: Qwen3 TTS GPU pin: provider=cuda gpu_id=1 device=cuda:0 CUDA_VISIBLE_DEVICES=1
+[2026-03-04 20:43:06,534] [INFO ] [qwen3_tts_server.py::232 reload]: Qwen3 TTS sidecar is ready at http://127.0.0.1:6116/health
+[2026-03-04 20:43:06,859] [INFO ] [manager.py::28 load]: Loading process by type hw_mic
+[2026-03-04 20:43:06,860] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-03-04 20:43:06,866] [INFO ] [manager.py::28 load]: Loading process by type hw_audio_out
+[2026-03-04 20:43:06,867] [WARNI] [base.py::46 unload]: Attempted to unload process hw_audio_out when it is already unloaded
+[2026-03-04 20:43:06,871] [INFO ] [jaison.py::142 start]: JAIson application layer has started.
+[2026-03-04 20:43:06,871] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-03-04 20:43:07,492] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-03-04 20:43:10,011] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-03-04 20:47:10,288] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-03-04 20:47:11,063] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-03-04 20:47:14,142] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=6 latency_ms=87 source=mic turn=71b584c9-296f-4fdf-bebb-7c1eb4d6f50c utterance=6559a0cd-092e-48b5-9d67-9b574c2dd842
+[2026-03-04 20:47:14,397] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job ee392ec6-3e1b-4e14-9f26-177c537a7528
+[2026-03-04 20:47:14,397] [INFO ] [jaison.py::443 create_job]: Queued new response job ff7a22c5-5d40-4d7c-8ce2-97f974002237
+[2026-03-04 20:47:14,703] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 305.0206000043545 ms
+[2026-03-04 20:47:14,704] [INFO ] [qwen3.py::678 _stream_sidecar_bytes]: Qwen3 voice-clone limits: text_len=17 max_frames=48 max_new_tokens=112
+[2026-03-04 20:47:22,180] [INFO ] [qwen3.py::744 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=19 bytes=76708 first_chunk_ms=2701 max_gap_ms=1158.4 total_ms=7476 audio_s=1.598 rtf=4.678 text_len=17
+[2026-03-04 20:47:22,180] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 7476.577099994756 ms
+[2026-03-04 20:47:22,180] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation chunker_sentence completed in 7476.6825000115205 ms
+[2026-03-04 20:47:22,180] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 7476.786100000027 ms
+[2026-03-04 20:47:22,180] [INFO ] [jaison.py::964 response_pipeline]: Response job ff7a22c5-5d40-4d7c-8ce2-97f974002237 completed. Content: 'Привет! Как дела?...'
+[2026-03-04 20:47:29,906] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=18 latency_ms=71 source=mic turn=4116e709-fc85-41f4-9d17-9af5aaa0cd71 utterance=ec224c44-d630-4269-9d4c-c1a5a32b9bb2
+[2026-03-04 20:47:29,906] [INFO ] [jaison.py::482 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-03-04 20:47:30,155] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job 1ae9641f-bbd2-4890-a5a4-5a5d62f0347b
+[2026-03-04 20:47:30,155] [INFO ] [jaison.py::443 create_job]: Queued new response job 8f127a67-fd76-4277-a073-0bcac8d060b6
+[2026-03-04 20:47:30,836] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 680.6040000083158 ms
+[2026-03-04 20:47:30,837] [INFO ] [qwen3.py::678 _stream_sidecar_bytes]: Qwen3 voice-clone limits: text_len=73 max_frames=80 max_new_tokens=112
+[2026-03-04 20:47:54,573] [INFO ] [qwen3.py::744 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=75 bytes=307108 first_chunk_ms=1521 max_gap_ms=1459.5 total_ms=23736 audio_s=6.398 rtf=3.710 text_len=73
+[2026-03-04 20:47:54,573] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 23736.479700004566 ms
+[2026-03-04 20:47:54,573] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation chunker_sentence completed in 23736.58680000517 ms
+[2026-03-04 20:47:54,574] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 23736.688399993 ms
+[2026-03-04 20:47:54,574] [INFO ] [jaison.py::964 response_pipeline]: Response job 8f127a67-fd76-4277-a073-0bcac8d060b6 completed. Content: 'У меня все отлично, спасибо! А что у тебя нового? Как проходит твой день?...'
+[2026-03-04 20:48:04,176] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=29 latency_ms=131 source=mic turn=5d363cb1-2aa2-44e0-82b1-cdee7e037038 utterance=7b488755-5038-4a98-b93e-63d32874758e
+[2026-03-04 20:48:04,442] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job 373b05ca-4894-41bb-a4d1-88c97d7670eb
+[2026-03-04 20:48:04,442] [INFO ] [jaison.py::443 create_job]: Queued new response job 57ef343c-1370-450c-9610-3bb02fca8153
+[2026-03-04 20:48:06,553] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 2110.1781999896048 ms
+[2026-03-04 20:48:06,553] [INFO ] [qwen3.py::678 _stream_sidecar_bytes]: Qwen3 voice-clone limits: text_len=120 max_frames=80 max_new_tokens=112
+[2026-03-04 20:48:31,082] [INFO ] [qwen3.py::744 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=75 bytes=307108 first_chunk_ms=1722 max_gap_ms=1555.8 total_ms=24528 audio_s=6.398 rtf=3.834 text_len=120
+[2026-03-04 20:48:31,082] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 24529.176500000176 ms
+[2026-03-04 20:48:31,082] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation chunker_sentence completed in 24529.28129999782 ms
+[2026-03-04 20:48:31,082] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 24529.37820000807 ms
+[2026-03-04 20:48:31,082] [INFO ] [jaison.py::964 response_pipeline]: Response job 57ef343c-1370-450c-9610-3bb02fca8153 completed. Content: 'Ну, знаешь, я тут недавно играла в "Ведьмака" и поняла, что Геральт нужен серьезный разговор с психо...'
+[2026-03-04 20:54:20,564] [INFO ] [jaison.py::109 start]: Starting JAIson application layer.
+[2026-03-04 20:54:20,586] [INFO ] [manager.py::332 load_operations_from_config]: Active STT from config: sherpa_ru
+[2026-03-04 20:54:20,586] [INFO ] [manager.py::334 load_operations_from_config]: Active TTS from config: qwen3
+[2026-03-04 20:54:22,308] [INFO ] [operation.py::32 start]: Starting STT operation sherpa_ru
+[2026-03-04 20:54:22,308] [INFO ] [manager.py::28 load]: Loading process by type sherpa_stt
+[2026-03-04 20:54:22,309] [WARNI] [base.py::46 unload]: Attempted to unload process sherpa_stt when it is already unloaded
+[2026-03-04 20:54:22,311] [INFO ] [sherpa_server.py::85 _prepare_hotwords_file]: Sherpa STT hotwords validated: 3 entries
+[2026-03-04 20:54:22,311] [INFO ] [sherpa_server.py::295 reload]: Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5
+[2026-03-04 20:54:22,311] [INFO ] [sherpa_server.py::307 reload]: Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5
+[2026-03-04 20:54:26,632] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-03-04 20:54:26,632] [INFO ] [manager.py::28 load]: Loading process by type llamacpp
+[2026-03-04 20:54:26,636] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 30804) on port 13789 (GPU: 0)
+[2026-03-04 20:54:26,636] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:13789/health ...
+[2026-03-04 20:54:30,822] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 13789)
+[2026-03-04 20:54:30,824] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-03-04 20:54:31,498] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation chunker_sentence
+[2026-03-04 20:54:32,017] [INFO ] [operation.py::32 start]: Starting TTS operation qwen3
+[2026-03-04 20:54:32,018] [INFO ] [manager.py::28 load]: Loading process by type qwen3_tts
+[2026-03-04 20:54:32,019] [INFO ] [qwen3_tts_server.py::199 reload]: Qwen3 TTS SoX bin detected: C:\Nirmita\apps\tts-qwen3-server\third_party\sox\sox-14.4.2-win32\sox-14.4.2
+[2026-03-04 20:54:32,020] [INFO ] [qwen3_tts_server.py::203 reload]: Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv312\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 1 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-Base --speaker serena --language russian --dtype bfloat16 --attn_implementation flash_attention_2 --use_compile 0 --sample_rate 24000 --sample_width 2 --channels 1 --voice_mode voice_clone --ref_audio_path C:\Nirmita\Nira_voice.wav --ref_text  --x_vector_only_mode 1 --preload_voice_clone_prompt 1 --emit_every_frames 4 --decode_window_frames 48 --first_chunk_emit_every 1 --first_chunk_decode_window 24 --first_chunk_frames 24 --overlap_samples 0 --max_new_tokens 112 --max_frames 160 --use_optimized_decode 1 --max_concurrent 1 --preload_on_start 1 --warmup_on_start 0 --warmup_text Привет. --warmup_emit_every_frames 4 --warmup_decode_window_frames 48 --warmup_max_new_tokens 96 --warmup_chunks 2 --first_chunk_timeout_s 30 --stream_idle_timeout_s 30 --compile_mode reduce-overhead --compile_use_cuda_graphs 0 --compile_codebook_predictor 0 --compile_talker 0 --allow_compile_voice_clone 0
+[2026-03-04 20:54:32,020] [INFO ] [qwen3_tts_server.py::204 reload]: Qwen3 TTS GPU pin: provider=cuda gpu_id=1 device=cuda:0 CUDA_VISIBLE_DEVICES=1
+[2026-03-04 20:54:48,275] [INFO ] [qwen3_tts_server.py::232 reload]: Qwen3 TTS sidecar is ready at http://127.0.0.1:6116/health
+[2026-03-04 20:54:48,597] [INFO ] [manager.py::28 load]: Loading process by type hw_mic
+[2026-03-04 20:54:48,598] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-03-04 20:54:48,603] [INFO ] [manager.py::28 load]: Loading process by type hw_audio_out
+[2026-03-04 20:54:48,605] [WARNI] [base.py::46 unload]: Attempted to unload process hw_audio_out when it is already unloaded
+[2026-03-04 20:54:48,609] [INFO ] [jaison.py::142 start]: JAIson application layer has started.
+[2026-03-04 20:54:48,610] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-03-04 20:54:49,240] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-03-04 20:54:50,028] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-03-04 20:55:22,772] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-03-04 20:55:23,546] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-03-04 20:55:26,185] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=6 latency_ms=87 source=mic turn=f7edb623-a860-46cb-a748-7fe41929f49e utterance=e46bddf0-592b-45b7-8448-204bb6b53ab0
+[2026-03-04 20:55:26,443] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job 2d1a4bf6-cbf5-4ece-b8d6-e456fd6a59b8
+[2026-03-04 20:55:26,443] [INFO ] [jaison.py::443 create_job]: Queued new response job 4ba0b4dc-e73f-459e-8b3c-e7ee9d05b993
+[2026-03-04 20:55:26,844] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 398.72539999487344 ms
+[2026-03-04 20:55:26,867] [INFO ] [qwen3.py::678 _stream_sidecar_bytes]: Qwen3 voice-clone limits: text_len=7 max_frames=48 max_new_tokens=112
+[2026-03-04 20:55:32,055] [INFO ] [qwen3.py::744 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=11 bytes=41846 first_chunk_ms=2600 max_gap_ms=1321.7 total_ms=5187 audio_s=0.872 rtf=5.950 text_len=7
+[2026-03-04 20:55:32,055] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 5188.165100000333 ms
+[2026-03-04 20:55:32,055] [INFO ] [qwen3.py::678 _stream_sidecar_bytes]: Qwen3 voice-clone limits: text_len=9 max_frames=48 max_new_tokens=112
+[2026-03-04 20:55:47,379] [INFO ] [qwen3.py::744 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=45 bytes=184228 first_chunk_ms=1445 max_gap_ms=1607.1 total_ms=15323 audio_s=3.838 rtf=3.992 text_len=9
+[2026-03-04 20:55:47,379] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 15323.446299997158 ms
+[2026-03-04 20:55:47,379] [INFO ] [qwen3.py::678 _stream_sidecar_bytes]: Qwen3 voice-clone limits: text_len=16 max_frames=48 max_new_tokens=112
+[2026-03-04 20:56:01,271] [INFO ] [qwen3.py::744 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=45 bytes=184228 first_chunk_ms=1578 max_gap_ms=1229.3 total_ms=13892 audio_s=3.838 rtf=3.620 text_len=16
+[2026-03-04 20:56:01,271] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 13892.334300006041 ms
+[2026-03-04 20:56:01,271] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation chunker_sentence completed in 34427.59650001244 ms
+[2026-03-04 20:56:01,271] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 34427.69959999714 ms
+[2026-03-04 20:56:01,272] [INFO ] [jaison.py::964 response_pipeline]: Response job 4ba0b4dc-e73f-459e-8b3c-e7ee9d05b993 completed. Content: 'Привет! Как дела? Чем занимаешься?...'
+[2026-03-04 20:56:07,075] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=10 latency_ms=88 source=mic turn=1203da61-7329-44db-a7e4-df9bd2bb0f8d utterance=4b19f071-31dc-4ffd-b3ca-8eb507a173ae
+[2026-03-04 20:56:07,341] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job 7a954295-8d90-4161-9889-b501e9ead0c7
+[2026-03-04 20:56:07,341] [INFO ] [jaison.py::443 create_job]: Queued new response job ad69f0cf-7b48-47a2-a685-cb4a01c7b850
+[2026-03-04 20:56:08,197] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 854.8688000009861 ms
+[2026-03-04 20:56:08,214] [INFO ] [qwen3.py::678 _stream_sidecar_bytes]: Qwen3 voice-clone limits: text_len=8 max_frames=48 max_new_tokens=112
+[2026-03-04 20:56:12,800] [INFO ] [qwen3.py::744 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=14 bytes=53510 first_chunk_ms=1492 max_gap_ms=1091.2 total_ms=4585 audio_s=1.115 rtf=4.113 text_len=8
+[2026-03-04 20:56:12,801] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 4586.123799992492 ms
+[2026-03-04 20:56:12,801] [INFO ] [qwen3.py::678 _stream_sidecar_bytes]: Qwen3 voice-clone limits: text_len=12 max_frames=48 max_new_tokens=112
+[2026-03-04 20:56:23,791] [INFO ] [qwen3.py::744 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=33 bytes=134214 first_chunk_ms=1587 max_gap_ms=1377.8 total_ms=10990 audio_s=2.796 rtf=3.930 text_len=12
+[2026-03-04 20:56:23,791] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 10991.093699994963 ms
+[2026-03-04 20:56:23,792] [INFO ] [qwen3.py::678 _stream_sidecar_bytes]: Qwen3 voice-clone limits: text_len=28 max_frames=48 max_new_tokens=112
+[2026-03-04 20:56:38,078] [INFO ] [qwen3.py::744 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=45 bytes=184228 first_chunk_ms=1456 max_gap_ms=1368.5 total_ms=14286 audio_s=3.838 rtf=3.722 text_len=28
+[2026-03-04 20:56:38,079] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 14286.760800008778 ms
+[2026-03-04 20:56:38,079] [INFO ] [qwen3.py::678 _stream_sidecar_bytes]: Qwen3 voice-clone limits: text_len=16 max_frames=48 max_new_tokens=112
+[2026-03-04 20:56:45,453] [INFO ] [qwen3.py::744 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=19 bytes=76708 first_chunk_ms=1819 max_gap_ms=1490.3 total_ms=7374 audio_s=1.598 rtf=4.614 text_len=16
+[2026-03-04 20:56:45,453] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 7374.461899991729 ms
+[2026-03-04 20:56:45,453] [INFO ] [qwen3.py::678 _stream_sidecar_bytes]: Qwen3 voice-clone limits: text_len=27 max_frames=48 max_new_tokens=112
+[2026-03-04 20:56:59,021] [INFO ] [qwen3.py::744 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=45 bytes=184228 first_chunk_ms=1604 max_gap_ms=1182.0 total_ms=13567 audio_s=3.838 rtf=3.535 text_len=27
+[2026-03-04 20:56:59,021] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 13567.36680000904 ms
+[2026-03-04 20:56:59,021] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation chunker_sentence completed in 50823.623199990834 ms
+[2026-03-04 20:56:59,021] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 50823.72000000032 ms
+[2026-03-04 20:56:59,021] [INFO ] [jaison.py::964 response_pipeline]: Response job ad69f0cf-7b48-47a2-a685-cb4a01c7b850 completed. Content: 'О, коты! Я их обожаю! У меня тоже был кот, когда я еще жила в теле. Какой у тебя любимый пород?...'
+[2026-03-04 21:07:03,388] [INFO ] [jaison.py::443 create_job]: Queued new config_load job 4aac883e-2fea-4eb9-bfec-f44882070f06
+[2026-03-04 21:07:08,131] [INFO ] [jaison.py::443 create_job]: Queued new operation_reload_from_config job 5664a632-638f-4572-a834-0369e8702f49
+[2026-03-04 21:07:08,131] [INFO ] [operation.py::38 close]: Closing STT operation sherpa_ru
+[2026-03-04 21:07:08,131] [INFO ] [base.py::67 unlink]: No more links to process sherpa_stt. Unloading...
+[2026-03-04 21:07:08,141] [INFO ] [base.py::44 unload]: Unloaded process sherpa_stt
+[2026-03-04 21:07:08,141] [INFO ] [operation.py::38 close]: Closing T2T operation llamacpp
+[2026-03-04 21:07:08,141] [INFO ] [base.py::67 unlink]: No more links to process llamacpp. Unloading...
+[2026-03-04 21:07:08,148] [INFO ] [base.py::44 unload]: Unloaded process llamacpp
+[2026-03-04 21:07:08,148] [INFO ] [operation.py::38 close]: Closing TTS operation qwen3
+[2026-03-04 21:07:08,148] [INFO ] [base.py::67 unlink]: No more links to process qwen3_tts. Unloading...
+[2026-03-04 21:07:08,154] [INFO ] [base.py::44 unload]: Unloaded process qwen3_tts
+[2026-03-04 21:07:08,154] [INFO ] [operation.py::38 close]: Closing FILTER_TEXT operation filter_clean
+[2026-03-04 21:07:08,154] [INFO ] [operation.py::38 close]: Closing FILTER_TEXT operation chunker_sentence
+[2026-03-04 21:07:08,157] [INFO ] [manager.py::332 load_operations_from_config]: Active STT from config: sherpa_ru
+[2026-03-04 21:07:08,157] [INFO ] [manager.py::334 load_operations_from_config]: Active TTS from config: qwen3
+[2026-03-04 21:07:08,157] [INFO ] [operation.py::32 start]: Starting STT operation sherpa_ru
+[2026-03-04 21:07:08,157] [WARNI] [base.py::46 unload]: Attempted to unload process sherpa_stt when it is already unloaded
+[2026-03-04 21:07:08,159] [INFO ] [sherpa_server.py::85 _prepare_hotwords_file]: Sherpa STT hotwords validated: 3 entries
+[2026-03-04 21:07:08,160] [INFO ] [sherpa_server.py::295 reload]: Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5
+[2026-03-04 21:07:08,160] [INFO ] [sherpa_server.py::307 reload]: Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5
+[2026-03-04 21:07:12,474] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-03-04 21:07:12,479] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 13140) on port 13712 (GPU: 0)
+[2026-03-04 21:07:12,479] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:13712/health ...
+[2026-03-04 21:07:16,660] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 13712)
+[2026-03-04 21:07:16,661] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-03-04 21:07:16,661] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation chunker_sentence
+[2026-03-04 21:07:17,094] [INFO ] [operation.py::32 start]: Starting TTS operation qwen3
+[2026-03-04 21:07:17,095] [INFO ] [qwen3_tts_server.py::199 reload]: Qwen3 TTS SoX bin detected: C:\Nirmita\apps\tts-qwen3-server\third_party\sox\sox-14.4.2-win32\sox-14.4.2
+[2026-03-04 21:07:17,095] [INFO ] [qwen3_tts_server.py::203 reload]: Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv312\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 1 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-Base --speaker serena --language russian --dtype bfloat16 --attn_implementation flash_attention_2 --use_compile 0 --sample_rate 24000 --sample_width 2 --channels 1 --voice_mode voice_clone --ref_audio_path C:\Nirmita\Nira_voice.wav --ref_text  --x_vector_only_mode 1 --preload_voice_clone_prompt 1 --emit_every_frames 4 --decode_window_frames 32 --first_chunk_emit_every 1 --first_chunk_decode_window 16 --first_chunk_frames 16 --overlap_samples 0 --max_new_tokens 112 --max_frames 32 --use_optimized_decode 1 --max_concurrent 1 --preload_on_start 1 --warmup_on_start 0 --warmup_text Привет. --warmup_emit_every_frames 4 --warmup_decode_window_frames 48 --warmup_max_new_tokens 96 --warmup_chunks 2 --first_chunk_timeout_s 30 --stream_idle_timeout_s 30 --compile_mode reduce-overhead --compile_use_cuda_graphs 0 --compile_codebook_predictor 0 --compile_talker 0 --allow_compile_voice_clone 0
+[2026-03-04 21:07:17,095] [INFO ] [qwen3_tts_server.py::204 reload]: Qwen3 TTS GPU pin: provider=cuda gpu_id=1 device=cuda:0 CUDA_VISIBLE_DEVICES=1
+[2026-03-04 21:07:33,394] [INFO ] [qwen3_tts_server.py::232 reload]: Qwen3 TTS sidecar is ready at http://127.0.0.1:6116/health
+[2026-03-04 21:13:21,434] [INFO ] [jaison.py::443 create_job]: Queued new config_load job 47504d0e-3596-4fb5-a074-06b2e54993e4
+[2026-03-04 21:13:21,522] [INFO ] [jaison.py::443 create_job]: Queued new operation_reload_from_config job e75f19b4-c2dd-4178-a5d8-f5b3b960b841
+[2026-03-04 21:13:21,524] [INFO ] [operation.py::38 close]: Closing STT operation sherpa_ru
+[2026-03-04 21:13:21,524] [INFO ] [base.py::67 unlink]: No more links to process sherpa_stt. Unloading...
+[2026-03-04 21:13:21,534] [INFO ] [base.py::44 unload]: Unloaded process sherpa_stt
+[2026-03-04 21:13:21,534] [INFO ] [operation.py::38 close]: Closing T2T operation llamacpp
+[2026-03-04 21:13:21,534] [INFO ] [base.py::67 unlink]: No more links to process llamacpp. Unloading...
+[2026-03-04 21:13:21,544] [INFO ] [base.py::44 unload]: Unloaded process llamacpp
+[2026-03-04 21:13:21,544] [INFO ] [operation.py::38 close]: Closing TTS operation qwen3
+[2026-03-04 21:13:21,544] [INFO ] [base.py::67 unlink]: No more links to process qwen3_tts. Unloading...
+[2026-03-04 21:13:21,554] [INFO ] [base.py::44 unload]: Unloaded process qwen3_tts
+[2026-03-04 21:13:21,554] [INFO ] [operation.py::38 close]: Closing FILTER_TEXT operation filter_clean
+[2026-03-04 21:13:21,555] [INFO ] [operation.py::38 close]: Closing FILTER_TEXT operation chunker_sentence
+[2026-03-04 21:13:21,559] [INFO ] [manager.py::332 load_operations_from_config]: Active STT from config: sherpa_ru
+[2026-03-04 21:13:21,559] [INFO ] [manager.py::334 load_operations_from_config]: Active TTS from config: qwen3
+[2026-03-04 21:13:21,560] [INFO ] [operation.py::32 start]: Starting STT operation sherpa_ru
+[2026-03-04 21:13:21,560] [WARNI] [base.py::46 unload]: Attempted to unload process sherpa_stt when it is already unloaded
+[2026-03-04 21:13:21,563] [INFO ] [sherpa_server.py::85 _prepare_hotwords_file]: Sherpa STT hotwords validated: 3 entries
+[2026-03-04 21:13:21,564] [INFO ] [sherpa_server.py::295 reload]: Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5
+[2026-03-04 21:13:21,564] [INFO ] [sherpa_server.py::307 reload]: Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5
+[2026-03-04 21:13:25,894] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-03-04 21:13:25,899] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 38676) on port 6461 (GPU: 0)
+[2026-03-04 21:13:25,899] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:6461/health ...
+[2026-03-04 21:13:30,085] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 6461)
+[2026-03-04 21:13:30,086] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-03-04 21:13:30,086] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation chunker_sentence
+[2026-03-04 21:13:30,499] [INFO ] [operation.py::32 start]: Starting TTS operation qwen3
+[2026-03-04 21:13:30,501] [INFO ] [qwen3_tts_server.py::199 reload]: Qwen3 TTS SoX bin detected: C:\Nirmita\apps\tts-qwen3-server\third_party\sox\sox-14.4.2-win32\sox-14.4.2
+[2026-03-04 21:13:30,501] [INFO ] [qwen3_tts_server.py::203 reload]: Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv312\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 1 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-Base --speaker serena --language russian --dtype bfloat16 --attn_implementation flash_attention_2 --use_compile 1 --sample_rate 24000 --sample_width 2 --channels 1 --voice_mode voice_clone --ref_audio_path C:\Nirmita\Nira_voice.wav --ref_text  --x_vector_only_mode 1 --preload_voice_clone_prompt 1 --emit_every_frames 4 --decode_window_frames 32 --first_chunk_emit_every 1 --first_chunk_decode_window 16 --first_chunk_frames 16 --overlap_samples 0 --max_new_tokens 112 --max_frames 32 --use_optimized_decode 1 --max_concurrent 1 --preload_on_start 1 --warmup_on_start 0 --warmup_text Привет. --warmup_emit_every_frames 4 --warmup_decode_window_frames 48 --warmup_max_new_tokens 96 --warmup_chunks 2 --first_chunk_timeout_s 30 --stream_idle_timeout_s 30 --compile_mode reduce-overhead --compile_use_cuda_graphs 0 --compile_codebook_predictor 1 --compile_talker 1 --allow_compile_voice_clone 1
+[2026-03-04 21:13:30,501] [INFO ] [qwen3_tts_server.py::204 reload]: Qwen3 TTS GPU pin: provider=cuda gpu_id=1 device=cuda:0 CUDA_VISIBLE_DEVICES=1
+[2026-03-04 21:13:47,785] [INFO ] [qwen3_tts_server.py::232 reload]: Qwen3 TTS sidecar is ready at http://127.0.0.1:6116/health
+[2026-03-04 21:16:08,846] [INFO ] [jaison.py::443 create_job]: Queued new config_load job 5db5fd44-04d9-4272-9bca-48e441dc6a77
+[2026-03-04 21:16:09,317] [INFO ] [jaison.py::443 create_job]: Queued new operation_reload_from_config job ad761639-d574-464d-bb0a-c01bb54ee755
+[2026-03-04 21:16:09,317] [INFO ] [operation.py::38 close]: Closing STT operation sherpa_ru
+[2026-03-04 21:16:09,318] [INFO ] [base.py::67 unlink]: No more links to process sherpa_stt. Unloading...
+[2026-03-04 21:16:09,326] [INFO ] [base.py::44 unload]: Unloaded process sherpa_stt
+[2026-03-04 21:16:09,326] [INFO ] [operation.py::38 close]: Closing T2T operation llamacpp
+[2026-03-04 21:16:09,326] [INFO ] [base.py::67 unlink]: No more links to process llamacpp. Unloading...
+[2026-03-04 21:16:09,334] [INFO ] [base.py::44 unload]: Unloaded process llamacpp
+[2026-03-04 21:16:09,334] [INFO ] [operation.py::38 close]: Closing TTS operation qwen3
+[2026-03-04 21:16:09,335] [INFO ] [base.py::67 unlink]: No more links to process qwen3_tts. Unloading...
+[2026-03-04 21:16:09,344] [INFO ] [base.py::44 unload]: Unloaded process qwen3_tts
+[2026-03-04 21:16:09,344] [INFO ] [operation.py::38 close]: Closing FILTER_TEXT operation filter_clean
+[2026-03-04 21:16:09,344] [INFO ] [operation.py::38 close]: Closing FILTER_TEXT operation chunker_sentence
+[2026-03-04 21:16:09,348] [INFO ] [manager.py::332 load_operations_from_config]: Active STT from config: sherpa_ru
+[2026-03-04 21:16:09,348] [INFO ] [manager.py::334 load_operations_from_config]: Active TTS from config: qwen3
+[2026-03-04 21:16:09,348] [INFO ] [operation.py::32 start]: Starting STT operation sherpa_ru
+[2026-03-04 21:16:09,348] [WARNI] [base.py::46 unload]: Attempted to unload process sherpa_stt when it is already unloaded
+[2026-03-04 21:16:09,351] [INFO ] [sherpa_server.py::85 _prepare_hotwords_file]: Sherpa STT hotwords validated: 3 entries
+[2026-03-04 21:16:09,351] [INFO ] [sherpa_server.py::295 reload]: Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5
+[2026-03-04 21:16:09,351] [INFO ] [sherpa_server.py::307 reload]: Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5
+[2026-03-04 21:16:13,672] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-03-04 21:16:13,676] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 31092) on port 6796 (GPU: 0)
+[2026-03-04 21:16:13,676] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:6796/health ...
+[2026-03-04 21:16:17,903] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 6796)
+[2026-03-04 21:16:17,903] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-03-04 21:16:17,903] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation chunker_sentence
+[2026-03-04 21:16:18,344] [INFO ] [operation.py::32 start]: Starting TTS operation qwen3
+[2026-03-04 21:16:18,346] [INFO ] [qwen3_tts_server.py::199 reload]: Qwen3 TTS SoX bin detected: C:\Nirmita\apps\tts-qwen3-server\third_party\sox\sox-14.4.2-win32\sox-14.4.2
+[2026-03-04 21:16:18,346] [INFO ] [qwen3_tts_server.py::203 reload]: Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv312\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 1 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-Base --speaker serena --language russian --dtype bfloat16 --attn_implementation flash_attention_2 --use_compile 1 --sample_rate 24000 --sample_width 2 --channels 1 --voice_mode voice_clone --ref_audio_path C:\Nirmita\Nira_voice.wav --ref_text  --x_vector_only_mode 1 --preload_voice_clone_prompt 1 --emit_every_frames 4 --decode_window_frames 32 --first_chunk_emit_every 1 --first_chunk_decode_window 16 --first_chunk_frames 16 --overlap_samples 0 --max_new_tokens 112 --max_frames 56 --use_optimized_decode 1 --max_concurrent 1 --preload_on_start 1 --warmup_on_start 0 --warmup_text Привет. --warmup_emit_every_frames 4 --warmup_decode_window_frames 48 --warmup_max_new_tokens 96 --warmup_chunks 2 --first_chunk_timeout_s 30 --stream_idle_timeout_s 30 --compile_mode reduce-overhead --compile_use_cuda_graphs 0 --compile_codebook_predictor 1 --compile_talker 1 --allow_compile_voice_clone 1
+[2026-03-04 21:16:18,346] [INFO ] [qwen3_tts_server.py::204 reload]: Qwen3 TTS GPU pin: provider=cuda gpu_id=1 device=cuda:0 CUDA_VISIBLE_DEVICES=1
+[2026-03-04 21:16:36,609] [INFO ] [qwen3_tts_server.py::232 reload]: Qwen3 TTS sidecar is ready at http://127.0.0.1:6116/health
+[2026-03-04 21:19:06,209] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job 0a6d3812-74e0-4af6-ad02-a8399afe5b68
+[2026-03-04 21:19:06,211] [ERROR] [jaison.py::762 _process_job_loop]: Job 0a6d3812-74e0-4af6-ad02-a8399afe5b68 failed with error: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "C:\Nirmita\src\utils\jaison.py", line 744, in _process_job_loop
+    await self.job_current
+  File "C:\Nirmita\src\utils\jaison.py", line 1057, in append_conversation_context_text
+    datetime.datetime.fromtimestamp(timestamp) \
+TypeError: 'NoneType' object cannot be interpreted as an integer
+[2026-03-04 21:20:37,192] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job 64e74807-1c04-4e0c-a4ec-d5d7547a27f6
+[2026-03-04 21:20:37,237] [INFO ] [jaison.py::443 create_job]: Queued new response job 018b632a-f100-49b5-bb65-04df12e5d044
+[2026-03-04 21:20:37,802] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 563.1532999977935 ms
+[2026-03-04 21:20:37,817] [INFO ] [qwen3.py::678 _stream_sidecar_bytes]: Qwen3 voice-clone limits: text_len=7 max_frames=20 max_new_tokens=96
+[2026-03-04 21:20:41,486] [INFO ] [qwen3.py::744 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=30 bytes=122742 first_chunk_ms=739 max_gap_ms=432.7 total_ms=3668 audio_s=2.557 rtf=1.434 text_len=7
+[2026-03-04 21:20:41,486] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 3669.257999994443 ms
+[2026-03-04 21:20:41,486] [INFO ] [qwen3.py::678 _stream_sidecar_bytes]: Qwen3 voice-clone limits: text_len=17 max_frames=24 max_new_tokens=96
+[2026-03-04 21:20:45,523] [INFO ] [qwen3.py::744 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=30 bytes=122742 first_chunk_ms=691 max_gap_ms=509.0 total_ms=4036 audio_s=2.557 rtf=1.578 text_len=17
+[2026-03-04 21:20:45,523] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 4037.1198000066215 ms
+[2026-03-04 21:20:45,523] [INFO ] [qwen3.py::678 _stream_sidecar_bytes]: Qwen3 voice-clone limits: text_len=9 max_frames=20 max_new_tokens=96
+[2026-03-04 21:20:47,956] [INFO ] [qwen3.py::744 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=15 bytes=61302 first_chunk_ms=755 max_gap_ms=529.5 total_ms=2433 audio_s=1.277 rtf=1.905 text_len=9
+[2026-03-04 21:20:47,956] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 2433.4254000132205 ms
+[2026-03-04 21:20:47,956] [INFO ] [qwen3.py::678 _stream_sidecar_bytes]: Qwen3 voice-clone limits: text_len=24 max_frames=31 max_new_tokens=96
+[2026-03-04 21:20:52,890] [INFO ] [qwen3.py::744 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=30 bytes=122742 first_chunk_ms=885 max_gap_ms=609.9 total_ms=4932 audio_s=2.557 rtf=1.929 text_len=24
+[2026-03-04 21:20:52,890] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 4933.291900000768 ms
+[2026-03-04 21:20:52,890] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation chunker_sentence completed in 15088.078400003724 ms
+[2026-03-04 21:20:52,890] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 15088.254100002814 ms
+[2026-03-04 21:20:52,891] [INFO ] [jaison.py::964 response_pipeline]: Response job 018b632a-f100-49b5-bb65-04df12e5d044 completed. Content: 'Привет! У меня все супер! А у тебя? Чем занимаешься сегодня?...'
+[2026-03-04 21:23:30,338] [INFO ] [app_server.py::86 ws]: Closed websocket connection
