@@ -57,7 +57,7 @@ operations:
     id: filter_clean
   - role: filter_text
     id: chunker_sentence
-    mode: "full"                 # sentence | full (для Qwen3 лучше полный текст за один проход)
+    mode: "full"                 # sentence | full (для текущего Qwen3 избегаем повторной first-chunk задержки на каждое предложение)
 
   # TTS (Qwen3) - активен через tts_active_id: "qwen3".
   # Для отключения поставь tts_active_id: null
@@ -80,11 +80,11 @@ operations:
     device: "cuda:1"             # Локальный режим: конкретный GPU. Для sidecar учитывается process.device
     dtype: "bfloat16"
     attn_implementation: "flash_attention_2"  # Py3.12 sidecar + flash-attn wheel (Win, cu130)
-    emit_every_frames: 8
-    decode_window_frames: 80
-    first_chunk_emit_every: 5
-    first_chunk_decode_window: 48
-    first_chunk_frames: 48
+    emit_every_frames: 4
+    decode_window_frames: 64
+    first_chunk_emit_every: 2
+    first_chunk_decode_window: 32
+    first_chunk_frames: 32
     overlap_samples: 0
     max_new_tokens: 384
     do_sample: false             # Стабилизирует тембр и уменьшает "прыжки" высоты тона
@@ -103,15 +103,15 @@ operations:
       python_executable: "C:\\Nirmita\\apps\\tts-qwen3-server\\.venv312\\Scripts\\python.exe"
       device: "cuda:0"           # внутри sidecar после pin по CUDA_VISIBLE_DEVICES
       attn_implementation: "flash_attention_2"
-      use_compile: 1             # Требует triton-windows в sidecar venv. Даёт заметный прирост после warmup.
+      use_compile: 0             # Стабильный профиль для диагностики разрывов (compile включать после A/B).
       compile_mode: "reduce-overhead"
       compile_use_cuda_graphs: 0 # Стабильнее на Windows/динамических формах, меньше риск обрывов стрима
       compile_codebook_predictor: 0
-      emit_every_frames: 8
-      decode_window_frames: 80
-      first_chunk_emit_every: 5
-      first_chunk_decode_window: 48
-      first_chunk_frames: 48
+      emit_every_frames: 4
+      decode_window_frames: 64
+      first_chunk_emit_every: 2
+      first_chunk_decode_window: 32
+      first_chunk_frames: 32
       overlap_samples: 0
       max_new_tokens: 384
       sox_bin_dir: "C:\\Nirmita\\apps\\tts-qwen3-server\\third_party\\sox\\sox-14.4.2-win32\\sox-14.4.2"
@@ -120,8 +120,8 @@ operations:
       preload_on_start: 1        # Загружает модель при старте sidecar, а не на первом запросе
       warmup_on_start: 1          # Прогрев compile/графов на коротком тексте (убирает длинный "первый ответ")
       warmup_text: "Привет."
-      warmup_emit_every_frames: 5
-      warmup_decode_window_frames: 80
+      warmup_emit_every_frames: 4
+      warmup_decode_window_frames: 64
       warmup_max_new_tokens: 96
       warmup_chunks: 2
       first_chunk_timeout_s: 18
@@ -155,6 +155,7 @@ microphone:
   speech_start_confirm_ms: 140  # Раньше подтверждаем старт речи на тихом голосе
   min_speech_ms_interrupt: 100  # Короткие команды перебивания не отбрасывать
   speech_start_interrupt_mode: "soft"  # soft|hard: мягкий режим не прерывает активный response только по старту голоса
+  barge_in_min_non_filler_words: 4     # Минимум слов для прерывания активного ответа (кроме stop/continue-intent)
   turn_merge_window_ms: 2200    # Окно повторного использования turn_id на стороне микрофонного клиента
   stt_immediate_max_active: 2   # Максимум параллельных immediate STT-воркеров
   stt_immediate_max_pending: 8  # Максимум ожидающих audio-сегментов
@@ -181,8 +182,9 @@ audio_output:
   channels: 1
   blocksize: 256
   max_buffer_ms: 700
-  prebuffer_ms: 180
-  rebuffer_ms: 260
+  prebuffer_ms: 120
+  rebuffer_ms: 120
+  rebuffer_max_wait_ms: 220
   clear_on_stop: true
   output_gain_db: 0.0
   reconnect_delay_ms: 1200

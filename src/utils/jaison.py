@@ -13,7 +13,6 @@ from enum import Enum
 from utils.args import args
 
 from utils.helpers.singleton import Singleton
-from utils.helpers.iterable import chunk_buffer
 from utils.helpers.observer import ObserverServer
 
 from utils.config import Config, UnknownField, UnknownFile
@@ -931,26 +930,25 @@ class JAIson(metaclass=Singleton):
                     async for audio_chunk_out in self.op_manager.use_operation(OpRoles.TTS, text_chunk_out):
                         # Apply tts filters
                         async for final_audio_chunk_out in self.op_manager.use_operation(OpRoles.FILTER_AUDIO, audio_chunk_out):
-                            # Broadcast results (only the audio data for now)
-                            for ws_chunk in chunk_buffer(base64.b64encode(final_audio_chunk_out['audio_bytes']).decode('utf-8')):
-                                audio_event = {
-                                    "audio_bytes": ws_chunk,
-                                    "sr": final_audio_chunk_out['sr'],
-                                    "sw": final_audio_chunk_out['sw'],
-                                    "ch": final_audio_chunk_out['ch'],
-                                    "event": "audio_chunk"
-                                }
-                                # First-audio metrics (time to first playable TTS chunk)
-                                if not first_audio_sent:
-                                    first_audio_sent = True
-                                    tts_start_ms = int((time.time() - start_time) * 1000)
-                                    audio_event["tts_start_ms"] = tts_start_ms
-                                    if input_timestamp is not None:
-                                        try:
-                                            audio_event["e2e_tts_start_ms"] = int((time.time() - float(input_timestamp)) * 1000)
-                                        except Exception:
-                                            pass
-                                await self._handle_broadcast_event(job_id, job_type, audio_event)
+                            # Broadcast results (single WS event per PCM chunk).
+                            audio_event = {
+                                "audio_bytes": base64.b64encode(final_audio_chunk_out["audio_bytes"]).decode("utf-8"),
+                                "sr": final_audio_chunk_out["sr"],
+                                "sw": final_audio_chunk_out["sw"],
+                                "ch": final_audio_chunk_out["ch"],
+                                "event": "audio_chunk",
+                            }
+                            # First-audio metrics (time to first playable TTS chunk)
+                            if not first_audio_sent:
+                                first_audio_sent = True
+                                tts_start_ms = int((time.time() - start_time) * 1000)
+                                audio_event["tts_start_ms"] = tts_start_ms
+                                if input_timestamp is not None:
+                                    try:
+                                        audio_event["e2e_tts_start_ms"] = int((time.time() - float(input_timestamp)) * 1000)
+                                    except Exception:
+                                        pass
+                            await self._handle_broadcast_event(job_id, job_type, audio_event)
         
         if full_filtered_text:
             self.prompter.add_chat(self.prompter.character_name, full_filtered_text)
@@ -1310,6 +1308,13 @@ class JAIson(metaclass=Singleton):
                 wake_words.add(cfg_name)
         except Exception:
             pass
+        try:
+            barge_in_min_non_filler_words = int(mic_cfg.get("barge_in_min_non_filler_words", 2))
+        except Exception:
+            barge_in_min_non_filler_words = 2
+        if barge_in_min_non_filler_words < 1:
+            barge_in_min_non_filler_words = 1
+
         continue_intent = self._is_continue_intent(content)
 
         if not words:
@@ -1356,7 +1361,11 @@ class JAIson(metaclass=Singleton):
         is_stop_command_only = contains_stop_word and (
             len(non_stop_words) == 0 or stop_like_count >= max(1, len(words) - 1)
         )
-        is_significant = contains_stop_word or continue_intent or len(non_filler_words) >= 2
+        is_significant = (
+            contains_stop_word
+            or continue_intent
+            or len(non_filler_words) >= barge_in_min_non_filler_words
+        )
         should_respond = (
             continue_intent
             or len(non_filler_words) >= 2

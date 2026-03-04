@@ -121,6 +121,7 @@ class PCM16OutputPlayer:
         max_buffer_ms: int,
         prebuffer_ms: int,
         rebuffer_ms: int,
+        rebuffer_max_wait_ms: int,
         clear_on_stop: bool,
         output_gain_db: float,
     ):
@@ -137,6 +138,7 @@ class PCM16OutputPlayer:
         self.max_buffer_bytes = int(self.sample_rate * self.frame_bytes * self.max_buffer_ms / 1000.0)
         self.prebuffer_ms = int(max(0, prebuffer_ms))
         self.rebuffer_ms = int(max(0, rebuffer_ms))
+        self.rebuffer_max_wait_ms = int(max(0, rebuffer_max_wait_ms))
         self.prebuffer_bytes = int(self.sample_rate * self.frame_bytes * self.prebuffer_ms / 1000.0)
         self.rebuffer_bytes = int(self.sample_rate * self.frame_bytes * self.rebuffer_ms / 1000.0)
         self.output_gain = float(10.0 ** (output_gain_db / 20.0))
@@ -151,6 +153,7 @@ class PCM16OutputPlayer:
         self._ratecv_src_sr = None
         self._primed = False
         self._need_rebuffer = False
+        self._need_rebuffer_since = 0.0
 
     async def start(self) -> None:
         if self._stream is not None:
@@ -174,7 +177,21 @@ class PCM16OutputPlayer:
                         self._primed = True
 
                     if self._need_rebuffer and self.rebuffer_bytes > 0:
-                        if len(self._buffer) < self.rebuffer_bytes:
+                        now = time.time()
+                        # Avoid hard lock: for sparse/slow TTS streams, resume with smaller buffer
+                        # after a short wait, otherwise audio can stall indefinitely.
+                        dynamic_resume_bytes = min(
+                            self.rebuffer_bytes,
+                            max(requested * 4, self.frame_bytes * 512),
+                        )
+                        waited_ms = (
+                            (now - self._need_rebuffer_since) * 1000.0
+                            if self._need_rebuffer_since > 0.0
+                            else 0.0
+                        )
+                        if len(self._buffer) < dynamic_resume_bytes and (
+                            self.rebuffer_max_wait_ms <= 0 or waited_ms < self.rebuffer_max_wait_ms
+                        ):
                             now = time.time()
                             if (now - self._last_rebuffer_print) > 2.0:
                                 self._last_rebuffer_print = now
@@ -185,6 +202,7 @@ class PCM16OutputPlayer:
                             outdata[:] = b"\x00" * requested
                             return
                         self._need_rebuffer = False
+                        self._need_rebuffer_since = 0.0
 
                     if len(self._buffer) >= requested:
                         chunk = bytes(self._buffer[:requested])
@@ -194,9 +212,13 @@ class PCM16OutputPlayer:
                         self._buffer.clear()
                         chunk = available + (b"\x00" * (requested - len(available)))
                         self._need_rebuffer = True
+                        if self._need_rebuffer_since <= 0.0:
+                            self._need_rebuffer_since = time.time()
                     else:
                         chunk = b"\x00" * requested
                         self._need_rebuffer = True
+                        if self._need_rebuffer_since <= 0.0:
+                            self._need_rebuffer_since = time.time()
             outdata[:] = chunk
 
         def _open_stream(sample_rate: int):
@@ -250,6 +272,7 @@ class PCM16OutputPlayer:
             self._buffer.clear()
             self._primed = False
             self._need_rebuffer = False
+            self._need_rebuffer_since = 0.0
         self._ratecv_state = None
         self._ratecv_src_sr = None
 
@@ -348,6 +371,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max_buffer_ms", type=int, default=700)
     parser.add_argument("--prebuffer_ms", type=int, default=180)
     parser.add_argument("--rebuffer_ms", type=int, default=260)
+    parser.add_argument("--rebuffer_max_wait_ms", type=int, default=220)
     parser.add_argument("--clear_on_stop", type=int, default=1)
     parser.add_argument("--output_gain_db", type=float, default=0.0)
     parser.add_argument("--reconnect_delay_ms", type=int, default=1200)
@@ -424,6 +448,7 @@ async def run() -> None:
         max_buffer_ms=args.max_buffer_ms,
         prebuffer_ms=args.prebuffer_ms,
         rebuffer_ms=args.rebuffer_ms,
+        rebuffer_max_wait_ms=args.rebuffer_max_wait_ms,
         clear_on_stop=bool(int(args.clear_on_stop)),
         output_gain_db=args.output_gain_db,
     )

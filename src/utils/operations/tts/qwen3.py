@@ -566,6 +566,11 @@ class Qwen3TTS(TTSOperation):
         last_exc: Optional[Exception] = None
         for attempt in range(1, max_attempts + 1):
             emitted_chunks = 0
+            emitted_bytes = 0
+            started_at = time.perf_counter()
+            first_chunk_ms: Optional[int] = None
+            last_chunk_at: Optional[float] = None
+            max_gap_ms = 0.0
             try:
                 async with httpx.AsyncClient(timeout=timeout) as client:
                     async with client.stream("POST", url, json=payload) as response:
@@ -581,7 +586,16 @@ class Qwen3TTS(TTSOperation):
 
                         async for raw_chunk in response.aiter_bytes(chunk_size=self.sidecar_read_chunk_bytes):
                             if raw_chunk:
+                                now = time.perf_counter()
+                                if last_chunk_at is not None:
+                                    gap_ms = (now - last_chunk_at) * 1000.0
+                                    if gap_ms > max_gap_ms:
+                                        max_gap_ms = gap_ms
+                                else:
+                                    first_chunk_ms = int((now - started_at) * 1000)
+                                last_chunk_at = now
                                 emitted_chunks += 1
+                                emitted_bytes += len(raw_chunk)
                                 yield {
                                     "audio_bytes": bytes(raw_chunk),
                                     "sr": int(self.sample_rate),
@@ -589,6 +603,21 @@ class Qwen3TTS(TTSOperation):
 
                 if emitted_chunks <= 0:
                     raise RuntimeError("Qwen3 sidecar returned 200 but produced no audio bytes.")
+                total_ms = int((time.perf_counter() - started_at) * 1000)
+                audio_s = float(emitted_bytes) / float(max(1, int(self.sample_rate) * int(self.sample_width) * int(self.channels)))
+                total_s = float(total_ms) / 1000.0
+                rtf = (total_s / audio_s) if audio_s > 0 else -1.0
+                logging.info(
+                    "Qwen3 stream stats: chunks=%s bytes=%s first_chunk_ms=%s max_gap_ms=%.1f total_ms=%s audio_s=%.3f rtf=%.3f text_len=%s",
+                    emitted_chunks,
+                    emitted_bytes,
+                    (first_chunk_ms if first_chunk_ms is not None else -1),
+                    max_gap_ms,
+                    total_ms,
+                    audio_s,
+                    rtf,
+                    len(content),
+                )
                 return
             except Exception as exc:
                 last_exc = exc
