@@ -6,6 +6,7 @@ from .error import UnknownOpType, UnknownOpRole, UnknownOpID, DuplicateFilter, O
 from .base import Operation
 from utils.helpers.singleton import Singleton
 from utils.config import Config
+from .stt.registry import load_stt_operation
 
 class OpTypes(Enum):
     STT = "stt"
@@ -44,7 +45,7 @@ def role_to_type(op_role: OpRoles) -> OpTypes:
             raise UnknownOpRole(op_role)
     
     
-def load_op(op_type: OpTypes, op_id: str):
+def load_op(op_type: OpTypes, op_id: str, op_details: Dict[str, Any] | None = None):
     '''
     Return an operation, but do not saved to OperationManager
     
@@ -54,11 +55,7 @@ def load_op(op_type: OpTypes, op_id: str):
     '''
     match op_type:
         case OpTypes.STT:
-            if op_id == "sherpa":
-                from .stt.sherpa import SherpaSTT
-                return SherpaSTT()
-            else:
-                raise UnknownOpID("STT", op_id)
+            return load_stt_operation(op_id=op_id, op_details=op_details)
         case OpTypes.T2T:
             if op_id == "openai":
                 from .t2t.openai import OpenAIT2T
@@ -220,7 +217,7 @@ class OperationManager(metaclass=Singleton):
             for op in self.filter_text:
                 if op.op_id == op_id: raise DuplicateFilter("FILTER_TEXT", op_id)
                 
-        new_op = load_op(role_to_type(op_role), op_id)
+        new_op = load_op(role_to_type(op_role), op_id, op_details=op_details)
         await new_op.configure(op_details)
         await new_op.start()
         
@@ -260,11 +257,14 @@ class OperationManager(metaclass=Singleton):
         # This enables fast A/B switching without rewriting the pipeline.
         stt_entries = [op for op in operations if str(op.get("role", "")).lower() == OpRoles.STT.value]
         selected_stt = None
+        stt_strict_active_id = bool(getattr(config, "stt_strict_active_id", False))
         if stt_entries:
             active_stt_id = getattr(config, "stt_active_id", None)
             if active_stt_id:
                 selected_stt = next((op for op in stt_entries if str(op.get("id", "")) == str(active_stt_id)), None)
                 if selected_stt is None:
+                    if stt_strict_active_id:
+                        raise UnknownOpID("STT", str(active_stt_id))
                     selected_stt = stt_entries[0]
                     logging.warning(
                         "stt_active_id='%s' not found in operations; falling back to first STT '%s'.",
@@ -273,6 +273,8 @@ class OperationManager(metaclass=Singleton):
                     )
             else:
                 selected_stt = stt_entries[0]
+        elif getattr(config, "stt_active_id", None) and stt_strict_active_id:
+            raise UnknownOpID("STT", str(getattr(config, "stt_active_id")))
 
         filtered_ops: List[Dict[str, Any]] = []
         stt_added = False
@@ -294,6 +296,11 @@ class OperationManager(metaclass=Singleton):
             op_role = OpRoles(op_details['role'])
             op_id = op_details['id']
             await self.load_operation(op_role, op_id, op_details)
+
+    def loose_load_operation(self, op_role: OpRoles, op_id: str, op_details: Dict[str, Any] | None = None) -> Operation:
+        details = dict(op_details or {})
+        details.setdefault("id", op_id)
+        return load_op(role_to_type(op_role), op_id, op_details=details)
         
     async def close_operation(self, op_role: OpRoles, op_id: str = None) -> None:
         match op_role:

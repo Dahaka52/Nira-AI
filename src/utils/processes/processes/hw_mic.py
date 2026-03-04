@@ -30,6 +30,18 @@ class HwMicProcess(BaseProcess):
         speech_start_min_interval_ms = mic_conf.get("speech_start_min_interval_ms", 900)
         speech_start_confirm_ms = mic_conf.get("speech_start_confirm_ms", 350)
         min_speech_ms_interrupt = mic_conf.get("min_speech_ms_interrupt", 120)
+        source_id = mic_conf.get("source_id", "mic")
+        turn_merge_window_ms = mic_conf.get("turn_merge_window_ms", 2200)
+        resample_mode = mic_conf.get("resample_mode", "polyphase")
+        mic_gain_db = mic_conf.get("mic_gain_db", 12.0)
+        agc_enable = mic_conf.get("agc_enable", 1)
+        agc_target_rms = mic_conf.get("agc_target_rms", 0.05)
+        agc_max_gain_db = mic_conf.get("agc_max_gain_db", 15.0)
+        soft_limit = mic_conf.get("soft_limit", 0.97)
+        vad_start_rms = mic_conf.get("vad_start_rms", 0.012)
+        vad_hold_rms = mic_conf.get("vad_hold_rms", 0.008)
+        vad_floor_rms = mic_conf.get("vad_floor_rms", 0.001)
+        rms_bridge_ms = mic_conf.get("rms_bridge_ms", 96)
         
         script_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../apps/hw-mic-client/main.py"))
         
@@ -52,6 +64,18 @@ class HwMicProcess(BaseProcess):
             "--speech_start_min_interval_ms", str(speech_start_min_interval_ms),
             "--speech_start_confirm_ms", str(speech_start_confirm_ms),
             "--min_speech_ms_interrupt", str(min_speech_ms_interrupt),
+            "--source_id", str(source_id),
+            "--turn_merge_window_ms", str(turn_merge_window_ms),
+            "--resample_mode", str(resample_mode),
+            "--mic_gain_db", str(mic_gain_db),
+            "--agc_enable", str(int(bool(agc_enable))),
+            "--agc_target_rms", str(agc_target_rms),
+            "--agc_max_gain_db", str(agc_max_gain_db),
+            "--soft_limit", str(soft_limit),
+            "--vad_start_rms", str(vad_start_rms),
+            "--vad_hold_rms", str(vad_hold_rms),
+            "--vad_floor_rms", str(vad_floor_rms),
+            "--rms_bridge_ms", str(rms_bridge_ms),
             "--jaison_api", "http://localhost:7272/api/context/conversation/audio",
             "--speech_start_api", "http://localhost:7272/api/context/conversation/speech_start"
         ])

@@ -224,6 +224,18 @@ paths:
                 content:
                   type: string
                   description: Message from user
+                source_id:
+                  type: string
+                  description: Optional source identifier propagated to websocket events
+                turn_id:
+                  type: string
+                  description: Optional turn identifier propagated to websocket events
+                utterance_id:
+                  type: string
+                  description: Optional utterance identifier propagated to websocket events
+                speaker_id:
+                  type: string
+                  description: Optional speaker identifier propagated to websocket events
       responses:
         '200':
           $ref: '#/components/responses/JobResponse'
@@ -234,7 +246,7 @@ paths:
       tags:
         - context
       summary: Append conversation audio to script
-      description: Transcribe conversational audio and add to the script. Status is communicated over websockets.
+      description: Submit audio to immediate STT path (outside job queue) for low-latency barge-in handling and context append.
       operationId: responseConvAudioAdd
       requestBody:
         description: Content of the request
@@ -274,9 +286,96 @@ paths:
                   type: integer
                   minimum: 0
                   description: Number of audio channels
+                source_id:
+                  type: string
+                  description: Audio source identifier (mic/discord/stream)
+                turn_id:
+                  type: string
+                  description: Optional caller-provided turn identifier
+                utterance_id:
+                  type: string
+                  description: Optional caller-provided utterance identifier
+                speaker_id:
+                  type: string
+                  description: Optional speaker identifier (for diarization/voice-id pipelines)
+                expected_stop_cmd:
+                  type: boolean
+                  description: Optional labeled expectation for stop-command regression runs
       responses:
         '200':
-          $ref: '#/components/responses/JobResponse'
+          description: Audio accepted (or dropped) by immediate STT backpressure policy
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status, message, response]
+                properties:
+                  status:
+                    type: integer
+                    enum: [200]
+                  message:
+                    type: string
+                  response:
+                    type: object
+                    properties:
+                      accepted:
+                        type: boolean
+                      queued:
+                        type: boolean
+                      dropped:
+                        type: boolean
+                      drop_reason:
+                        type: string
+                      active:
+                        type: integer
+                      pending:
+                        type: integer
+                      policy:
+                        type: string
+        '500':
+          $ref: '#/components/responses/InternalErrorResponse'
+  /context/conversation/speech_start:
+    post:
+      tags:
+        - context
+      summary: Early speech-start signal
+      description: Optional low-cost signal from VAD start for faster interruption logic before final STT transcript.
+      operationId: responseConvSpeechStart
+      requestBody:
+        required: False
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                timestamp:
+                  type: number
+                  description: UNIX timestamp seconds
+                source_id:
+                  type: string
+                  description: Audio source identifier
+                turn_id:
+                  type: string
+                  description: Optional turn identifier
+                speaker_id:
+                  type: string
+                  description: Optional speaker identifier
+      responses:
+        '200':
+          description: Speech start signal processed
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status, message, response]
+                properties:
+                  status:
+                    type: integer
+                    enum: [200]
+                  message:
+                    type: string
+                  response:
+                    type: object
         '500':
           $ref: '#/components/responses/InternalErrorResponse'
   /context/custom:

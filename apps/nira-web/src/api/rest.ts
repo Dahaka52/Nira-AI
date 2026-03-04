@@ -9,6 +9,7 @@ export interface PipelineStats {
     queue_size: number;
     status: 'active' | 'idle';
     loaded_operations: Record<string, any>;
+    stt?: Record<string, any>;
 }
 
 class RestClient {

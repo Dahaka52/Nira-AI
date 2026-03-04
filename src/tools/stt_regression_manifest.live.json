@@ -1,0 +1,14 @@
+{
+  "cases": [
+    {
+      "id": "stop_command_tts_ru",
+      "wav": "fixtures/stop_ru.wav",
+      "expected_any": ["стоп", "стой"]
+    },
+    {
+      "id": "wake_word_tts_ru",
+      "wav": "fixtures/wake_ru.wav",
+      "expected_any": ["нира", "нера", "мира"]
+    }
+  ]
+}

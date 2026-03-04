@@ -22,24 +22,32 @@ class ProcessManager(metaclass=Singleton):
     loaded_processes = dict()
     
     '''Perform initial load'''
-    async def load(self, process_type: ProcessType):
+    async def load(self, process_type: ProcessType, process_config: dict | None = None):
         logging.info("Loading process by type {}".format(process_type.value))
         match process_type:
             case ProcessType.KOBOLD:
                 from .processes.koboldcpp import KoboldCPPProcess
                 self.loaded_processes[ProcessType.KOBOLD] = KoboldCPPProcess()
+                if process_config is not None:
+                    self.loaded_processes[ProcessType.KOBOLD].set_runtime_config(process_config)
                 await self.loaded_processes[ProcessType.KOBOLD].reload()
             case ProcessType.LLAMACPP:
                 from .processes.llamacpp import LlamaCPPProcess
                 self.loaded_processes[ProcessType.LLAMACPP] = LlamaCPPProcess()
+                if process_config is not None:
+                    self.loaded_processes[ProcessType.LLAMACPP].set_runtime_config(process_config)
                 await self.loaded_processes[ProcessType.LLAMACPP].reload()
             case ProcessType.SHERPA:
                 from .processes.sherpa_server import SherpaSTTProcess
                 self.loaded_processes[ProcessType.SHERPA] = SherpaSTTProcess()
+                if process_config is not None:
+                    self.loaded_processes[ProcessType.SHERPA].set_runtime_config(process_config)
                 await self.loaded_processes[ProcessType.SHERPA].reload()
             case ProcessType.HW_MIC:
                 from .processes.hw_mic import HwMicProcess
                 self.loaded_processes[ProcessType.HW_MIC] = HwMicProcess()
+                if process_config is not None:
+                    self.loaded_processes[ProcessType.HW_MIC].set_runtime_config(process_config)
                 await self.loaded_processes[ProcessType.HW_MIC].reload()
             case _:
                 raise UnknownProcessError(process_type)
@@ -58,11 +66,15 @@ class ProcessManager(metaclass=Singleton):
                 logging.info("Unloading process {}".format(self.loaded_processes[process_type].id))
                 await self.loaded_processes[process_type].unload()
                 
-    async def link(self, link_id: str, process_type: ProcessType):
+    async def link(self, link_id: str, process_type: ProcessType, process_config: dict | None = None):
         if not (process_type in self.loaded_processes and self.loaded_processes[process_type]):
-            await self.load(process_type)
+            await self.load(process_type, process_config=process_config)
+        elif process_config is not None:
+            self.loaded_processes[process_type].set_runtime_config(process_config)
+            if self.loaded_processes[process_type].process is None:
+                await self.loaded_processes[process_type].reload()
             
-        await self.loaded_processes[process_type].link(link_id)
+        await self.loaded_processes[process_type].link(link_id, process_config=process_config)
         
     async def unlink(self, link_id: str, process_type: ProcessType):
         if not (process_type in self.loaded_processes and self.loaded_processes[process_type]):

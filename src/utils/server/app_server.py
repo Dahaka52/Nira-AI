@@ -129,6 +129,7 @@ async def get_pipeline_stats():
         "current_job_id": j.job_current_id,
         "queue_size": queue_size,
         "status": "active" if j.job_current_id else "idle",
+        "stt": j.get_stt_runtime_stats(),
         "loaded_operations": j.get_loaded_operations(),
         "system": {
             "cpu": cpu,
@@ -202,10 +203,11 @@ async def context_conversation_add_text():
 @app.route('/api/context/conversation/audio', methods=['POST'])    
 async def context_conversation_add_audio():
     try:
-        request_data = (await request.get_json()) or dict()
-        # Выполняем STT и проверку перебивания немедленно (в фоне), не дожидаясь очереди
-        asyncio.create_task(JAIson().process_audio_immediate(request_data))
-        return create_response(200, "Audio processing started", {}, cors_header)
+        request_data = (await request.get_json(silent=True)) or dict()
+        result = await JAIson().submit_audio_immediate(request_data)
+        if not result.get("accepted", False):
+            return create_response(200, "Audio dropped due to STT backpressure", result, cors_header)
+        return create_response(200, "Audio processing started", result, cors_header)
     except Exception as err:
         logging.error(f"Error occured for audio API request", stack_info=True, exc_info=True)
         return create_response(500, str(err), {}, cors_header)
@@ -213,8 +215,9 @@ async def context_conversation_add_audio():
 @app.route('/api/context/conversation/speech_start', methods=['POST'])
 async def context_conversation_speech_start():
     try:
+        request_data = (await request.get_json(silent=True)) or dict()
         # lightweight path: handle immediately to avoid piling background tasks
-        await JAIson().on_user_speech_start()
+        await JAIson().on_user_speech_start(request_data)
         return create_response(200, "Speech start signal processed", {}, cors_header)
     except Exception as err:
         logging.error(f"Error occured for speech_start API request", stack_info=True, exc_info=True)

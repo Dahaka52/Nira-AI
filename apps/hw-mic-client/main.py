@@ -3,6 +3,7 @@ import time
 import json
 import base64
 import argparse
+import uuid
 import numpy as np
 import onnxruntime
 import requests
@@ -27,7 +28,19 @@ parser.add_argument("--speech_start_api", type=str, default=None, help="Optional
 parser.add_argument("--speech_start_min_interval_ms", type=int, default=900, help="Minimum interval between speech_start signals")
 parser.add_argument("--speech_start_confirm_ms", type=int, default=350, help="Require this much active speech before sending speech_start")
 parser.add_argument("--min_speech_ms_interrupt", type=int, default=120, help="Minimum ms for short interrupt commands to still be sent")
+parser.add_argument("--source_id", type=str, default="mic", help="Audio source identifier")
+parser.add_argument("--turn_merge_window_ms", type=int, default=2200, help="Reuse previous turn_id if next phrase starts within this window")
+parser.add_argument("--resample_mode", type=str, default="polyphase", choices=["polyphase", "decimate"], help="Resampling mode 48k->16k")
+parser.add_argument("--mic_gain_db", type=float, default=12.0, help="Fixed software mic gain in dB")
+parser.add_argument("--agc_enable", type=int, default=1, help="Enable simple AGC (1/0)")
+parser.add_argument("--agc_target_rms", type=float, default=0.05, help="Target RMS for AGC")
+parser.add_argument("--agc_max_gain_db", type=float, default=15.0, help="Maximum AGC gain in dB")
+parser.add_argument("--soft_limit", type=float, default=0.97, help="Soft limiter bound")
 parser.add_argument("--vad_threshold", type=float, default=0.2, help="Probability threshold for VAD")
+parser.add_argument("--vad_start_rms", type=float, default=0.012, help="RMS trigger threshold to start phrase")
+parser.add_argument("--vad_hold_rms", type=float, default=0.008, help="RMS hold threshold to continue phrase")
+parser.add_argument("--vad_floor_rms", type=float, default=0.001, help="Minimum RMS for running VAD model")
+parser.add_argument("--rms_bridge_ms", type=int, default=96, help="How long low-energy gap is tolerated before silence handling")
 parser.add_argument("--min_silence_ms", type=int, default=500, help="Milliseconds of silence to split phrase")
 parser.add_argument("--min_speech_ms", type=int, default=200, help="Minimum ms of speech to send")
 parser.add_argument("--pre_roll_ms", type=int, default=300, help="Milliseconds of audio to keep before speech")
@@ -45,6 +58,9 @@ def resolve_speech_start_url(audio_url: str, explicit_url: Optional[str]) -> str
 
 SPEECH_START_API = resolve_speech_start_url(args.jaison_api, args.speech_start_api)
 _last_speech_start_ts_ms = 0.0
+_last_turn_id: Optional[str] = None
+_last_turn_ts: float = 0.0
+_turn_lock = threading.Lock()
 
 
 def _get_hostapi_name(hostapi_index: int) -> str:
@@ -142,13 +158,18 @@ TARGET_SR = 16000   # Частота для VAD и Sherpa
 
 # ПАРАМЕТРЫ VAD И БУФЕРИЗАЦИИ
 # START_RMS и HOLD_RMS - триггеры по уровню звука, если VAD тормозит
-START_RMS = 0.012     # [ADJUST] Был 0.005, слишком много шума ловил
-HOLD_RMS = 0.008      # [ADJUST] Был 0.003
+START_RMS = float(args.vad_start_rms)
+HOLD_RMS = float(args.vad_hold_rms)
+VAD_FLOOR_RMS = float(args.vad_floor_rms)
+RMS_BRIDGE_MS = int(max(0, args.rms_bridge_ms))
 MIN_SILENCE_MS = args.min_silence_ms  # [SYNC] Теперь берется из config.yaml!
 MIN_SPEECH_MS = args.min_speech_ms   
 PRE_ROLL_MS = args.pre_roll_ms       # [SPEEDUP] Теперь берется из config.yaml!
 PRE_ROLL_CHUNKS = int(PRE_ROLL_MS / CHUNK_MS)
 MAX_UTTERANCE_MS = 12000 # Максимальная длина фразы
+MIC_GAIN = float(10 ** (args.mic_gain_db / 20.0))
+AGC_MAX_GAIN = float(10 ** (args.agc_max_gain_db / 20.0))
+SOFT_LIMIT = float(max(0.1, min(1.0, args.soft_limit)))
 
 VAD_MODEL_PATH = os.path.join(os.path.dirname(__file__), "silero_vad.onnx")
 
@@ -214,6 +235,8 @@ state = {
     "duration_ms": 0,
     "speech_ms": 0,     # [ADD] Считаем именно голос (без пре-ролла и хвоста тишины)
     "speech_start_sent": False,
+    "active_turn_id": None,
+    "no_vad_counter_ms": 0,
     "max_rms_recent": 0.0,
     "max_prob_recent": 0.0,
     "last_samples": np.zeros(5),
@@ -223,24 +246,42 @@ state = {
 # [OPTIMIZE] Use Session for faster subsequent requests
 session = requests.Session()
 
-
-def send_speech_start():
-    payload = {"timestamp": time.time()}
-    try:
-        session.post(SPEECH_START_API, json=payload, timeout=1)
-    except Exception:
-        pass
-
-
-def maybe_send_speech_start():
+def maybe_send_speech_start(turn_id: Optional[str]):
     global _last_speech_start_ts_ms
     now_ms = time.time() * 1000.0
     if (now_ms - _last_speech_start_ts_ms) < max(0, args.speech_start_min_interval_ms):
         return
     _last_speech_start_ts_ms = now_ms
-    threading.Thread(target=send_speech_start, daemon=True).start()
+    payload_turn_id = str(turn_id) if turn_id else None
 
-def send_to_jaison(audio_buffer: list):
+    def _send():
+        payload = {"timestamp": time.time(), "source_id": args.source_id}
+        if payload_turn_id:
+            payload["turn_id"] = payload_turn_id
+        try:
+            session.post(SPEECH_START_API, json=payload, timeout=1)
+        except Exception:
+            pass
+
+    threading.Thread(target=_send, daemon=True).start()
+
+
+def begin_turn_id(now_s: float) -> str:
+    global _last_turn_id, _last_turn_ts
+    with _turn_lock:
+        if _last_turn_id and ((now_s - _last_turn_ts) * 1000.0) <= max(0, args.turn_merge_window_ms):
+            return _last_turn_id
+        return str(uuid.uuid4())
+
+
+def complete_turn_id(turn_id: str, now_s: float):
+    global _last_turn_id, _last_turn_ts
+    with _turn_lock:
+        _last_turn_id = str(turn_id)
+        _last_turn_ts = float(now_s)
+
+
+def send_to_jaison(audio_buffer: list, turn_id: Optional[str] = None):
     """Отправка на сервер (асинхронно из потока)"""
     # [OPTIMIZE] Move concatenation to thread to not block audio_callback
     audio_data = np.concatenate(audio_buffer)
@@ -249,23 +290,59 @@ def send_to_jaison(audio_buffer: list):
     audio_int16 = (audio_data * 32767).astype(np.int16).tobytes()
     
     base64_audio = base64.b64encode(audio_int16).decode('utf-8')
+    utterance_id = str(uuid.uuid4())
+    now_s = time.time()
+    turn_id = str(turn_id) if turn_id else begin_turn_id(now_s)
     payload = {
         "user": "Creator", 
-        "timestamp": time.time(),
+        "timestamp": now_s,
         "audio_bytes": base64_audio,
         "sr": TARGET_SR,  # ИСПРАВЛЕНО: Шлем 16000, так как данные ресемплированы
         "sw": 2, 
-        "ch": 1
+        "ch": 1,
+        "source_id": args.source_id,
+        "turn_id": turn_id,
+        "utterance_id": utterance_id,
     }
     
     try:
         response = session.post(args.jaison_api, json=payload, timeout=5)
         if response.status_code == 200:
-             print(f"\n[API] Фраза отправлена ({len(audio_int16)} байт).")
+             accepted = True
+             try:
+                 body = response.json()
+                 accepted = bool((body or {}).get("response", {}).get("accepted", True))
+             except Exception:
+                 pass
+             if accepted:
+                 complete_turn_id(turn_id, now_s)
+                 print(f"\n[API] Фраза отправлена ({len(audio_int16)} байт).")
+             else:
+                 print(f"\n[API] Фраза отброшена backpressure-политикой ({len(audio_int16)} байт).")
         else:
              print(f"\n[API] Ошибка: {response.status_code}")
     except Exception as e:
         print(f"\n[API] Ошибка соединения: {e}")
+
+
+def apply_fixed_gain(samples: np.ndarray) -> np.ndarray:
+    out = samples.astype(np.float32, copy=False) * MIC_GAIN
+    return np.clip(out, -SOFT_LIMIT, SOFT_LIMIT)
+
+
+def apply_gain_and_agc(samples: np.ndarray) -> np.ndarray:
+    out = samples.astype(np.float32, copy=False)
+    if args.agc_enable:
+        rms = float(np.sqrt(np.mean(out ** 2)))
+        if rms > max(1e-6, VAD_FLOOR_RMS):
+            target = max(1e-6, float(args.agc_target_rms))
+            dyn_gain = min(target / rms, AGC_MAX_GAIN)
+            if dyn_gain > 1.0:
+                out = out * dyn_gain
+
+    # Hard clip to avoid numeric overflow before int16 conversion.
+    out = np.clip(out, -SOFT_LIMIT, SOFT_LIMIT)
+    return out
 
 def audio_callback(indata, frames, time_info, status):
     global state
@@ -275,20 +352,27 @@ def audio_callback(indata, frames, time_info, status):
     # 1. Берем канал (Fifine в моно отдает один или два канала)
     ch_native = indata[:, 0]
     
-    # 2. Быстрый ресемплинг 3:1 (48000 -> 16000)
-    # [OPTIMIZE] Децимация (1 из 3) значительно быстрее resample_poly
-    ch16 = ch_native[::3].astype(np.float32)
+    # 2. Ресемплинг 48к -> 16к.
+    # Для качества распознавания по умолчанию используем polyphase.
+    if args.resample_mode == "polyphase":
+        ch16_raw = signal.resample_poly(ch_native, up=1, down=3).astype(np.float32)
+    else:
+        ch16_raw = ch_native[::3].astype(np.float32)
 
-    state["last_samples"] = ch16[:5]
+    # Use fixed-gain signal for VAD/RMS decisions (more stable on noise),
+    # and AGC-enriched signal only for STT payload quality.
+    ch16_vad = apply_fixed_gain(ch16_raw)
+    ch16 = apply_gain_and_agc(ch16_vad)
+    state["last_samples"] = ch16_vad[:5]
     
     # 3. RMS (считаем по 16кГц сигналу)
-    rms = np.sqrt(np.mean(ch16**2))
+    rms = np.sqrt(np.mean(ch16_vad**2))
     if rms > state["max_rms_recent"]: state["max_rms_recent"] = rms
     
     # 4. VAD
     vad_prob = 0.0
-    if rms > 0.001: 
-        is_speech(ch16, args.vad_threshold)
+    if rms > VAD_FLOOR_RMS: 
+        is_speech(ch16_vad, args.vad_threshold)
         vad_prob = last_vad_prob
     
     if vad_prob > state["max_prob_recent"]: state["max_prob_recent"] = vad_prob
@@ -296,9 +380,23 @@ def audio_callback(indata, frames, time_info, status):
     # Логика старта/удержания: VAD + RMS
     if not state["in_speech"]:
         state["pre_roll"].append(ch16.copy())
+        state["no_vad_counter_ms"] = 0
         is_active_speech = (vad_prob > args.vad_threshold) or (rms > START_RMS)
     else:
-        is_active_speech = (vad_prob > (args.vad_threshold * 0.4)) or (rms > HOLD_RMS)
+        hold_vad_threshold = args.vad_threshold * 0.4
+        vad_active = vad_prob > hold_vad_threshold
+        rms_active = rms > HOLD_RMS
+
+        if vad_active or rms_active:
+            # IMPORTANT: reset when RMS is active too.
+            # VAD prob can stay low (~0.001) for this setup, and resetting only on VAD
+            # over-fragmented speech into 1-word chunks.
+            state["no_vad_counter_ms"] = 0
+            is_active_speech = True
+        else:
+            # Brief gap bridge for unvoiced consonants / micro-pauses.
+            state["no_vad_counter_ms"] += CHUNK_MS
+            is_active_speech = state["no_vad_counter_ms"] <= RMS_BRIDGE_MS
 
     if is_active_speech:
         if not state["in_speech"]:
@@ -312,6 +410,8 @@ def audio_callback(indata, frames, time_info, status):
                 state["buffer"] = []
             state["speech_ms"] = 0
             state["speech_start_sent"] = False
+            state["active_turn_id"] = begin_turn_id(time.time())
+            state["no_vad_counter_ms"] = 0
             # Считаем длину в мс (каждый чанк = CHUNK_MS)
             state["duration_ms"] = len(state["buffer"]) * CHUNK_MS
             
@@ -323,7 +423,7 @@ def audio_callback(indata, frames, time_info, status):
         # Отправляем speech_start только после короткого подтверждения непрерывной речи.
         # Это уменьшает ложные прерывания от шумов/коротких "угу".
         if (not state["speech_start_sent"]) and state["speech_ms"] >= max(0, args.speech_start_confirm_ms):
-            maybe_send_speech_start()
+            maybe_send_speech_start(state.get("active_turn_id"))
             state["speech_start_sent"] = True
         
         # [SAFETY] Отработка MAX_UTTERANCE_MS
@@ -354,7 +454,11 @@ def audio_callback(indata, frames, time_info, status):
                 meets_short_interrupt_min = state["speech_ms"] >= args.min_speech_ms_interrupt and likely_voice
                 if meets_regular_min or meets_short_interrupt_min:
                     # [OPTIMIZE] Pass buffer to thread, concatenation happens there
-                    threading.Thread(target=send_to_jaison, args=(list(state["buffer"]),), daemon=True).start()
+                    threading.Thread(
+                        target=send_to_jaison,
+                        args=(list(state["buffer"]), state.get("active_turn_id")),
+                        daemon=True,
+                    ).start()
                 else:
                     print(f"[VAD] Отклонено: слишком коротко ({int(state['speech_ms'])}ms)")
                 
@@ -362,6 +466,8 @@ def audio_callback(indata, frames, time_info, status):
                 state["duration_ms"] = 0
                 state["silence_counter_ms"] = 0
                 state["speech_start_sent"] = False
+                state["active_turn_id"] = None
+                state["no_vad_counter_ms"] = 0
                 # Сброс состояния VAD после фразы
                 vad_state[:] = 0.0
         else:

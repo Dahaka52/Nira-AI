@@ -6,6 +6,8 @@ import datetime
 import time
 import os
 import re
+import json
+from collections import deque
 from typing import Dict, Coroutine, List, Any, Tuple
 from enum import Enum
 from utils.args import args
@@ -37,6 +39,7 @@ from utils.operations import (
     CloseInactiveError,
     UsedInactiveError
 )
+from utils.operations.stt.hooks import apply_pre_stt_hooks
 from utils.mcp import MCPManager
 
 class NonexistantJobException(Exception):
@@ -90,6 +93,18 @@ class JAIson(metaclass=Singleton):
         self._assistant_live_reply: str = ""
         self._assistant_last_full_reply: str = ""
         self._assistant_last_partial_reply: str = ""
+        self._response_job_speakers: Dict[str, str] = dict()
+
+        # Immediate STT path backpressure/runtime
+        self._immediate_audio_lock: asyncio.Lock | None = None
+        self._immediate_audio_active: int = 0
+        self._immediate_audio_pending = deque()
+        self._immediate_audio_tasks = set()
+
+        # STT observability
+        self._stt_window = deque(maxlen=200)
+        self._stt_events_path = os.path.join(args.log_dir, "stt_events.jsonl")
+        self._stt_last_status = {"key": None, "ts": 0.0}
     
     async def start(self):
         logging.info("Starting JAIson application layer.")
@@ -111,6 +126,7 @@ class JAIson(metaclass=Singleton):
         self.prompter.add_mcp_usage_prompt(self.mcp_manager.get_tooling_prompt(), self.mcp_manager.get_response_prompt())
         await self.op_manager.load_operations_from_config()
         await self.process_manager.reload()
+        self._immediate_audio_lock = asyncio.Lock()
         
         # Start microphone if enabled
         from utils.processes.manager import ProcessType
@@ -123,10 +139,263 @@ class JAIson(metaclass=Singleton):
         
     async def stop(self):
         logging.info("Shutting down JAIson application layer")
+        for task in list(self._immediate_audio_tasks):
+            task.cancel("shutdown")
+        self._immediate_audio_tasks.clear()
+        self._immediate_audio_pending.clear()
+        self._immediate_audio_active = 0
         await self.op_manager.close_operation_all()
         await self.mcp_manager.close()
         await self.process_manager.unload()
         logging.info("JAIson application layer has been shut down")
+
+    def _get_microphone_config(self) -> Dict[str, Any]:
+        try:
+            cfg = Config().microphone or {}
+            if isinstance(cfg, dict):
+                return cfg
+        except Exception:
+            pass
+        return {}
+
+    def _get_audio_backpressure_config(self) -> Dict[str, Any]:
+        cfg = self._get_microphone_config()
+        max_active = int(cfg.get("stt_immediate_max_active", 2) or 2)
+        max_pending = int(cfg.get("stt_immediate_max_pending", 8) or 8)
+        policy = str(cfg.get("stt_backpressure_policy", "drop_oldest") or "drop_oldest").strip().lower()
+        if policy not in {"drop_oldest", "drop_latest", "merge_latest"}:
+            policy = "drop_oldest"
+        return {
+            "max_active": max(1, max_active),
+            "max_pending": max(1, max_pending),
+            "policy": policy,
+        }
+
+    def _safe_source_id(self, value: Any) -> str:
+        source = str(value or "mic").strip()
+        return source if source else "mic"
+
+    async def _append_stt_event_log(self, event_d: Dict[str, Any]) -> None:
+        try:
+            os.makedirs(os.path.dirname(self._stt_events_path), exist_ok=True)
+            with open(self._stt_events_path, "a", encoding="utf-8") as f:
+                f.write(json.dumps(event_d, ensure_ascii=False))
+                f.write("\n")
+        except Exception:
+            logging.debug("Failed to append STT event log", exc_info=True)
+
+    async def _emit_stt_status(self, state: str, **payload) -> None:
+        if not self.event_server:
+            return
+
+        cfg = self._get_microphone_config()
+        cooldown_ms = int(cfg.get("stt_status_cooldown_ms", 750) or 750)
+        now = time.time()
+        key = f"{state}:{payload.get('reason', '')}:{payload.get('source_id', '')}"
+        if self._stt_last_status["key"] == key and ((now - self._stt_last_status["ts"]) * 1000.0) < cooldown_ms:
+            return
+
+        self._stt_last_status = {"key": key, "ts": now}
+        status_payload = {
+            "event": "stt_status",
+            "state": state,
+            "timestamp": now,
+        }
+        status_payload.update(payload)
+        await self.event_server.broadcast_event("stt_status", status_payload)
+
+    async def _record_stt_metrics(
+        self,
+        source_id: str,
+        turn_id: str,
+        utterance_id: str,
+        provider: str,
+        latency_ms: int | None,
+        text: str,
+        detected_stop_cmd: bool,
+        expected_stop_cmd: bool | None = None,
+    ) -> None:
+        self._stt_window.append({
+            "latency_ms": latency_ms,
+            "empty": not bool((text or "").strip()),
+            "stop_detected": bool(detected_stop_cmd),
+            "stop_expected": expected_stop_cmd,
+        })
+
+        # Keep all turns traceable for offline analysis.
+        await self._append_stt_event_log({
+            "timestamp": time.time(),
+            "source_id": source_id,
+            "turn_id": turn_id,
+            "utterance_id": utterance_id,
+            "provider": provider,
+            "latency_ms": latency_ms,
+            "text": text,
+            "empty": not bool((text or "").strip()),
+            "stop_detected": bool(detected_stop_cmd),
+            "stop_expected": expected_stop_cmd,
+        })
+
+        if len(self._stt_window) < 20:
+            return
+        if len(self._stt_window) % 20 != 0:
+            return
+
+        latencies = [x["latency_ms"] for x in self._stt_window if isinstance(x["latency_ms"], int)]
+        empty_rate = sum(1 for x in self._stt_window if x["empty"]) / max(1, len(self._stt_window))
+        avg_latency = int(sum(latencies) / len(latencies)) if latencies else -1
+
+        expected = [x for x in self._stt_window if x["stop_expected"] is True]
+        if expected:
+            recall = sum(1 for x in expected if x["stop_detected"]) / max(1, len(expected))
+        else:
+            # Proxy metric until labeled stop-command dataset is wired.
+            recall = sum(1 for x in self._stt_window if x["stop_detected"]) / max(1, len(self._stt_window))
+
+        logging.info(
+            "STT metrics(window=%s): avg_latency_ms=%s empty_rate=%.3f stop_cmd_recall=%.3f",
+            len(self._stt_window),
+            avg_latency,
+            empty_rate,
+            recall,
+        )
+
+    async def _run_immediate_audio_task(self, request_data: Dict[str, Any]) -> None:
+        try:
+            await self.process_audio_immediate(request_data)
+        except Exception:
+            logging.error("Unhandled error in immediate STT worker", exc_info=True)
+            await self._emit_stt_status(
+                "unavailable",
+                reason="worker_exception",
+                source_id=self._safe_source_id(request_data.get("source_id")),
+            )
+        finally:
+            next_payload = None
+            if self._immediate_audio_lock is None:
+                self._immediate_audio_lock = asyncio.Lock()
+            async with self._immediate_audio_lock:
+                self._immediate_audio_active = max(0, self._immediate_audio_active - 1)
+                if self._immediate_audio_pending:
+                    next_payload = self._immediate_audio_pending.popleft()
+                    self._immediate_audio_active += 1
+            if next_payload is not None:
+                self._start_immediate_audio_task(next_payload)
+
+    def _start_immediate_audio_task(self, request_data: Dict[str, Any]) -> None:
+        task = asyncio.create_task(self._run_immediate_audio_task(request_data))
+        self._immediate_audio_tasks.add(task)
+        task.add_done_callback(lambda t: self._immediate_audio_tasks.discard(t))
+
+    async def submit_audio_immediate(self, request_data: Dict[str, Any]) -> Dict[str, Any]:
+        if not isinstance(request_data, dict) or not request_data.get("audio_bytes"):
+            return {
+                "accepted": False,
+                "queued": False,
+                "dropped": True,
+                "drop_reason": "invalid_audio_payload",
+                "active": self._immediate_audio_active,
+                "pending": len(self._immediate_audio_pending),
+                "policy": self._get_audio_backpressure_config()["policy"],
+            }
+
+        config = self._get_audio_backpressure_config()
+        source_id = self._safe_source_id(request_data.get("source_id"))
+        to_emit = None
+
+        if self._immediate_audio_lock is None:
+            self._immediate_audio_lock = asyncio.Lock()
+        async with self._immediate_audio_lock:
+            if self._immediate_audio_active < config["max_active"]:
+                self._immediate_audio_active += 1
+                self._start_immediate_audio_task(request_data)
+                return {
+                    "accepted": True,
+                    "queued": False,
+                    "active": self._immediate_audio_active,
+                    "pending": len(self._immediate_audio_pending),
+                    "policy": config["policy"],
+                }
+
+            pending = self._immediate_audio_pending
+            if len(pending) >= config["max_pending"]:
+                if config["policy"] == "drop_latest":
+                    to_emit = ("backpressure_drop", "drop_latest")
+                    result = {
+                        "accepted": False,
+                        "queued": False,
+                        "dropped": True,
+                        "drop_reason": "backpressure_drop_latest",
+                        "active": self._immediate_audio_active,
+                        "pending": len(self._immediate_audio_pending),
+                        "policy": config["policy"],
+                    }
+                    # Return early while still under lock for accurate counters.
+                    if to_emit:
+                        # Emit after releasing lock.
+                        pass
+                elif config["policy"] == "merge_latest":
+                    merged = False
+                    for idx in range(len(pending) - 1, -1, -1):
+                        candidate = pending[idx]
+                        if self._safe_source_id(candidate.get("source_id")) == source_id:
+                            pending[idx] = request_data
+                            merged = True
+                            break
+                    if not merged:
+                        pending.popleft()
+                        pending.append(request_data)
+                    to_emit = ("backpressure_merge", "merge_latest")
+                    result = {
+                        "accepted": True,
+                        "queued": True,
+                        "merged": True,
+                        "active": self._immediate_audio_active,
+                        "pending": len(self._immediate_audio_pending),
+                        "policy": config["policy"],
+                    }
+                else:
+                    # drop_oldest
+                    pending.popleft()
+                    pending.append(request_data)
+                    to_emit = ("backpressure_drop", "drop_oldest")
+                    result = {
+                        "accepted": True,
+                        "queued": True,
+                        "dropped_oldest": True,
+                        "active": self._immediate_audio_active,
+                        "pending": len(self._immediate_audio_pending),
+                        "policy": config["policy"],
+                    }
+            else:
+                pending.append(request_data)
+                result = {
+                    "accepted": True,
+                    "queued": True,
+                    "active": self._immediate_audio_active,
+                    "pending": len(self._immediate_audio_pending),
+                    "policy": config["policy"],
+                }
+
+        if to_emit:
+            state, reason = to_emit
+            await self._emit_stt_status(
+                state,
+                reason=reason,
+                source_id=source_id,
+                active=self._immediate_audio_active,
+                pending=len(self._immediate_audio_pending),
+            )
+
+        return result
+
+    def get_stt_runtime_stats(self) -> Dict[str, Any]:
+        return {
+            "immediate_active": self._immediate_audio_active,
+            "immediate_pending": len(self._immediate_audio_pending),
+            "immediate_workers": len(self._immediate_audio_tasks),
+            "stt_window_size": len(self._stt_window),
+        }
     
     ## Job Queueing #########################
     
@@ -182,6 +451,7 @@ class JAIson(metaclass=Singleton):
         
         self.job_map.pop(job_id, None)
         self.job_skips.pop(job_id, None)
+        self._response_job_speakers.pop(job_id, None)
         self.job_current_id = None
         
         for task in self.tasks_to_clean:
@@ -208,6 +478,7 @@ class JAIson(metaclass=Singleton):
 
             job_type_coro = self.job_map.pop(queued_job_id, None)
             self.job_skips.pop(queued_job_id, None)
+            self._response_job_speakers.pop(queued_job_id, None)
 
             # Close queued coroutine to avoid "coroutine was never awaited" warnings
             if job_type_coro:
@@ -263,6 +534,14 @@ class JAIson(metaclass=Singleton):
 
         user = turn.get("user", "user")
         timestamp = turn.get("timestamp", time.time())
+        source_id = self._safe_source_id(turn.get("source_id"))
+        turn_id = str(turn.get("turn_id") or uuid.uuid4())
+        utterance_ids = list(turn.get("utterance_ids") or [])
+        utterance_id = str(utterance_ids[0]) if utterance_ids else str(uuid.uuid4())
+        speaker_id = turn.get("speaker_id")
+        stt_provider = turn.get("stt_provider")
+        stt_confidence = turn.get("stt_confidence")
+        stt_latency_ms = turn.get("stt_latency_ms")
         continue_intent = bool(turn.get("continue_intent", False))
         should_respond = bool(turn.get("should_respond", True))
         continue_from_text = None
@@ -271,19 +550,52 @@ class JAIson(metaclass=Singleton):
             if continue_from_text:
                 logging.info("Continue-intent detected: next response will continue previous thought.")
 
-        await self.create_job(JobType.CONTEXT_CONVERSATION_ADD_TEXT, user=user, content=content, timestamp=timestamp)
+        await self.create_job(
+            JobType.CONTEXT_CONVERSATION_ADD_TEXT,
+            user=user,
+            content=content,
+            timestamp=timestamp,
+            source_id=source_id,
+            turn_id=turn_id,
+            utterance_id=utterance_id,
+            utterance_ids=utterance_ids,
+            speaker_id=speaker_id,
+            stt_provider=stt_provider,
+            stt_confidence=stt_confidence,
+            stt_latency_ms=stt_latency_ms,
+        )
         if not should_respond:
             logging.info("Voice turn committed as context-only (no RESPONSE job).")
             return
 
-        await self.create_job(
+        response_job_id = await self.create_job(
             JobType.RESPONSE,
             input_timestamp=timestamp,
             input_mode="voice",
-            continue_from_text=continue_from_text
+            continue_from_text=continue_from_text,
+            source_id=source_id,
+            turn_id=turn_id,
+            utterance_id=utterance_id,
+            speaker_id=speaker_id,
         )
+        if response_job_id and speaker_id:
+            self._response_job_speakers[response_job_id] = str(speaker_id)
 
-    async def _buffer_voice_turn(self, user: str, timestamp: float, content: str, continue_intent: bool, should_respond: bool):
+    async def _buffer_voice_turn(
+        self,
+        user: str,
+        timestamp: float,
+        content: str,
+        continue_intent: bool,
+        should_respond: bool,
+        source_id: str = None,
+        turn_id: str = None,
+        utterance_id: str = None,
+        speaker_id: str = None,
+        stt_provider: str = None,
+        stt_confidence: float = None,
+        stt_latency_ms: int = None,
+    ):
         merge_window_ms = 2200
         try:
             mic_cfg = Config().microphone or {}
@@ -298,6 +610,13 @@ class JAIson(metaclass=Singleton):
                 "timestamp": timestamp,
                 "last_timestamp": timestamp,
                 "content": content,
+                "source_id": self._safe_source_id(source_id),
+                "turn_id": str(turn_id or uuid.uuid4()),
+                "utterance_ids": [str(utterance_id)] if utterance_id else [],
+                "speaker_id": speaker_id,
+                "stt_provider": stt_provider,
+                "stt_confidence": stt_confidence,
+                "stt_latency_ms": stt_latency_ms,
                 "continue_intent": continue_intent,
                 "should_respond": bool(should_respond),
             }
@@ -315,6 +634,16 @@ class JAIson(metaclass=Singleton):
                 pending["last_timestamp"] = timestamp
                 pending["continue_intent"] = bool(pending.get("continue_intent", False) or continue_intent)
                 pending["should_respond"] = bool(pending.get("should_respond", False) or should_respond)
+                if utterance_id:
+                    pending.setdefault("utterance_ids", []).append(str(utterance_id))
+                if speaker_id and not pending.get("speaker_id"):
+                    pending["speaker_id"] = speaker_id
+                if stt_provider:
+                    pending["stt_provider"] = stt_provider
+                if stt_confidence is not None:
+                    pending["stt_confidence"] = stt_confidence
+                if stt_latency_ms is not None:
+                    pending["stt_latency_ms"] = stt_latency_ms
             else:
                 await self._commit_pending_voice_turn()
                 self._pending_voice_turn = {
@@ -322,6 +651,13 @@ class JAIson(metaclass=Singleton):
                     "timestamp": timestamp,
                     "last_timestamp": timestamp,
                     "content": content,
+                    "source_id": self._safe_source_id(source_id),
+                    "turn_id": str(turn_id or uuid.uuid4()),
+                    "utterance_ids": [str(utterance_id)] if utterance_id else [],
+                    "speaker_id": speaker_id,
+                    "stt_provider": stt_provider,
+                    "stt_confidence": stt_confidence,
+                    "stt_latency_ms": stt_latency_ms,
                     "continue_intent": continue_intent,
                     "should_respond": bool(should_respond),
                 }
@@ -458,6 +794,10 @@ class JAIson(metaclass=Singleton):
         input_timestamp: float = None,
         input_mode: str = None,
         continue_from_text: str = None,
+        source_id: str = None,
+        turn_id: str = None,
+        utterance_id: str = None,
+        speaker_id: str = None,
     ):
         
         # Adjust flags based on loaded ops
@@ -471,7 +811,14 @@ class JAIson(metaclass=Singleton):
         first_audio_sent = False
         self._assistant_live_job_id = job_id
         self._assistant_live_reply = ""
-        await self._handle_broadcast_start(job_id, job_type, {"include_audio": include_audio})
+        await self._handle_broadcast_start(job_id, job_type, {
+            "include_audio": include_audio,
+            "input_mode": input_mode,
+            "source_id": source_id,
+            "turn_id": turn_id,
+            "utterance_id": utterance_id,
+            "speaker_id": speaker_id,
+        })
     
         # Handle MCP stuff
         if self.op_manager.get_operation(OpRoles.MCP):
@@ -668,9 +1015,29 @@ class JAIson(metaclass=Singleton):
         job_type: JobType, 
         user: str = None, 
         timestamp: int = None, 
-        content: str = None
+        content: str = None,
+        source_id: str = None,
+        turn_id: str = None,
+        utterance_id: str = None,
+        utterance_ids: List[str] = None,
+        speaker_id: str = None,
+        stt_provider: str = None,
+        stt_confidence: float = None,
+        stt_latency_ms: int = None,
     ):
-        await self._handle_broadcast_start(job_id, job_type, {"user": user, "timestamp": timestamp, "content": content})
+        await self._handle_broadcast_start(job_id, job_type, {
+            "user": user,
+            "timestamp": timestamp,
+            "content": content,
+            "source_id": source_id,
+            "turn_id": turn_id,
+            "utterance_id": utterance_id,
+            "utterance_ids": utterance_ids,
+            "speaker_id": speaker_id,
+            "stt_provider": stt_provider,
+            "stt_confidence": stt_confidence,
+            "stt_latency_ms": stt_latency_ms,
+        })
         self.prompter.add_chat(
             user,
             content,
@@ -684,7 +1051,15 @@ class JAIson(metaclass=Singleton):
             "user": last_line_o.user,
             "timestamp": last_line_o.time.timestamp(),
             "content": last_line_o.message,
-            "line": last_line_o.to_line()
+            "line": last_line_o.to_line(),
+            "source_id": source_id,
+            "turn_id": turn_id,
+            "utterance_id": utterance_id,
+            "utterance_ids": utterance_ids,
+            "speaker_id": speaker_id,
+            "stt_provider": stt_provider,
+            "stt_confidence": stt_confidence,
+            "stt_latency_ms": stt_latency_ms,
         })
         await self._handle_broadcast_success(job_id, job_type)
         
@@ -697,7 +1072,11 @@ class JAIson(metaclass=Singleton):
         audio_bytes: str = None,
         sr: int = None,
         sw: int = None,
-        ch: int = None
+        ch: int = None,
+        source_id: str = None,
+        turn_id: str = None,
+        utterance_id: str = None,
+        speaker_id: str = None,
     ):
         # Legacy job path kept for compatibility.
         # Delegate to the main immediate audio pipeline so behavior stays identical
@@ -705,7 +1084,18 @@ class JAIson(metaclass=Singleton):
         await self._handle_broadcast_start(
             job_id,
             job_type,
-            {"user": user, "timestamp": timestamp, "sr": sr, "sw": sw, "ch": ch, "audio_bytes": (audio_bytes is not None)}
+            {
+                "user": user,
+                "timestamp": timestamp,
+                "sr": sr,
+                "sw": sw,
+                "ch": ch,
+                "audio_bytes": (audio_bytes is not None),
+                "source_id": source_id,
+                "turn_id": turn_id,
+                "utterance_id": utterance_id,
+                "speaker_id": speaker_id,
+            }
         )
         await self.process_audio_immediate({
             "user": user,
@@ -714,35 +1104,153 @@ class JAIson(metaclass=Singleton):
             "sr": sr,
             "sw": sw,
             "ch": ch,
+            "source_id": source_id,
+            "turn_id": turn_id,
+            "utterance_id": utterance_id,
+            "speaker_id": speaker_id,
         })
         await self._handle_broadcast_success(job_id, job_type)
             
-    async def process_audio_immediate(self, request_data: dict):
-        """Немедленная обработка аудио (вне очереди) для мгновенного перебивания"""
-        audio_bytes_b64 = request_data.get('audio_bytes')
-        if not audio_bytes_b64: return
-        
-        audio_bytes = base64.b64decode(audio_bytes_b64)
-        sr = request_data.get('sr', 16000)
-        sw = request_data.get('sw', 2)
-        ch = request_data.get('ch', 1)
-        user = request_data.get('user', 'user')
-        timestamp = request_data.get('timestamp', time.time())
+    def _interrupt_allowed_for_speaker(self, speaker_id: str | None) -> bool:
+        policy = str(self._get_microphone_config().get("interrupt_speaker_policy", "any") or "any").strip().lower()
+        if policy == "any":
+            return True
 
-        # 1. Выполняем STT немедленно
+        if self.job_current is None or self.job_current.done():
+            return True
+
+        current_job_type, _ = self.job_map.get(self.job_current_id, (None, None))
+        if current_job_type != JobType.RESPONSE:
+            return True
+
+        active_speaker = self._response_job_speakers.get(self.job_current_id)
+        speaker_norm = str(speaker_id).strip() if speaker_id else ""
+        active_norm = str(active_speaker).strip() if active_speaker else ""
+
+        if policy == "same_only":
+            return bool(speaker_norm and active_norm and speaker_norm == active_norm)
+        if policy == "same_or_unknown":
+            if not speaker_norm or not active_norm:
+                return True
+            return speaker_norm == active_norm
+        return True
+
+    async def process_audio_immediate(self, request_data: dict):
+        """Немедленная обработка аудио (вне очереди) для мгновенного перебивания."""
+        audio_bytes_b64 = request_data.get("audio_bytes")
+        if not audio_bytes_b64:
+            return
+
+        try:
+            audio_bytes = base64.b64decode(audio_bytes_b64)
+        except Exception:
+            logging.warning("Immediate STT received invalid base64 payload.")
+            await self._emit_stt_status("unavailable", reason="invalid_audio_payload")
+            return
+
+        try:
+            sr = int(request_data.get("sr", 16000))
+        except Exception:
+            sr = 16000
+        try:
+            sw = int(request_data.get("sw", 2))
+        except Exception:
+            sw = 2
+        try:
+            ch = int(request_data.get("ch", 1))
+        except Exception:
+            ch = 1
+        user = request_data.get("user", "user")
+        try:
+            timestamp = float(request_data.get("timestamp", time.time()))
+        except Exception:
+            timestamp = time.time()
+        source_id = self._safe_source_id(request_data.get("source_id"))
+        turn_id = str(request_data.get("turn_id") or uuid.uuid4())
+        utterance_id = str(request_data.get("utterance_id") or uuid.uuid4())
+        expected_stop_cmd = request_data.get("expected_stop_cmd")
+
+        hook_meta = {}
+        try:
+            hook_meta = await apply_pre_stt_hooks(request_data, audio_bytes, sr, sw, ch)
+        except Exception:
+            logging.warning("pre-STT hooks failed", exc_info=True)
+        speaker_id = hook_meta.get("speaker_id") or request_data.get("speaker_id")
+
+        # 1. STT inference (only final chunks affect context pipeline).
         prompt = self.prompter.get_history_text() or ""
         content = ""
+        stt_provider = "unknown"
+        stt_confidence = None
+        stt_latency_ms = None
+        stt_error = None
+
         try:
-            async for out_d in self.op_manager.use_operation(OpRoles.STT, {"prompt": prompt, "audio_bytes": audio_bytes, "sr": sr, "sw": sw, "ch": ch}):
-                content += out_d.get('transcription', '')
+            async for out_d in self.op_manager.use_operation(OpRoles.STT, {
+                "prompt": prompt,
+                "audio_bytes": audio_bytes,
+                "sr": sr,
+                "sw": sw,
+                "ch": ch,
+                "source_id": source_id,
+                "turn_id": turn_id,
+                "utterance_id": utterance_id,
+                "speaker_id": speaker_id,
+                "input_timestamp_ms": int(timestamp * 1000),
+            }):
+                stt_provider = str(out_d.get("provider") or stt_provider)
+                if out_d.get("confidence") is not None:
+                    stt_confidence = out_d.get("confidence")
+                if out_d.get("stt_latency_ms") is not None:
+                    stt_latency_ms = out_d.get("stt_latency_ms")
+                if out_d.get("speaker_id") and not speaker_id:
+                    speaker_id = out_d.get("speaker_id")
+                if out_d.get("stt_error"):
+                    stt_error = str(out_d.get("stt_error"))
+
+                if not bool(out_d.get("is_final", True)):
+                    continue
+
+                chunk_text = str(out_d.get("text") or out_d.get("transcription") or "").strip()
+                if chunk_text:
+                    if content:
+                        content += " "
+                    content += chunk_text
         except Exception as e:
-            logging.error(f"Immediate STT failed: {e}")
+            logging.error("Immediate STT failed: %s", e, exc_info=True)
+            await self._emit_stt_status(
+                "unavailable",
+                reason="stt_exception",
+                source_id=source_id,
+                turn_id=turn_id,
+                utterance_id=utterance_id,
+            )
             return
+
+        if stt_error in {"timeout", "unavailable", "restarting"}:
+            await self._emit_stt_status(
+                stt_error,
+                reason="stt_provider_signal",
+                source_id=source_id,
+                turn_id=turn_id,
+                utterance_id=utterance_id,
+                provider=stt_provider,
+            )
 
         if not content or len(content.strip()) == 0:
+            await self._record_stt_metrics(
+                source_id=source_id,
+                turn_id=turn_id,
+                utterance_id=utterance_id,
+                provider=stt_provider,
+                latency_ms=stt_latency_ms,
+                text="",
+                detected_stop_cmd=False,
+                expected_stop_cmd=bool(expected_stop_cmd) if isinstance(expected_stop_cmd, bool) else None,
+            )
             return
 
-        # 2. Проверяем Barge-in (Перебивание) + классифицируем реплику
+        # 2. Barge-in / intent classification.
         words = re.findall(r"[0-9a-zA-Zа-яА-ЯёЁ-]+", content.lower().strip())
         fillers = {"угу", "ага", "понятно", "ясно", "да", "так", "хорошо", "ок", "слышу", "мгм", "ладно", "понял", "ого", "ммм", "эмм", "хмм", "интересно"}
         stop_words = {"стой", "стоп", "хватит", "замолчи", "подожди", "тихо", "молчи", "выключи"}
@@ -759,27 +1267,28 @@ class JAIson(metaclass=Singleton):
             "хех", "хе-хе", "гы", "гыы", "гы-гы",
             "лол", "ржу", "ржом", "мда", "гм", "хм",
         }
+
+        mic_cfg = self._get_microphone_config()
+        extra_wake_words = mic_cfg.get("wake_words", [])
+        if isinstance(extra_wake_words, list):
+            for w in extra_wake_words:
+                w = str(w).strip().lower()
+                if w:
+                    wake_words.add(w)
+        extra_wake_aliases = mic_cfg.get("wake_word_aliases", [])
+        if isinstance(extra_wake_aliases, list):
+            for w in extra_wake_aliases:
+                w = str(w).strip().lower()
+                if w:
+                    wake_words.add(w)
+        respond_to_short_emotes = bool(mic_cfg.get("respond_to_short_emotes", True))
+        extra_short_emotes = mic_cfg.get("short_emote_words", [])
+        if isinstance(extra_short_emotes, list):
+            for w in extra_short_emotes:
+                w = str(w).strip().lower()
+                if w:
+                    short_emote_words.add(w)
         try:
-            mic_cfg = Config().microphone or {}
-            extra_wake_words = mic_cfg.get("wake_words", [])
-            if isinstance(extra_wake_words, list):
-                for w in extra_wake_words:
-                    w = str(w).strip().lower()
-                    if w:
-                        wake_words.add(w)
-            extra_wake_aliases = mic_cfg.get("wake_word_aliases", [])
-            if isinstance(extra_wake_aliases, list):
-                for w in extra_wake_aliases:
-                    w = str(w).strip().lower()
-                    if w:
-                        wake_words.add(w)
-            respond_to_short_emotes = bool(mic_cfg.get("respond_to_short_emotes", True))
-            extra_short_emotes = mic_cfg.get("short_emote_words", [])
-            if isinstance(extra_short_emotes, list):
-                for w in extra_short_emotes:
-                    w = str(w).strip().lower()
-                    if w:
-                        short_emote_words.add(w)
             prompter_cfg = Config().prompter or {}
             cfg_name = str(prompter_cfg.get("character_name", "")).strip().lower()
             if cfg_name:
@@ -790,6 +1299,16 @@ class JAIson(metaclass=Singleton):
         continue_intent = self._is_continue_intent(content)
 
         if not words:
+            await self._record_stt_metrics(
+                source_id=source_id,
+                turn_id=turn_id,
+                utterance_id=utterance_id,
+                provider=stt_provider,
+                latency_ms=stt_latency_ms,
+                text=content,
+                detected_stop_cmd=False,
+                expected_stop_cmd=bool(expected_stop_cmd) if isinstance(expected_stop_cmd, bool) else None,
+            )
             return
 
         def _is_stop_like(word: str) -> bool:
@@ -798,8 +1317,7 @@ class JAIson(metaclass=Singleton):
                 return False
             if w in stop_words:
                 return True
-            # tolerate common short/asr-truncated variants, e.g. "сто"
-            if w in {"сто", "стоП"}:
+            if w == "сто":
                 return True
             return any(w.startswith(stem) for stem in stop_stems)
 
@@ -811,7 +1329,6 @@ class JAIson(metaclass=Singleton):
         is_wake_word_only = wake_word_hit and len(non_filler_words) == 1 and not contains_stop_word
 
         def _is_laughter_like(word: str) -> bool:
-            # Accept noisy laugh patterns: ха-ха, хаха, ахах, etc.
             w = word.strip().lower().replace("-", "")
             if len(w) < 2:
                 return False
@@ -822,13 +1339,10 @@ class JAIson(metaclass=Singleton):
         )
 
         is_backchannel = len(words) <= 2 and len(non_filler_words) == 0
-        # "stop command" even with 1 garbage STT token (e.g. "стоп стоп стой сто")
         is_stop_command_only = contains_stop_word and (
             len(non_stop_words) == 0 or stop_like_count >= max(1, len(words) - 1)
         )
-        # Реагируем на содержательные фразы (>=2 не-филлер токенов) или явный continue-intent.
         is_significant = contains_stop_word or continue_intent or len(non_filler_words) >= 2
-        # Single wake-word ("нира") should produce a response instead of context-only.
         should_respond = (
             continue_intent
             or len(non_filler_words) >= 2
@@ -837,33 +1351,78 @@ class JAIson(metaclass=Singleton):
         ) and not is_stop_command_only
 
         if is_backchannel and not continue_intent and not short_emote_hit:
-            logging.info(f"Backchannel detected (no response): '{content}'")
+            logging.info("Backchannel detected (no response): '%s'", content)
+            await self._record_stt_metrics(
+                source_id=source_id,
+                turn_id=turn_id,
+                utterance_id=utterance_id,
+                provider=stt_provider,
+                latency_ms=stt_latency_ms,
+                text=content,
+                detected_stop_cmd=contains_stop_word,
+                expected_stop_cmd=bool(expected_stop_cmd) if isinstance(expected_stop_cmd, bool) else None,
+            )
             return
 
-        # Normalize single-word wake aliases (e.g., "миром") into canonical name
-        # so context is cleaner and wake behavior stays predictable.
         if is_wake_word_only:
             content = canonical_wake_word
 
         if is_significant:
-            self._interrupt_jobs(reason="user_speaking_significant")
+            if self._interrupt_allowed_for_speaker(speaker_id):
+                self._interrupt_jobs(reason="user_speaking_significant")
+                asyncio.create_task(self._handle_broadcast_event("GLOBAL_STOP", JobType.RESPONSE, {
+                    "event": "stop_audio",
+                    "reason": "user_speaking_significant",
+                    "source_id": source_id,
+                    "turn_id": turn_id,
+                    "utterance_id": utterance_id,
+                    "speaker_id": speaker_id,
+                }))
+            else:
+                await self._emit_stt_status(
+                    "interrupt_ignored",
+                    reason="speaker_policy",
+                    source_id=source_id,
+                    turn_id=turn_id,
+                    utterance_id=utterance_id,
+                    speaker_id=speaker_id,
+                )
 
-            # Шлем сигнал STOP в UI для очистки статуса Thinking
-            asyncio.create_task(self._handle_broadcast_event("GLOBAL_STOP", JobType.RESPONSE, {"event": "stop_audio", "reason": "user_speaking_significant"}))
+        await self._record_stt_metrics(
+            source_id=source_id,
+            turn_id=turn_id,
+            utterance_id=utterance_id,
+            provider=stt_provider,
+            latency_ms=stt_latency_ms,
+            text=content,
+            detected_stop_cmd=contains_stop_word,
+            expected_stop_cmd=bool(expected_stop_cmd) if isinstance(expected_stop_cmd, bool) else None,
+        )
 
-        # 3. Буферизуем голосовые сегменты в один пользовательский ход и отвечаем после quiet-window
+        # 3. Buffer chunks into a single user turn and answer after short quiet window.
         await self._buffer_voice_turn(
             user=user,
             timestamp=timestamp,
             content=content,
             continue_intent=continue_intent,
-            should_respond=should_respond
+            should_respond=should_respond,
+            source_id=source_id,
+            turn_id=turn_id,
+            utterance_id=utterance_id,
+            speaker_id=speaker_id,
+            stt_provider=stt_provider,
+            stt_confidence=stt_confidence,
+            stt_latency_ms=stt_latency_ms,
         )
 
-    async def on_user_speech_start(self):
+    async def on_user_speech_start(self, request_data: Dict[str, Any] | None = None):
         """Early barge-in signal from VAD start (before STT final transcript)."""
+        request_data = request_data or {}
         self._last_speech_start_ts = time.time()
         self._cancel_pending_voice_response()
+        source_id = self._safe_source_id(request_data.get("source_id"))
+        turn_id = request_data.get("turn_id")
+        speaker_id = request_data.get("speaker_id")
 
         interrupt_mode = "soft"
         try:
@@ -884,10 +1443,16 @@ class JAIson(metaclass=Singleton):
         if current_job_type != JobType.RESPONSE:
             return
 
+        if not self._interrupt_allowed_for_speaker(speaker_id):
+            return
+
         self._interrupt_jobs(reason="user_voice_start")
         await self._handle_broadcast_event("GLOBAL_STOP", JobType.RESPONSE, {
             "event": "stop_audio",
-            "reason": "user_voice_start"
+            "reason": "user_voice_start",
+            "source_id": source_id,
+            "turn_id": turn_id,
+            "speaker_id": speaker_id,
         })
 
     async def register_custom_context(

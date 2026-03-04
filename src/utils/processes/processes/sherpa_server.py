@@ -2,7 +2,7 @@ import logging
 import asyncio
 import os
 import subprocess
-from typing import Set
+from typing import Dict, Set
 from utils.config import Config
 from utils.processes.base import BaseProcess
 
@@ -85,12 +85,56 @@ class SherpaSTTProcess(BaseProcess):
             logging.info("Sherpa STT hotwords validated: %s entries", len(valid_lines))
 
         return output_path
+
+    def _resolve_runtime_config(self) -> Dict:
+        # Primary source: runtime config injected by STTProcessRunner.
+        runtime_cfg = dict(self.runtime_config or {})
+        if runtime_cfg:
+            return runtime_cfg
+
+        # Backward-compatible fallback: infer from currently selected STT entry.
+        config = Config()
+        operations = list(config.operations or [])
+        stt_entries = [op for op in operations if str(op.get("role", "")).lower() == "stt"]
+        selected = None
+        active_stt_id = getattr(config, "stt_active_id", None)
+        if active_stt_id:
+            selected = next((op for op in stt_entries if str(op.get("id", "")) == str(active_stt_id)), None)
+        if selected is None and stt_entries:
+            selected = stt_entries[0]
+        if selected is None:
+            return {}
+
+        resolved = {}
+        if isinstance(selected.get("process"), dict):
+            resolved.update(selected["process"])
+        for key in (
+            "provider",
+            "gpu_id",
+            "model_dir",
+            "model_variant",
+            "decoding_method",
+            "num_active_paths",
+            "use_endpoint",
+            "hotwords_file",
+            "hotwords_score",
+            "bpe_vocab",
+            "encoder",
+            "decoder",
+            "joiner",
+            "tokens",
+            "port",
+        ):
+            if key in selected:
+                resolved.setdefault(key, selected[key])
+        return resolved
         
     async def reload(self):
         await self.unload()
         
         config = Config()
-        
+        runtime_cfg = self._resolve_runtime_config()
+
         # We rely on the install.bat script placing this right
         script_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", ".."))
         server_script = os.path.abspath(os.path.join(script_dir, "apps", "stt-sherpa-server", "start_server.py"))
@@ -104,7 +148,7 @@ class SherpaSTTProcess(BaseProcess):
             logging.error(f"Sherpa STT model not found at {model_dir}")
             raise FileNotFoundError(f"Sherpa model missing: {model_dir}")
             
-        provider = "cuda"
+        provider = "cpu"
         gpu_id = 0
         model_variant = "int8"
         decoding_method = "modified_beam_search"
@@ -117,37 +161,38 @@ class SherpaSTTProcess(BaseProcess):
         decoder_path = None
         joiner_path = None
         tokens_path = None
-        # Find sherpa config inside operations list
-        for op in config.operations:
-            if op.get("id") == "sherpa" and op.get("role") == "stt":
-                provider = op.get("provider", "cuda")
-                try:
-                    gpu_id = int(op.get("gpu_id", 0))
-                except Exception:
-                    gpu_id = 0
-                model_dir = os.path.abspath(str(op.get("model_dir", model_dir)))
-                model_variant = str(op.get("model_variant", "int8")).lower().strip()
-                decoding_method = str(op.get("decoding_method", "modified_beam_search")).strip()
-                try:
-                    num_active_paths = int(op.get("num_active_paths", 4))
-                except Exception:
-                    num_active_paths = 4
-                try:
-                    use_endpoint = int(op.get("use_endpoint", 0))
-                except Exception:
-                    use_endpoint = 0
-                hotwords_file = str(op.get("hotwords_file", "") or "").strip()
-                try:
-                    hotwords_score = float(op.get("hotwords_score", 1.5))
-                except Exception:
-                    hotwords_score = 1.5
-                bpe_vocab_path = str(op.get("bpe_vocab", "") or "").strip()
+        port = 6006
 
-                encoder_path = op.get("encoder", None)
-                decoder_path = op.get("decoder", None)
-                joiner_path = op.get("joiner", None)
-                tokens_path = op.get("tokens", None)
-                break
+        provider = str(runtime_cfg.get("provider", provider))
+        try:
+            gpu_id = int(runtime_cfg.get("gpu_id", gpu_id))
+        except Exception:
+            gpu_id = 0
+        model_dir = os.path.abspath(str(runtime_cfg.get("model_dir", model_dir)))
+        model_variant = str(runtime_cfg.get("model_variant", model_variant)).lower().strip()
+        decoding_method = str(runtime_cfg.get("decoding_method", decoding_method)).strip()
+        try:
+            num_active_paths = int(runtime_cfg.get("num_active_paths", num_active_paths))
+        except Exception:
+            num_active_paths = 4
+        try:
+            use_endpoint = int(runtime_cfg.get("use_endpoint", use_endpoint))
+        except Exception:
+            use_endpoint = 0
+        hotwords_file = str(runtime_cfg.get("hotwords_file", hotwords_file) or "").strip()
+        try:
+            hotwords_score = float(runtime_cfg.get("hotwords_score", hotwords_score))
+        except Exception:
+            hotwords_score = 1.5
+        bpe_vocab_path = str(runtime_cfg.get("bpe_vocab", bpe_vocab_path) or "").strip()
+        encoder_path = runtime_cfg.get("encoder", None)
+        decoder_path = runtime_cfg.get("decoder", None)
+        joiner_path = runtime_cfg.get("joiner", None)
+        tokens_path = runtime_cfg.get("tokens", None)
+        try:
+            port = int(runtime_cfg.get("port", port))
+        except Exception:
+            port = 6006
 
         if not os.path.exists(model_dir):
             logging.error(f"Sherpa STT model not found at {model_dir}")
@@ -207,10 +252,11 @@ class SherpaSTTProcess(BaseProcess):
             "--decoding-method", decoding_method,
             "--num-active-paths", str(max(1, num_active_paths)),
             "--use-endpoint", str(use_endpoint),
-            "--port", "6006",
+            "--port", str(port),
             "--provider", provider,
             "--doc-root", os.path.dirname(server_script) # Pass the script's directory as doc-root to avoid crash
         ]
+        self.port = port
         if bpe_vocab_path:
             cmd += ["--bpe-vocab", bpe_vocab_path]
 
@@ -247,7 +293,8 @@ class SherpaSTTProcess(BaseProcess):
             env.pop("CUDA_VISIBLE_DEVICES", None)
 
         logging.info(
-            "Sherpa STT config: model_dir=%s, model_variant=%s, decoding_method=%s, num_active_paths=%s, use_endpoint=%s, bpe_vocab=%s, hotwords_file=%s, hotwords_score=%s",
+            "Sherpa STT config: port=%s model_dir=%s, model_variant=%s, decoding_method=%s, num_active_paths=%s, use_endpoint=%s, bpe_vocab=%s, hotwords_file=%s, hotwords_score=%s",
+            port,
             model_dir,
             model_variant,
             decoding_method,

@@ -7,12 +7,24 @@ STT Operations (at minimum) require the following fields for input chunks:
 - ch: (int) audio channels
 
 Adds to chunk:
-- transcription: (str) transcribed audio
+- V2 format:
+  - text: (str) recognized text
+  - is_final: (bool) whether chunk is final transcript
+  - confidence: (float|None)
+  - provider: (str) stt provider id
+  - source_id: (str|None) input stream id (mic/discord/etc)
+  - turn_id: (str|None)
+  - utterance_id: (str|None)
+  - stt_latency_ms: (int) processing latency
+- Backward compatibility:
+  - transcription: (str) alias of final text for existing pipeline code
 '''
 
+import time
 from typing import Dict, Any, AsyncGenerator
 
 from ..base import Operation
+from ..base.error import UsedInactiveError
 
 class STTOperation(Operation):
     def __init__(self, op_id: str):
@@ -47,8 +59,61 @@ class STTOperation(Operation):
             "audio_bytes": chunk_in["audio_bytes"],
             "sr": chunk_in["sr"],
             "sw": chunk_in["sw"],
-            "ch": chunk_in["ch"]
+            "ch": chunk_in["ch"],
+            "source_id": chunk_in.get("source_id"),
+            "turn_id": chunk_in.get("turn_id"),
+            "utterance_id": chunk_in.get("utterance_id"),
+            "speaker_id": chunk_in.get("speaker_id"),
+            "input_timestamp_ms": chunk_in.get("input_timestamp_ms"),
         }
+
+    async def __call__(self, chunk_in: Dict[str, Any]) -> AsyncGenerator[Dict[str, Any], None]:
+        """
+        Override base call to normalize STT output contract while staying compatible
+        with legacy `transcription` readers.
+        """
+        if not self.active:
+            raise UsedInactiveError(self.op_type, self.op_id)
+
+        started = time.perf_counter()
+        kwargs = await self._parse_chunk(chunk_in)
+
+        source_id = kwargs.get("source_id")
+        turn_id = kwargs.get("turn_id")
+        utterance_id = kwargs.get("utterance_id")
+        speaker_id = kwargs.get("speaker_id")
+
+        async for chunk_out in self._generate(**kwargs):
+            normalized = dict(chunk_out or {})
+            is_final = bool(normalized.get("is_final", True))
+
+            text = normalized.get("text")
+            if text is None:
+                text = normalized.get("transcription", "")
+            text = str(text or "")
+            normalized["text"] = text
+            normalized["is_final"] = is_final
+
+            if "confidence" not in normalized:
+                normalized["confidence"] = None
+            if "provider" not in normalized:
+                normalized["provider"] = self.op_id
+            if "source_id" not in normalized:
+                normalized["source_id"] = source_id
+            if "turn_id" not in normalized:
+                normalized["turn_id"] = turn_id
+            if "utterance_id" not in normalized:
+                normalized["utterance_id"] = utterance_id
+            if "speaker_id" not in normalized:
+                normalized["speaker_id"] = speaker_id
+            if "stt_latency_ms" not in normalized:
+                normalized["stt_latency_ms"] = int((time.perf_counter() - started) * 1000)
+
+            # Legacy alias expected by existing immediate pipeline code.
+            if is_final:
+                normalized["transcription"] = text
+
+            yield normalized
     
     ## TO BE IMPLEMENTED ####
     async def configure(self, config_d: Dict[str, Any]):
@@ -59,7 +124,20 @@ class STTOperation(Operation):
         '''Returns values of configurable fields'''
         raise NotImplementedError
     
-    async def _generate(self, prompt: str = None, audio_bytes: bytes = None, sr: int = None, sw: int = None, ch: int = None, **kwargs) -> AsyncGenerator[Dict[str, Any], None]:
+    async def _generate(
+        self,
+        prompt: str = None,
+        audio_bytes: bytes = None,
+        sr: int = None,
+        sw: int = None,
+        ch: int = None,
+        source_id: str = None,
+        turn_id: str = None,
+        utterance_id: str = None,
+        speaker_id: str = None,
+        input_timestamp_ms: int = None,
+        **kwargs
+    ) -> AsyncGenerator[Dict[str, Any], None]:
         '''Generate a output stream'''
         raise NotImplementedError
     

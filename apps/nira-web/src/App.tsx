@@ -14,6 +14,10 @@ interface Msg {
     text: string;
     type?: string;
     tsMs?: number;
+    sourceId?: string;
+    turnId?: string;
+    utteranceId?: string;
+    speakerId?: string;
 }
 
 const CHAT_CACHE_KEY = 'nira_ui_chat_messages_v1';
@@ -114,9 +118,34 @@ function App() {
                         sender: 'Creator',
                         text: content,
                         type: 'context_user',
-                        tsMs
+                        tsMs,
+                        sourceId: result.source_id,
+                        turnId: result.turn_id,
+                        utteranceId: result.utterance_id,
+                        speakerId: result.speaker_id
                     }];
                 });
+                return;
+            }
+
+            if (data.event === 'stt_status') {
+                const result = data.payload?.result || data.payload || {};
+                const state = String(result.state || '').toLowerCase();
+                if (!state || state === 'partial') return;
+                if (state === 'backpressure_merge') return;
+
+                const important = new Set(['timeout', 'unavailable', 'restarting', 'backpressure_drop']);
+                if (!important.has(state)) return;
+
+                const source = result.source_id ? ` source=${result.source_id}` : '';
+                const reason = result.reason ? ` reason=${result.reason}` : '';
+                setMessages(prev => [...prev, {
+                    id: `stt-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+                    sender: 'Nira',
+                    text: `[STT ${state.toUpperCase()}]${source}${reason}`,
+                    type: 'stt_status',
+                    tsMs: Date.now()
+                }]);
                 return;
             }
 
@@ -385,6 +414,11 @@ function App() {
                                     <div key={m.id} className={`msg ${m.sender.toLowerCase()}`}>
                                         <div className="msg-info">{m.sender === 'Creator' ? 'SOURCE' : 'NIRA_AI'}</div>
                                         <div>{m.text}</div>
+                                        {m.turnId && (
+                                            <div className="msg-info" style={{ opacity: 0.55 }}>
+                                                {`${m.sourceId || 'mic'} · turn=${m.turnId}${m.utteranceId ? ` · utt=${m.utteranceId}` : ''}`}
+                                            </div>
+                                        )}
                                     </div>
                                 ))}
                                 {isThinking && (

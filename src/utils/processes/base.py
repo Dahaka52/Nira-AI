@@ -15,6 +15,13 @@ class BaseProcess(): # Be sure to make it a singleton (metaclass=Singleton)
     def __init__(self, id):
         self.id = id
         self.links = set()
+        self.runtime_config = {}
+
+    def set_runtime_config(self, config_d):
+        if isinstance(config_d, dict):
+            self.runtime_config = dict(config_d)
+        else:
+            self.runtime_config = {}
     
     async def reload(self):
         # This needs to be implemented
@@ -38,10 +45,12 @@ class BaseProcess(): # Be sure to make it a singleton (metaclass=Singleton)
         else:
             logging.warning(f"Attempted to unload process {self.id} when it is already unloaded")
     
-    async def link(self, link_id):
+    async def link(self, link_id, process_config=None):
         logging.debug("Adding link {} to process {}".format(link_id, self.id))
         if link_id in self.links:
             raise DuplicateLink(link_id, self.id)
+        if process_config is not None:
+            self.set_runtime_config(process_config)
         
         if self.process is None:
             await self.reload()

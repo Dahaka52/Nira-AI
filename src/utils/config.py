@@ -22,6 +22,7 @@ class Config(metaclass=Singleton):
     # Defaults
     operations: list = list()
     stt_active_id: str = None
+    stt_strict_active_id: bool = False
     microphone: dict = dict()
     broadcast_debug_prompt_events: bool = False
     
