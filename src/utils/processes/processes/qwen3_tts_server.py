@@ -177,6 +177,7 @@ class Qwen3TTSProcess(BaseProcess):
             ("compile_use_cuda_graphs", "--compile_use_cuda_graphs"),
             ("compile_codebook_predictor", "--compile_codebook_predictor"),
             ("compile_talker", "--compile_talker"),
+            ("allow_compile_voice_clone", "--allow_compile_voice_clone"),
         ):
             if key in runtime_cfg and runtime_cfg[key] is not None:
                 cmd.extend([arg_name, str(runtime_cfg[key])])

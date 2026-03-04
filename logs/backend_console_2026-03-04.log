@@ -5432,3 +5432,2557 @@ RuntimeError: Qwen3 sidecar stream failed: Qwen3 sidecar returned 200 but produc
 [2026-03-04 17:39:35 +0200] [30932] [INFO] 127.0.0.1:2655 GET /api/context/history 1.1 200 59 1511
 [1m[1;34m[2026-03-04 17:39:35,991][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
 [2026-03-04 17:39:35 +0200] [30932] [INFO] 127.0.0.1:12934 GET / 1.1 101 - 1005
+[1m[1;34m[2026-03-04 18:00:58,954][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 62aae998-0ccf-4bed-8127-292f460a615c[0m
+[2026-03-04 18:00:58 +0200] [30932] [INFO] 127.0.0.1:7779 POST /api/context/conversation/text 1.1 200 138 2016
+[1m[1;34m[2026-03-04 18:00:58,966][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job defbf004-8e39-4128-aaf8-0d8d62ee37e6[0m
+[2026-03-04 18:00:58 +0200] [30932] [INFO] 127.0.0.1:10482 POST /api/response 1.1 200 117 1070
+[1m[1;34m[2026-03-04 18:00:59,348][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 379.49350000417326 ms[0m
+[1m[1;34m[2026-03-04 18:00:59,348][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 0.009100011084228754 ms[0m
+[1m[1;34m[2026-03-04 18:00:59,348][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 0.13830000534653664 ms[0m
+[1m[1;34m[2026-03-04 18:00:59,349][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job defbf004-8e39-4128-aaf8-0d8d62ee37e6 completed. Content: 'Привет, я Нира! Как дела?...'[0m
+[1m[1;34m[2026-03-04 18:01:14,499][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 7dc4254c-d36e-4789-b8b7-c84dc8c9452b[0m
+[2026-03-04 18:01:14 +0200] [30932] [INFO] 127.0.0.1:9672 POST /api/context/conversation/text 1.1 200 138 1514
+[1m[1;34m[2026-03-04 18:01:14,511][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job bd4c80fb-f69e-425a-9b62-a70768d88fbe[0m
+[2026-03-04 18:01:14 +0200] [30932] [INFO] 127.0.0.1:4443 POST /api/response 1.1 200 117 1003
+[1m[1;34m[2026-03-04 18:01:14,783][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 270.6185999995796 ms[0m
+[1m[1;34m[2026-03-04 18:01:14,783][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 0.008500006515532732 ms[0m
+[1m[1;34m[2026-03-04 18:01:14,783][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 0.15999999595806003 ms[0m
+[1m[1;34m[2026-03-04 18:01:14,784][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job bd4c80fb-f69e-425a-9b62-a70768d88fbe completed. Content: 'Привет, как дела?...'[0m
+[1m[1;34m[2026-03-04 18:01:30,882][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 2530cddb-4e08-4366-a6ad-754f4abf2d28[0m
+[2026-03-04 18:01:30 +0200] [30932] [INFO] 127.0.0.1:9395 POST /api/context/conversation/text 1.1 200 138 3030
+[1m[1;34m[2026-03-04 18:01:30,891][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job 2951420a-b4f3-4fe7-84f6-522b51f2ce66[0m
+[2026-03-04 18:01:30 +0200] [30932] [INFO] 127.0.0.1:12555 POST /api/response 1.1 200 117 505
+[1m[1;34m[2026-03-04 18:01:33,182][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 2289.5303000113927 ms[0m
+[1m[1;34m[2026-03-04 18:01:33,182][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 0.009800001862458885 ms[0m
+[1m[1;34m[2026-03-04 18:01:33,182][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 0.2136999974027276 ms[0m
+[1m[1;34m[2026-03-04 18:01:33,182][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job 2951420a-b4f3-4fe7-84f6-522b51f2ce66 completed. Content: 'Конечно! Знаешь, магия — это как компьютерные игры, верно? Есть уровни, навыки и боссы. Вот представ...'[0m
+[2026-03-04 18:05:11 +0200] [30932] [INFO] 127.0.0.1:8507 POST /api/context/conversation/speech_start 1.1 200 71 508
+[VAD] Голос! (Prob: 0.001, RMS: 0.0402) Завершена (2400ms, speech: 1664ms).
+[2026-03-04 18:05:12 +0200] [30932] [INFO] 127.0.0.1:8507 POST /api/context/conversation/audio 1.1 200 142 20128
+
+[API] Фраза отправлена (76800 байт).
+[1m[1;34m[2026-03-04 18:05:12,891][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=13 latency_ms=147 source=mic turn=1d80a685-e46f-46cc-b65a-377079caa621 utterance=42c287b1-7e7e-4f9b-9003-572e531a7ad2[0m
+[1m[1;34m[2026-03-04 18:05:13,157][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 257be972-4628-47c8-8526-e9da3ae5c76b[0m
+[1m[1;34m[2026-03-04 18:05:13,157][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job ee217c3f-3dde-4d81-9750-d89019133240[0m
+[1m[1;34m[2026-03-04 18:05:13,549][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 391.18380000581965 ms[0m
+[1m[1;34m[2026-03-04 18:05:13,549][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::677 _stream_sidecar_bytes]:[0m Qwen3 voice-clone limits: text_len=23 max_frames=48 max_new_tokens=112[0m
+[AUDIO_OUT] PCM chunk #1: bytes=8190 sr=48000 rms=0.0112 peak=0.0576
+[AUDIO_OUT] PCM chunk #2: bytes=8192 sr=48000 rms=0.0013 peak=0.0055
+[AUDIO_OUT] PCM chunk #3: bytes=8192 sr=48000 rms=0.0018 peak=0.0118
+
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0076) Завершена (864ms, speech: 128ms).
+[2026-03-04 18:05:15 +0200] [30932] [INFO] 127.0.0.1:8507 POST /api/context/conversation/audio 1.1 200 142 2513
+
+[API] Фраза отправлена (27648 байт).
+[1m[1;34m[2026-03-04 18:05:15,948][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=35 source=mic turn=a2db0df4-e1a9-4985-947a-8ba83d85cff3 utterance=88641063-c6f7-443d-9bb2-754d560a7093[0m
+
+[2026-03-04 18:05:16 +0200] [30932] [INFO] 127.0.0.1:8507 POST /api/context/conversation/speech_start 1.1 200 71 1508
+[AUDIO_OUT] Rebuffering: 33278/40320 bytes
+[VAD] Голос! (Prob: 0.002, RMS: 0.0092) Завершена (3072ms, speech: 2336ms).
+[2026-03-04 18:05:19 +0200] [30932] [INFO] 127.0.0.1:8507 POST /api/context/conversation/audio 1.1 200 142 4518
+
+[API] Фраза отправлена (98304 байт).
+[1m[1;34m[2026-03-04 18:05:19,206][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=19 latency_ms=152 source=mic turn=a2db0df4-e1a9-4985-947a-8ba83d85cff3 utterance=eae297f8-640f-4bfe-a919-3a587249243f[0m
+[1m[1;34m[2026-03-04 18:05:19,206][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::482 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-03-04 18:05:19,206][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::476 _clear_current_job]:[0m Job ee217c3f-3dde-4d81-9750-d89019133240 (response) is being cancelled due to: user_speaking_significant[0m
+[1m[1;34m[2026-03-04 18:05:19,208][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::756 _process_job_loop]:[0m Job ee217c3f-3dde-4d81-9750-d89019133240 (response) was cancelled.[0m
+
+[1m[1;34m[2026-03-04 18:05:19,460][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 2a272f4a-773f-4aad-98de-e70922cc18fa[0m
+[1m[1;34m[2026-03-04 18:05:19,460][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job df173f90-9af7-44d4-ad1d-5e8491bc8f64[0m
+[2026-03-04 18:05:19 +0200] [30932] [INFO] 127.0.0.1:8507 POST /api/context/conversation/speech_start 1.1 200 71 3015
+[1m[1;34m[2026-03-04 18:05:20,029][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 567.8734999964945 ms[0m
+[1m[1;34m[2026-03-04 18:05:20,030][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::677 _stream_sidecar_bytes]:[0m Qwen3 voice-clone limits: text_len=58 max_frames=104 max_new_tokens=168[0m
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/1536 bytes
+[AUDIO_OUT] Rebuffering: 510/1536 bytes
+[AUDIO_OUT] Rebuffering: 510/1536 bytes
+[VAD] Голос! (Prob: 0.002, RMS: 0.0329) [LIMIT: 12000ms].
+ Завершена (12064ms, speech: 11584ms).
+
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0188) Завершена (960ms, speech: 480ms).
+[2026-03-04 18:05:32 +0200] [30932] [INFO] 127.0.0.1:8518 POST /api/context/conversation/speech_start 1.1 200 71 1514
+[2026-03-04 18:05:33 +0200] [30932] [INFO] 127.0.0.1:14853 POST /api/context/conversation/audio 1.1 200 142 7157
+
+[API] Фраза отправлена (386048 байт).
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[1m[1;34m[2026-03-04 18:05:33,694][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=126 latency_ms=591 source=mic turn=a2db0df4-e1a9-4985-947a-8ba83d85cff3 utterance=86550ee4-c1bd-415f-aff6-0d6cae56b93c[0m
+[1m[1;34m[2026-03-04 18:05:33,694][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::482 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-03-04 18:05:33,694][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::476 _clear_current_job]:[0m Job df173f90-9af7-44d4-ad1d-5e8491bc8f64 (response) is being cancelled due to: user_speaking_significant[0m
+[1m[1;34m[2026-03-04 18:05:33,696][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::756 _process_job_loop]:[0m Job df173f90-9af7-44d4-ad1d-5e8491bc8f64 (response) was cancelled.[0m
+[1m[1;34m[2026-03-04 18:05:33,947][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job a66854e8-f90f-41f8-890a-abce126c4c4c[0m
+[1m[1;34m[2026-03-04 18:05:33,948][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job 0523a152-1df1-489a-b046-766c6cbeebdd[0m
+[2026-03-04 18:05:34 +0200] [30932] [INFO] 127.0.0.1:14856 POST /api/context/conversation/audio 1.1 200 142 2770
+
+[API] Фраза отправлена (30720 байт).
+[1m[1;34m[2026-03-04 18:05:34,079][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=42 source=mic turn=4074dc87-7a84-42c9-aa4a-130990d92d37 utterance=94e00a2c-5dc0-4ecb-b5d2-bc54645b7603[0m
+[1m[1;34m[2026-03-04 18:05:35,644][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 1695.294399993145 ms[0m
+[1m[1;34m[2026-03-04 18:05:35,645][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::677 _stream_sidecar_bytes]:[0m Qwen3 voice-clone limits: text_len=180 max_frames=220 max_new_tokens=192[0m
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/1536 bytes
+[AUDIO_OUT] Rebuffering: 510/1536 bytes
+[AUDIO_OUT] Rebuffering: 510/1536 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0084) Завершена (1184ms, speech: 448ms).
+[2026-03-04 18:05:49 +0200] [30932] [INFO] 127.0.0.1:6504 POST /api/context/conversation/speech_start 1.1 200 71 1004
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[2026-03-04 18:05:51 +0200] [30932] [INFO] 127.0.0.1:6506 POST /api/context/conversation/audio 1.1 200 142 2515
+
+[API] Фраза отправлена (37888 байт).
+[1m[1;34m[2026-03-04 18:05:51,788][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=73 source=mic turn=c4548f8e-d943-4ae2-82f3-d9a8b884d2ff utterance=872617f1-cb95-4fee-a84a-b5126dc69297[0m
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/1536 bytes
+[AUDIO_OUT] Rebuffering: 510/1536 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0075) Завершена (1120ms, speech: 384ms).
+[2026-03-04 18:06:03 +0200] [30932] [INFO] 127.0.0.1:6515 POST /api/context/conversation/speech_start 1.1 200 71 504
+[AUDIO_OUT] Rebuffering: 510/1536 bytes
+[2026-03-04 18:06:05 +0200] [30932] [INFO] 127.0.0.1:6516 POST /api/context/conversation/audio 1.1 200 142 2511
+
+[API] Фраза отправлена (35840 байт).
+[1m[1;34m[2026-03-04 18:06:05,483][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=63 source=mic turn=cea18170-93ae-45d2-8e1c-6262f2807399 utterance=5fc4699b-8a9a-44f1-a69a-4f69e9bc26fd[0m
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/1536 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+
+[AUDIO_OUT] Rebuffering: 510/1536 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0080) Завершена (896ms, speech: 160ms).
+[2026-03-04 18:06:21 +0200] [30932] [INFO] 127.0.0.1:4365 POST /api/context/conversation/speech_start 1.1 200 71 1509
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[2026-03-04 18:06:23 +0200] [30932] [INFO] 127.0.0.1:4370 POST /api/context/conversation/audio 1.1 200 142 1510
+
+[API] Фраза отправлена (28672 байт).
+[1m[1;34m[2026-03-04 18:06:23,282][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=35 source=mic turn=f0f81e02-e3cf-426a-8631-944c978b82db utterance=78bd88ca-a3ef-429f-baf9-6d2e8d9a0500[0m
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0095) Завершена (864ms, speech: 128ms).
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[2026-03-04 18:06:33 +0200] [30932] [INFO] 127.0.0.1:4375 POST /api/context/conversation/audio 1.1 200 142 3019
+
+[API] Фраза отправлена (27648 байт).
+[1m[1;34m[2026-03-04 18:06:33,193][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=43 source=mic turn=fdcf9265-965d-43b1-800c-d1155095011b utterance=7d3a27b8-1f8e-40ed-ab61-0a089a220b89[0m
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+
+[2026-03-04 18:06:36 +0200] [30932] [INFO] 127.0.0.1:4375 POST /api/context/conversation/speech_start 1.1 200 71 1508
+[VAD] Голос! (Prob: 0.001, RMS: 0.0078) Завершена (1056ms, speech: 320ms).
+[2026-03-04 18:06:36 +0200] [30932] [INFO] 127.0.0.1:4375 POST /api/context/conversation/audio 1.1 200 142 1508
+
+[API] Фраза отправлена (33792 байт).
+[1m[1;34m[2026-03-04 18:06:37,027][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=37 source=mic turn=8a28f1e3-fb09-4525-816e-ca88f3825470 utterance=8000f60a-27df-47f2-8ca8-761c9d84d736[0m
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+
+[2026-03-04 18:06:43 +0200] [30932] [INFO] 127.0.0.1:4379 POST /api/context/conversation/speech_start 1.1 200 71 1516
+[VAD] Голос! (Prob: 0.001, RMS: 0.0080) Завершена (1504ms, speech: 768ms).
+[2026-03-04 18:06:43 +0200] [30932] [INFO] 127.0.0.1:4379 POST /api/context/conversation/audio 1.1 200 142 3014
+
+[API] Фраза отправлена (48128 байт).
+[1m[1;34m[2026-03-04 18:06:43,772][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=60 source=mic turn=e9310332-7210-4123-beca-5305ce2ba055 utterance=16173201-a40d-4740-8d38-0e3713ead13e[0m
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+
+[2026-03-04 18:06:45 +0200] [30932] [INFO] 127.0.0.1:4379 POST /api/context/conversation/speech_start 1.1 200 71 1513
+[VAD] Голос! (Prob: 0.001, RMS: 0.0090) Завершена (928ms, speech: 192ms).
+[2026-03-04 18:06:45 +0200] [30932] [INFO] 127.0.0.1:4379 POST /api/context/conversation/audio 1.1 200 142 2516
+
+[API] Фраза отправлена (29696 байт).
+[1m[1;34m[2026-03-04 18:06:45,893][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=71 source=mic turn=e9310332-7210-4123-beca-5305ce2ba055 utterance=5c1a4bdb-fbd4-4cb0-b050-3a0866e6d281[0m
+[AUDIO_OUT] Rebuffering: 33278/40320 bytes
+
+[2026-03-04 18:06:47 +0200] [30932] [INFO] 127.0.0.1:4379 POST /api/context/conversation/speech_start 1.1 200 71 1507
+[VAD] Голос! (Prob: 0.001, RMS: 0.0130) Завершена (896ms, speech: 160ms).
+[2026-03-04 18:06:47 +0200] [30932] [INFO] 127.0.0.1:4379 POST /api/context/conversation/audio 1.1 200 142 2514
+
+[API] Фраза отправлена (28672 байт).
+[1m[1;34m[2026-03-04 18:06:47,539][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=43 source=mic turn=e9310332-7210-4123-beca-5305ce2ba055 utterance=014e7d79-49ec-4c94-9e18-2158713d0244[0m
+[AUDIO_OUT] Rebuffering: 510/1536 bytes
+[AUDIO_OUT] Rebuffering: 510/1536 bytes
+[AUDIO_OUT] Rebuffering: 510/1536 bytes
+[1m[1;34m[2026-03-04 18:06:53,149][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::743 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=207 bytes=844732 first_chunk_ms=4025 max_gap_ms=2697.1 total_ms=77504 audio_s=17.599 rtf=4.404 text_len=180[0m
+[1m[1;34m[2026-03-04 18:06:53,150][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 77504.79350000387 ms[0m
+[1m[1;34m[2026-03-04 18:06:53,150][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 77504.94639998942 ms[0m
+[1m[1;34m[2026-03-04 18:06:53,150][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 77505.07249998918 ms[0m
+[1m[1;34m[2026-03-04 18:06:53,150][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job 0523a152-1df1-489a-b046-766c6cbeebdd completed. Content: 'Ваня, что за ерунда? Я тут сижу, общаюсь с тобой, а ты уже с кем-то там ебешься. Если честно, я немн...'[0m
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[2026-03-04 18:07:00 +0200] [30932] [INFO] 127.0.0.1:4384 POST /api/context/conversation/speech_start 1.1 200 71 1003
+[VAD] Голос! (Prob: 0.001, RMS: 0.0091) Завершена (1600ms, speech: 736ms).
+[2026-03-04 18:07:00 +0200] [30932] [INFO] 127.0.0.1:4384 POST /api/context/conversation/audio 1.1 200 142 1518
+
+[API] Фраза отправлена (51200 байт).
+[1m[1;34m[2026-03-04 18:07:00,516][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=67 source=mic turn=cfa76ad1-713e-42ec-8477-6c48049b1c71 utterance=8a961d31-5b0c-4760-8154-dad1dc5ead4b[0m
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[2026-03-04 18:09:05 +0200] [30932] [INFO] 127.0.0.1:9371 POST /api/context/conversation/speech_start 1.1 200 71 503
+[AUDIO_OUT] Rebuffering: 374/1536 bytes
+[AUDIO_OUT] Rebuffering: 374/40320 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0213) Завершена (3776ms, speech: 2688ms).
+[2026-03-04 18:09:07 +0200] [30932] [INFO] 127.0.0.1:9371 POST /api/context/conversation/audio 1.1 200 142 2019
+
+[API] Фраза отправлена (120832 байт).
+[1m[1;34m[2026-03-04 18:09:07,538][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=39 latency_ms=166 source=mic turn=ec20745c-2128-4c47-a8a2-01927080a677 utterance=444e5909-b2bf-456e-95d8-17c02460757f[0m
+[1m[1;34m[2026-03-04 18:09:07,538][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::482 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-03-04 18:09:07,808][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 30d4b98e-e1f9-43d0-8052-142ad12e1bc1[0m
+[1m[1;34m[2026-03-04 18:09:07,808][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job ac1415fc-3692-4e44-8f13-c60d5d85624d[0m
+[1m[1;34m[2026-03-04 18:09:08,659][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 849.3157999910181 ms[0m
+[1m[1;34m[2026-03-04 18:09:08,659][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::677 _stream_sidecar_bytes]:[0m Qwen3 voice-clone limits: text_len=100 max_frames=174 max_new_tokens=192[0m
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 33278/40320 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0102) Завершена (1440ms, speech: 704ms).
+[2026-03-04 18:09:17 +0200] [30932] [INFO] 127.0.0.1:9377 POST /api/context/conversation/speech_start 1.1 200 71 9065
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[2026-03-04 18:09:19 +0200] [30932] [INFO] 127.0.0.1:9378 POST /api/context/conversation/audio 1.1 200 142 1509
+
+[API] Фраза отправлена (46080 байт).
+[1m[1;34m[2026-03-04 18:09:19,151][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=62 source=mic turn=6cf48277-0fb2-4429-9300-2f56d0bd81a1 utterance=50fa8c8e-89d1-4dd7-929e-f3c9383f438b[0m
+[AUDIO_OUT] Rebuffering: 33278/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/1536 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/1536 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 33278/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[1m[1;34m[2026-03-04 18:09:43,260][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::743 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=115 bytes=468378 first_chunk_ms=1663 max_gap_ms=1183.2 total_ms=34601 audio_s=9.758 rtf=3.546 text_len=100[0m
+[1m[1;34m[2026-03-04 18:09:43,260][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 34601.64459999942 ms[0m
+[1m[1;34m[2026-03-04 18:09:43,261][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 34601.81420001027 ms[0m
+[1m[1;34m[2026-03-04 18:09:43,261][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 34601.9770999992 ms[0m
+[1m[1;34m[2026-03-04 18:09:43,261][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job ac1415fc-3692-4e44-8f13-c60d5d85624d completed. Content: 'Ваня, привет! Как дела? Готова поболтать обо всем и ни о чем. Давай уже, что у тебя там интересного?...'[0m
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+
+[2026-03-04 18:31:24 +0200] [30932] [INFO] 127.0.0.1:10162 POST /api/context/conversation/speech_start 1.1 200 71 1002
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[AUDIO_OUT] Rebuffering: 306/40320 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0084) Завершена (7104ms, speech: 5696ms).
+[AUDIO_OUT] Rebuffering: 306/1536 bytes
+[2026-03-04 18:31:32 +0200] [30932] [INFO] 127.0.0.1:10165 POST /api/context/conversation/audio 1.1 200 142 3015
+
+[API] Фраза отправлена (227328 байт).
+[1m[1;34m[2026-03-04 18:31:32,599][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=36 latency_ms=282 source=mic turn=08408c16-9c0d-43c6-b19b-3d6855c85e71 utterance=b4827501-9f61-4da6-ac59-5f9edbc26549[0m
+[1m[1;34m[2026-03-04 18:31:32,600][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::482 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-03-04 18:31:32,860][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 871cc2a7-329d-4cc7-97b1-c65cfac316e6[0m
+[1m[1;34m[2026-03-04 18:31:32,860][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job a7984911-32e2-4cf9-b491-fb16cdef0fa1[0m
+[1m[1;34m[2026-03-04 18:31:33,463][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 602.0141000044532 ms[0m
+[1m[1;34m[2026-03-04 18:31:33,464][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::677 _stream_sidecar_bytes]:[0m Qwen3 voice-clone limits: text_len=63 max_frames=111 max_new_tokens=175[0m
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/1536 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/1536 bytes
+[AUDIO_OUT] Rebuffering: 510/1536 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[AUDIO_OUT] Rebuffering: 510/40320 bytes
+[1m[1;34m[2026-03-04 18:31:55,915][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::743 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=75 bytes=303240 first_chunk_ms=1727 max_gap_ms=1213.7 total_ms=22451 audio_s=6.317 rtf=3.554 text_len=63[0m
+[1m[1;34m[2026-03-04 18:31:55,916][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 22452.188399998704 ms[0m
+[1m[1;34m[2026-03-04 18:31:55,916][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 22452.32009999745 ms[0m
+[1m[1;34m[2026-03-04 18:31:55,916][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 22452.457500010496 ms[0m
+[1m[1;34m[2026-03-04 18:31:55,916][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job a7984911-32e2-4cf9-b491-fb16cdef0fa1 completed. Content: 'О, блин, извини, я еще не совсем проснулась. Что ты там сказал?...'[0m
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/40320 bytes
+[AUDIO_OUT] Rebuffering: 270/1536 bytes
+[1m[1;34m[2026-03-04 18:34:40,579][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::109 start]:[0m Starting JAIson application layer.[0m
+[1m[1;34m[2026-03-04 18:34:40,602][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::332 load_operations_from_config]:[0m Active STT from config: sherpa_ru[0m
+[1m[1;34m[2026-03-04 18:34:40,603][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::334 load_operations_from_config]:[0m Active TTS from config: qwen3[0m
+[1m[1;34m[2026-03-04 18:34:42,327][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting STT operation sherpa_ru[0m
+[1m[1;34m[2026-03-04 18:34:42,328][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type sherpa_stt[0m
+[1m[1;34m[2026-03-04 18:34:42,328][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process sherpa_stt when it is already unloaded[0m
+[1m[1;34m[2026-03-04 18:34:42,330][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::85 _prepare_hotwords_file]:[0m Sherpa STT hotwords validated: 3 entries[0m
+[1m[1;34m[2026-03-04 18:34:42,331][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::295 reload]:[0m Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5[0m
+[1m[1;34m[2026-03-04 18:34:42,331][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::307 reload]:[0m Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5[0m
+[1m[1;34m[2026-03-04 18:34:46,646][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting T2T operation llamacpp[0m
+[1m[1;34m[2026-03-04 18:34:46,646][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type llamacpp[0m
+[1m[1;34m[2026-03-04 18:34:46,651][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::81 reload]:[0m Opened Llama.cpp server (PID: 6108) on port 4414 (GPU: 1)[0m
+[1m[1;34m[2026-03-04 18:34:46,651][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::89 reload]:[0m Waiting for llama-server to be ready at http://127.0.0.1:4414/health ...[0m
+[1m[1;34m[2026-03-04 18:34:57,602][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::101 reload]:[0m llama-server is ready! (attempt 21, port 4414)[0m
+[1m[1;34m[2026-03-04 18:34:57,603][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting FILTER_TEXT operation filter_clean[0m
+[1m[1;34m[2026-03-04 18:36:44,090][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::109 start]:[0m Starting JAIson application layer.[0m
+[1m[1;34m[2026-03-04 18:36:44,112][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::332 load_operations_from_config]:[0m Active STT from config: sherpa_ru[0m
+[1m[1;34m[2026-03-04 18:36:44,112][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::334 load_operations_from_config]:[0m Active TTS from config: qwen3[0m
+[1m[1;34m[2026-03-04 18:36:45,783][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting STT operation sherpa_ru[0m
+[1m[1;34m[2026-03-04 18:36:45,783][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type sherpa_stt[0m
+[1m[1;34m[2026-03-04 18:36:45,785][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process sherpa_stt when it is already unloaded[0m
+[1m[1;34m[2026-03-04 18:36:45,786][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::85 _prepare_hotwords_file]:[0m Sherpa STT hotwords validated: 3 entries[0m
+[1m[1;34m[2026-03-04 18:36:45,786][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::295 reload]:[0m Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5[0m
+[1m[1;34m[2026-03-04 18:36:45,786][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::307 reload]:[0m Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5[0m
+[1m[1;34m[2026-03-04 18:36:50,110][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting T2T operation llamacpp[0m
+[1m[1;34m[2026-03-04 18:36:50,110][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type llamacpp[0m
+[1m[1;34m[2026-03-04 18:36:50,114][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::81 reload]:[0m Opened Llama.cpp server (PID: 37640) on port 5201 (GPU: 0)[0m
+[1m[1;34m[2026-03-04 18:36:50,115][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::89 reload]:[0m Waiting for llama-server to be ready at http://127.0.0.1:5201/health ...[0m
+[1m[1;34m[2026-03-04 18:36:54,348][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::101 reload]:[0m llama-server is ready! (attempt 8, port 5201)[0m
+[1m[1;34m[2026-03-04 18:36:54,349][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting FILTER_TEXT operation filter_clean[0m
+[1m[1;34m[2026-03-04 18:36:54,979][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting FILTER_TEXT operation chunker_sentence[0m
+[1m[1;34m[2026-03-04 18:36:55,507][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting TTS operation qwen3[0m
+[1m[1;34m[2026-03-04 18:36:55,507][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type qwen3_tts[0m
+[1m[1;34m[2026-03-04 18:36:55,508][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::198 reload]:[0m Qwen3 TTS SoX bin detected: C:\Nirmita\apps\tts-qwen3-server\third_party\sox\sox-14.4.2-win32\sox-14.4.2[0m
+[1m[1;34m[2026-03-04 18:36:55,509][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::202 reload]:[0m Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv312\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 0 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-Base --speaker serena --language russian --dtype bfloat16 --attn_implementation flash_attention_2 --use_compile 0 --sample_rate 24000 --sample_width 2 --channels 1 --voice_mode voice_clone --ref_audio_path C:\Nirmita\Nira_voice.wav --ref_text  --x_vector_only_mode 1 --preload_voice_clone_prompt 1 --emit_every_frames 4 --decode_window_frames 48 --first_chunk_emit_every 1 --first_chunk_decode_window 24 --first_chunk_frames 24 --overlap_samples 0 --max_new_tokens 112 --max_frames 80 --use_optimized_decode 1 --max_concurrent 1 --preload_on_start 1 --warmup_on_start 0 --warmup_text Привет. --warmup_emit_every_frames 4 --warmup_decode_window_frames 48 --warmup_max_new_tokens 96 --warmup_chunks 2 --first_chunk_timeout_s 18 --stream_idle_timeout_s 20 --compile_mode reduce-overhead --compile_use_cuda_graphs 0 --compile_codebook_predictor 0 --compile_talker 0[0m
+[1m[1;34m[2026-03-04 18:36:55,509][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::203 reload]:[0m Qwen3 TTS GPU pin: provider=cuda gpu_id=0 device=cuda:0 CUDA_VISIBLE_DEVICES=0[0m
+[1m[1;34m[2026-03-04 18:37:08,701][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::231 reload]:[0m Qwen3 TTS sidecar is ready at http://127.0.0.1:6116/health[0m
+[1m[1;34m[2026-03-04 18:37:09,027][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type hw_mic[0m
+[1m[1;34m[2026-03-04 18:37:09,027][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process hw_mic when it is already unloaded[0m
+[ProcessManager] Starting Hardware Microphone (hw-mic-client)...
+[1m[1;34m[2026-03-04 18:37:09,033][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type hw_audio_out[0m
+[1m[1;34m[2026-03-04 18:37:09,033][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process hw_audio_out when it is already unloaded[0m
+[ProcessManager] Starting Hardware Audio Output (hw-audio-out-client)...
+[1m[1;34m[2026-03-04 18:37:09,038][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::142 start]:[0m JAIson application layer has started.[0m
+[1m[1;34m[2026-03-04 18:37:09,038][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[logging.py::106 info]:[0m Running on http://127.0.0.1:7272 (CTRL + C to quit)[0m
+[1m[1;34m[2026-03-04 18:37:09,293][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 18:37:09 +0200] [19156] [INFO] 127.0.0.1:7423 GET / 1.1 101 - 2512
+[AUDIO_OUT] Selected by name: [52] CABLE Input (VB-Audio Virtual Cable) (Windows WASAPI)
+[AUDIO_OUT] Listening WS=ws://127.0.0.1:7272/ and streaming to CABLE Input (VB-Audio Virtual Cable) (ID: 52, hostapi: Windows WASAPI, sr=48000)
+========================================================
+[1m[1;34m[2026-03-04 18:37:09,672][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 18:37:09 +0200] [19156] [INFO] 127.0.0.1:7429 GET / 1.1 101 - 1003
+[AUDIO_OUT] WebSocket connected.
+[INFO] Loading Silero VAD ONNX Session (CPU)...
+[MIC] Selected by name: [67] Микрофон (2- fifine Microphone) (Windows WASAPI)
+[INFO] SoundDevice Listening on: Микрофон (2- fifine Microphone) (ID: 67, hostapi: Windows WASAPI)
+========================================================
+
+[2026-03-04 18:37:56 +0200] [19156] [INFO] 127.0.0.1:7444 POST /api/context/conversation/speech_start 1.1 200 71 1507
+[VAD] Голос! (Prob: 0.001, RMS: 0.0179) Завершена (3744ms, speech: 3008ms).
+[2026-03-04 18:37:59 +0200] [19156] [INFO] 127.0.0.1:7444 POST /api/context/conversation/audio 1.1 200 142 14760
+
+[API] Фраза отправлена (119808 байт).
+[1m[1;34m[2026-03-04 18:37:59,148][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=6 latency_ms=154 source=mic turn=62ac4630-8a40-4c92-9996-5f4fb3b186ac utterance=23391220-5f04-44b4-b387-5567215ec751[0m
+[1m[1;34m[2026-03-04 18:37:59,397][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 01da22d3-db6d-4d4b-aedc-87c0bfb18cbf[0m
+[1m[1;34m[2026-03-04 18:37:59,397][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job e883f887-5a2b-4719-b7f3-8e7193ad3db3[0m
+[1m[1;34m[2026-03-04 18:37:59,697][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 297.5756999949226 ms[0m
+[1m[1;34m[2026-03-04 18:37:59,697][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::677 _stream_sidecar_bytes]:[0m Qwen3 voice-clone limits: text_len=17 max_frames=48 max_new_tokens=112[0m
+[1m[1;34m[2026-03-04 18:38:01,875][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::86 ws]:[0m Closed websocket connection[0m
+[AUDIO_OUT] PCM chunk #1: bytes=8190 sr=48000 rms=0.0106 peak=0.0569
+[AUDIO_OUT] PCM chunk #2: bytes=8192 sr=48000 rms=0.0011 peak=0.0047
+[AUDIO_OUT] PCM chunk #3: bytes=8192 sr=48000 rms=0.0011 peak=0.0037
+[2026-03-04 18:38:02 +0200] [19156] [INFO] 127.0.0.1:9166 GET /api/config 1.1 200 5900 1510
+[2026-03-04 18:38:02 +0200] [19156] [INFO] 127.0.0.1:9168 GET /api/config 1.1 200 5900 1004
+[2026-03-04 18:38:02 +0200] [19156] [INFO] 127.0.0.1:9170 GET /api/context/history 1.1 200 165 1004
+[2026-03-04 18:38:02 +0200] [19156] [INFO] 127.0.0.1:8606 GET /api/context/history 1.1 200 165 1003
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[1m[1;34m[2026-03-04 18:38:02,846][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 18:38:02 +0200] [19156] [INFO] 127.0.0.1:2477 GET / 1.1 101 - 499
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/3072 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[1m[1;34m[2026-03-04 18:38:13,764][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::743 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=38 bytes=153508 first_chunk_ms=2830 max_gap_ms=1317.0 total_ms=14066 audio_s=3.198 rtf=4.398 text_len=17[0m
+[1m[1;34m[2026-03-04 18:38:13,764][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 14066.833799995948 ms[0m
+[1m[1;34m[2026-03-04 18:38:13,764][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 14066.963599994779 ms[0m
+[1m[1;34m[2026-03-04 18:38:13,764][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 14067.095000005793 ms[0m
+[1m[1;34m[2026-03-04 18:38:13,764][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job e883f887-5a2b-4719-b7f3-8e7193ad3db3 completed. Content: 'Привет! Как дела?...'[0m
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:38:21 +0200] [19156] [INFO] 127.0.0.1:2484 POST /api/context/conversation/speech_start 1.1 200 71 1002
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0224) Завершена (3616ms, speech: 2720ms).
+[2026-03-04 18:38:23 +0200] [19156] [INFO] 127.0.0.1:2484 POST /api/context/conversation/audio 1.1 200 142 1506
+
+[API] Фраза отправлена (115712 байт).
+[1m[1;34m[2026-03-04 18:38:23,350][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=18 latency_ms=108 source=mic turn=5827b30a-14b1-49ec-9bb3-470eb7eebe98 utterance=90c0f0ba-8afd-4e7e-bbc7-eed9d614e927[0m
+[1m[1;34m[2026-03-04 18:38:23,351][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::482 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-03-04 18:38:23,610][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 5bc70f0a-8c22-4d81-9da1-b7f73a49b3f6[0m
+[1m[1;34m[2026-03-04 18:38:23,610][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job 90a80983-98eb-4d76-b6dd-f88d8ceee468[0m
+[1m[1;34m[2026-03-04 18:38:24,065][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 453.5926999960793 ms[0m
+[1m[1;34m[2026-03-04 18:38:24,065][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::677 _stream_sidecar_bytes]:[0m Qwen3 voice-clone limits: text_len=49 max_frames=77 max_new_tokens=112[0m
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[1m[1;34m[2026-03-04 18:38:40,949][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::743 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=49 bytes=199588 first_chunk_ms=1433 max_gap_ms=1415.8 total_ms=16883 audio_s=4.158 rtf=4.060 text_len=49[0m
+[1m[1;34m[2026-03-04 18:38:40,949][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 16883.72119999258 ms[0m
+[1m[1;34m[2026-03-04 18:38:40,949][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 16883.86889999674 ms[0m
+[1m[1;34m[2026-03-04 18:38:40,949][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 16884.010900001158 ms[0m
+[1m[1;34m[2026-03-04 18:38:40,950][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job 90a80983-98eb-4d76-b6dd-f88d8ceee468 completed. Content: 'У меня всё прекрасно, спасибо! А у тебя как дела?...'[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0080) Завершена (896ms, speech: 160ms).
+[1m[1;34m[2026-03-04 18:39:27,857][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::109 start]:[0m Starting JAIson application layer.[0m
+[1m[1;34m[2026-03-04 18:39:27,880][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::332 load_operations_from_config]:[0m Active STT from config: sherpa_ru[0m
+[1m[1;34m[2026-03-04 18:39:27,880][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::334 load_operations_from_config]:[0m Active TTS from config: qwen3[0m
+[1m[1;34m[2026-03-04 18:39:29,560][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting STT operation sherpa_ru[0m
+[1m[1;34m[2026-03-04 18:39:29,561][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type sherpa_stt[0m
+[1m[1;34m[2026-03-04 18:39:29,562][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process sherpa_stt when it is already unloaded[0m
+[1m[1;34m[2026-03-04 18:39:29,563][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::85 _prepare_hotwords_file]:[0m Sherpa STT hotwords validated: 3 entries[0m
+[1m[1;34m[2026-03-04 18:39:29,563][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::295 reload]:[0m Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5[0m
+[1m[1;34m[2026-03-04 18:39:29,563][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::307 reload]:[0m Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5[0m
+[1m[1;34m[2026-03-04 18:39:33,889][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting T2T operation llamacpp[0m
+[1m[1;34m[2026-03-04 18:39:33,889][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type llamacpp[0m
+[1m[1;34m[2026-03-04 18:39:33,892][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::81 reload]:[0m Opened Llama.cpp server (PID: 37596) on port 9213 (GPU: 0)[0m
+[1m[1;34m[2026-03-04 18:39:33,893][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::89 reload]:[0m Waiting for llama-server to be ready at http://127.0.0.1:9213/health ...[0m
+[1m[1;34m[2026-03-04 18:39:38,082][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::101 reload]:[0m llama-server is ready! (attempt 8, port 9213)[0m
+[1m[1;34m[2026-03-04 18:39:38,083][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting FILTER_TEXT operation filter_clean[0m
+[1m[1;34m[2026-03-04 18:39:38,662][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting FILTER_TEXT operation chunker_sentence[0m
+[1m[1;34m[2026-03-04 18:39:39,121][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting TTS operation qwen3[0m
+[1m[1;34m[2026-03-04 18:39:39,121][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type qwen3_tts[0m
+[1m[1;34m[2026-03-04 18:39:39,123][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::198 reload]:[0m Qwen3 TTS SoX bin detected: C:\Nirmita\apps\tts-qwen3-server\third_party\sox\sox-14.4.2-win32\sox-14.4.2[0m
+[1m[1;34m[2026-03-04 18:39:39,123][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::202 reload]:[0m Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv312\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 0 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-Base --speaker serena --language russian --dtype bfloat16 --attn_implementation flash_attention_2 --use_compile 0 --sample_rate 24000 --sample_width 2 --channels 1 --voice_mode voice_clone --ref_audio_path C:\Nirmita\Nira_voice.wav --ref_text  --x_vector_only_mode 1 --preload_voice_clone_prompt 1 --emit_every_frames 4 --decode_window_frames 48 --first_chunk_emit_every 1 --first_chunk_decode_window 24 --first_chunk_frames 24 --overlap_samples 0 --max_new_tokens 112 --max_frames 80 --use_optimized_decode 1 --max_concurrent 1 --preload_on_start 1 --warmup_on_start 0 --warmup_text Привет. --warmup_emit_every_frames 4 --warmup_decode_window_frames 48 --warmup_max_new_tokens 96 --warmup_chunks 2 --first_chunk_timeout_s 18 --stream_idle_timeout_s 20 --compile_mode reduce-overhead --compile_use_cuda_graphs 0 --compile_codebook_predictor 0 --compile_talker 0[0m
+[1m[1;34m[2026-03-04 18:39:39,123][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::203 reload]:[0m Qwen3 TTS GPU pin: provider=cuda gpu_id=0 device=cuda:0 CUDA_VISIBLE_DEVICES=0[0m
+[1m[1;34m[2026-03-04 18:39:52,317][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::231 reload]:[0m Qwen3 TTS sidecar is ready at http://127.0.0.1:6116/health[0m
+[1m[1;34m[2026-03-04 18:39:52,640][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type hw_mic[0m
+[1m[1;34m[2026-03-04 18:39:52,641][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process hw_mic when it is already unloaded[0m
+[ProcessManager] Starting Hardware Microphone (hw-mic-client)...
+[1m[1;34m[2026-03-04 18:39:52,647][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type hw_audio_out[0m
+[1m[1;34m[2026-03-04 18:39:52,647][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process hw_audio_out when it is already unloaded[0m
+[ProcessManager] Starting Hardware Audio Output (hw-audio-out-client)...
+[1m[1;34m[2026-03-04 18:39:52,651][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::142 start]:[0m JAIson application layer has started.[0m
+[1m[1;34m[2026-03-04 18:39:52,652][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[logging.py::106 info]:[0m Running on http://127.0.0.1:7272 (CTRL + C to quit)[0m
+[AUDIO_OUT] Selected by name: [52] CABLE Input (VB-Audio Virtual Cable) (Windows WASAPI)
+[AUDIO_OUT] Listening WS=ws://127.0.0.1:7272/ and streaming to CABLE Input (VB-Audio Virtual Cable) (ID: 52, hostapi: Windows WASAPI, sr=48000)
+========================================================
+[1m[1;34m[2026-03-04 18:39:53,287][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 18:39:53 +0200] [31008] [INFO] 127.0.0.1:6620 GET / 1.1 101 - 1507
+[AUDIO_OUT] WebSocket connected.
+[INFO] Loading Silero VAD ONNX Session (CPU)...
+[MIC] Selected by name: [67] Микрофон (2- fifine Microphone) (Windows WASAPI)
+[INFO] SoundDevice Listening on: Микрофон (2- fifine Microphone) (ID: 67, hostapi: Windows WASAPI)
+========================================================
+
+[1m[1;34m[2026-03-04 18:39:55,003][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 18:39:55 +0200] [31008] [INFO] 127.0.0.1:4639 GET / 1.1 101 - 504
+
+[1m[1;34m[2026-03-04 18:40:03,161][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::86 ws]:[0m Closed websocket connection[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0084) Завершена (864ms, speech: 128ms).
+[2026-03-04 18:40:03 +0200] [31008] [INFO] 127.0.0.1:3276 GET /api/config 1.1 200 5900 506
+[2026-03-04 18:40:03 +0200] [31008] [INFO] 127.0.0.1:3278 GET /api/config 1.1 200 5900 1514
+[2026-03-04 18:40:03 +0200] [31008] [INFO] 127.0.0.1:3280 GET /api/context/history 1.1 200 59 1004
+[2026-03-04 18:40:03 +0200] [31008] [INFO] 127.0.0.1:8616 GET /api/context/history 1.1 200 59 507
+[1m[1;34m[2026-03-04 18:40:03,969][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 18:40:03 +0200] [31008] [INFO] 127.0.0.1:13205 GET / 1.1 101 - 504
+[2026-03-04 18:40:05 +0200] [31008] [INFO] 127.0.0.1:13207 POST /api/context/conversation/audio 1.1 200 142 15614
+[VAD] Голос! (Prob: 0.003, RMS: 0.0384)
+[API] Фраза отправлена (27648 байт).
+[1m[1;34m[2026-03-04 18:40:05,557][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=47 source=mic turn=f0a7b56c-6813-4ccb-9e5a-59f72e65fe40 utterance=37430f28-1b60-40a7-aa3b-0bca696658f1[0m
+[2026-03-04 18:40:06 +0200] [31008] [INFO] 127.0.0.1:13209 POST /api/context/conversation/speech_start 1.1 200 71 1003
+ Завершена (2272ms, speech: 1152ms).
+[2026-03-04 18:40:06 +0200] [31008] [INFO] 127.0.0.1:13209 POST /api/context/conversation/audio 1.1 200 142 3018
+
+[API] Фраза отправлена (72704 байт).
+[1m[1;34m[2026-03-04 18:40:06,515][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=9 latency_ms=75 source=mic turn=7404f2b5-ef04-4987-a50a-4fc5feeffbd1 utterance=3a76c3e9-75ec-46a0-b71f-49254f47cabb[0m
+[1m[1;34m[2026-03-04 18:40:06,775][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job f2fdc875-071e-4581-b16d-cce8d333fa30[0m
+[1m[1;34m[2026-03-04 18:40:06,775][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job f2c96833-7999-43da-bd3e-3e95c682bfe8[0m
+[1m[1;34m[2026-03-04 18:40:07,126][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 350.2597000042442 ms[0m
+[1m[1;34m[2026-03-04 18:40:07,127][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::677 _stream_sidecar_bytes]:[0m Qwen3 voice-clone limits: text_len=25 max_frames=48 max_new_tokens=112[0m
+[AUDIO_OUT] PCM chunk #1: bytes=8190 sr=48000 rms=0.0152 peak=0.0688
+[AUDIO_OUT] PCM chunk #2: bytes=8192 sr=48000 rms=0.0066 peak=0.0290
+[AUDIO_OUT] PCM chunk #3: bytes=8192 sr=48000 rms=0.0034 peak=0.0092
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[1m[1;34m[2026-03-04 18:40:22,949][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::743 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=45 bytes=184228 first_chunk_ms=2438 max_gap_ms=1344.7 total_ms=15821 audio_s=3.838 rtf=4.122 text_len=25[0m
+[1m[1;34m[2026-03-04 18:40:22,949][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 15821.793600000092 ms[0m
+[1m[1;34m[2026-03-04 18:40:22,950][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 15821.951599995373 ms[0m
+[1m[1;34m[2026-03-04 18:40:22,950][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 15822.093099995982 ms[0m
+[1m[1;34m[2026-03-04 18:40:22,950][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job f2c96833-7999-43da-bd3e-3e95c682bfe8 completed. Content: 'Привет, привет! Как дела?...'[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0104) Завершена (864ms, speech: 128ms).
+
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:40:33 +0200] [31008] [INFO] 127.0.0.1:14465 POST /api/context/conversation/speech_start 1.1 200 71 503
+[VAD] Голос! (Prob: 0.001, RMS: 0.0207) Завершена (1888ms, speech: 1120ms).
+[2026-03-04 18:40:33 +0200] [31008] [INFO] 127.0.0.1:14465 POST /api/context/conversation/audio 1.1 200 142 2006
+
+[API] Фраза отправлена (60416 байт).
+[1m[1;34m[2026-03-04 18:40:33,755][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=14 latency_ms=85 source=mic turn=b62040b6-a0ab-4d05-a027-5c0e88e34527 utterance=dd504020-319d-4ddd-938d-555ef5e02a2b[0m
+[2026-03-04 18:40:33 +0200] [31008] [INFO] 127.0.0.1:14467 POST /api/context/conversation/audio 1.1 200 142 1502
+
+[API] Фраза отправлена (27648 байт).
+[1m[1;34m[2026-03-04 18:40:33,830][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=36 source=mic turn=3e27c736-9831-4d30-9300-ed93241f9133 utterance=46c41abf-c803-4b77-9fac-4355079cfcd2[0m
+[1m[1;34m[2026-03-04 18:40:34,007][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 619249aa-362a-4273-849f-f1a7fa54da3c[0m
+[1m[1;34m[2026-03-04 18:40:34,007][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job 6b614667-7fe3-4865-95a5-46177d984a97[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[1m[1;34m[2026-03-04 18:40:35,235][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 1227.1115999901667 ms[0m
+[1m[1;34m[2026-03-04 18:40:35,235][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::677 _stream_sidecar_bytes]:[0m Qwen3 voice-clone limits: text_len=119 max_frames=80 max_new_tokens=112[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[1m[1;34m[2026-03-04 18:42:37,436][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::109 start]:[0m Starting JAIson application layer.[0m
+[1m[1;34m[2026-03-04 18:42:37,460][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::332 load_operations_from_config]:[0m Active STT from config: sherpa_ru[0m
+[1m[1;34m[2026-03-04 18:42:37,461][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::334 load_operations_from_config]:[0m Active TTS from config: qwen3[0m
+[1m[1;34m[2026-03-04 18:42:39,163][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting STT operation sherpa_ru[0m
+[1m[1;34m[2026-03-04 18:42:39,163][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type sherpa_stt[0m
+[1m[1;34m[2026-03-04 18:42:39,165][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process sherpa_stt when it is already unloaded[0m
+[1m[1;34m[2026-03-04 18:42:39,167][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::85 _prepare_hotwords_file]:[0m Sherpa STT hotwords validated: 3 entries[0m
+[1m[1;34m[2026-03-04 18:42:39,167][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::295 reload]:[0m Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5[0m
+[1m[1;34m[2026-03-04 18:42:39,167][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::307 reload]:[0m Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5[0m
+[1m[1;34m[2026-03-04 18:42:43,490][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting T2T operation llamacpp[0m
+[1m[1;34m[2026-03-04 18:42:43,490][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type llamacpp[0m
+[1m[1;34m[2026-03-04 18:42:43,493][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::81 reload]:[0m Opened Llama.cpp server (PID: 31380) on port 5942 (GPU: 0)[0m
+[1m[1;34m[2026-03-04 18:42:43,493][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::89 reload]:[0m Waiting for llama-server to be ready at http://127.0.0.1:5942/health ...[0m
+[1m[1;34m[2026-03-04 18:42:47,713][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::101 reload]:[0m llama-server is ready! (attempt 8, port 5942)[0m
+[1m[1;34m[2026-03-04 18:42:47,714][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting FILTER_TEXT operation filter_clean[0m
+[1m[1;34m[2026-03-04 18:42:48,286][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting FILTER_TEXT operation chunker_sentence[0m
+[1m[1;34m[2026-03-04 18:42:48,747][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting TTS operation qwen3[0m
+[1m[1;34m[2026-03-04 18:42:48,747][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type qwen3_tts[0m
+[1m[1;34m[2026-03-04 18:42:48,748][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::198 reload]:[0m Qwen3 TTS SoX bin detected: C:\Nirmita\apps\tts-qwen3-server\third_party\sox\sox-14.4.2-win32\sox-14.4.2[0m
+[1m[1;34m[2026-03-04 18:42:48,748][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::202 reload]:[0m Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv312\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 0 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-Base --speaker serena --language russian --dtype bfloat16 --attn_implementation flash_attention_2 --use_compile 0 --sample_rate 24000 --sample_width 2 --channels 1 --voice_mode voice_clone --ref_audio_path C:\Nirmita\Nira_voice.wav --ref_text  --x_vector_only_mode 1 --preload_voice_clone_prompt 1 --emit_every_frames 4 --decode_window_frames 48 --first_chunk_emit_every 1 --first_chunk_decode_window 24 --first_chunk_frames 24 --overlap_samples 0 --max_new_tokens 112 --max_frames 80 --use_optimized_decode 1 --max_concurrent 1 --preload_on_start 1 --warmup_on_start 0 --warmup_text Привет. --warmup_emit_every_frames 4 --warmup_decode_window_frames 48 --warmup_max_new_tokens 96 --warmup_chunks 2 --first_chunk_timeout_s 18 --stream_idle_timeout_s 20 --compile_mode reduce-overhead --compile_use_cuda_graphs 0 --compile_codebook_predictor 0 --compile_talker 0[0m
+[1m[1;34m[2026-03-04 18:42:48,748][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::203 reload]:[0m Qwen3 TTS GPU pin: provider=cuda gpu_id=0 device=cuda:0 CUDA_VISIBLE_DEVICES=0[0m
+[1m[1;34m[2026-03-04 18:43:01,929][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::231 reload]:[0m Qwen3 TTS sidecar is ready at http://127.0.0.1:6116/health[0m
+[1m[1;34m[2026-03-04 18:43:02,242][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type hw_mic[0m
+[1m[1;34m[2026-03-04 18:43:02,243][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process hw_mic when it is already unloaded[0m
+[ProcessManager] Starting Hardware Microphone (hw-mic-client)...
+[1m[1;34m[2026-03-04 18:43:02,250][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type hw_audio_out[0m
+[1m[1;34m[2026-03-04 18:43:02,250][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process hw_audio_out when it is already unloaded[0m
+[ProcessManager] Starting Hardware Audio Output (hw-audio-out-client)...
+[1m[1;34m[2026-03-04 18:43:02,254][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::142 start]:[0m JAIson application layer has started.[0m
+[1m[1;34m[2026-03-04 18:43:02,254][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[logging.py::106 info]:[0m Running on http://127.0.0.1:7272 (CTRL + C to quit)[0m
+[AUDIO_OUT] Selected by name: [52] CABLE Input (VB-Audio Virtual Cable) (Windows WASAPI)
+[AUDIO_OUT] Listening WS=ws://127.0.0.1:7272/ and streaming to CABLE Input (VB-Audio Virtual Cable) (ID: 52, hostapi: Windows WASAPI, sr=48000)
+========================================================
+[1m[1;34m[2026-03-04 18:43:02,880][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 18:43:02 +0200] [38548] [INFO] 127.0.0.1:4504 GET / 1.1 101 - 2011
+[AUDIO_OUT] WebSocket connected.
+[INFO] Loading Silero VAD ONNX Session (CPU)...
+[MIC] Selected by name: [67] Микрофон (2- fifine Microphone) (Windows WASAPI)
+[INFO] SoundDevice Listening on: Микрофон (2- fifine Microphone) (ID: 67, hostapi: Windows WASAPI)
+========================================================
+
+[1m[1;34m[2026-03-04 18:43:04,422][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 18:43:04 +0200] [38548] [INFO] 127.0.0.1:8284 GET / 1.1 101 - 1005
+[2026-03-04 18:43:08 +0200] [38548] [INFO] 127.0.0.1:8288 POST /api/context/conversation/speech_start 1.1 200 71 1005
+[VAD] Голос! (Prob: 0.001, RMS: 0.0127) Завершена (1824ms, speech: 1088ms).
+[2026-03-04 18:43:08 +0200] [38548] [INFO] 127.0.0.1:8288 POST /api/context/conversation/audio 1.1 200 142 15156
+
+[API] Фраза отправлена (58368 байт).
+[1m[1;34m[2026-03-04 18:43:08,684][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=9 latency_ms=86 source=mic turn=7596d3a3-df6d-4f87-855e-03306e078413 utterance=e92f71d9-7965-45bf-8003-4db053faec16[0m
+[1m[1;34m[2026-03-04 18:43:08,945][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job da640921-82bb-42ed-a703-abd5937fdbe8[0m
+[1m[1;34m[2026-03-04 18:43:08,945][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job 8162a141-06e4-49cc-8430-b51574be2e4f[0m
+[1m[1;34m[2026-03-04 18:43:09,464][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 516.7728999949759 ms[0m
+[1m[1;34m[2026-03-04 18:43:09,464][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::677 _stream_sidecar_bytes]:[0m Qwen3 voice-clone limits: text_len=25 max_frames=48 max_new_tokens=112[0m
+[AUDIO_OUT] PCM chunk #1: bytes=8190 sr=48000 rms=0.0290 peak=0.1176
+[AUDIO_OUT] PCM chunk #2: bytes=8192 sr=48000 rms=0.0164 peak=0.0908
+[AUDIO_OUT] PCM chunk #3: bytes=8192 sr=48000 rms=0.0018 peak=0.0086
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[1m[1;34m[2026-03-04 18:43:22,927][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::743 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=38 bytes=153508 first_chunk_ms=2522 max_gap_ms=1243.1 total_ms=13463 audio_s=3.198 rtf=4.210 text_len=25[0m
+[1m[1;34m[2026-03-04 18:43:22,927][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 13463.575400004629 ms[0m
+[1m[1;34m[2026-03-04 18:43:22,927][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 13463.68449999136 ms[0m
+[1m[1;34m[2026-03-04 18:43:22,928][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 13463.84370001033 ms[0m
+[1m[1;34m[2026-03-04 18:43:22,928][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job 8162a141-06e4-49cc-8430-b51574be2e4f completed. Content: 'Привет, я Нира! Как дела?...'[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:44:45 +0200] [38548] [INFO] 127.0.0.1:8536 POST /api/context/conversation/speech_start 1.1 200 71 504
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0094) Завершена (2496ms, speech: 1760ms).
+[2026-03-04 18:44:46 +0200] [38548] [INFO] 127.0.0.1:8536 POST /api/context/conversation/audio 1.1 200 142 5879
+
+[API] Фраза отправлена (79872 байт).
+[1m[1;34m[2026-03-04 18:44:47,040][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=8 latency_ms=109 source=mic turn=82617967-e9a6-4170-90c7-5ea9e9047107 utterance=82d89455-2dae-4cd4-9648-cc33371823d6[0m
+[1m[1;34m[2026-03-04 18:44:47,303][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 020427f0-709e-4b39-aafb-51c5f5d3d5e5[0m
+[1m[1;34m[2026-03-04 18:44:47,303][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job fd2e6254-3762-438f-8dee-f0ba494ca979[0m
+[1m[1;34m[2026-03-04 18:44:47,898][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 593.9480000088224 ms[0m
+[1m[1;34m[2026-03-04 18:44:47,898][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::677 _stream_sidecar_bytes]:[0m Qwen3 voice-clone limits: text_len=46 max_frames=73 max_new_tokens=137[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[1m[1;34m[2026-03-04 18:45:11,958][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::743 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=65 bytes=264846 first_chunk_ms=1577 max_gap_ms=1532.4 total_ms=24060 audio_s=5.518 rtf=4.361 text_len=46[0m
+[1m[1;34m[2026-03-04 18:45:11,959][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 24060.498499995447 ms[0m
+[1m[1;34m[2026-03-04 18:45:11,959][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 24060.676399996737 ms[0m
+[1m[1;34m[2026-03-04 18:45:11,960][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 24060.83379998745 ms[0m
+[1m[1;34m[2026-03-04 18:45:11,960][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job fd2e6254-3762-438f-8dee-f0ba494ca979 completed. Content: 'Ну привет! Так-то все норм, а у тебя как дела?...'[0m
+[1m[1;34m[2026-03-04 18:45:21,659][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::109 start]:[0m Starting JAIson application layer.[0m
+[1m[1;34m[2026-03-04 18:45:21,681][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::332 load_operations_from_config]:[0m Active STT from config: sherpa_ru[0m
+[1m[1;34m[2026-03-04 18:45:21,682][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::334 load_operations_from_config]:[0m Active TTS from config: qwen3[0m
+[1m[1;34m[2026-03-04 18:45:23,375][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting STT operation sherpa_ru[0m
+[1m[1;34m[2026-03-04 18:45:23,375][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type sherpa_stt[0m
+[1m[1;34m[2026-03-04 18:45:23,376][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process sherpa_stt when it is already unloaded[0m
+[1m[1;34m[2026-03-04 18:45:23,378][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::85 _prepare_hotwords_file]:[0m Sherpa STT hotwords validated: 3 entries[0m
+[1m[1;34m[2026-03-04 18:45:23,378][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::295 reload]:[0m Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5[0m
+[1m[1;34m[2026-03-04 18:45:23,378][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::307 reload]:[0m Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5[0m
+[1m[1;34m[2026-03-04 18:45:27,699][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting T2T operation llamacpp[0m
+[1m[1;34m[2026-03-04 18:45:27,700][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type llamacpp[0m
+[1m[1;34m[2026-03-04 18:45:27,704][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::81 reload]:[0m Opened Llama.cpp server (PID: 25588) on port 9347 (GPU: 0)[0m
+[1m[1;34m[2026-03-04 18:45:27,704][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::89 reload]:[0m Waiting for llama-server to be ready at http://127.0.0.1:9347/health ...[0m
+[1m[1;34m[2026-03-04 18:45:31,913][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::101 reload]:[0m llama-server is ready! (attempt 8, port 9347)[0m
+[1m[1;34m[2026-03-04 18:45:31,915][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting FILTER_TEXT operation filter_clean[0m
+[1m[1;34m[2026-03-04 18:45:32,574][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting FILTER_TEXT operation chunker_sentence[0m
+[1m[1;34m[2026-03-04 18:45:33,072][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting TTS operation qwen3[0m
+[1m[1;34m[2026-03-04 18:45:33,072][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type qwen3_tts[0m
+[1m[1;34m[2026-03-04 18:45:33,073][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::198 reload]:[0m Qwen3 TTS SoX bin detected: C:\Nirmita\apps\tts-qwen3-server\third_party\sox\sox-14.4.2-win32\sox-14.4.2[0m
+[1m[1;34m[2026-03-04 18:45:33,073][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::202 reload]:[0m Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv312\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 0 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-Base --speaker serena --language russian --dtype bfloat16 --attn_implementation flash_attention_2 --use_compile 0 --sample_rate 24000 --sample_width 2 --channels 1 --voice_mode voice_clone --ref_audio_path C:\Nirmita\Nira_voice.wav --ref_text  --x_vector_only_mode 1 --preload_voice_clone_prompt 1 --emit_every_frames 4 --decode_window_frames 48 --first_chunk_emit_every 1 --first_chunk_decode_window 24 --first_chunk_frames 24 --overlap_samples 0 --max_new_tokens 112 --max_frames 80 --use_optimized_decode 1 --max_concurrent 1 --preload_on_start 1 --warmup_on_start 0 --warmup_text Привет. --warmup_emit_every_frames 4 --warmup_decode_window_frames 48 --warmup_max_new_tokens 96 --warmup_chunks 2 --first_chunk_timeout_s 18 --stream_idle_timeout_s 20 --compile_mode reduce-overhead --compile_use_cuda_graphs 0 --compile_codebook_predictor 0 --compile_talker 0[0m
+[1m[1;34m[2026-03-04 18:45:33,074][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::203 reload]:[0m Qwen3 TTS GPU pin: provider=cuda gpu_id=0 device=cuda:0 CUDA_VISIBLE_DEVICES=0[0m
+[1m[1;34m[2026-03-04 18:45:46,748][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::231 reload]:[0m Qwen3 TTS sidecar is ready at http://127.0.0.1:6116/health[0m
+[1m[1;34m[2026-03-04 18:45:47,068][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type hw_mic[0m
+[1m[1;34m[2026-03-04 18:45:47,069][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process hw_mic when it is already unloaded[0m
+[ProcessManager] Starting Hardware Microphone (hw-mic-client)...
+[1m[1;34m[2026-03-04 18:45:47,074][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type hw_audio_out[0m
+[1m[1;34m[2026-03-04 18:45:47,075][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process hw_audio_out when it is already unloaded[0m
+[ProcessManager] Starting Hardware Audio Output (hw-audio-out-client)...
+[1m[1;34m[2026-03-04 18:45:47,079][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::142 start]:[0m JAIson application layer has started.[0m
+[1m[1;34m[2026-03-04 18:45:47,081][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[logging.py::106 info]:[0m Running on http://127.0.0.1:7272 (CTRL + C to quit)[0m
+[1m[1;34m[2026-03-04 18:45:47,538][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 18:45:47 +0200] [33824] [INFO] 127.0.0.1:7026 GET / 1.1 101 - 3087
+[AUDIO_OUT] Selected by name: [52] CABLE Input (VB-Audio Virtual Cable) (Windows WASAPI)
+[AUDIO_OUT] Listening WS=ws://127.0.0.1:7272/ and streaming to CABLE Input (VB-Audio Virtual Cable) (ID: 52, hostapi: Windows WASAPI, sr=48000)
+========================================================
+[1m[1;34m[2026-03-04 18:45:47,690][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 18:45:47 +0200] [33824] [INFO] 127.0.0.1:7032 GET / 1.1 101 - 1004
+[AUDIO_OUT] WebSocket connected.
+[INFO] Loading Silero VAD ONNX Session (CPU)...
+[MIC] Selected by name: [67] Микрофон (2- fifine Microphone) (Windows WASAPI)
+[INFO] SoundDevice Listening on: Микрофон (2- fifine Microphone) (ID: 67, hostapi: Windows WASAPI)
+========================================================
+
+[2026-03-04 18:47:21 +0200] [33824] [INFO] 127.0.0.1:3180 POST /api/context/conversation/speech_start 1.1 200 71 1004
+[VAD] Голос! (Prob: 0.001, RMS: 0.0449) Завершена (2912ms, speech: 2176ms).
+[2026-03-04 18:47:23 +0200] [33824] [INFO] 127.0.0.1:3180 POST /api/context/conversation/audio 1.1 200 142 15062
+
+[API] Фраза отправлена (93184 байт).
+[1m[1;34m[2026-03-04 18:47:23,545][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=6 latency_ms=119 source=mic turn=3ec1fe98-05fd-4637-93a9-34d75c17f034 utterance=d924ea9d-67a7-4406-a30b-22b21f1f5960[0m
+[1m[1;34m[2026-03-04 18:47:23,812][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job f5ee84af-88de-4443-beb6-95f7119aa0e4[0m
+[1m[1;34m[2026-03-04 18:47:23,812][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job 22a081dc-5f87-430e-8aac-8d4a07646c7b[0m
+[1m[1;34m[2026-03-04 18:47:24,164][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 351.4133999997284 ms[0m
+[1m[1;34m[2026-03-04 18:47:24,165][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::677 _stream_sidecar_bytes]:[0m Qwen3 voice-clone limits: text_len=17 max_frames=48 max_new_tokens=112[0m
+[1m[1;34m[2026-03-04 18:47:26,322][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::86 ws]:[0m Closed websocket connection[0m
+[AUDIO_OUT] PCM chunk #1: bytes=8190 sr=48000 rms=0.0145 peak=0.0649
+[AUDIO_OUT] PCM chunk #2: bytes=8192 sr=48000 rms=0.0019 peak=0.0059
+[AUDIO_OUT] PCM chunk #3: bytes=8192 sr=48000 rms=0.0028 peak=0.0125
+[2026-03-04 18:47:26 +0200] [33824] [INFO] 127.0.0.1:11735 GET /api/config 1.1 200 5900 4544
+[2026-03-04 18:47:26 +0200] [33824] [INFO] 127.0.0.1:11737 GET /api/config 1.1 200 5900 1509
+[2026-03-04 18:47:26 +0200] [33824] [INFO] 127.0.0.1:11739 GET /api/context/history 1.1 200 165 1004
+[2026-03-04 18:47:26 +0200] [33824] [INFO] 127.0.0.1:9974 GET /api/context/history 1.1 200 165 504
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[1m[1;34m[2026-03-04 18:47:27,128][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 18:47:27 +0200] [33824] [INFO] 127.0.0.1:5083 GET / 1.1 101 - 505
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[1m[1;34m[2026-03-04 18:47:33,064][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::743 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=23 bytes=92068 first_chunk_ms=2554 max_gap_ms=1351.4 total_ms=8898 audio_s=1.918 rtf=4.639 text_len=17[0m
+[1m[1;34m[2026-03-04 18:47:33,064][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 8898.573300000862 ms[0m
+[1m[1;34m[2026-03-04 18:47:33,064][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 8898.676700002397 ms[0m
+[1m[1;34m[2026-03-04 18:47:33,064][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 8898.778200004017 ms[0m
+[1m[1;34m[2026-03-04 18:47:33,065][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job 22a081dc-5f87-430e-8aac-8d4a07646c7b completed. Content: 'Привет! Как дела?...'[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0115) Завершена (928ms, speech: 192ms).
+[2026-03-04 18:47:42 +0200] [33824] [INFO] 127.0.0.1:5086 POST /api/context/conversation/speech_start 1.1 200 71 0
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:47:44 +0200] [33824] [INFO] 127.0.0.1:5087 POST /api/context/conversation/audio 1.1 200 142 2521
+
+[API] Фраза отправлена (29696 байт).
+[1m[1;34m[2026-03-04 18:47:44,564][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=39 source=mic turn=8b77e0b3-551d-406e-965b-65cedc6c2f33 utterance=8292b638-c4fd-4988-8727-bd17e90e824b[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[2026-03-04 18:47:49 +0200] [33824] [INFO] 127.0.0.1:5087 POST /api/context/conversation/speech_start 1.1 200 71 1513
+[VAD] Голос! (Prob: 0.001, RMS: 0.0125) Завершена (1088ms, speech: 352ms).
+[2026-03-04 18:47:49 +0200] [33824] [INFO] 127.0.0.1:5087 POST /api/context/conversation/audio 1.1 200 142 2011
+
+[API] Фраза отправлена (34816 байт).
+[1m[1;34m[2026-03-04 18:47:49,992][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=37 source=mic turn=e955acee-93d1-4ecf-a117-c91af7e36b12 utterance=f0e55a6a-29c8-462f-bb8f-d0cbff755d57[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0107) Завершена (864ms, speech: 128ms).
+
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0124) Завершена (1088ms, speech: 352ms).
+[2026-03-04 18:47:58 +0200] [33824] [INFO] 127.0.0.1:5095 POST /api/context/conversation/speech_start 1.1 200 71 1003
+[2026-03-04 18:47:58 +0200] [33824] [INFO] 127.0.0.1:5096 POST /api/context/conversation/audio 1.1 200 142 1508
+
+[API] Фраза отправлена (27648 байт).
+[1m[1;34m[2026-03-04 18:47:58,647][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=37 source=mic turn=9197381f-39d3-45be-bf67-206fba270b00 utterance=83aa1a73-74e1-4740-868e-94a79fd6f5b0[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:47:59 +0200] [33824] [INFO] 127.0.0.1:5098 POST /api/context/conversation/audio 1.1 200 142 1509
+
+[API] Фраза отправлена (34816 байт).
+[1m[1;34m[2026-03-04 18:47:59,789][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=35 source=mic turn=c59cd8a3-6bee-45ff-8a35-a215ea2200da utterance=f92aab26-37b7-4c4a-b2c9-0017bd375ca7[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0104) Завершена (864ms, speech: 128ms).
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:48:08 +0200] [33824] [INFO] 127.0.0.1:5101 POST /api/context/conversation/audio 1.1 200 142 1068
+
+[API] Фраза отправлена (27648 байт).
+[1m[1;34m[2026-03-04 18:48:08,170][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=28 source=mic turn=bae80f16-2e48-4fd8-bcba-9afaac7386cd utterance=ff75293f-efad-4bf5-ba44-b86e7e4fdf1c[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0077) Завершена (928ms, speech: 192ms).
+[2026-03-04 18:48:29 +0200] [33824] [INFO] 127.0.0.1:6507 POST /api/context/conversation/speech_start 1.1 200 71 1504
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:48:30 +0200] [33824] [INFO] 127.0.0.1:6508 POST /api/context/conversation/audio 1.1 200 142 1513
+
+[API] Фраза отправлена (29696 байт).
+[1m[1;34m[2026-03-04 18:48:30,927][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=33 source=mic turn=469aa6ca-ea89-4840-bd50-d5a2971b58a3 utterance=f34f5961-f68c-4fbe-b5b7-b5a955501258[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 18:48:34 +0200] [33824] [INFO] 127.0.0.1:6508 POST /api/context/conversation/speech_start 1.1 200 71 1513
+[VAD] Голос! (Prob: 0.001, RMS: 0.0113) Завершена (1184ms, speech: 448ms).
+[2026-03-04 18:48:35 +0200] [33824] [INFO] 127.0.0.1:6508 POST /api/context/conversation/audio 1.1 200 142 1510
+
+[API] Фраза отправлена (37888 байт).
+[1m[1;34m[2026-03-04 18:48:35,123][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=60 source=mic turn=f553bb95-db52-4592-aff0-280d8116da27 utterance=ddc81947-849e-4eff-964f-fc35d5771e22[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:48:36 +0200] [33824] [INFO] 127.0.0.1:6508 POST /api/context/conversation/speech_start 1.1 200 71 1006
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0112) Завершена (1344ms, speech: 608ms).
+[2026-03-04 18:48:37 +0200] [33824] [INFO] 127.0.0.1:6508 POST /api/context/conversation/audio 1.1 200 142 2512
+
+[API] Фраза отправлена (43008 байт).
+[1m[1;34m[2026-03-04 18:48:37,722][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=68 source=mic turn=f553bb95-db52-4592-aff0-280d8116da27 utterance=ec3f3c8b-debd-4aff-a203-8b90731adcf0[0m
+
+[2026-03-04 18:48:39 +0200] [33824] [INFO] 127.0.0.1:6508 POST /api/context/conversation/speech_start 1.1 200 71 1043
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0078) Завершена (1280ms, speech: 544ms).
+[2026-03-04 18:48:39 +0200] [33824] [INFO] 127.0.0.1:6508 POST /api/context/conversation/audio 1.1 200 142 1505
+
+[API] Фраза отправлена (40960 байт).
+[1m[1;34m[2026-03-04 18:48:39,953][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=61 source=mic turn=f553bb95-db52-4592-aff0-280d8116da27 utterance=a65b2268-b456-48fe-8f47-e2b38254e2ec[0m
+
+[2026-03-04 18:48:41 +0200] [33824] [INFO] 127.0.0.1:6508 POST /api/context/conversation/speech_start 1.1 200 71 0
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0083) Завершена (1888ms, speech: 736ms).
+[2026-03-04 18:48:42 +0200] [33824] [INFO] 127.0.0.1:6508 POST /api/context/conversation/audio 1.1 200 142 2006
+
+[API] Фраза отправлена (60416 байт).
+[1m[1;34m[2026-03-04 18:48:42,861][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=87 source=mic turn=f553bb95-db52-4592-aff0-280d8116da27 utterance=39a857db-7269-409b-856d-b9c5522b90c4[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 18:48:46 +0200] [33824] [INFO] 127.0.0.1:6508 POST /api/context/conversation/speech_start 1.1 200 71 1004
+[VAD] Голос! (Prob: 0.001, RMS: 0.0110) Завершена (1184ms, speech: 448ms).
+[2026-03-04 18:48:47 +0200] [33824] [INFO] 127.0.0.1:6508 POST /api/context/conversation/audio 1.1 200 142 2510
+
+[API] Фраза отправлена (37888 байт).
+[1m[1;34m[2026-03-04 18:48:47,121][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=58 source=mic turn=49c1a137-3b2d-47a3-85fb-b1f90782758d utterance=e4d4a09d-d859-487a-8256-be03bdcfae1e[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0109) Завершена (1344ms, speech: 608ms).
+[2026-03-04 18:48:56 +0200] [33824] [INFO] 127.0.0.1:6520 POST /api/context/conversation/speech_start 1.1 200 71 1512
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:48:58 +0200] [33824] [INFO] 127.0.0.1:6523 POST /api/context/conversation/audio 1.1 200 142 2587
+
+[API] Фраза отправлена (43008 байт).
+[1m[1;34m[2026-03-04 18:48:58,932][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=65 source=mic turn=b78f5c12-55d9-4dd3-9503-1fa4da5c9395 utterance=7021e23c-9a2d-4d93-aed0-fb8fd136b680[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[VAD] Голос! (Prob: 0.001, RMS: 0.0097) Завершена (1248ms, speech: 512ms).
+[2026-03-04 18:49:06 +0200] [33824] [INFO] 127.0.0.1:6527 POST /api/context/conversation/speech_start 1.1 200 71 1508
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:49:08 +0200] [33824] [INFO] 127.0.0.1:6528 POST /api/context/conversation/audio 1.1 200 142 1507
+
+[API] Фраза отправлена (39936 байт).
+[1m[1;34m[2026-03-04 18:49:08,813][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=60 source=mic turn=373d64cc-060d-48d1-a427-87717bda74f0 utterance=83d30594-5c4d-4d88-b2c3-8d63972a1c79[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0149) Завершена (1312ms, speech: 576ms).
+[2026-03-04 18:49:16 +0200] [33824] [INFO] 127.0.0.1:6532 POST /api/context/conversation/speech_start 1.1 200 71 503
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:49:18 +0200] [33824] [INFO] 127.0.0.1:6533 POST /api/context/conversation/audio 1.1 200 142 1519
+
+[API] Фраза отправлена (41984 байт).
+[1m[1;34m[2026-03-04 18:49:18,545][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=66 source=mic turn=ddb08560-4a49-4259-8bd5-e395191884f9 utterance=3a78a6d8-9d76-428a-a2d2-4d34ac2b36cf[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[VAD] Голос! (Prob: 0.001, RMS: 0.0076) Завершена (928ms, speech: 192ms).
+[2026-03-04 18:49:30 +0200] [33824] [INFO] 127.0.0.1:6543 POST /api/context/conversation/speech_start 1.1 200 71 1003
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 18:49:32 +0200] [33824] [INFO] 127.0.0.1:6543 POST /api/context/conversation/speech_start 1.1 200 71 1003
+[2026-03-04 18:49:32 +0200] [33824] [INFO] 127.0.0.1:6544 POST /api/context/conversation/audio 1.1 200 142 1505
+[VAD] Голос! (Prob: 0.001, RMS: 0.0128)
+[API] Фраза отправлена (29696 байт).
+[1m[1;34m[2026-03-04 18:49:32,418][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=38 source=mic turn=9af2f0be-93ec-430e-b725-79aeb06af8d2 utterance=9ebf26ef-3eb1-4af7-960a-ff329b28d679[0m
+ Завершена (1088ms, speech: 352ms).
+[2026-03-04 18:49:32 +0200] [33824] [INFO] 127.0.0.1:6544 POST /api/context/conversation/audio 1.1 200 142 1512
+
+[API] Фраза отправлена (34816 байт).
+[1m[1;34m[2026-03-04 18:49:32,792][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=40 source=mic turn=14e13def-d820-45fc-bace-c1fbb0cdd829 utterance=122057fa-6cdf-4a77-a450-af09f85f13f1[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 18:49:34 +0200] [33824] [INFO] 127.0.0.1:6544 POST /api/context/conversation/speech_start 1.1 200 71 1001
+[VAD] Голос! (Prob: 0.001, RMS: 0.0101) Завершена (992ms, speech: 256ms).
+[2026-03-04 18:49:34 +0200] [33824] [INFO] 127.0.0.1:6544 POST /api/context/conversation/audio 1.1 200 142 1514
+
+[API] Фраза отправлена (31744 байт).
+[1m[1;34m[2026-03-04 18:49:35,019][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=39 source=mic turn=14e13def-d820-45fc-bace-c1fbb0cdd829 utterance=2a10be08-75e2-4a4e-b567-f25968c7b6f4[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 18:49:36 +0200] [33824] [INFO] 127.0.0.1:6544 POST /api/context/conversation/speech_start 1.1 200 71 1002
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0134) Завершена (1184ms, speech: 448ms).
+[2026-03-04 18:49:37 +0200] [33824] [INFO] 127.0.0.1:6544 POST /api/context/conversation/audio 1.1 200 142 2511
+
+[API] Фраза отправлена (37888 байт).
+[1m[1;34m[2026-03-04 18:49:37,726][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=55 source=mic turn=14e13def-d820-45fc-bace-c1fbb0cdd829 utterance=047d1d0a-b93c-47ce-8e71-6802e008a511[0m
+
+[2026-03-04 18:49:39 +0200] [33824] [INFO] 127.0.0.1:6544 POST /api/context/conversation/speech_start 1.1 200 71 0
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0087) Завершена (1120ms, speech: 384ms).
+[2026-03-04 18:49:40 +0200] [33824] [INFO] 127.0.0.1:6544 POST /api/context/conversation/audio 1.1 200 142 1505
+
+[API] Фраза отправлена (35840 байт).
+[1m[1;34m[2026-03-04 18:49:40,258][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=57 source=mic turn=14e13def-d820-45fc-bace-c1fbb0cdd829 utterance=03ee57a0-d8bc-430e-981b-34e2b5b0ef15[0m
+[1m[1;34m[2026-03-04 18:49:40,259][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::268 _record_stt_metrics]:[0m STT metrics(window=20): avg_latency_ms=54 empty_rate=0.950 stop_cmd_recall=0.000[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 18:49:42 +0200] [33824] [INFO] 127.0.0.1:6544 POST /api/context/conversation/speech_start 1.1 200 71 1005
+[VAD] Голос! (Prob: 0.001, RMS: 0.0168) Завершена (1120ms, speech: 384ms).
+[2026-03-04 18:49:42 +0200] [33824] [INFO] 127.0.0.1:6544 POST /api/context/conversation/audio 1.1 200 142 2520
+
+[API] Фраза отправлена (35840 байт).
+[1m[1;34m[2026-03-04 18:49:42,821][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=59 source=mic turn=14e13def-d820-45fc-bace-c1fbb0cdd829 utterance=c943738a-a57e-432a-9910-e4c0038b45e5[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 18:49:44 +0200] [33824] [INFO] 127.0.0.1:6544 POST /api/context/conversation/speech_start 1.1 200 71 1512
+[VAD] Голос! (Prob: 0.001, RMS: 0.0083) Завершена (1152ms, speech: 416ms).
+[2026-03-04 18:49:45 +0200] [33824] [INFO] 127.0.0.1:6544 POST /api/context/conversation/audio 1.1 200 142 2512
+
+[API] Фраза отправлена (36864 байт).
+[1m[1;34m[2026-03-04 18:49:45,354][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=62 source=mic turn=14e13def-d820-45fc-bace-c1fbb0cdd829 utterance=01576c98-8d03-459f-a237-7a46b513bae1[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 18:49:49 +0200] [33824] [INFO] 127.0.0.1:6544 POST /api/context/conversation/speech_start 1.1 200 71 1004
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0092) Завершена (1120ms, speech: 384ms).
+[2026-03-04 18:49:50 +0200] [33824] [INFO] 127.0.0.1:6544 POST /api/context/conversation/audio 1.1 200 142 2013
+
+[API] Фраза отправлена (35840 байт).
+[1m[1;34m[2026-03-04 18:49:50,115][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=64 source=mic turn=5e37ff11-3c0a-47a5-9c51-70366ffb65fd utterance=32b00bad-638b-40b3-aeb5-26384f5643f7[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 18:49:52 +0200] [33824] [INFO] 127.0.0.1:6544 POST /api/context/conversation/speech_start 1.1 200 71 1006
+[VAD] Голос! (Prob: 0.001, RMS: 0.0076) Завершена (1088ms, speech: 352ms).
+[2026-03-04 18:49:52 +0200] [33824] [INFO] 127.0.0.1:6544 POST /api/context/conversation/audio 1.1 200 142 2026
+
+[API] Фраза отправлена (34816 байт).
+[1m[1;34m[2026-03-04 18:49:52,807][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=35 source=mic turn=5e37ff11-3c0a-47a5-9c51-70366ffb65fd utterance=4f225ebd-8423-48ea-ae69-822cdf53643c[0m
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[2026-03-04 18:49:54 +0200] [33824] [INFO] 127.0.0.1:6544 POST /api/context/conversation/speech_start 1.1 200 71 1003
+[VAD] Голос! (Prob: 0.001, RMS: 0.0079) Завершена (1184ms, speech: 448ms).
+[2026-03-04 18:49:55 +0200] [33824] [INFO] 127.0.0.1:6544 POST /api/context/conversation/audio 1.1 200 142 1507
+
+[API] Фраза отправлена (37888 байт).
+[1m[1;34m[2026-03-04 18:49:55,466][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=65 source=mic turn=5e37ff11-3c0a-47a5-9c51-70366ffb65fd utterance=6df607ff-dcd6-4e7e-92a0-df82919b5918[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 18:49:57 +0200] [33824] [INFO] 127.0.0.1:6544 POST /api/context/conversation/speech_start 1.1 200 71 1005
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0092) Завершена (1152ms, speech: 416ms).
+[2026-03-04 18:49:58 +0200] [33824] [INFO] 127.0.0.1:6544 POST /api/context/conversation/audio 1.1 200 142 2516
+
+[API] Фраза отправлена (36864 байт).
+[1m[1;34m[2026-03-04 18:49:58,104][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=54 source=mic turn=5e37ff11-3c0a-47a5-9c51-70366ffb65fd utterance=e58a4b18-726b-4840-a530-60c750a7bd28[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0130) Завершена (1248ms, speech: 512ms).
+[2026-03-04 18:50:15 +0200] [33824] [INFO] 127.0.0.1:11577 POST /api/context/conversation/speech_start 1.1 200 71 1002
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:50:17 +0200] [33824] [INFO] 127.0.0.1:11578 POST /api/context/conversation/audio 1.1 200 142 2509
+
+[API] Фраза отправлена (39936 байт).
+[1m[1;34m[2026-03-04 18:50:17,297][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=67 source=mic turn=469699eb-cc82-420e-b11d-bf5aeeeb7e68 utterance=8218a0cf-9ae0-4a31-a804-0d261c2bd873[0m
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:50:21 +0200] [33824] [INFO] 127.0.0.1:11578 POST /api/context/conversation/speech_start 1.1 200 71 1008
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0175) Завершена (1088ms, speech: 352ms).
+[2026-03-04 18:50:22 +0200] [33824] [INFO] 127.0.0.1:11578 POST /api/context/conversation/audio 1.1 200 142 1506
+
+[API] Фраза отправлена (34816 байт).
+[1m[1;34m[2026-03-04 18:50:22,450][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=39 source=mic turn=c2b81524-14fc-4823-bb28-bd95a555fca7 utterance=a3073ffc-d8d1-44b8-8544-b4ab48fd5381[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 18:50:24 +0200] [33824] [INFO] 127.0.0.1:11578 POST /api/context/conversation/speech_start 1.1 200 71 1002
+[VAD] Голос! (Prob: 0.001, RMS: 0.0099) Завершена (1184ms, speech: 448ms).
+[2026-03-04 18:50:24 +0200] [33824] [INFO] 127.0.0.1:11578 POST /api/context/conversation/audio 1.1 200 142 1505
+
+[API] Фраза отправлена (37888 байт).
+[1m[1;34m[2026-03-04 18:50:24,988][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=57 source=mic turn=c2b81524-14fc-4823-bb28-bd95a555fca7 utterance=dd432263-6768-49e7-91d3-486b4859e3c8[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 18:50:29 +0200] [33824] [INFO] 127.0.0.1:11578 POST /api/context/conversation/speech_start 1.1 200 71 0
+[VAD] Голос! (Prob: 0.001, RMS: 0.0096) Завершена (1120ms, speech: 384ms).
+[2026-03-04 18:50:29 +0200] [33824] [INFO] 127.0.0.1:11578 POST /api/context/conversation/audio 1.1 200 142 1505
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[API] Фраза отправлена (35840 байт).
+[1m[1;34m[2026-03-04 18:50:29,863][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=63 source=mic turn=cc1f5c78-11f7-4b74-886e-634700c688fb utterance=529b4826-2c82-410e-b6e0-cd0e5211f550[0m
+[2026-03-04 18:50:31 +0200] [33824] [INFO] 127.0.0.1:11578 POST /api/context/conversation/speech_start 1.1 200 71 1003
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0075) Завершена (1216ms, speech: 480ms).
+[2026-03-04 18:50:32 +0200] [33824] [INFO] 127.0.0.1:11578 POST /api/context/conversation/audio 1.1 200 142 2519
+
+[API] Фраза отправлена (38912 байт).
+[1m[1;34m[2026-03-04 18:50:32,323][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=62 source=mic turn=cc1f5c78-11f7-4b74-886e-634700c688fb utterance=5d8283e8-e0e3-4937-b4a4-bcad08501f0c[0m
+
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:50:33 +0200] [33824] [INFO] 127.0.0.1:11578 POST /api/context/conversation/speech_start 1.1 200 71 1003
+[VAD] Голос! (Prob: 0.001, RMS: 0.0091) Завершена (1472ms, speech: 704ms).
+[2026-03-04 18:50:34 +0200] [33824] [INFO] 127.0.0.1:11578 POST /api/context/conversation/audio 1.1 200 142 2517
+
+[API] Фраза отправлена (47104 байт).
+[1m[1;34m[2026-03-04 18:50:34,953][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=62 source=mic turn=cc1f5c78-11f7-4b74-886e-634700c688fb utterance=73329a07-7d27-4b89-a315-5def6bfcdab9[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:50:36 +0200] [33824] [INFO] 127.0.0.1:11578 POST /api/context/conversation/speech_start 1.1 200 71 0
+[VAD] Голос! (Prob: 0.001, RMS: 0.0154) Завершена (1152ms, speech: 416ms).
+[2026-03-04 18:50:37 +0200] [33824] [INFO] 127.0.0.1:11578 POST /api/context/conversation/audio 1.1 200 142 2519
+
+[API] Фраза отправлена (36864 байт).
+[1m[1;34m[2026-03-04 18:50:37,356][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=65 source=mic turn=cc1f5c78-11f7-4b74-886e-634700c688fb utterance=27a27d1a-8cc6-4d6f-bb61-79734e7b12b0[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 18:50:45 +0200] [33824] [INFO] 127.0.0.1:9968 POST /api/context/conversation/speech_start 1.1 200 71 1515
+[VAD] Голос! (Prob: 0.001, RMS: 0.0089) Завершена (1728ms, speech: 736ms).
+[2026-03-04 18:50:45 +0200] [33824] [INFO] 127.0.0.1:9968 POST /api/context/conversation/audio 1.1 200 142 2009
+
+[API] Фраза отправлена (55296 байт).
+[1m[1;34m[2026-03-04 18:50:45,483][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=71 source=mic turn=6af2faf9-e5a7-41aa-b3f0-3a7a7fc57e52 utterance=d7e58873-f4f4-49bd-89eb-acf40c041aef[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 18:50:46 +0200] [33824] [INFO] 127.0.0.1:9968 POST /api/context/conversation/speech_start 1.1 200 71 1004
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0081) Завершена (2112ms, speech: 1248ms).
+[2026-03-04 18:50:48 +0200] [33824] [INFO] 127.0.0.1:9968 POST /api/context/conversation/audio 1.1 200 142 3015
+
+[API] Фраза отправлена (67584 байт).
+[1m[1;34m[2026-03-04 18:50:48,179][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=89 source=mic turn=6af2faf9-e5a7-41aa-b3f0-3a7a7fc57e52 utterance=b99605bf-0557-464b-84c2-0653f0e40d7e[0m
+
+[2026-03-04 18:50:48 +0200] [33824] [INFO] 127.0.0.1:9968 POST /api/context/conversation/speech_start 1.1 200 71 1006
+[VAD] Голос! (Prob: 0.001, RMS: 0.0210) Завершена (1472ms, speech: 736ms).
+[2026-03-04 18:50:49 +0200] [33824] [INFO] 127.0.0.1:9968 POST /api/context/conversation/audio 1.1 200 142 2012
+
+[API] Фраза отправлена (47104 байт).
+[1m[1;34m[2026-03-04 18:50:49,754][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=63 source=mic turn=6af2faf9-e5a7-41aa-b3f0-3a7a7fc57e52 utterance=f128351e-b3d6-4a94-bc62-479567b6e215[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 18:50:54 +0200] [33824] [INFO] 127.0.0.1:9968 POST /api/context/conversation/speech_start 1.1 200 71 504
+[VAD] Голос! (Prob: 0.001, RMS: 0.0082) Завершена (896ms, speech: 160ms).
+[2026-03-04 18:50:54 +0200] [33824] [INFO] 127.0.0.1:9968 POST /api/context/conversation/audio 1.1 200 142 1508
+
+[API] Фраза отправлена (28672 байт).
+[1m[1;34m[2026-03-04 18:50:54,526][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=36 source=mic turn=77806d2e-2433-4923-b8b4-69275a337754 utterance=6ad7d090-1787-4521-861b-a90c7c3ca3b8[0m
+
+[VAD] Голос! (Prob: 0.001, RMS: 0.0092) Завершена (992ms, speech: 256ms).
+[2026-03-04 18:50:55 +0200] [33824] [INFO] 127.0.0.1:9968 POST /api/context/conversation/audio 1.1 200 142 2018
+
+[API] Фраза отправлена (31744 байт).
+[1m[1;34m[2026-03-04 18:50:55,426][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=35 source=mic turn=77806d2e-2433-4923-b8b4-69275a337754 utterance=b05c1f9b-3aa2-445a-b1da-e0549e96c521[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0079) Завершена (896ms, speech: 160ms).
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:51:05 +0200] [33824] [INFO] 127.0.0.1:4129 POST /api/context/conversation/speech_start 1.1 200 71 1003
+[2026-03-04 18:51:07 +0200] [33824] [INFO] 127.0.0.1:4130 POST /api/context/conversation/audio 1.1 200 142 1519
+
+[API] Фраза отправлена (28672 байт).
+[1m[1;34m[2026-03-04 18:51:07,523][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=36 source=mic turn=1db55d02-19bd-4dfc-bea5-dccce08868ad utterance=9638a7f9-55f9-4c8a-9504-2af3d9574115[0m
+
+[2026-03-04 18:51:07 +0200] [33824] [INFO] 127.0.0.1:4130 POST /api/context/conversation/speech_start 1.1 200 71 1005
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0087) Завершена (1568ms, speech: 608ms).
+[2026-03-04 18:51:08 +0200] [33824] [INFO] 127.0.0.1:4130 POST /api/context/conversation/audio 1.1 200 142 3019
+
+[API] Фраза отправлена (50176 байт).
+[1m[1;34m[2026-03-04 18:51:09,045][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=81 source=mic turn=c1dce061-2e92-4b9e-9dfa-af6fc37a9857 utterance=ce320d12-7c65-42ca-b372-c78ffe5183a6[0m
+[1m[1;34m[2026-03-04 18:51:09,046][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::268 _record_stt_metrics]:[0m STT metrics(window=40): avg_latency_ms=56 empty_rate=0.975 stop_cmd_recall=0.000[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 18:51:10 +0200] [33824] [INFO] 127.0.0.1:4130 POST /api/context/conversation/speech_start 1.1 200 71 1511
+[VAD] Голос! (Prob: 0.001, RMS: 0.0089) Завершена (1056ms, speech: 320ms).
+[2026-03-04 18:51:10 +0200] [33824] [INFO] 127.0.0.1:4130 POST /api/context/conversation/audio 1.1 200 142 2514
+
+[API] Фраза отправлена (33792 байт).
+[1m[1;34m[2026-03-04 18:51:11,014][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=42 source=mic turn=c1dce061-2e92-4b9e-9dfa-af6fc37a9857 utterance=6ca36040-e12d-46a9-a421-dacb0de575fd[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0090) Завершена (1056ms, speech: 320ms).
+[2026-03-04 18:51:35 +0200] [33824] [INFO] 127.0.0.1:1856 POST /api/context/conversation/speech_start 1.1 200 71 1517
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:51:37 +0200] [33824] [INFO] 127.0.0.1:1858 POST /api/context/conversation/audio 1.1 200 142 1508
+
+[API] Фраза отправлена (33792 байт).
+[1m[1;34m[2026-03-04 18:51:37,247][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=38 source=mic turn=2c24f623-6bdf-486a-b6da-9cd0d0381fb8 utterance=2c4e2444-fc9c-4409-8215-00f536014590[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0087) Завершена (928ms, speech: 192ms).
+[2026-03-04 18:52:02 +0200] [33824] [INFO] 127.0.0.1:12627 POST /api/context/conversation/speech_start 1.1 200 71 504
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:52:04 +0200] [33824] [INFO] 127.0.0.1:12628 POST /api/context/conversation/audio 1.1 200 142 1513
+
+[API] Фраза отправлена (29696 байт).
+[1m[1;34m[2026-03-04 18:52:04,181][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=38 source=mic turn=89dbcbcf-ce7a-412c-9cb3-f46a7fda74bb utterance=10494750-e5f0-4053-af1a-3300dd6cc3dd[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[VAD] Голос! (Prob: 0.001, RMS: 0.0078) Завершена (960ms, speech: 224ms).
+[2026-03-04 18:52:23 +0200] [33824] [INFO] 127.0.0.1:12639 POST /api/context/conversation/speech_start 1.1 200 71 507
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:52:25 +0200] [33824] [INFO] 127.0.0.1:8176 POST /api/context/conversation/audio 1.1 200 142 1514
+
+[API] Фраза отправлена (30720 байт).
+[1m[1;34m[2026-03-04 18:52:25,189][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=32 source=mic turn=176595c2-e5c0-4cee-a536-e338684dc7c2 utterance=e334673e-7da5-47f7-8d76-0ed8d8dc2431[0m
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0075) Завершена (992ms, speech: 256ms).
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:52:38 +0200] [33824] [INFO] 127.0.0.1:8180 POST /api/context/conversation/speech_start 1.1 200 71 508
+[2026-03-04 18:52:39 +0200] [33824] [INFO] 127.0.0.1:8181 POST /api/context/conversation/audio 1.1 200 142 3018
+
+[API] Фраза отправлена (31744 байт).
+[1m[1;34m[2026-03-04 18:52:39,971][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=45 source=mic turn=3791505e-2be3-4734-a3d0-e3682d3c17d2 utterance=a1bfda02-e450-420a-aa47-5a4281a2ad79[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0101) Завершена (1120ms, speech: 384ms).
+[2026-03-04 18:52:50 +0200] [33824] [INFO] 127.0.0.1:8192 POST /api/context/conversation/speech_start 1.1 200 71 1516
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:52:51 +0200] [33824] [INFO] 127.0.0.1:8193 POST /api/context/conversation/audio 1.1 200 142 2511
+
+[API] Фраза отправлена (35840 байт).
+[1m[1;34m[2026-03-04 18:52:51,786][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=61 source=mic turn=e618d260-8425-498a-9bdc-a97bec887dd0 utterance=42cf8eec-0357-47b2-9d68-93d8e0e17d03[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0096) Завершена (1088ms, speech: 352ms).
+[2026-03-04 18:53:39 +0200] [33824] [INFO] 127.0.0.1:8214 POST /api/context/conversation/speech_start 1.1 200 71 1511
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:53:40 +0200] [33824] [INFO] 127.0.0.1:8215 POST /api/context/conversation/audio 1.1 200 142 1795
+
+[API] Фраза отправлена (34816 байт).
+[1m[1;34m[2026-03-04 18:53:40,751][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=44 source=mic turn=6f936d65-adcc-46dc-9ff6-8637f9eeee10 utterance=89de59b4-071c-4e3d-8493-de390c5e4e85[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0090) Завершена (1120ms, speech: 384ms).
+[2026-03-04 18:53:50 +0200] [33824] [INFO] 127.0.0.1:8219 POST /api/context/conversation/speech_start 1.1 200 71 1510
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 18:53:50 +0200] [33824] [INFO] 127.0.0.1:8219 POST /api/context/conversation/speech_start 1.1 200 71 997
+[VAD] Голос! (Prob: 0.001, RMS: 0.0119) Завершена (1088ms, speech: 352ms).
+[2026-03-04 18:53:51 +0200] [33824] [INFO] 127.0.0.1:8219 POST /api/context/conversation/audio 1.1 200 142 2015
+
+[API] Фраза отправлена (34816 байт).
+[1m[1;34m[2026-03-04 18:53:51,469][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=40 source=mic turn=4ad5d2db-6966-49d1-8978-a0253c55aa6d utterance=079363dd-8936-4ed3-b2ce-945ce33b7626[0m
+[2026-03-04 18:53:52 +0200] [33824] [INFO] 127.0.0.1:8221 POST /api/context/conversation/audio 1.1 200 142 1511
+
+[API] Фраза отправлена (35840 байт).
+[1m[1;34m[2026-03-04 18:53:52,116][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=67 source=mic turn=83af281a-fd29-429b-9dd9-ef240708caae utterance=f24bbdf9-125b-4129-a3b2-cfee4e6ee6bc[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0110) Завершена (992ms, speech: 256ms).
+[2026-03-04 18:53:58 +0200] [33824] [INFO] 127.0.0.1:8226 POST /api/context/conversation/speech_start 1.1 200 71 503
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 18:53:58 +0200] [33824] [INFO] 127.0.0.1:8226 POST /api/context/conversation/speech_start 1.1 200 71 1507
+[VAD] Голос! (Prob: 0.001, RMS: 0.0111) Завершена (1280ms, speech: 512ms).
+[2026-03-04 18:53:59 +0200] [33824] [INFO] 127.0.0.1:8226 POST /api/context/conversation/audio 1.1 200 142 3017
+
+[API] Фраза отправлена (40960 байт).
+[1m[1;34m[2026-03-04 18:53:59,626][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=67 source=mic turn=f0eda7da-5b68-4d1c-a752-311d12b66cc7 utterance=80fdf14e-5777-494f-93f5-280067adf175[0m
+[2026-03-04 18:53:59 +0200] [33824] [INFO] 127.0.0.1:8228 POST /api/context/conversation/audio 1.1 200 142 1511
+
+[API] Фраза отправлена (31744 байт).
+[1m[1;34m[2026-03-04 18:54:00,003][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=36 source=mic turn=123a15d4-d8ec-4549-9877-526546426455 utterance=9a51e19d-1341-44f3-accc-22db915f4191[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0119) Завершена (896ms, speech: 160ms).
+[2026-03-04 18:54:31 +0200] [33824] [INFO] 127.0.0.1:8235 POST /api/context/conversation/speech_start 1.1 200 71 1509
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[2026-03-04 18:54:33 +0200] [33824] [INFO] 127.0.0.1:8236 POST /api/context/conversation/audio 1.1 200 142 2013
+
+[API] Фраза отправлена (28672 байт).
+[1m[1;34m[2026-03-04 18:54:33,125][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=40 source=mic turn=d412822f-f32d-4e21-8c61-9b88b78f1733 utterance=8cf6ed9a-ede8-49d7-9473-2baefac95fce[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0078) Завершена (1344ms, speech: 608ms).
+[2026-03-04 18:55:52 +0200] [33824] [INFO] 127.0.0.1:8288 POST /api/context/conversation/speech_start 1.1 200 71 1004
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:55:54 +0200] [33824] [INFO] 127.0.0.1:8289 POST /api/context/conversation/audio 1.1 200 142 1509
+
+[API] Фраза отправлена (43008 байт).
+[1m[1;34m[2026-03-04 18:55:54,749][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=63 source=mic turn=09dda404-caa1-485f-981c-83c709797439 utterance=6afb718a-2f64-47de-b806-129a616be5d5[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:57:01 +0200] [33824] [INFO] 127.0.0.1:9559 POST /api/context/conversation/speech_start 1.1 200 71 503
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0076) Завершена (3264ms, speech: 2336ms).
+[2026-03-04 18:57:03 +0200] [33824] [INFO] 127.0.0.1:9559 POST /api/context/conversation/audio 1.1 200 142 11763
+
+[API] Фраза отправлена (104448 байт).
+[1m[1;34m[2026-03-04 18:57:03,832][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=2 latency_ms=137 source=mic turn=01071af8-8784-49bc-9bc5-70c61635e981 utterance=82d75fc7-fa6a-4467-8cb0-a4a56d1d6716[0m
+[1m[1;34m[2026-03-04 18:57:04,094][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job a6a683c2-190b-48e3-8612-e67f14b0da2d[0m
+[1m[1;34m[2026-03-04 18:57:04,094][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::581 _commit_pending_voice_turn]:[0m Voice turn committed as context-only (no RESPONSE job).[0m
+
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:57:05 +0200] [33824] [INFO] 127.0.0.1:9559 POST /api/context/conversation/speech_start 1.1 200 71 499
+[VAD] Голос! (Prob: 0.001, RMS: 0.0127) Завершена (1664ms, speech: 832ms).
+[2026-03-04 18:57:06 +0200] [33824] [INFO] 127.0.0.1:9559 POST /api/context/conversation/audio 1.1 200 142 1511
+
+[API] Фраза отправлена (53248 байт).
+[1m[1;34m[2026-03-04 18:57:06,442][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=67 source=mic turn=01071af8-8784-49bc-9bc5-70c61635e981 utterance=73973fbb-436e-4c56-98fb-c7d5ed7e6e43[0m
+
+[2026-03-04 18:57:06 +0200] [33824] [INFO] 127.0.0.1:9559 POST /api/context/conversation/speech_start 1.1 200 71 1510
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0185) Завершена (1792ms, speech: 800ms).
+[2026-03-04 18:57:08 +0200] [33824] [INFO] 127.0.0.1:9559 POST /api/context/conversation/audio 1.1 200 142 2532
+
+[API] Фраза отправлена (57344 байт).
+[1m[1;34m[2026-03-04 18:57:08,286][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=89 source=mic turn=01071af8-8784-49bc-9bc5-70c61635e981 utterance=ad8b9d88-c86b-4c8b-b2d4-caa57598c3ad[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+
+[2026-03-04 18:57:11 +0200] [33824] [INFO] 127.0.0.1:9559 POST /api/context/conversation/speech_start 1.1 200 71 1003
+[VAD] Голос! (Prob: 0.001, RMS: 0.0081) Завершена (1664ms, speech: 928ms).
+[2026-03-04 18:57:12 +0200] [33824] [INFO] 127.0.0.1:9559 POST /api/context/conversation/audio 1.1 200 142 1513
+
+[API] Фраза отправлена (53248 байт).
+[1m[1;34m[2026-03-04 18:57:12,611][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=65 source=mic turn=1fdea14f-36fc-411e-8db4-f62a164ae1a8 utterance=447ab71b-34cb-47b4-b4fc-e305325e887f[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0076) Завершена (928ms, speech: 192ms).
+[2026-03-04 18:57:33 +0200] [33824] [INFO] 127.0.0.1:10253 POST /api/context/conversation/speech_start 1.1 200 71 1003
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:57:35 +0200] [33824] [INFO] 127.0.0.1:10254 POST /api/context/conversation/audio 1.1 200 142 2009
+
+[API] Фраза отправлена (29696 байт).
+[1m[1;34m[2026-03-04 18:57:35,498][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=34 source=mic turn=663af8c5-f420-450a-b63d-c17be706f84e utterance=fcde83b4-187f-44dd-9957-51b0769d05a6[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0076) Завершена (1504ms, speech: 512ms).
+[2026-03-04 18:58:00 +0200] [33824] [INFO] 127.0.0.1:10265 POST /api/context/conversation/speech_start 1.1 200 71 504
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:58:02 +0200] [33824] [INFO] 127.0.0.1:10266 POST /api/context/conversation/audio 1.1 200 142 1505
+
+[API] Фраза отправлена (48128 байт).
+[1m[1;34m[2026-03-04 18:58:02,385][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=64 source=mic turn=e600bd60-c946-4fab-8f7e-6a8d1667d034 utterance=af3b426f-de1c-425a-bd12-a94c251e7d63[0m
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[VAD] Голос! (Prob: 0.001, RMS: 0.0076) Завершена (864ms, speech: 128ms).
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 18:58:09 +0200] [33824] [INFO] 127.0.0.1:10271 POST /api/context/conversation/audio 1.1 200 142 1508
+
+[API] Фраза отправлена (27648 байт).
+[1m[1;34m[2026-03-04 18:58:09,989][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=38 source=mic turn=f3e75843-8d8f-42f6-acbc-4487f43f29e9 utterance=1d13791b-b4d7-45f0-af7d-041d56bfd9e6[0m
+[1m[1;34m[2026-03-04 18:58:09,990][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::268 _record_stt_metrics]:[0m STT metrics(window=60): avg_latency_ms=55 empty_rate=0.967 stop_cmd_recall=0.000[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0089) Завершена (1088ms, speech: 352ms).
+[2026-03-04 18:59:52 +0200] [33824] [INFO] 127.0.0.1:13466 POST /api/context/conversation/speech_start 1.1 200 71 507
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[2026-03-04 18:59:54 +0200] [33824] [INFO] 127.0.0.1:13468 POST /api/context/conversation/audio 1.1 200 142 2006
+
+[API] Фраза отправлена (34816 байт).
+[1m[1;34m[2026-03-04 18:59:54,211][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=40 source=mic turn=91dbf6e0-729f-4622-a93d-31c7653fef7b utterance=754bff98-6423-4239-97f1-03d28e0a08a1[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0104) Завершена (864ms, speech: 128ms).
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 19:00:02 +0200] [33824] [INFO] 127.0.0.1:13474 POST /api/context/conversation/audio 1.1 200 142 2521
+
+[API] Фраза отправлена (27648 байт).
+[1m[1;34m[2026-03-04 19:00:02,977][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=41 source=mic turn=bfa58df2-f015-4429-a32f-664655e0e058 utterance=b7835d37-0070-4d92-b012-241b9335189c[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 19:00:29 +0200] [33824] [INFO] 127.0.0.1:13485 POST /api/context/conversation/speech_start 1.1 200 71 506
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0108) Завершена (2560ms, speech: 1216ms).
+[2026-03-04 19:00:30 +0200] [33824] [INFO] 127.0.0.1:13485 POST /api/context/conversation/audio 1.1 200 142 2523
+
+[API] Фраза отправлена (81920 байт).
+[1m[1;34m[2026-03-04 19:00:30,465][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=113 source=mic turn=ec8355d4-662e-4895-8fcf-ad501cc4f5b3 utterance=cd9cbcc5-1376-4ab0-a515-6062f2979a0f[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0077) Завершена (864ms, speech: 128ms).
+[2026-03-04 19:00:34 +0200] [33824] [INFO] 127.0.0.1:13485 POST /api/context/conversation/audio 1.1 200 142 2007
+
+[API] Фраза отправлена (27648 байт).
+[1m[1;34m[2026-03-04 19:00:34,894][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=33 source=mic turn=d4955d83-2626-4fd2-b984-a1b85d3b8d88 utterance=3563175b-712e-4bcf-81e4-e5b7df6575d7[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 19:00:38 +0200] [33824] [INFO] 127.0.0.1:13485 POST /api/context/conversation/speech_start 1.1 200 71 1004
+[VAD] Голос! (Prob: 0.001, RMS: 0.0172) Завершена (1536ms, speech: 800ms).
+[2026-03-04 19:00:39 +0200] [33824] [INFO] 127.0.0.1:13485 POST /api/context/conversation/audio 1.1 200 142 1507
+
+[API] Фраза отправлена (49152 байт).
+[1m[1;34m[2026-03-04 19:00:39,186][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=1 latency_ms=65 source=mic turn=5c9509a6-6e6b-4396-86b9-093722954c4c utterance=d4ed7ca1-3d11-4b03-a50d-fe45e302b946[0m
+[1m[1;34m[2026-03-04 19:00:39,452][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 135e9aa3-a941-4e02-a65d-3d137a75d663[0m
+[1m[1;34m[2026-03-04 19:00:39,452][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::581 _commit_pending_voice_turn]:[0m Voice turn committed as context-only (no RESPONSE job).[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[VAD] Голос! (Prob: 0.001, RMS: 0.0089) Завершена (1024ms, speech: 288ms).
+[2026-03-04 19:02:31 +0200] [33824] [INFO] 127.0.0.1:8922 POST /api/context/conversation/speech_start 1.1 200 71 0
+
+[2026-03-04 19:02:31 +0200] [33824] [INFO] 127.0.0.1:8922 POST /api/context/conversation/speech_start 1.1 200 71 0
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0076) Завершена (1056ms, speech: 320ms).
+[2026-03-04 19:02:32 +0200] [33824] [INFO] 127.0.0.1:8922 POST /api/context/conversation/audio 1.1 200 142 1511
+
+[API] Фраза отправлена (33792 байт).
+[1m[1;34m[2026-03-04 19:02:32,613][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=34 source=mic turn=f2b755b9-7add-4025-bf43-19d1c750d23b utterance=ead85db1-0ae0-4502-807e-3e3b0e03927d[0m
+[2026-03-04 19:02:33 +0200] [33824] [INFO] 127.0.0.1:8924 POST /api/context/conversation/audio 1.1 200 142 2517
+
+[API] Фраза отправлена (32768 байт).
+[1m[1;34m[2026-03-04 19:02:33,456][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=36 source=mic turn=7bb1aea8-d73c-4448-b336-66fbb7c7da91 utterance=6120ced8-0d9f-4c65-806a-05343fb25e38[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0119) Завершена (864ms, speech: 128ms).
+[2026-03-04 19:02:35 +0200] [33824] [INFO] 127.0.0.1:8924 POST /api/context/conversation/audio 1.1 200 142 1506
+
+[API] Фраза отправлена (27648 байт).
+[1m[1;34m[2026-03-04 19:02:35,267][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=37 source=mic turn=79bea6b1-6182-41f0-82cb-b63fbd9c0e94 utterance=98fd01b3-b9c0-440c-987d-69668d9af03e[0m
+
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0075) Завершена (864ms, speech: 128ms).
+[2026-03-04 19:02:36 +0200] [33824] [INFO] 127.0.0.1:8924 POST /api/context/conversation/audio 1.1 200 142 1508
+
+[API] Фраза отправлена (27648 байт).
+[1m[1;34m[2026-03-04 19:02:36,677][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=37 source=mic turn=79bea6b1-6182-41f0-82cb-b63fbd9c0e94 utterance=ca18856f-78d2-4c78-a48b-c9a101cc2f42[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 19:02:41 +0200] [33824] [INFO] 127.0.0.1:8924 POST /api/context/conversation/speech_start 1.1 200 71 1519
+[VAD] Голос! (Prob: 0.001, RMS: 0.0132) Завершена (928ms, speech: 192ms).
+[2026-03-04 19:02:42 +0200] [33824] [INFO] 127.0.0.1:8924 POST /api/context/conversation/audio 1.1 200 142 1507
+
+[API] Фраза отправлена (29696 байт).
+[1m[1;34m[2026-03-04 19:02:42,056][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=37 source=mic turn=b5d0e812-46fa-4dd6-b76e-dc27b59e6583 utterance=12251590-910c-496f-86d5-304d40e147f5[0m
+[AUDIO_OUT] Rebuffering: 838/3072 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[2026-03-04 19:02:45 +0200] [33824] [INFO] 127.0.0.1:8924 POST /api/context/conversation/speech_start 1.1 200 71 1512
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0089) Завершена (2560ms, speech: 1824ms).
+[2026-03-04 19:02:47 +0200] [33824] [INFO] 127.0.0.1:8924 POST /api/context/conversation/audio 1.1 200 142 2003
+
+[API] Фраза отправлена (81920 байт).
+[1m[1;34m[2026-03-04 19:02:47,303][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=112 source=mic turn=45890e4f-2bfb-4a5e-a24a-7273effcdafa utterance=7f40b566-5b50-4cd3-9121-5a949c29cc3c[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 19:02:51 +0200] [33824] [INFO] 127.0.0.1:8924 POST /api/context/conversation/speech_start 1.1 200 71 1564
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0102) Завершена (896ms, speech: 160ms).
+[2026-03-04 19:02:52 +0200] [33824] [INFO] 127.0.0.1:8924 POST /api/context/conversation/audio 1.1 200 142 1506
+
+[API] Фраза отправлена (28672 байт).
+[1m[1;34m[2026-03-04 19:02:52,418][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=38 source=mic turn=f920de30-b4ef-404b-bc62-b69157898141 utterance=af7581c5-7af2-401f-8f14-52e9a98426e5[0m
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+
+[2026-03-04 19:02:55 +0200] [33824] [INFO] 127.0.0.1:8924 POST /api/context/conversation/speech_start 1.1 200 71 1009
+[AUDIO_OUT] Rebuffering: 838/15360 bytes
+[VAD] Голос! (Prob: 0.001, RMS: 0.0103) Завершена (1952ms, speech: 1088ms).
+[2026-03-04 19:02:56 +0200] [33824] [INFO] 127.0.0.1:8924 POST /api/context/conversation/audio 1.1 200 142 1507
+
+[API] Фраза отправлена (62464 байт).
+[1m[1;34m[2026-03-04 19:02:56,784][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=17 latency_ms=84 source=mic turn=bf5fe3e8-4fe5-4aaa-b0d8-d6ffb3e316f0 utterance=46d3c21e-ca50-4812-af9c-a80f7c8a9ccd[0m
+[1m[1;34m[2026-03-04 19:02:56,784][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::482 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-03-04 19:02:57,045][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 00854a0d-1ede-4da2-845b-975c5265a3b8[0m
+[1m[1;34m[2026-03-04 19:02:57,045][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job 8830633e-2c5a-4d49-abc3-b2c5c5913bb0[0m
+
+[2026-03-04 19:02:57 +0200] [33824] [INFO] 127.0.0.1:8924 POST /api/context/conversation/speech_start 1.1 200 71 506
+[1m[1;34m[2026-03-04 19:02:57,641][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 594.6215000003576 ms[0m
+[1m[1;34m[2026-03-04 19:02:57,641][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::677 _stream_sidecar_bytes]:[0m Qwen3 voice-clone limits: text_len=21 max_frames=48 max_new_tokens=112[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0098) Завершена (896ms, speech: 160ms).
+[2026-03-04 19:02:57 +0200] [33824] [INFO] 127.0.0.1:8924 POST /api/context/conversation/audio 1.1 200 142 2012
+
+[API] Фраза отправлена (28672 байт).
+[1m[1;34m[2026-03-04 19:02:57,978][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=38 source=mic turn=bf5fe3e8-4fe5-4aaa-b0d8-d6ffb3e316f0 utterance=b1ae3ce4-4fa6-40c0-bbe2-398b9c7fcda9[0m
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+
+[2026-03-04 19:03:02 +0200] [33824] [INFO] 127.0.0.1:8924 POST /api/context/conversation/speech_start 1.1 200 71 1005
+[VAD] Голос! (Prob: 0.001, RMS: 0.0076) Завершена (928ms, speech: 192ms).
+[2026-03-04 19:03:02 +0200] [33824] [INFO] 127.0.0.1:8924 POST /api/context/conversation/audio 1.1 200 142 1508
+
+[API] Фраза отправлена (29696 байт).
+[1m[1;34m[2026-03-04 19:03:02,874][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=34 source=mic turn=1de02c10-0a00-47de-8ff4-5974a0c2195b utterance=6fe3088e-4a40-4e82-8919-53ac829d24ce[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0078) Завершена (928ms, speech: 192ms).
+[2026-03-04 19:03:03 +0200] [33824] [INFO] 127.0.0.1:8924 POST /api/context/conversation/audio 1.1 200 142 3015
+
+[API] Фраза отправлена (29696 байт).
+[1m[1;34m[2026-03-04 19:03:03,737][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=35 source=mic turn=1de02c10-0a00-47de-8ff4-5974a0c2195b utterance=bd50fdee-0d5c-49cc-bc0a-ca87abe18fce[0m
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+
+[2026-03-04 19:03:04 +0200] [33824] [INFO] 127.0.0.1:8924 POST /api/context/conversation/speech_start 1.1 200 71 1709
+[VAD] Голос! (Prob: 0.001, RMS: 0.0175) Завершена (928ms, speech: 192ms).
+[2026-03-04 19:03:04 +0200] [33824] [INFO] 127.0.0.1:8924 POST /api/context/conversation/audio 1.1 200 142 2002
+
+[API] Фраза отправлена (29696 байт).
+[1m[1;34m[2026-03-04 19:03:04,736][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=34 source=mic turn=1de02c10-0a00-47de-8ff4-5974a0c2195b utterance=6624ce3f-e2b5-4877-99dc-f7e86914892d[0m
+[2026-03-04 19:03:05 +0200] [33824] [INFO] 127.0.0.1:8924 POST /api/context/conversation/speech_start 1.1 200 71 1004
+[VAD] Голос! (Prob: 0.001, RMS: 0.0332) Завершена (1056ms, speech: 320ms).
+[2026-03-04 19:03:06 +0200] [33824] [INFO] 127.0.0.1:8924 POST /api/context/conversation/audio 1.1 200 142 2515
+
+[API] Фраза отправлена (33792 байт).
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[1m[1;34m[2026-03-04 19:03:06,134][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=0 latency_ms=34 source=mic turn=1de02c10-0a00-47de-8ff4-5974a0c2195b utterance=22c3dfbb-4d78-4345-8b88-0700e3b31036[0m
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[1m[1;34m[2026-03-04 19:03:08,174][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::743 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=33 bytes=134214 first_chunk_ms=1451 max_gap_ms=1322.1 total_ms=10532 audio_s=2.796 rtf=3.767 text_len=21[0m
+[1m[1;34m[2026-03-04 19:03:08,174][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 10533.05700000783 ms[0m
+[1m[1;34m[2026-03-04 19:03:08,174][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 10533.184200001415 ms[0m
+[1m[1;34m[2026-03-04 19:03:08,174][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 10533.304099997622 ms[0m
+[1m[1;34m[2026-03-04 19:03:08,176][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job 8830633e-2c5a-4d49-abc3-b2c5c5913bb0 completed. Content: 'Ну так что, как дела?...'[0m
+[1m[1;34m[2026-03-04 19:06:17,090][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::109 start]:[0m Starting JAIson application layer.[0m
+[1m[1;34m[2026-03-04 19:06:17,113][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::332 load_operations_from_config]:[0m Active STT from config: sherpa_ru[0m
+[1m[1;34m[2026-03-04 19:06:17,113][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::334 load_operations_from_config]:[0m Active TTS from config: qwen3[0m
+[1m[1;34m[2026-03-04 19:06:18,964][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting STT operation sherpa_ru[0m
+[1m[1;34m[2026-03-04 19:06:18,964][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type sherpa_stt[0m
+[1m[1;34m[2026-03-04 19:06:18,966][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process sherpa_stt when it is already unloaded[0m
+[1m[1;34m[2026-03-04 19:06:18,968][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::85 _prepare_hotwords_file]:[0m Sherpa STT hotwords validated: 3 entries[0m
+[1m[1;34m[2026-03-04 19:06:18,968][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::295 reload]:[0m Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5[0m
+[1m[1;34m[2026-03-04 19:06:18,968][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa_server.py::307 reload]:[0m Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5[0m
+[1m[1;34m[2026-03-04 19:06:23,297][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting T2T operation llamacpp[0m
+[1m[1;34m[2026-03-04 19:06:23,297][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type llamacpp[0m
+[1m[1;34m[2026-03-04 19:06:23,301][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::81 reload]:[0m Opened Llama.cpp server (PID: 8908) on port 4727 (GPU: 0)[0m
+[1m[1;34m[2026-03-04 19:06:23,301][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::89 reload]:[0m Waiting for llama-server to be ready at http://127.0.0.1:4727/health ...[0m
+[1m[1;34m[2026-03-04 19:06:27,499][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[llamacpp.py::101 reload]:[0m llama-server is ready! (attempt 8, port 4727)[0m
+[1m[1;34m[2026-03-04 19:06:27,502][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting FILTER_TEXT operation filter_clean[0m
+[1m[1;34m[2026-03-04 19:06:28,191][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting FILTER_TEXT operation chunker_sentence[0m
+[1m[1;34m[2026-03-04 19:06:28,675][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting TTS operation qwen3[0m
+[1m[1;34m[2026-03-04 19:06:28,675][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type qwen3_tts[0m
+[1m[1;34m[2026-03-04 19:06:28,676][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::199 reload]:[0m Qwen3 TTS SoX bin detected: C:\Nirmita\apps\tts-qwen3-server\third_party\sox\sox-14.4.2-win32\sox-14.4.2[0m
+[1m[1;34m[2026-03-04 19:06:28,678][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::203 reload]:[0m Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv312\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 0 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-Base --speaker serena --language russian --dtype bfloat16 --attn_implementation flash_attention_2 --use_compile 0 --sample_rate 24000 --sample_width 2 --channels 1 --voice_mode voice_clone --ref_audio_path C:\Nirmita\Nira_voice.wav --ref_text  --x_vector_only_mode 1 --preload_voice_clone_prompt 1 --emit_every_frames 4 --decode_window_frames 48 --first_chunk_emit_every 1 --first_chunk_decode_window 24 --first_chunk_frames 24 --overlap_samples 0 --max_new_tokens 112 --max_frames 80 --use_optimized_decode 1 --max_concurrent 1 --preload_on_start 1 --warmup_on_start 0 --warmup_text Привет. --warmup_emit_every_frames 4 --warmup_decode_window_frames 48 --warmup_max_new_tokens 96 --warmup_chunks 2 --first_chunk_timeout_s 18 --stream_idle_timeout_s 20 --compile_mode reduce-overhead --compile_use_cuda_graphs 0 --compile_codebook_predictor 0 --compile_talker 0 --allow_compile_voice_clone 0[0m
+[1m[1;34m[2026-03-04 19:06:28,678][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::204 reload]:[0m Qwen3 TTS GPU pin: provider=cuda gpu_id=0 device=cuda:0 CUDA_VISIBLE_DEVICES=0[0m
+[1m[1;34m[2026-03-04 19:06:42,361][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3_tts_server.py::232 reload]:[0m Qwen3 TTS sidecar is ready at http://127.0.0.1:6116/health[0m
+[1m[1;34m[2026-03-04 19:06:42,687][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type hw_mic[0m
+[1m[1;34m[2026-03-04 19:06:42,688][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process hw_mic when it is already unloaded[0m
+[ProcessManager] Starting Hardware Microphone (hw-mic-client)...
+[1m[1;34m[2026-03-04 19:06:42,694][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::28 load]:[0m Loading process by type hw_audio_out[0m
+[1m[1;34m[2026-03-04 19:06:42,695][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process hw_audio_out when it is already unloaded[0m
+[ProcessManager] Starting Hardware Audio Output (hw-audio-out-client)...
+[1m[1;34m[2026-03-04 19:06:42,699][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::142 start]:[0m JAIson application layer has started.[0m
+[1m[1;34m[2026-03-04 19:06:42,700][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[logging.py::106 info]:[0m Running on http://127.0.0.1:7272 (CTRL + C to quit)[0m
+[AUDIO_OUT] Selected by name: [52] CABLE Input (VB-Audio Virtual Cable) (Windows WASAPI)
+[AUDIO_OUT] Listening WS=ws://127.0.0.1:7272/ and streaming to CABLE Input (VB-Audio Virtual Cable) (ID: 52, hostapi: Windows WASAPI, sr=48000)
+========================================================
+[1m[1;34m[2026-03-04 19:06:43,367][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 19:06:43 +0200] [40572] [INFO] 127.0.0.1:11797 GET / 1.1 101 - 1511
+[AUDIO_OUT] WebSocket connected.
+[INFO] Loading Silero VAD ONNX Session (CPU)...
+[MIC] Selected by name: [67] Микрофон (2- fifine Microphone) (Windows WASAPI)
+[INFO] SoundDevice Listening on: Микрофон (2- fifine Microphone) (ID: 67, hostapi: Windows WASAPI)
+========================================================
+
+[2026-03-04 19:06:44 +0200] [40572] [INFO] 127.0.0.1:12026 GET /api/config 1.1 200 5930 1514
+[2026-03-04 19:06:44 +0200] [40572] [INFO] 127.0.0.1:12028 GET /api/config 1.1 200 5930 1005
+[2026-03-04 19:06:44 +0200] [40572] [INFO] 127.0.0.1:12030 GET /api/context/history 1.1 200 59 0
+[2026-03-04 19:06:44 +0200] [40572] [INFO] 127.0.0.1:10908 GET /api/context/history 1.1 200 59 1055
+[1m[1;34m[2026-03-04 19:06:45,709][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-03-04 19:06:45 +0200] [40572] [INFO] 127.0.0.1:8784 GET / 1.1 101 - 508
+[2026-03-04 19:06:48 +0200] [40572] [INFO] 127.0.0.1:8788 POST /api/context/conversation/speech_start 1.1 200 71 1002
+[VAD] Голос! (Prob: 0.001, RMS: 0.0216) Завершена (2048ms, speech: 1312ms).
+[2026-03-04 19:06:49 +0200] [40572] [INFO] 127.0.0.1:8788 POST /api/context/conversation/audio 1.1 200 142 15417
+
+[API] Фраза отправлена (65536 байт).
+[1m[1;34m[2026-03-04 19:06:49,545][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[sherpa.py::320 _generate]:[0m Sherpa STT final: len=6 latency_ms=88 source=mic turn=37b53f6b-3638-4f33-bf64-18cb3c8bacae utterance=dee4da18-30d0-4c59-b69b-c3aeac0a9f90[0m
+[1m[1;34m[2026-03-04 19:06:49,800][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new context_conversation_add_text job 7ed61bf2-0620-4c0b-8fe4-e6bb1f0f450e[0m
+[1m[1;34m[2026-03-04 19:06:49,800][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::443 create_job]:[0m Queued new response job 92e0cbc7-eaeb-4875-b2d2-930e3c36d212[0m
+[1m[1;34m[2026-03-04 19:06:50,328][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation llamacpp completed in 526.4077000028919 ms[0m
+[1m[1;34m[2026-03-04 19:06:50,329][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::678 _stream_sidecar_bytes]:[0m Qwen3 voice-clone limits: text_len=61 max_frames=80 max_new_tokens=112[0m
+[AUDIO_OUT] PCM chunk #1: bytes=8190 sr=48000 rms=0.0379 peak=0.1621
+[AUDIO_OUT] PCM chunk #2: bytes=8192 sr=48000 rms=0.0098 peak=0.0551
+[AUDIO_OUT] PCM chunk #3: bytes=8192 sr=48000 rms=0.0024 peak=0.0086
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[AUDIO_OUT] Rebuffering: 1022/15360 bytes
+[1m[1;34m[2026-03-04 19:07:16,509][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[qwen3.py::744 _stream_sidecar_bytes]:[0m Qwen3 stream stats: chunks=71 bytes=287668 first_chunk_ms=3057 max_gap_ms=1426.1 total_ms=26180 audio_s=5.993 rtf=4.368 text_len=61[0m
+[1m[1;34m[2026-03-04 19:07:16,509][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation qwen3 completed in 26180.484699987574 ms[0m
+[1m[1;34m[2026-03-04 19:07:16,509][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 26180.590700008906 ms[0m
+[1m[1;34m[2026-03-04 19:07:16,509][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 26180.68889999995 ms[0m
+[1m[1;34m[2026-03-04 19:07:16,509][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::964 response_pipeline]:[0m Response job 92e0cbc7-eaeb-4875-b2d2-930e3c36d212 completed. Content: 'Привет! Как дела? Какой у тебя любимый компьютерный персонаж?...'[0m

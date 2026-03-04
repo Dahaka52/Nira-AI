@@ -108,6 +108,7 @@ class ServerConfig:
     compile_use_cuda_graphs: bool = False
     compile_codebook_predictor: bool = False
     compile_talker: bool = True
+    allow_compile_voice_clone: bool = False
     preload_on_start: bool = True
     warmup_on_start: bool = True
     warmup_text: str = "Привет."
@@ -235,15 +236,19 @@ class Qwen3Runtime:
 
                 torch_dtype = self._resolve_dtype(torch, dtype)
                 use_compile = bool(getattr(self.cfg, "use_compile", False)) and not self._compile_runtime_disabled
-                # On Windows + Base voice-clone models, compile path is currently
-                # unstable in long sessions (runtime ptr/cudagraph failures). Keep
-                # compile disabled in voice_clone mode by default for stability.
+                # On Windows + Base voice-clone models, compile path can be unstable
+                # in long sessions (runtime ptr/cudagraph failures). Keep compile
+                # disabled by default, but allow explicit opt-in for A/B profiling.
                 try:
                     cfg_voice_mode = self._normalize_voice_mode(getattr(self.cfg, "voice_mode", "custom_voice"))
                 except Exception:
                     cfg_voice_mode = "custom_voice"
-                if use_compile and cfg_voice_mode == "voice_clone":
-                    logging.info("Qwen3 runtime: forcing use_compile=false for voice_clone mode (stability profile).")
+                allow_compile_voice_clone = bool(getattr(self.cfg, "allow_compile_voice_clone", False))
+                if use_compile and cfg_voice_mode == "voice_clone" and not allow_compile_voice_clone:
+                    logging.info(
+                        "Qwen3 runtime: forcing use_compile=false for voice_clone mode "
+                        "(stability profile; set allow_compile_voice_clone=1 to override)."
+                    )
                     use_compile = False
                 if use_compile:
                     try:
@@ -879,6 +884,7 @@ def parse_args() -> ServerConfig:
     parser.add_argument("--compile_use_cuda_graphs", type=int, default=0)
     parser.add_argument("--compile_codebook_predictor", type=int, default=0)
     parser.add_argument("--compile_talker", type=int, default=1)
+    parser.add_argument("--allow_compile_voice_clone", type=int, default=0)
     parser.add_argument("--preload_on_start", type=int, default=1)
     parser.add_argument("--warmup_on_start", type=int, default=1)
     parser.add_argument("--warmup_text", type=str, default="Привет.")
@@ -928,6 +934,7 @@ def parse_args() -> ServerConfig:
         compile_use_cuda_graphs=bool(int(ns.compile_use_cuda_graphs)),
         compile_codebook_predictor=bool(int(ns.compile_codebook_predictor)),
         compile_talker=bool(int(ns.compile_talker)),
+        allow_compile_voice_clone=bool(int(ns.allow_compile_voice_clone)),
         preload_on_start=bool(int(ns.preload_on_start)),
         warmup_on_start=bool(int(ns.warmup_on_start)),
         warmup_text=ns.warmup_text,

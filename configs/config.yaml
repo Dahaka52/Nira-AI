@@ -80,25 +80,25 @@ operations:
     speaker: "serena"              # serena|vivian|uncle_fu|ryan|aiden|ono_anna|sohee|eric|dylan
     instruct_prefix: "Весёлый задорный голос, энергичный тон"          # Глобальный стиль голоса (например: "Спокойный мягкий голос, дружелюбный тон.")
     provider: "cuda"             # cpu | cuda
-    gpu_id: 1                    # По умолчанию RTX 5060
+    gpu_id: 0                    # Эксперимент: TTS на RTX 5070
     model_id: "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
-    device: "cuda:1"             # Локальный режим: конкретный GPU. Для sidecar учитывается process.device
+    device: "cuda:0"             # Локальный режим: конкретный GPU. Для sidecar учитывается process.device
     dtype: "bfloat16"
     attn_implementation: "flash_attention_2"  # Py3.12 sidecar + flash-attn wheel (Win, cu130)
     emit_every_frames: 4
-    decode_window_frames: 64
-    first_chunk_emit_every: 2
-    first_chunk_decode_window: 32
-    first_chunk_frames: 32
+    decode_window_frames: 48
+    first_chunk_emit_every: 1
+    first_chunk_decode_window: 24
+    first_chunk_frames: 24
     overlap_samples: 0
-    max_new_tokens: 192
-    max_frames: 220
-    max_text_chars: 180
+    max_new_tokens: 112
+    max_frames: 80
+    max_text_chars: 120
     dynamic_max_frames: true
     dynamic_chars_per_second: 11.5
-    dynamic_frame_budget_mul: 1.55
+    dynamic_frame_budget_mul: 1.35
     dynamic_min_frames: 48
-    dynamic_max_frames_cap: 220
+    dynamic_max_frames_cap: 96
     use_optimized_decode: true
     do_sample: false             # Стабилизирует тембр и уменьшает "прыжки" высоты тона
     top_p: 0.9
@@ -112,7 +112,7 @@ operations:
       host: "127.0.0.1"
       port: 6116
       provider: "cuda"           # cpu | cuda
-      gpu_id: 1                  # CUDA_VISIBLE_DEVICES для sidecar
+      gpu_id: 0                  # CUDA_VISIBLE_DEVICES для sidecar (RTX 5070, эксперимент)
       voice_mode: "voice_clone"
       ref_audio_path: "C:\\Nirmita\\Nira_voice.wav"
       ref_text: ""
@@ -126,14 +126,15 @@ operations:
       compile_use_cuda_graphs: 0 # Для reduce-overhead обычно не нужен отдельный ручной cuda-graph capture.
       compile_codebook_predictor: 0
       compile_talker: 0
+      allow_compile_voice_clone: 0 # A/B флаг: 1 разрешит compile даже для voice_clone (может ускорить, но менее стабильно).
       emit_every_frames: 4
-      decode_window_frames: 64
-      first_chunk_emit_every: 2
-      first_chunk_decode_window: 32
-      first_chunk_frames: 32
+      decode_window_frames: 48
+      first_chunk_emit_every: 1
+      first_chunk_decode_window: 24
+      first_chunk_frames: 24
       overlap_samples: 0
-      max_new_tokens: 192
-      max_frames: 220
+      max_new_tokens: 112
+      max_frames: 80
       use_optimized_decode: 1
       sox_bin_dir: "C:\\Nirmita\\apps\\tts-qwen3-server\\third_party\\sox\\sox-14.4.2-win32\\sox-14.4.2"
       model_id: "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
@@ -142,7 +143,7 @@ operations:
       warmup_on_start: 0          # Ускоряет старт backend; прогрев можно запускать вручную
       warmup_text: "Привет."
       warmup_emit_every_frames: 4
-      warmup_decode_window_frames: 64
+      warmup_decode_window_frames: 48
       warmup_max_new_tokens: 96
       warmup_chunks: 2
       first_chunk_timeout_s: 18
@@ -199,13 +200,13 @@ audio_output:
   device_name: "CABLE Input"
   device_hostapi: "WASAPI"
   device_index: null
-  sample_rate: 24000
+  sample_rate: 48000
   channels: 1
-  blocksize: 256
-  max_buffer_ms: 1800
-  prebuffer_ms: 220
-  rebuffer_ms: 420
-  rebuffer_max_wait_ms: 350
+  blocksize: 512
+  max_buffer_ms: 1200
+  prebuffer_ms: 120
+  rebuffer_ms: 160
+  rebuffer_max_wait_ms: 200
   chunk_fade_ms: 0
   clear_on_stop: true
   output_gain_db: 0.0
@@ -222,11 +223,11 @@ prompter:
 # Llama.cpp Settings (RTX 5070 12GB)
 llamacpp_filepath: "C:\\Nirmita\\bin\\llamacpp\\llama-server.exe"
 llamacpp_model_filepath: "C:\\Nirmita\\models\\Mistral-Nemo-Instruct-2407-absolute-heresy.i1-Q4_K_M.gguf"
-llamacpp_ctx: 8192
+llamacpp_ctx: 4096
 llamacpp_ngl: 40
 llamacpp_cache_type_k: "q8_0" # Конфигурация 8-битного квантования контекста (K-cache)
 llamacpp_cache_type_v: "q8_0" # Конфигурация 8-битного квантования контекста (V-cache)
-llamacpp_gpu_id: 0 # Жесткая привязка к RTX 5070
+llamacpp_gpu_id: 0 # Эксперимент: LLM ТОЛЬКО НА RTX 5070. НА 5060 ВСЕГДА БУДЕТ ООМ ПОД ЛЛМ!!!
 llamacpp_extra_args: "--flash-attn on"
 
 # FFmpeg (настроен в системе)

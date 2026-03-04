@@ -331,6 +331,7 @@ class Qwen3TTS(TTSOperation):
             "compile_use_cuda_graphs",
             "compile_codebook_predictor",
             "compile_talker",
+            "allow_compile_voice_clone",
             "preload_on_start",
             "warmup_on_start",
             "warmup_text",

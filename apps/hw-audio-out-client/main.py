@@ -470,6 +470,12 @@ async def handle_ws_message(message: str, player: PCM16OutputPlayer) -> None:
     body = payload.get("response")
     if not isinstance(body, dict):
         return
+    # JAIson WS envelope for jobs uses {finished, success, result}. It does not expose
+    # a nested "status" field, so treat finished=true as end-of-stream for response jobs.
+    finished = bool(body.get("finished", False))
+    if finished:
+        await player.mark_stream_end()
+        return
     status = str(body.get("status", "")).strip().lower()
     if status in ("success", "cancelled", "error"):
         await player.mark_stream_end()
@@ -558,6 +564,9 @@ async def run() -> None:
             except KeyboardInterrupt:
                 raise
             except Exception as err:
+                # If WS drops mid-stream, mark end so callback can drain/flush tail
+                # instead of staying in sticky rebuffer state.
+                await player.mark_stream_end()
                 print(f"[AUDIO_OUT] WS disconnected: {err}. Reconnect in {reconnect_delay_s:.1f}s.")
                 await asyncio.sleep(reconnect_delay_s)
     finally:
