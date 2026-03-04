@@ -66,6 +66,10 @@ def main() -> int:
     parser.add_argument("--text", default="Привет, как дела?", help="Input text")
     parser.add_argument("--speaker", default="serena")
     parser.add_argument("--language", default="russian")
+    parser.add_argument("--voice-mode", dest="voice_mode", default="custom_voice", help="custom_voice|voice_clone")
+    parser.add_argument("--ref-audio-path", dest="ref_audio_path", default="", help="Path to reference WAV for voice_clone")
+    parser.add_argument("--ref-text", dest="ref_text", default="", help="Optional transcript for reference WAV")
+    parser.add_argument("--x-vector-only-mode", dest="x_vector_only_mode", type=int, default=1, help="0|1")
     parser.add_argument("--model-id", dest="model_id", default="Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice")
     parser.add_argument("--provider", default="cuda", help="cpu|cuda")
     parser.add_argument("--gpu-id", dest="gpu_id", type=int, default=1)
@@ -97,6 +101,10 @@ def main() -> int:
         "text": args.text,
         "speaker": args.speaker,
         "language": args.language,
+        "voice_mode": args.voice_mode,
+        "ref_audio_path": args.ref_audio_path,
+        "ref_text": args.ref_text,
+        "x_vector_only_mode": bool(int(args.x_vector_only_mode)),
         "provider": args.provider,
         "gpu_id": args.gpu_id,
         "model_id": args.model_id,
@@ -120,6 +128,8 @@ def main() -> int:
         "top_k": args.top_k,
         "temperature": args.temperature,
     }
+    if str(args.voice_mode).strip().lower() == "voice_clone" and not str(args.ref_audio_path).strip():
+        raise SystemExit("--ref-audio-path is required when --voice-mode=voice_clone")
 
     print(f"[TTS_SMOKE] endpoint={args.url}")
     print(f"[TTS_SMOKE] runs={args.runs} discard_first={args.discard_first}")

@@ -68,15 +68,20 @@ operations:
     base_url: "http://127.0.0.1:6116"
     stream_endpoint: "/v1/tts/stream"
     health_endpoint: "/health"
+    sidecar_read_chunk_bytes: 1024  # Меньше сетевой коалесcинг на клиенте стрима -> ровнее подача PCM
     sample_rate: 24000
     sample_width: 2
     channels: 1
+    voice_mode: "voice_clone"      # custom_voice | voice_clone
+    ref_audio_path: "C:\\Nirmita\\Nira_voice.wav"
+    ref_text: ""                   # для x_vector_only_mode=true можно оставить пустым
+    x_vector_only_mode: true
     language: "russian"
     speaker: "serena"              # serena|vivian|uncle_fu|ryan|aiden|ono_anna|sohee|eric|dylan
     instruct_prefix: "Весёлый задорный голос, энергичный тон"          # Глобальный стиль голоса (например: "Спокойный мягкий голос, дружелюбный тон.")
     provider: "cuda"             # cpu | cuda
     gpu_id: 1                    # По умолчанию RTX 5060
-    model_id: "Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice"
+    model_id: "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
     device: "cuda:1"             # Локальный режим: конкретный GPU. Для sidecar учитывается process.device
     dtype: "bfloat16"
     attn_implementation: "flash_attention_2"  # Py3.12 sidecar + flash-attn wheel (Win, cu130)
@@ -87,6 +92,7 @@ operations:
     first_chunk_frames: 32
     overlap_samples: 0
     max_new_tokens: 384
+    use_optimized_decode: true
     do_sample: false             # Стабилизирует тембр и уменьшает "прыжки" высоты тона
     top_p: 0.9
     top_k: 50
@@ -100,13 +106,19 @@ operations:
       port: 6116
       provider: "cuda"           # cpu | cuda
       gpu_id: 1                  # CUDA_VISIBLE_DEVICES для sidecar
+      voice_mode: "voice_clone"
+      ref_audio_path: "C:\\Nirmita\\Nira_voice.wav"
+      ref_text: ""
+      x_vector_only_mode: 1
+      preload_voice_clone_prompt: 1
       python_executable: "C:\\Nirmita\\apps\\tts-qwen3-server\\.venv312\\Scripts\\python.exe"
       device: "cuda:0"           # внутри sidecar после pin по CUDA_VISIBLE_DEVICES
       attn_implementation: "flash_attention_2"
-      use_compile: 0             # Стабильный профиль для диагностики разрывов (compile включать после A/B).
+      use_compile: 1             # RTF-профиль: включаем compile для decoder/talker/codebook.
       compile_mode: "reduce-overhead"
-      compile_use_cuda_graphs: 0 # Стабильнее на Windows/динамических формах, меньше риск обрывов стрима
-      compile_codebook_predictor: 0
+      compile_use_cuda_graphs: 0 # Для reduce-overhead обычно не нужен отдельный ручной cuda-graph capture.
+      compile_codebook_predictor: 1
+      compile_talker: 1
       emit_every_frames: 4
       decode_window_frames: 64
       first_chunk_emit_every: 2
@@ -114,8 +126,10 @@ operations:
       first_chunk_frames: 32
       overlap_samples: 0
       max_new_tokens: 384
+      max_frames: 384
+      use_optimized_decode: 1
       sox_bin_dir: "C:\\Nirmita\\apps\\tts-qwen3-server\\third_party\\sox\\sox-14.4.2-win32\\sox-14.4.2"
-      model_id: "Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice"
+      model_id: "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
       max_concurrent: 1
       preload_on_start: 1        # Загружает модель при старте sidecar, а не на первом запросе
       warmup_on_start: 1          # Прогрев compile/графов на коротком тексте (убирает длинный "первый ответ")
@@ -185,6 +199,7 @@ audio_output:
   prebuffer_ms: 120
   rebuffer_ms: 120
   rebuffer_max_wait_ms: 220
+  chunk_fade_ms: 6
   clear_on_stop: true
   output_gain_db: 0.0
   reconnect_delay_ms: 1200

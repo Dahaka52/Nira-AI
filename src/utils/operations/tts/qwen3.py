@@ -38,6 +38,21 @@ def _float_to_pcm16_bytes(chunk: Any) -> bytes:
     return arr.astype(np.int16).tobytes()
 
 
+def _as_bool(value: Any, default: bool = False) -> bool:
+    if value is None:
+        return default
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, (int, float)):
+        return bool(value)
+    s = str(value).strip().lower()
+    if s in {"1", "true", "yes", "on", "y"}:
+        return True
+    if s in {"0", "false", "no", "off", "n", ""}:
+        return False
+    return default
+
+
 class Qwen3TTS(TTSOperation):
     """
     Qwen3 TTS provider with two runtime modes:
@@ -57,12 +72,18 @@ class Qwen3TTS(TTSOperation):
         self.health_endpoint = "/health"
         self.request_timeout_s = 45.0
         self.connect_timeout_s = 5.0
-        self.sidecar_read_chunk_bytes = 8192
+        # Keep read chunks small to avoid artificial network-side coalescing
+        # that causes long playback gaps on slow generators.
+        self.sidecar_read_chunk_bytes = 1024
 
         # Output audio format policy
         self.sample_rate = 24000
         self.sample_width = 2
         self.channels = 1
+        self.voice_mode = "custom_voice"  # custom_voice | voice_clone
+        self.ref_audio_path = ""
+        self.ref_text = ""
+        self.x_vector_only_mode = True
 
         # Model/runtime options
         self.model_id = "Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice"
@@ -86,6 +107,7 @@ class Qwen3TTS(TTSOperation):
         self.first_chunk_decode_window = 48
         self.first_chunk_frames = 48
         self.overlap_samples = 512
+        self.use_optimized_decode = True
         self.repetition_penalty = 1.0
         self.repetition_penalty_window = 100
 
@@ -173,6 +195,14 @@ class Qwen3TTS(TTSOperation):
             self.sample_width = int(config_d["sample_width"])
         if "channels" in config_d:
             self.channels = int(config_d["channels"])
+        if "voice_mode" in config_d:
+            self.voice_mode = str(config_d["voice_mode"]).strip().lower()
+        if "ref_audio_path" in config_d:
+            self.ref_audio_path = str(config_d["ref_audio_path"]).strip()
+        if "ref_text" in config_d:
+            self.ref_text = str(config_d["ref_text"]).strip()
+        if "x_vector_only_mode" in config_d:
+            self.x_vector_only_mode = _as_bool(config_d["x_vector_only_mode"], default=True)
 
         if "model_id" in config_d:
             self.model_id = str(config_d["model_id"])
@@ -200,7 +230,7 @@ class Qwen3TTS(TTSOperation):
         if "max_new_tokens" in config_d:
             self.max_new_tokens = int(config_d["max_new_tokens"])
         if "do_sample" in config_d:
-            self.do_sample = bool(config_d["do_sample"])
+            self.do_sample = _as_bool(config_d["do_sample"], default=False)
         if "top_p" in config_d:
             self.top_p = float(config_d["top_p"])
         if "top_k" in config_d:
@@ -220,6 +250,8 @@ class Qwen3TTS(TTSOperation):
             self.first_chunk_frames = int(config_d["first_chunk_frames"])
         if "overlap_samples" in config_d:
             self.overlap_samples = int(config_d["overlap_samples"])
+        if "use_optimized_decode" in config_d:
+            self.use_optimized_decode = bool(config_d["use_optimized_decode"])
         if "repetition_penalty" in config_d:
             self.repetition_penalty = float(config_d["repetition_penalty"])
         if "repetition_penalty_window" in config_d:
@@ -259,6 +291,10 @@ class Qwen3TTS(TTSOperation):
             "sample_rate",
             "sample_width",
             "channels",
+            "voice_mode",
+            "ref_audio_path",
+            "ref_text",
+            "x_vector_only_mode",
             "emit_every_frames",
             "decode_window_frames",
             "first_chunk_emit_every",
@@ -274,6 +310,7 @@ class Qwen3TTS(TTSOperation):
             "compile_mode",
             "compile_use_cuda_graphs",
             "compile_codebook_predictor",
+            "compile_talker",
             "preload_on_start",
             "warmup_on_start",
             "warmup_text",
@@ -285,6 +322,8 @@ class Qwen3TTS(TTSOperation):
             "warmup_chunks",
             "first_chunk_timeout_s",
             "stream_idle_timeout_s",
+            "use_optimized_decode",
+            "max_frames",
         ):
             # Keep explicit nested process.* as source of truth.
             # Top-level fields are only backward-compatible defaults.
@@ -302,10 +341,12 @@ class Qwen3TTS(TTSOperation):
         assert self.gpu_id >= 0
         assert self.request_timeout_s > 0
         assert self.connect_timeout_s > 0
+        assert self.sidecar_read_chunk_bytes >= 128
         assert self.sidecar_read_chunk_bytes > 0
         assert self.sample_rate > 0
         assert self.sample_width in (1, 2, 4)
         assert self.channels > 0
+        assert self.voice_mode in ("custom_voice", "voice_clone", "clone", "voice-clone")
         assert self.emit_every_frames > 0
         assert self.decode_window_frames > 0
         assert self.first_chunk_decode_window > 0
@@ -330,6 +371,10 @@ class Qwen3TTS(TTSOperation):
             "sample_rate": self.sample_rate,
             "sample_width": self.sample_width,
             "channels": self.channels,
+            "voice_mode": self.voice_mode,
+            "ref_audio_path": self.ref_audio_path,
+            "ref_text": self.ref_text,
+            "x_vector_only_mode": self.x_vector_only_mode,
             "model_id": self.model_id,
             "language": self.language,
             "speaker": self.speaker,
@@ -349,6 +394,7 @@ class Qwen3TTS(TTSOperation):
             "first_chunk_decode_window": self.first_chunk_decode_window,
             "first_chunk_frames": self.first_chunk_frames,
             "overlap_samples": self.overlap_samples,
+            "use_optimized_decode": self.use_optimized_decode,
             "repetition_penalty": self.repetition_penalty,
             "repetition_penalty_window": self.repetition_penalty_window,
             "instruct_prefix": self.instruct_prefix,
@@ -551,6 +597,7 @@ class Qwen3TTS(TTSOperation):
             "emit_every_frames": self.emit_every_frames,
             "decode_window_frames": self.decode_window_frames,
             "overlap_samples": self.overlap_samples,
+            "use_optimized_decode": bool(self.use_optimized_decode),
             "first_chunk_emit_every": self.first_chunk_emit_every,
             "first_chunk_decode_window": self.first_chunk_decode_window,
             "first_chunk_frames": self.first_chunk_frames,
@@ -559,6 +606,10 @@ class Qwen3TTS(TTSOperation):
             "sample_rate": self.sample_rate,
             "sample_width": self.sample_width,
             "channels": self.channels,
+            "voice_mode": self.voice_mode,
+            "ref_audio_path": self.ref_audio_path,
+            "ref_text": self.ref_text,
+            "x_vector_only_mode": bool(self.x_vector_only_mode),
         }
         url = f"{self.base_url}{self.stream_endpoint}"
         timeout = httpx.Timeout(timeout=self.request_timeout_s, connect=self.connect_timeout_s)
@@ -571,6 +622,7 @@ class Qwen3TTS(TTSOperation):
             first_chunk_ms: Optional[int] = None
             last_chunk_at: Optional[float] = None
             max_gap_ms = 0.0
+            trailing = b""
             try:
                 async with httpx.AsyncClient(timeout=timeout) as client:
                     async with client.stream("POST", url, json=payload) as response:
@@ -586,6 +638,16 @@ class Qwen3TTS(TTSOperation):
 
                         async for raw_chunk in response.aiter_bytes(chunk_size=self.sidecar_read_chunk_bytes):
                             if raw_chunk:
+                                # Preserve PCM16 sample alignment across network chunks.
+                                if trailing:
+                                    raw_chunk = trailing + raw_chunk
+                                    trailing = b""
+                                if len(raw_chunk) % int(self.sample_width):
+                                    aligned_len = len(raw_chunk) - (len(raw_chunk) % int(self.sample_width))
+                                    trailing = raw_chunk[aligned_len:]
+                                    raw_chunk = raw_chunk[:aligned_len]
+                                if not raw_chunk:
+                                    continue
                                 now = time.perf_counter()
                                 if last_chunk_at is not None:
                                     gap_ms = (now - last_chunk_at) * 1000.0
@@ -600,6 +662,8 @@ class Qwen3TTS(TTSOperation):
                                     "audio_bytes": bytes(raw_chunk),
                                     "sr": int(self.sample_rate),
                                 }
+                        if trailing:
+                            logging.warning("Qwen3 sidecar stream dropped trailing unaligned bytes: %s", len(trailing))
 
                 if emitted_chunks <= 0:
                     raise RuntimeError("Qwen3 sidecar returned 200 but produced no audio bytes.")

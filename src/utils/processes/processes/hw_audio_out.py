@@ -30,6 +30,7 @@ class HwAudioOutProcess(BaseProcess):
         prebuffer_ms = out_conf.get("prebuffer_ms", 180)
         rebuffer_ms = out_conf.get("rebuffer_ms", 260)
         rebuffer_max_wait_ms = out_conf.get("rebuffer_max_wait_ms", 220)
+        chunk_fade_ms = out_conf.get("chunk_fade_ms", 6)
         clear_on_stop = int(bool(out_conf.get("clear_on_stop", True)))
         output_gain_db = out_conf.get("output_gain_db", 0.0)
         reconnect_delay_ms = out_conf.get("reconnect_delay_ms", 1200)
@@ -66,6 +67,8 @@ class HwAudioOutProcess(BaseProcess):
                 str(rebuffer_ms),
                 "--rebuffer_max_wait_ms",
                 str(rebuffer_max_wait_ms),
+                "--chunk_fade_ms",
+                str(chunk_fade_ms),
                 "--clear_on_stop",
                 str(clear_on_stop),
                 "--output_gain_db",

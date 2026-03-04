@@ -168,6 +168,7 @@ apps/tts-qwen3-server/third_party/sox/
 apps/tts-qwen3-server/third_party/**/*.zip
 apps/tts-qwen3-server/third_party/**/*.7z
 apps/tts-qwen3-server/.venv312/
+apps/tts-qwen3-fork-dffdeeq/
 
 # Spyder project settings
 .spyderproject

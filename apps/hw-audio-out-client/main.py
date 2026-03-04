@@ -122,6 +122,7 @@ class PCM16OutputPlayer:
         prebuffer_ms: int,
         rebuffer_ms: int,
         rebuffer_max_wait_ms: int,
+        chunk_fade_ms: int,
         clear_on_stop: bool,
         output_gain_db: float,
     ):
@@ -139,8 +140,10 @@ class PCM16OutputPlayer:
         self.prebuffer_ms = int(max(0, prebuffer_ms))
         self.rebuffer_ms = int(max(0, rebuffer_ms))
         self.rebuffer_max_wait_ms = int(max(0, rebuffer_max_wait_ms))
+        self.chunk_fade_ms = int(max(0, chunk_fade_ms))
         self.prebuffer_bytes = int(self.sample_rate * self.frame_bytes * self.prebuffer_ms / 1000.0)
         self.rebuffer_bytes = int(self.sample_rate * self.frame_bytes * self.rebuffer_ms / 1000.0)
+        self.chunk_fade_samples = int(self.sample_rate * self.chunk_fade_ms / 1000.0)
         self.output_gain = float(10.0 ** (output_gain_db / 20.0))
 
         self._stream = None
@@ -284,6 +287,23 @@ class PCM16OutputPlayer:
         np.clip(arr, -32768, 32767, out=arr)
         return arr.astype(np.int16).tobytes()
 
+    def _apply_chunk_fade(self, pcm_bytes: bytes) -> bytes:
+        """Apply short fade-in/out to reduce clicks when stream is sparse."""
+        if self.chunk_fade_samples <= 0:
+            return pcm_bytes
+        arr = np.frombuffer(pcm_bytes, dtype=np.int16).astype(np.float32)
+        n = int(arr.size)
+        if n < 4:
+            return pcm_bytes
+        fade = min(self.chunk_fade_samples, n // 4)
+        if fade <= 0:
+            return pcm_bytes
+        ramp = np.linspace(0.0, 1.0, num=fade, endpoint=True, dtype=np.float32)
+        arr[:fade] *= ramp
+        arr[-fade:] *= ramp[::-1]
+        np.clip(arr, -32768, 32767, out=arr)
+        return arr.astype(np.int16).tobytes()
+
     @staticmethod
     def _resample_pcm16_mono(pcm_bytes: bytes, src_sr: int, dst_sr: int) -> bytes:
         if src_sr == dst_sr:
@@ -334,6 +354,7 @@ class PCM16OutputPlayer:
             self._ratecv_src_sr = None
 
         pcm_bytes = self._apply_gain(pcm_bytes)
+        pcm_bytes = self._apply_chunk_fade(pcm_bytes)
         if not pcm_bytes:
             return
 
@@ -372,6 +393,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--prebuffer_ms", type=int, default=180)
     parser.add_argument("--rebuffer_ms", type=int, default=260)
     parser.add_argument("--rebuffer_max_wait_ms", type=int, default=220)
+    parser.add_argument("--chunk_fade_ms", type=int, default=6)
     parser.add_argument("--clear_on_stop", type=int, default=1)
     parser.add_argument("--output_gain_db", type=float, default=0.0)
     parser.add_argument("--reconnect_delay_ms", type=int, default=1200)
@@ -449,6 +471,7 @@ async def run() -> None:
         prebuffer_ms=args.prebuffer_ms,
         rebuffer_ms=args.rebuffer_ms,
         rebuffer_max_wait_ms=args.rebuffer_max_wait_ms,
+        chunk_fade_ms=args.chunk_fade_ms,
         clear_on_stop=bool(int(args.clear_on_stop)),
         output_gain_db=args.output_gain_db,
     )

@@ -1,0 +1,915 @@
+C:\Nirmita\apps\tts-qwen3-server\start_server.py:717: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+INFO:     Started server process [38908]
+INFO:     Waiting for application startup.
+`torch_dtype` is deprecated! Use `dtype` instead!
+2026-03-04 16:47:51,296 INFO [qwen3_tts_sidecar] talker_config is None. Initializing talker model with default values
+2026-03-04 16:47:51,296 INFO [qwen3_tts_sidecar] speaker_encoder_config is None. Initializing talker model with default values
+2026-03-04 16:47:51,296 INFO [qwen3_tts_sidecar] code_predictor_config is None. Initializing code_predictor model with default values
+2026-03-04 16:47:51,297 INFO [qwen3_tts_sidecar] code_predictor_config is None. Initializing code_predictor model with default values
+Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+2026-03-04 16:47:51,442 WARNING [qwen3_tts_sidecar] Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+2026-03-04 16:48:11,962 WARNING [qwen3_tts_sidecar] Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+Fetching 4 files:  25%|██▌       | 1/4 [00:00<00:01,  1.74it/s]Fetching 4 files:  75%|███████▌  | 3/4 [00:06<00:02,  2.50s/it]Fetching 4 files: 100%|██████████| 4/4 [00:06<00:00,  1.73s/it]
+2026-03-04 16:48:18,534 INFO [qwen3_tts_sidecar] encoder_config is None. Initializing encoder with default values
+2026-03-04 16:48:18,534 INFO [qwen3_tts_sidecar] decoder_config is None. Initializing decoder with default values
+2026-03-04 16:48:24,014 INFO [qwen3_tts_sidecar] Qwen3 runtime: enabling compile optimizations (mode=reduce-overhead, cuda_graphs=False, codebook_predictor=True, talker=True).
+[Tokenizer] Enabling streaming optimizations...
+  use_compile=True, compile_mode=reduce-overhead
+  use_cuda_graphs=False (manual)
+[Decoder] Compiling forward with mode=reduce-overhead, backend=inductor...
+[Decoder] Note: mode='reduce-overhead' includes CUDA graphs automatically
+[Decoder] Compilation complete
+[Talker] Compiling model with mode=default...
+[CodePredictor] Compiling model with mode=reduce-overhead...
+2026-03-04 16:48:24,767 INFO [qwen3_tts_sidecar] Qwen3 model loaded: Qwen/Qwen3-TTS-12Hz-0.6B-Base (attn=flash_attention_2, compile=True)
+2026-03-04 16:48:39,284 INFO [qwen3_tts_sidecar] Qwen3 voice_clone prompt cached: ref_audio=C:\Nirmita\Nira_voice.wav x_vector_only_mode=True ref_text=empty
+W0304 16:49:15.511000 38908 .venv312\Lib\site-packages\torch\_inductor\utils.py:1679] [1/0] Not enough SMs to use max_autotune_gemm mode
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 938, in _forward_impl
+    hidden = self.quantizer.decode(codes)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 817, in decode
+    quantized = self.rvq_first.decode(codes[:, : self.n_q_semantic])
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 774, in decode
+    quantized = self.vq.decode(codes)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 725, in decode
+    quantized = quantized + layer.decode(layer_codes)
+
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 940, in _forward_impl
+    hidden = self.pre_transformer(inputs_embeds=hidden).last_hidden_state
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 555, in forward
+    position_embeddings = self.rotary_emb(hidden_states, position_ids)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\utils\_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\modeling_rope_utils.py", line 87, in wrapper
+    return rope_forward(self, x, position_ids)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 273, in forward
+    freqs = (inv_freq_expanded.float() @ position_ids_expanded.float()).transpose(1, 2)
+
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 940, in _forward_impl
+    hidden = self.pre_transformer(inputs_embeds=hidden).last_hidden_state
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 550, in forward
+    causal_mask_mapping["sliding_attention"] = create_sliding_window_causal_mask(**mask_kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\masking_utils.py", line 883, in create_sliding_window_causal_mask
+    early_exit, attention_mask, packed_sequence_mask, kv_length, kv_offset = _preprocess_mask_arguments(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\masking_utils.py", line 740, in _preprocess_mask_arguments
+    packed_sequence_mask = find_packed_sequence_indices(position_ids)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\masking_utils.py", line 657, in find_packed_sequence_indices
+    packed_sequence_mask = (position_diff != 1).cumsum(-1)
+
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 938, in _forward_impl
+    hidden = self.quantizer.decode(codes)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 817, in decode
+    quantized = self.rvq_first.decode(codes[:, : self.n_q_semantic])
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 775, in decode
+    quantized = self.output_proj(quantized)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\conv.py", line 375, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\conv.py", line 370, in _conv_forward
+    return F.conv1d(
+
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 938, in _forward_impl
+    hidden = self.quantizer.decode(codes)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 819, in decode
+    quantized += self.rvq_rest.decode(codes[:, self.n_q_semantic :])
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 775, in decode
+    quantized = self.output_proj(quantized)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\conv.py", line 375, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\conv.py", line 370, in _conv_forward
+    return F.conv1d(
+
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 939, in _forward_impl
+    hidden = self.pre_conv(hidden).transpose(1, 2)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 191, in forward
+    hidden_state = F.pad(hidden_state, (self.padding, extra_padding), mode="constant", value=0)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\functional.py", line 5418, in pad
+    return torch._C._nn.pad(input, pad, mode, value)
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 939, in _forward_impl
+    hidden = self.pre_conv(hidden).transpose(1, 2)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 192, in forward
+    return self.conv(hidden_state).contiguous()
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\conv.py", line 375, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\conv.py", line 370, in _conv_forward
+    return F.conv1d(
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 940, in _forward_impl
+    hidden = self.pre_transformer(inputs_embeds=hidden).last_hidden_state
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 558, in forward
+    hidden_states = decoder_layer(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 454, in forward
+    hidden_states, _ = self.self_attn(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 339, in forward
+    attn_output, attn_weights = attention_interface(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\integrations\sdpa_attention.py", line 96, in sdpa_attention_forward
+    attn_output = torch.nn.functional.scaled_dot_product_attention(
+
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 940, in _forward_impl
+    hidden = self.pre_transformer(inputs_embeds=hidden).last_hidden_state
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 558, in forward
+    hidden_states = decoder_layer(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 468, in forward
+    hidden_states = self.mlp(hidden_states)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 368, in forward
+    down_proj = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 940, in _forward_impl
+    hidden = self.pre_transformer(inputs_embeds=hidden).last_hidden_state
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 558, in forward
+    hidden_states = decoder_layer(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 454, in forward
+    hidden_states, _ = self.self_attn(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 339, in forward
+    attn_output, attn_weights = attention_interface(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\integrations\sdpa_attention.py", line 96, in sdpa_attention_forward
+    attn_output = torch.nn.functional.scaled_dot_product_attention(
+
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 940, in _forward_impl
+    hidden = self.pre_transformer(inputs_embeds=hidden).last_hidden_state
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 558, in forward
+    hidden_states = decoder_layer(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 468, in forward
+    hidden_states = self.mlp(hidden_states)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 368, in forward
+    down_proj = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 940, in _forward_impl
+    hidden = self.pre_transformer(inputs_embeds=hidden).last_hidden_state
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 558, in forward
+    hidden_states = decoder_layer(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 454, in forward
+    hidden_states, _ = self.self_attn(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 339, in forward
+    attn_output, attn_weights = attention_interface(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\integrations\sdpa_attention.py", line 96, in sdpa_attention_forward
+    attn_output = torch.nn.functional.scaled_dot_product_attention(
+
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 940, in _forward_impl
+    hidden = self.pre_transformer(inputs_embeds=hidden).last_hidden_state
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 558, in forward
+    hidden_states = decoder_layer(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 468, in forward
+    hidden_states = self.mlp(hidden_states)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 368, in forward
+    down_proj = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 940, in _forward_impl
+    hidden = self.pre_transformer(inputs_embeds=hidden).last_hidden_state
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 558, in forward
+    hidden_states = decoder_layer(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 454, in forward
+    hidden_states, _ = self.self_attn(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 339, in forward
+    attn_output, attn_weights = attention_interface(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\integrations\sdpa_attention.py", line 96, in sdpa_attention_forward
+    attn_output = torch.nn.functional.scaled_dot_product_attention(
+
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 940, in _forward_impl
+    hidden = self.pre_transformer(inputs_embeds=hidden).last_hidden_state
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 558, in forward
+    hidden_states = decoder_layer(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 468, in forward
+    hidden_states = self.mlp(hidden_states)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 368, in forward
+    down_proj = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 940, in _forward_impl
+    hidden = self.pre_transformer(inputs_embeds=hidden).last_hidden_state
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 558, in forward
+    hidden_states = decoder_layer(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 454, in forward
+    hidden_states, _ = self.self_attn(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 339, in forward
+    attn_output, attn_weights = attention_interface(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\integrations\sdpa_attention.py", line 96, in sdpa_attention_forward
+    attn_output = torch.nn.functional.scaled_dot_product_attention(
+
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 940, in _forward_impl
+    hidden = self.pre_transformer(inputs_embeds=hidden).last_hidden_state
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 558, in forward
+    hidden_states = decoder_layer(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 468, in forward
+    hidden_states = self.mlp(hidden_states)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 368, in forward
+    down_proj = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 940, in _forward_impl
+    hidden = self.pre_transformer(inputs_embeds=hidden).last_hidden_state
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 558, in forward
+    hidden_states = decoder_layer(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 454, in forward
+    hidden_states, _ = self.self_attn(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 339, in forward
+    attn_output, attn_weights = attention_interface(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\integrations\sdpa_attention.py", line 96, in sdpa_attention_forward
+    attn_output = torch.nn.functional.scaled_dot_product_attention(
+
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 940, in _forward_impl
+    hidden = self.pre_transformer(inputs_embeds=hidden).last_hidden_state
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 558, in forward
+    hidden_states = decoder_layer(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 468, in forward
+    hidden_states = self.mlp(hidden_states)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 368, in forward
+    down_proj = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 940, in _forward_impl
+    hidden = self.pre_transformer(inputs_embeds=hidden).last_hidden_state
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 558, in forward
+    hidden_states = decoder_layer(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 454, in forward
+    hidden_states, _ = self.self_attn(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 339, in forward
+    attn_output, attn_weights = attention_interface(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\integrations\sdpa_attention.py", line 96, in sdpa_attention_forward
+    attn_output = torch.nn.functional.scaled_dot_product_attention(
+
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 940, in _forward_impl
+    hidden = self.pre_transformer(inputs_embeds=hidden).last_hidden_state
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 558, in forward
+    hidden_states = decoder_layer(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 468, in forward
+    hidden_states = self.mlp(hidden_states)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 368, in forward
+    down_proj = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 940, in _forward_impl
+    hidden = self.pre_transformer(inputs_embeds=hidden).last_hidden_state
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 558, in forward
+    hidden_states = decoder_layer(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 454, in forward
+    hidden_states, _ = self.self_attn(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 339, in forward
+    attn_output, attn_weights = attention_interface(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\integrations\sdpa_attention.py", line 96, in sdpa_attention_forward
+    attn_output = torch.nn.functional.scaled_dot_product_attention(
+
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 940, in _forward_impl
+    hidden = self.pre_transformer(inputs_embeds=hidden).last_hidden_state
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\utils\generic.py", line 1072, in wrapper
+    outputs = func(self, *args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 558, in forward
+    hidden_states = decoder_layer(
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\transformers\modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 468, in forward
+    hidden_states = self.mlp(hidden_states)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 368, in forward
+    down_proj = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 944, in _forward_impl
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 229, in forward
+    hidden_states = self.dwconv(hidden_states)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 191, in forward
+    hidden_state = F.pad(hidden_state, (self.padding, extra_padding), mode="constant", value=0)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\functional.py", line 5418, in pad
+    return torch._C._nn.pad(input, pad, mode, value)
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 944, in _forward_impl
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 231, in forward
+    hidden_states = self.norm(hidden_states)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\normalization.py", line 229, in forward
+    return F.layer_norm(
+
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 944, in _forward_impl
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 233, in forward
+    hidden_states = self.act(hidden_states)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\activation.py", line 815, in forward
+    return F.gelu(input, approximate=self.approximate)
+
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 944, in _forward_impl
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 240, in forward
+    hidden_states = input + hidden_states
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 944, in _forward_impl
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 229, in forward
+    hidden_states = self.dwconv(hidden_states)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 191, in forward
+    hidden_state = F.pad(hidden_state, (self.padding, extra_padding), mode="constant", value=0)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\functional.py", line 5418, in pad
+    return torch._C._nn.pad(input, pad, mode, value)
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 944, in _forward_impl
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 231, in forward
+    hidden_states = self.norm(hidden_states)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\normalization.py", line 229, in forward
+    return F.layer_norm(
+
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 944, in _forward_impl
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 233, in forward
+    hidden_states = self.act(hidden_states)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\modules\activation.py", line 815, in forward
+    return F.gelu(input, approximate=self.approximate)
+
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 191, in forward
+    hidden_state = F.pad(hidden_state, (self.padding, extra_padding), mode="constant", value=0)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\functional.py", line 5418, in pad
+    return torch._C._nn.pad(input, pad, mode, value)
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 611, in forward
+    hidden_states = hidden_states + (1.0 / (beta + self.no_div_by_zero)) * torch.pow(
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 631, in forward
+    hidden_state = self.conv1(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 191, in forward
+    hidden_state = F.pad(hidden_state, (self.padding, extra_padding), mode="constant", value=0)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\functional.py", line 5418, in pad
+    return torch._C._nn.pad(input, pad, mode, value)
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 632, in forward
+    hidden_state = self.act2(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 611, in forward
+    hidden_states = hidden_states + (1.0 / (beta + self.no_div_by_zero)) * torch.pow(
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 631, in forward
+    hidden_state = self.conv1(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 191, in forward
+    hidden_state = F.pad(hidden_state, (self.padding, extra_padding), mode="constant", value=0)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\functional.py", line 5418, in pad
+    return torch._C._nn.pad(input, pad, mode, value)
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 632, in forward
+    hidden_state = self.act2(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 611, in forward
+    hidden_states = hidden_states + (1.0 / (beta + self.no_div_by_zero)) * torch.pow(
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 634, in forward
+    return hidden_state + residual
+
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 631, in forward
+    hidden_state = self.conv1(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 191, in forward
+    hidden_state = F.pad(hidden_state, (self.padding, extra_padding), mode="constant", value=0)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\functional.py", line 5418, in pad
+    return torch._C._nn.pad(input, pad, mode, value)
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 632, in forward
+    hidden_state = self.act2(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 611, in forward
+    hidden_states = hidden_states + (1.0 / (beta + self.no_div_by_zero)) * torch.pow(
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 611, in forward
+    hidden_states = hidden_states + (1.0 / (beta + self.no_div_by_zero)) * torch.pow(
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 631, in forward
+    hidden_state = self.conv1(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 191, in forward
+    hidden_state = F.pad(hidden_state, (self.padding, extra_padding), mode="constant", value=0)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\functional.py", line 5418, in pad
+    return torch._C._nn.pad(input, pad, mode, value)
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 632, in forward
+    hidden_state = self.act2(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 611, in forward
+    hidden_states = hidden_states + (1.0 / (beta + self.no_div_by_zero)) * torch.pow(
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 631, in forward
+    hidden_state = self.conv1(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 191, in forward
+    hidden_state = F.pad(hidden_state, (self.padding, extra_padding), mode="constant", value=0)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\functional.py", line 5418, in pad
+    return torch._C._nn.pad(input, pad, mode, value)
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 632, in forward
+    hidden_state = self.act2(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 611, in forward
+    hidden_states = hidden_states + (1.0 / (beta + self.no_div_by_zero)) * torch.pow(
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 634, in forward
+    return hidden_state + residual
+
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 631, in forward
+    hidden_state = self.conv1(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 191, in forward
+    hidden_state = F.pad(hidden_state, (self.padding, extra_padding), mode="constant", value=0)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\functional.py", line 5418, in pad
+    return torch._C._nn.pad(input, pad, mode, value)
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 632, in forward
+    hidden_state = self.act2(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 611, in forward
+    hidden_states = hidden_states + (1.0 / (beta + self.no_div_by_zero)) * torch.pow(
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 611, in forward
+    hidden_states = hidden_states + (1.0 / (beta + self.no_div_by_zero)) * torch.pow(
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 631, in forward
+    hidden_state = self.conv1(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 191, in forward
+    hidden_state = F.pad(hidden_state, (self.padding, extra_padding), mode="constant", value=0)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\functional.py", line 5418, in pad
+    return torch._C._nn.pad(input, pad, mode, value)
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 632, in forward
+    hidden_state = self.act2(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 611, in forward
+    hidden_states = hidden_states + (1.0 / (beta + self.no_div_by_zero)) * torch.pow(
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 631, in forward
+    hidden_state = self.conv1(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 191, in forward
+    hidden_state = F.pad(hidden_state, (self.padding, extra_padding), mode="constant", value=0)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\functional.py", line 5418, in pad
+    return torch._C._nn.pad(input, pad, mode, value)
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 632, in forward
+    hidden_state = self.act2(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 611, in forward
+    hidden_states = hidden_states + (1.0 / (beta + self.no_div_by_zero)) * torch.pow(
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 634, in forward
+    return hidden_state + residual
+
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 631, in forward
+    hidden_state = self.conv1(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 191, in forward
+    hidden_state = F.pad(hidden_state, (self.padding, extra_padding), mode="constant", value=0)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\functional.py", line 5418, in pad
+    return torch._C._nn.pad(input, pad, mode, value)
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 632, in forward
+    hidden_state = self.act2(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 611, in forward
+    hidden_states = hidden_states + (1.0 / (beta + self.no_div_by_zero)) * torch.pow(
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 611, in forward
+    hidden_states = hidden_states + (1.0 / (beta + self.no_div_by_zero)) * torch.pow(
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 631, in forward
+    hidden_state = self.conv1(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 191, in forward
+    hidden_state = F.pad(hidden_state, (self.padding, extra_padding), mode="constant", value=0)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\functional.py", line 5418, in pad
+    return torch._C._nn.pad(input, pad, mode, value)
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 632, in forward
+    hidden_state = self.act2(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 611, in forward
+    hidden_states = hidden_states + (1.0 / (beta + self.no_div_by_zero)) * torch.pow(
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 631, in forward
+    hidden_state = self.conv1(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 191, in forward
+    hidden_state = F.pad(hidden_state, (self.padding, extra_padding), mode="constant", value=0)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\functional.py", line 5418, in pad
+    return torch._C._nn.pad(input, pad, mode, value)
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 632, in forward
+    hidden_state = self.act2(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 611, in forward
+    hidden_states = hidden_states + (1.0 / (beta + self.no_div_by_zero)) * torch.pow(
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 634, in forward
+    return hidden_state + residual
+
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 631, in forward
+    hidden_state = self.conv1(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 191, in forward
+    hidden_state = F.pad(hidden_state, (self.padding, extra_padding), mode="constant", value=0)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\functional.py", line 5418, in pad
+    return torch._C._nn.pad(input, pad, mode, value)
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 656, in forward
+    hidden = block(hidden)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 632, in forward
+    hidden_state = self.act2(hidden_state)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 611, in forward
+    hidden_states = hidden_states + (1.0 / (beta + self.no_div_by_zero)) * torch.pow(
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 947, in _forward_impl
+    wav = block(wav)
+  File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 191, in forward
+    hidden_state = F.pad(hidden_state, (self.padding, extra_padding), mode="constant", value=0)
+  File "C:\Nirmita\apps\tts-qwen3-server\.venv312\Lib\site-packages\torch\nn\functional.py", line 5418, in pad
+    return torch._C._nn.pad(input, pad, mode, value)
+
+cudagraph partition due to dynamic shape ops
+cudagraph partition due to dynamic shape ops. Found from : 
+   File "C:\Nirmita\apps\tts-qwen3-fork-dffdeeq\qwen_tts\core\tokenizer_12hz\modeling_qwen3_tts_tokenizer_v2.py", line 948, in _forward_impl
+    return wav.clamp(min=-1, max=1)
+
+cudagraph partition into 77 partitions
+2026-03-04 16:49:47,168 INFO [qwen3_tts_sidecar] Qwen3 runtime warmup done: chunks=2 elapsed_ms=67882 audio_ms=638
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:6116 (Press CTRL+C to quit)
+INFO:     127.0.0.1:10523 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:10526 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9002 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+2026-03-04 16:50:01,017 INFO [qwen3_tts_sidecar] Qwen3 sidecar first-audio latency_ms=919
+INFO:     127.0.0.1:9018 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+2026-03-04 16:50:25,580 INFO [qwen3_tts_sidecar] Qwen3 sidecar first-audio latency_ms=1059
+INFO:     127.0.0.1:9023 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+2026-03-04 16:50:36,281 WARNING [qwen3_tts_sidecar] Qwen3 compile path failed (RuntimeError('These storage data ptrs are not allocated in pool (0, 1) but should be {49746546688, 49746603008}')). Disabling compile for runtime and retrying once.
+2026-03-04 16:50:36,798 INFO [qwen3_tts_sidecar] talker_config is None. Initializing talker model with default values
+2026-03-04 16:50:36,798 INFO [qwen3_tts_sidecar] speaker_encoder_config is None. Initializing talker model with default values
+2026-03-04 16:50:36,799 INFO [qwen3_tts_sidecar] code_predictor_config is None. Initializing code_predictor model with default values
+2026-03-04 16:50:36,800 INFO [qwen3_tts_sidecar] code_predictor_config is None. Initializing code_predictor model with default values
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 3972.82it/s]
+2026-03-04 16:50:42,716 INFO [qwen3_tts_sidecar] encoder_config is None. Initializing encoder with default values
+2026-03-04 16:50:42,716 INFO [qwen3_tts_sidecar] decoder_config is None. Initializing decoder with default values
+2026-03-04 16:50:46,806 INFO [qwen3_tts_sidecar] Qwen3 runtime: compile optimizations are disabled (use_compile=false).
+[Tokenizer] Enabling streaming optimizations...
+  use_compile=False, compile_mode=reduce-overhead
+  use_cuda_graphs=False (manual)
+2026-03-04 16:50:46,806 INFO [qwen3_tts_sidecar] Qwen3 model loaded: Qwen/Qwen3-TTS-12Hz-0.6B-Base (attn=flash_attention_2, compile=False)
+2026-03-04 16:50:48,789 INFO [qwen3_tts_sidecar] Qwen3 sidecar first-audio latency_ms=12989
+INFO:     127.0.0.1:8200 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+2026-03-04 16:51:18,888 INFO [qwen3_tts_sidecar] Qwen3 voice_clone prompt cached: ref_audio=C:\Nirmita\Nira_voice.wav x_vector_only_mode=True ref_text=empty
+2026-03-04 16:51:20,500 INFO [qwen3_tts_sidecar] Qwen3 sidecar first-audio latency_ms=2226
+INFO:     127.0.0.1:6903 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+2026-03-04 16:53:53,454 INFO [qwen3_tts_sidecar] Qwen3 sidecar first-audio latency_ms=1646
+INFO:     127.0.0.1:8393 - "POST /v1/tts/stream HTTP/1.1" 200 OK
+2026-03-04 16:56:04,400 INFO [qwen3_tts_sidecar] Qwen3 sidecar first-audio latency_ms=1712

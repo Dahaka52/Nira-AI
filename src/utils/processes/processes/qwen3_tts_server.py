@@ -144,6 +144,11 @@ class Qwen3TTSProcess(BaseProcess):
             ("sample_rate", "--sample_rate"),
             ("sample_width", "--sample_width"),
             ("channels", "--channels"),
+            ("voice_mode", "--voice_mode"),
+            ("ref_audio_path", "--ref_audio_path"),
+            ("ref_text", "--ref_text"),
+            ("x_vector_only_mode", "--x_vector_only_mode"),
+            ("preload_voice_clone_prompt", "--preload_voice_clone_prompt"),
             ("emit_every_frames", "--emit_every_frames"),
             ("decode_window_frames", "--decode_window_frames"),
             ("first_chunk_emit_every", "--first_chunk_emit_every"),
@@ -151,8 +156,10 @@ class Qwen3TTSProcess(BaseProcess):
             ("first_chunk_frames", "--first_chunk_frames"),
             ("overlap_samples", "--overlap_samples"),
             ("max_new_tokens", "--max_new_tokens"),
+            ("max_frames", "--max_frames"),
             ("repetition_penalty", "--repetition_penalty"),
             ("repetition_penalty_window", "--repetition_penalty_window"),
+            ("use_optimized_decode", "--use_optimized_decode"),
             ("max_concurrent", "--max_concurrent"),
             ("instruct_prefix", "--instruct_prefix"),
             ("preload_on_start", "--preload_on_start"),
@@ -169,6 +176,7 @@ class Qwen3TTSProcess(BaseProcess):
             ("compile_mode", "--compile_mode"),
             ("compile_use_cuda_graphs", "--compile_use_cuda_graphs"),
             ("compile_codebook_predictor", "--compile_codebook_predictor"),
+            ("compile_talker", "--compile_talker"),
         ):
             if key in runtime_cfg and runtime_cfg[key] is not None:
                 cmd.extend([arg_name, str(runtime_cfg[key])])
