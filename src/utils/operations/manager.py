@@ -7,6 +7,7 @@ from .base import Operation
 from utils.helpers.singleton import Singleton
 from utils.config import Config
 from .stt.registry import load_stt_operation
+from .tts.registry import load_tts_operation
 
 class OpTypes(Enum):
     STT = "stt"
@@ -43,6 +44,37 @@ def role_to_type(op_role: OpRoles) -> OpTypes:
             return OpTypes.EMBEDDING
         case _:
             raise UnknownOpRole(op_role)
+
+
+def _select_active_entry(
+    entries: List[Dict[str, Any]],
+    active_id: str | None,
+    strict: bool,
+    op_name: str,
+    default_first_when_active_id_missing: bool = True,
+) -> Dict[str, Any] | None:
+    if entries:
+        if active_id:
+            selected = next((op for op in entries if str(op.get("id", "")) == str(active_id)), None)
+            if selected is None:
+                if strict:
+                    raise UnknownOpID(op_name, str(active_id))
+                selected = entries[0]
+                logging.warning(
+                    "%s active_id='%s' not found in operations; falling back to first %s '%s'.",
+                    op_name.lower(),
+                    active_id,
+                    op_name,
+                    selected.get("id"),
+                )
+            return selected
+        if default_first_when_active_id_missing:
+            return entries[0]
+        return None
+
+    if active_id and strict:
+        raise UnknownOpID(op_name, str(active_id))
+    return None
     
     
 def load_op(op_type: OpTypes, op_id: str, op_details: Dict[str, Any] | None = None):
@@ -72,7 +104,7 @@ def load_op(op_type: OpTypes, op_id: str, op_details: Dict[str, Any] | None = No
             else:
                 raise UnknownOpID("T2T", op_id)
         case OpTypes.TTS:
-            raise UnknownOpID("TTS", op_id)
+            return load_tts_operation(op_id=op_id, op_details=op_details)
         case OpTypes.FILTER_AUDIO:
             if op_id == "rvc":
                 from .filter_audio.rvc import RVCFilter
@@ -256,41 +288,52 @@ class OperationManager(metaclass=Singleton):
         # Allow declaring multiple STT ops in config and selecting one by stt_active_id.
         # This enables fast A/B switching without rewriting the pipeline.
         stt_entries = [op for op in operations if str(op.get("role", "")).lower() == OpRoles.STT.value]
-        selected_stt = None
-        stt_strict_active_id = bool(getattr(config, "stt_strict_active_id", False))
-        if stt_entries:
-            active_stt_id = getattr(config, "stt_active_id", None)
-            if active_stt_id:
-                selected_stt = next((op for op in stt_entries if str(op.get("id", "")) == str(active_stt_id)), None)
-                if selected_stt is None:
-                    if stt_strict_active_id:
-                        raise UnknownOpID("STT", str(active_stt_id))
-                    selected_stt = stt_entries[0]
-                    logging.warning(
-                        "stt_active_id='%s' not found in operations; falling back to first STT '%s'.",
-                        active_stt_id,
-                        selected_stt.get("id")
-                    )
-            else:
-                selected_stt = stt_entries[0]
-        elif getattr(config, "stt_active_id", None) and stt_strict_active_id:
-            raise UnknownOpID("STT", str(getattr(config, "stt_active_id")))
+        selected_stt = _select_active_entry(
+            entries=stt_entries,
+            active_id=getattr(config, "stt_active_id", None),
+            strict=bool(getattr(config, "stt_strict_active_id", False)),
+            op_name="STT",
+            default_first_when_active_id_missing=True,
+        )
+
+        # Same pattern for TTS providers.
+        tts_entries = [op for op in operations if str(op.get("role", "")).lower() == OpRoles.TTS.value]
+        selected_tts = _select_active_entry(
+            entries=tts_entries,
+            active_id=getattr(config, "tts_active_id", None),
+            strict=bool(getattr(config, "tts_strict_active_id", False)),
+            op_name="TTS",
+            default_first_when_active_id_missing=False,
+        )
 
         filtered_ops: List[Dict[str, Any]] = []
         stt_added = False
+        tts_added = False
         for op_details in operations:
             role = str(op_details.get("role", "")).lower()
-            if role != OpRoles.STT.value:
-                filtered_ops.append(op_details)
+            if role == OpRoles.STT.value:
+                # Keep only selected STT entry.
+                if selected_stt is not None and (op_details is selected_stt) and not stt_added:
+                    filtered_ops.append(op_details)
+                    stt_added = True
+                continue
+            if role == OpRoles.TTS.value:
+                # Keep only selected TTS entry.
+                if selected_tts is not None and (op_details is selected_tts) and not tts_added:
+                    filtered_ops.append(op_details)
+                    tts_added = True
                 continue
 
-            # Keep only selected STT entry.
-            if selected_stt is not None and (op_details is selected_stt) and not stt_added:
+            # Keep all non-STT / non-TTS ops.
+            if role not in (OpRoles.STT.value, OpRoles.TTS.value):
                 filtered_ops.append(op_details)
-                stt_added = True
 
         if stt_entries and selected_stt:
             logging.info("Active STT from config: %s", selected_stt.get("id"))
+        if tts_entries and selected_tts:
+            logging.info("Active TTS from config: %s", selected_tts.get("id"))
+        elif tts_entries and not selected_tts:
+            logging.info("No active TTS selected from config (tts_active_id is empty).")
 
         for op_details in filtered_ops:
             op_role = OpRoles(op_details['role'])

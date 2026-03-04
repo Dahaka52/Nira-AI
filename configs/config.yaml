@@ -1,6 +1,8 @@
 # Enabled operations
 stt_active_id: "sherpa_ru"  # Быстрое переключение STT: выбери id и вызови /api/operations/reload
 stt_strict_active_id: true  # Ошибка старта, если выбранный stt_active_id отсутствует в operations
+tts_active_id: "qwen3"      # Быстрое переключение TTS по id (null = TTS не активен)
+tts_strict_active_id: false # Если true и tts_active_id не найден в operations, старт завершится ошибкой
 broadcast_debug_prompt_events: false  # Служебные raw prompt/history события в WS (держать false для меньшей нагрузки)
 
 operations:
@@ -56,6 +58,44 @@ operations:
   - role: filter_text
     id: chunker_sentence
 
+  # TTS (Qwen3) - активен через tts_active_id: "qwen3".
+  # Для отключения поставь tts_active_id: null
+  - role: tts
+    id: qwen3
+    entrypoint: "utils.operations.tts.qwen3:Qwen3TTS"
+    mode: "sidecar"              # sidecar | local
+    base_url: "http://127.0.0.1:6116"
+    stream_endpoint: "/v1/tts/stream"
+    health_endpoint: "/health"
+    sample_rate: 24000
+    sample_width: 2
+    channels: 1
+    language: "Auto"
+    speaker: "Ryan"
+    provider: "cuda"             # cpu | cuda
+    gpu_id: 1                    # По умолчанию RTX 5060
+    model_id: "Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice"
+    device: "cuda:1"             # Локальный режим: конкретный GPU. Для sidecar учитывается process.device
+    dtype: "bfloat16"
+    emit_every_frames: 12
+    decode_window_frames: 80
+    first_chunk_emit_every: 5
+    first_chunk_decode_window: 48
+    first_chunk_frames: 48
+    process_autostart: true
+    process_startup_retries: 3
+    process_startup_backoff_s: 0.6
+    process:
+      type: "qwen3_tts_server"
+      host: "127.0.0.1"
+      port: 6116
+      provider: "cuda"           # cpu | cuda
+      gpu_id: 1                  # CUDA_VISIBLE_DEVICES для sidecar
+      python_executable: "C:\\Nirmita\\apps\\tts-qwen3-server\\.venv\\Scripts\\python.exe"
+      device: "cuda:0"           # внутри sidecar после pin по CUDA_VISIBLE_DEVICES
+      model_id: "Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice"
+      max_concurrent: 1
+
 # Microphone & VAD Settings
 microphone:
   enabled: true
@@ -97,8 +137,6 @@ microphone:
   # Allow short emotional cues (laughs/hum) to still produce a response.
   respond_to_short_emotes: true
   short_emote_words: ["ха-ха", "хаха", "ахах", "ахаха", "хм", "гм", "лол", "ржу"]
-
-  # TTS (Text-to-Speech) пока не подключен
 
 # Prompter settings
 prompter:

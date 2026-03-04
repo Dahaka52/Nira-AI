@@ -17,6 +17,7 @@ class ProcessType(Enum):
     LLAMACPP = "llamacpp"
     SHERPA = "sherpa_stt"
     HW_MIC = "hw_mic"
+    QWEN3_TTS = "qwen3_tts"
 
 class ProcessManager(metaclass=Singleton):
     loaded_processes = dict()
@@ -49,6 +50,12 @@ class ProcessManager(metaclass=Singleton):
                 if process_config is not None:
                     self.loaded_processes[ProcessType.HW_MIC].set_runtime_config(process_config)
                 await self.loaded_processes[ProcessType.HW_MIC].reload()
+            case ProcessType.QWEN3_TTS:
+                from .processes.qwen3_tts_server import Qwen3TTSProcess
+                self.loaded_processes[ProcessType.QWEN3_TTS] = Qwen3TTSProcess()
+                if process_config is not None:
+                    self.loaded_processes[ProcessType.QWEN3_TTS].set_runtime_config(process_config)
+                await self.loaded_processes[ProcessType.QWEN3_TTS].reload()
             case _:
                 raise UnknownProcessError(process_type)
         

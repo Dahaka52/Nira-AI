@@ -7,6 +7,10 @@ Adds to chunk:
 - sr: (int) sample rate
 - sw: (int) sample width
 - ch: (int) audio channels
+
+Optional passthrough fields that providers may consume:
+- emotion: (str) emotion hint from text filters
+- source_id / turn_id / utterance_id / speaker_id: tracing metadata
 '''
 
 from typing import Dict, Any, AsyncGenerator
@@ -31,10 +35,15 @@ class TTSOperation(Operation):
         assert "content" in chunk_in
         assert isinstance(chunk_in["content"], str)
         assert len(chunk_in["content"]) > 0
-        
-        return {
+
+        out = {
             "content": chunk_in["content"]
         }
+        # Optional metadata can be consumed by provider implementations.
+        for key in ("emotion", "source_id", "turn_id", "utterance_id", "speaker_id", "input_timestamp_ms"):
+            if key in chunk_in:
+                out[key] = chunk_in[key]
+        return out
     
     ## TO BE IMPLEMENTED ####
     async def configure(self, config_d: Dict[str, Any]):

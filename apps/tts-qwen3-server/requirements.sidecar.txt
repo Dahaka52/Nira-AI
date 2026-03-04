@@ -1,0 +1,21 @@
+# Qwen3 TTS sidecar runtime (Windows 11, CUDA 12.8 / RTX 50xx)
+# Note: torch/torchaudio are expected from the parent env (system-site-packages).
+
+accelerate==1.12.0
+einops==0.8.2
+transformers==4.57.3
+tokenizers==0.22.2
+huggingface_hub==0.36.2
+numpy==2.2.6
+librosa==0.11.0
+soundfile==0.13.1
+onnxruntime==1.23.2
+sox==1.5.0
+fastapi==0.115.13
+uvicorn[standard]==0.41.0
+httpx==0.28.1
+python-multipart==0.0.20
+
+# Streaming fork (priority upstream selected for this project)
+qwen-tts @ git+https://github.com/rekuenkdr/Qwen3-TTS-streaming.git@b8db6ff1cebc0d6554cf0977045850bcc796b383
+
