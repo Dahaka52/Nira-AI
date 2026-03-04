@@ -85,12 +85,20 @@ class Qwen3TTSProcess(BaseProcess):
 
         import sys
 
-        default_sidecar_python = os.path.abspath(
-            os.path.join(os.path.dirname(__file__), "../../../../apps/tts-qwen3-server/.venv/Scripts/python.exe")
-        )
+        default_sidecar_python = ""
+        for candidate in (
+            "../../../../apps/tts-qwen3-server/.venv312/Scripts/python.exe",
+            "../../../../apps/tts-qwen3-server/.venv/Scripts/python.exe",
+        ):
+            candidate_abs = os.path.abspath(os.path.join(os.path.dirname(__file__), candidate))
+            if os.path.exists(candidate_abs):
+                default_sidecar_python = candidate_abs
+                break
         python_executable = str(runtime_cfg.get("python_executable", "")).strip()
         if not python_executable:
-            python_executable = default_sidecar_python if os.path.exists(default_sidecar_python) else sys.executable
+            python_executable = default_sidecar_python if default_sidecar_python else sys.executable
+        if not os.path.exists(python_executable):
+            raise FileNotFoundError(f"Qwen3 TTS python_executable not found: {python_executable}")
         host = str(runtime_cfg.get("host", "127.0.0.1")).strip() or "127.0.0.1"
         health_host = str(runtime_cfg.get("health_host", "127.0.0.1")).strip() or "127.0.0.1"
         provider = str(runtime_cfg.get("provider", "cuda")).strip().lower() or "cuda"
@@ -156,6 +164,8 @@ class Qwen3TTSProcess(BaseProcess):
             ("warmup_speaker", "--warmup_speaker"),
             ("warmup_language", "--warmup_language"),
             ("warmup_chunks", "--warmup_chunks"),
+            ("first_chunk_timeout_s", "--first_chunk_timeout_s"),
+            ("stream_idle_timeout_s", "--stream_idle_timeout_s"),
             ("compile_mode", "--compile_mode"),
             ("compile_use_cuda_graphs", "--compile_use_cuda_graphs"),
             ("compile_codebook_predictor", "--compile_codebook_predictor"),

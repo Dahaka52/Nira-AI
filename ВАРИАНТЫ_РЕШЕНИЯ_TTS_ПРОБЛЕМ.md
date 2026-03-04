@@ -138,3 +138,52 @@
 - Audio output client: [main.py](C:/Nirmita/apps/hw-audio-out-client/main.py)
 - Лог sidecar: `logs/qwen3_tts_server.log` (есть traceback с `AssertionError` в cudagraph path)
 - Smoke tool: [tts_smoke.py](C:/Nirmita/src/tools/tts_smoke.py)
+
+## 6) Новое после рефакторинга (добавлено в этой итерации)
+
+### 6.1 Исправления в коде TTS тракта
+- Sidecar [start_server.py](C:/Nirmita/apps/tts-qwen3-server/start_server.py):
+  - исправлен критичный баг чтения request-параметров через `or`:
+    - теперь `overlap_samples=0` и другие `0`-значения не теряются (раньше могли молча заменяться на дефолт sidecar).
+  - добавлены fail-fast таймауты стрима:
+    - `first_chunk_timeout_s` (по умолчанию 18с),
+    - `stream_idle_timeout_s` (по умолчанию 20с),
+    чтобы sidecar не зависал бесконечно без данных.
+- Process launcher [qwen3_tts_server.py](C:/Nirmita/src/utils/processes/processes/qwen3_tts_server.py):
+  - добавлен приоритет `.venv312` над `.venv` по умолчанию;
+  - добавлена явная ошибка, если `python_executable` не существует;
+  - прокинуты новые таймаут-параметры (`first_chunk_timeout_s`, `stream_idle_timeout_s`).
+- TTS operation [qwen3.py](C:/Nirmita/src/utils/operations/tts/qwen3.py):
+  - новые параметры таймаутов добавлены в список совместимых `process.*` override.
+- Audio out [main.py](C:/Nirmita/apps/hw-audio-out-client/main.py) + [hw_audio_out.py](C:/Nirmita/src/utils/processes/processes/hw_audio_out.py):
+  - добавлена мягкая буферизация:
+    - `prebuffer_ms` (стартовая подушка),
+    - `rebuffer_ms` (повторная подушка после underflow),
+  - цель: убрать «слово-пауза-слово» при медленном генераторе.
+
+### 6.2 Обновления конфига
+- [config.yaml](C:/Nirmita/configs/config.yaml):
+  - переключено на `process.python_executable = ...\\.venv312\\Scripts\\python.exe`;
+  - `attn_implementation` переключен на `flash_attention_2` (top-level + process);
+  - синхронизированы process-стриминг параметры (`emit/decode/first_chunk/overlap/max_new_tokens`);
+  - добавлены `audio_output.prebuffer_ms` и `audio_output.rebuffer_ms`;
+  - добавлены `process.first_chunk_timeout_s` и `process.stream_idle_timeout_s`.
+
+### 6.3 Новые наблюдения по runtime (важно)
+- Новое окружение Py3.12 собрано:
+  - `torch 2.10.0+cu130`
+  - `torchaudio 2.10.0+cu130`
+  - `flash-attn 2.8.3+cu130torch2.10 (win cp312 wheel)`
+  - `triton-windows 3.6.0.post25`
+  - `qwen-tts 0.1.1` (fork from groxaxo pin in requirements)
+- Быстрый isolated smoke на порту 6126 показал:
+  - Run 1: HTTP 200, но `0 bytes` аудио;
+  - Run 2: timeout.
+- Это подтверждает, что проблема не только в audio-out: есть нестабильность/подвисание в генерации или стриме sidecar даже на 3.12+flash-attn.
+
+### 6.4 Новые предполагаемые причины
+1. Уязвимость именно в используемой сборке `qwen-tts` (fork/commit), а не только в Python версии.
+2. `torch.compile` путь остаётся рискованным даже после hardening (возможны silent hang/no-bytes сценарии).
+3. Нужен A/B с:
+   - `use_compile=0` на Py3.12+flash-attn,
+   - альтернативным fork (`dffdeeq`/`reku`) в том же окружении.

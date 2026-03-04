@@ -283,6 +283,8 @@ class Qwen3TTS(TTSOperation):
             "warmup_speaker",
             "warmup_language",
             "warmup_chunks",
+            "first_chunk_timeout_s",
+            "stream_idle_timeout_s",
         ):
             # Keep explicit nested process.* as source of truth.
             # Top-level fields are only backward-compatible defaults.

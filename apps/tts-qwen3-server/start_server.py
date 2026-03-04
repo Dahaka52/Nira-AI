@@ -103,6 +103,8 @@ class ServerConfig:
     warmup_speaker: str = ""
     warmup_language: str = ""
     warmup_chunks: int = 2
+    first_chunk_timeout_s: float = 18.0
+    stream_idle_timeout_s: float = 20.0
 
 
 class Qwen3Runtime:
@@ -111,9 +113,11 @@ class Qwen3Runtime:
         self._model = None
         self._model_id_loaded = None
         self._attn_impl_loaded = None
+        self._compile_loaded = None
         self._lock = threading.Lock()
         self._import_error = None
         self._load_error = None
+        self._compile_runtime_disabled = False
 
         try:
             import importlib.util
@@ -138,6 +142,8 @@ class Qwen3Runtime:
             "ready": self.is_ready(),
             "model_loaded": bool(self._model is not None),
             "model_id_loaded": self._model_id_loaded,
+            "compile_loaded": self._compile_loaded,
+            "compile_runtime_disabled": self._compile_runtime_disabled,
             "runtime_provider": self.cfg.provider,
             "runtime_gpu_id": self.cfg.gpu_id,
             "runtime_device": self.cfg.device,
@@ -157,6 +163,32 @@ class Qwen3Runtime:
             return torch_mod.float32
         return torch_mod.bfloat16
 
+    def _reset_loaded_model(self) -> None:
+        self._model = None
+        self._model_id_loaded = None
+        self._attn_impl_loaded = None
+        self._compile_loaded = None
+        try:
+            import torch
+
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+        except Exception:
+            pass
+
+    @staticmethod
+    def _looks_like_compile_failure(exc: Exception) -> bool:
+        text = f"{repr(exc)}\n{traceback.format_exc()}".lower()
+        markers = (
+            "torch._inductor",
+            "cudagraph",
+            "triton",
+            "compile",
+            "_is_key_in_tls",
+            "assertionerror",
+        )
+        return any(marker in text for marker in markers)
+
     def _ensure_model_loaded(
         self,
         model_id: str,
@@ -173,6 +205,7 @@ class Qwen3Runtime:
                 self._model is not None
                 and self._model_id_loaded == model_id
                 and self._attn_impl_loaded == (attn_implementation or None)
+                and self._compile_loaded == (bool(getattr(self.cfg, "use_compile", False)) and not self._compile_runtime_disabled)
             ):
                 return
 
@@ -181,7 +214,7 @@ class Qwen3Runtime:
                 from qwen_tts import Qwen3TTSModel
 
                 torch_dtype = self._resolve_dtype(torch, dtype)
-                use_compile = bool(getattr(self.cfg, "use_compile", False))
+                use_compile = bool(getattr(self.cfg, "use_compile", False)) and not self._compile_runtime_disabled
                 if use_compile:
                     try:
                         import importlib.util
@@ -259,13 +292,17 @@ class Qwen3Runtime:
                 self._model = model
                 self._model_id_loaded = model_id
                 self._attn_impl_loaded = attn_implementation or None
+                self._compile_loaded = use_compile
                 self._load_error = None
-                logging.info("Qwen3 model loaded: %s (attn=%s)", model_id, self._attn_impl_loaded or "default")
+                logging.info(
+                    "Qwen3 model loaded: %s (attn=%s, compile=%s)",
+                    model_id,
+                    self._attn_impl_loaded or "default",
+                    use_compile,
+                )
             except Exception as exc:
                 self._load_error = exc
-                self._model = None
-                self._model_id_loaded = None
-                self._attn_impl_loaded = None
+                self._reset_loaded_model()
                 raise
 
     def preload_and_warmup(self) -> None:
@@ -339,10 +376,14 @@ class Qwen3Runtime:
         )
 
     def stream_custom_voice(self, req: TTSRequest) -> Iterable[tuple[bytes, int]]:
+        def _pick(req_value: Any, cfg_value: Any) -> Any:
+            # Important: preserve explicit falsy values from request (e.g. 0).
+            return cfg_value if req_value is None else req_value
+
         cfg = self.cfg
-        model_id = req.model_id or cfg.model_id
-        provider = str(req.provider or cfg.provider or "cuda").strip().lower()
-        gpu_id = int(req.gpu_id if req.gpu_id is not None else cfg.gpu_id)
+        model_id = str(_pick(req.model_id, cfg.model_id))
+        provider = str(_pick(req.provider, cfg.provider) or "cuda").strip().lower()
+        gpu_id = int(_pick(req.gpu_id, cfg.gpu_id))
         if req.device and str(req.device).strip():
             device = str(req.device).strip()
         else:
@@ -350,21 +391,21 @@ class Qwen3Runtime:
                 device = "cpu"
             else:
                 device = cfg.device or f"cuda:{gpu_id}"
-        dtype = req.dtype or cfg.dtype
-        attn_implementation = req.attn_implementation or cfg.attn_implementation
-        decode_window_frames = int(req.decode_window_frames or cfg.decode_window_frames)
-        emit_every_frames = int(req.emit_every_frames or cfg.emit_every_frames)
-        first_chunk_emit_every = int(req.first_chunk_emit_every or cfg.first_chunk_emit_every)
-        first_chunk_decode_window = int(req.first_chunk_decode_window or cfg.first_chunk_decode_window)
-        first_chunk_frames = int(req.first_chunk_frames or cfg.first_chunk_frames)
-        overlap_samples = int(req.overlap_samples or cfg.overlap_samples)
+        dtype = str(_pick(req.dtype, cfg.dtype))
+        attn_implementation = _pick(req.attn_implementation, cfg.attn_implementation)
+        decode_window_frames = int(_pick(req.decode_window_frames, cfg.decode_window_frames))
+        emit_every_frames = int(_pick(req.emit_every_frames, cfg.emit_every_frames))
+        first_chunk_emit_every = int(_pick(req.first_chunk_emit_every, cfg.first_chunk_emit_every))
+        first_chunk_decode_window = int(_pick(req.first_chunk_decode_window, cfg.first_chunk_decode_window))
+        first_chunk_frames = int(_pick(req.first_chunk_frames, cfg.first_chunk_frames))
+        overlap_samples = int(_pick(req.overlap_samples, cfg.overlap_samples))
         use_optimized_decode = bool(req.use_optimized_decode) if req.use_optimized_decode is not None else True
-        repetition_penalty = float(req.repetition_penalty or cfg.repetition_penalty)
-        repetition_penalty_window = int(req.repetition_penalty_window or cfg.repetition_penalty_window)
-        max_new_tokens = int(req.max_new_tokens or cfg.max_new_tokens)
-        speaker = req.speaker or cfg.speaker
-        language = req.language or cfg.language
-        instruct = req.instruct or ""
+        repetition_penalty = float(_pick(req.repetition_penalty, cfg.repetition_penalty))
+        repetition_penalty_window = int(_pick(req.repetition_penalty_window, cfg.repetition_penalty_window))
+        max_new_tokens = int(_pick(req.max_new_tokens, cfg.max_new_tokens))
+        speaker = str(_pick(req.speaker, cfg.speaker))
+        language = str(_pick(req.language, cfg.language))
+        instruct = str(req.instruct or "")
         if cfg.instruct_prefix:
             instruct = f"{cfg.instruct_prefix} {instruct}".strip()
 
@@ -402,71 +443,96 @@ class Qwen3Runtime:
         if instruct:
             stream_kwargs["instruct"] = instruct
 
-        stream_fn = getattr(self._model, "stream_generate_custom_voice", None)
-        if stream_fn is None:
-            # Compatibility fallback for official qwen_tts builds that only expose
-            # generate_custom_voice() (non-streaming API).
-            gen_fn = getattr(self._model, "generate_custom_voice", None)
-            if gen_fn is None:
-                raise RuntimeError(
-                    "Loaded qwen_tts model does not support stream_generate_custom_voice() "
-                    "or generate_custom_voice()."
+        for attempt in (1, 2):
+            try:
+                stream_fn = getattr(self._model, "stream_generate_custom_voice", None)
+                if stream_fn is None:
+                    # Compatibility fallback for official qwen_tts builds that only expose
+                    # generate_custom_voice() (non-streaming API).
+                    gen_fn = getattr(self._model, "generate_custom_voice", None)
+                    if gen_fn is None:
+                        raise RuntimeError(
+                            "Loaded qwen_tts model does not support stream_generate_custom_voice() "
+                            "or generate_custom_voice()."
+                        )
+
+                    logging.warning(
+                        "Qwen3 runtime fallback: stream_generate_custom_voice() is unavailable. "
+                        "Using generate_custom_voice() chunked fallback."
+                    )
+                    gen_kwargs = {
+                        "text": req.text,
+                        "speaker": speaker,
+                        "language": language,
+                        "max_new_tokens": max_new_tokens,
+                    }
+                    if instruct:
+                        gen_kwargs["instruct"] = instruct
+                    # keep only conservative generation kwargs supported across builds
+                    gen_kwargs.update({
+                        "do_sample": True,
+                        "top_p": 0.9,
+                        "temperature": 0.8,
+                    })
+                    wavs, sr = gen_fn(**gen_kwargs)
+                    if not wavs:
+                        return
+
+                    pcm_all = _to_pcm16_bytes(wavs[0])
+                    if not pcm_all:
+                        return
+
+                    sr_i = int(sr)
+                    chunk_ms = 40
+                    chunk_samples = max(1, int(sr_i * (chunk_ms / 1000.0)))
+                    chunk_bytes = chunk_samples * 2  # mono int16
+                    for off in range(0, len(pcm_all), chunk_bytes):
+                        part = pcm_all[off:off + chunk_bytes]
+                        if part:
+                            yield part, sr_i
+                    return
+
+                try:
+                    iterator = stream_fn(**stream_kwargs)
+                except TypeError:
+                    # Fallback for older forks without first-chunk / repetition parameters.
+                    for key in (
+                        "first_chunk_emit_every",
+                        "first_chunk_decode_window",
+                        "first_chunk_frames",
+                        "repetition_penalty",
+                        "repetition_penalty_window",
+                    ):
+                        stream_kwargs.pop(key, None)
+                    iterator = stream_fn(**stream_kwargs)
+
+                for chunk, sr in iterator:
+                    pcm = _to_pcm16_bytes(chunk)
+                    if pcm:
+                        yield pcm, int(sr)
+                return
+            except Exception as exc:
+                can_retry_non_compile = (
+                    attempt == 1
+                    and not self._compile_runtime_disabled
+                    and self._looks_like_compile_failure(exc)
                 )
+                if not can_retry_non_compile:
+                    raise
 
-            logging.warning(
-                "Qwen3 runtime fallback: stream_generate_custom_voice() is unavailable. "
-                "Using generate_custom_voice() chunked fallback."
-            )
-            gen_kwargs = {
-                "text": req.text,
-                "speaker": speaker,
-                "language": language,
-                "max_new_tokens": max_new_tokens,
-            }
-            if instruct:
-                gen_kwargs["instruct"] = instruct
-            # keep only conservative generation kwargs supported across builds
-            gen_kwargs.update({
-                "do_sample": True,
-                "top_p": 0.9,
-                "temperature": 0.8,
-            })
-            wavs, sr = gen_fn(**gen_kwargs)
-            if not wavs:
-                return
-
-            pcm_all = _to_pcm16_bytes(wavs[0])
-            if not pcm_all:
-                return
-
-            sr_i = int(sr)
-            chunk_ms = 40
-            chunk_samples = max(1, int(sr_i * (chunk_ms / 1000.0)))
-            chunk_bytes = chunk_samples * 2  # mono int16
-            for off in range(0, len(pcm_all), chunk_bytes):
-                part = pcm_all[off:off + chunk_bytes]
-                if part:
-                    yield part, sr_i
-            return
-
-        try:
-            iterator = stream_fn(**stream_kwargs)
-        except TypeError:
-            # Fallback for older forks without first-chunk / repetition parameters.
-            for key in (
-                "first_chunk_emit_every",
-                "first_chunk_decode_window",
-                "first_chunk_frames",
-                "repetition_penalty",
-                "repetition_penalty_window",
-            ):
-                stream_kwargs.pop(key, None)
-            iterator = stream_fn(**stream_kwargs)
-
-        for chunk, sr in iterator:
-            pcm = _to_pcm16_bytes(chunk)
-            if pcm:
-                yield pcm, int(sr)
+                logging.warning(
+                    "Qwen3 compile path failed (%s). Disabling compile for runtime and retrying once.",
+                    repr(exc),
+                )
+                self._compile_runtime_disabled = True
+                self._reset_loaded_model()
+                self._ensure_model_loaded(
+                    model_id=model_id,
+                    device=device,
+                    dtype=dtype,
+                    decode_window_frames=decode_window_frames,
+                    attn_implementation=attn_implementation,
+                )
 
 
 def build_app(cfg: ServerConfig) -> FastAPI:
@@ -500,6 +566,8 @@ def build_app(cfg: ServerConfig) -> FastAPI:
                 queue: asyncio.Queue = asyncio.Queue()
                 sentinel = object()
                 started = time.perf_counter()
+                first_chunk_timeout_s = max(3.0, float(cfg.first_chunk_timeout_s))
+                stream_idle_timeout_s = max(3.0, float(cfg.stream_idle_timeout_s))
 
                 def worker():
                     try:
@@ -518,7 +586,18 @@ def build_app(cfg: ServerConfig) -> FastAPI:
 
                 first = True
                 while True:
-                    tag, payload = await queue.get()
+                    timeout_s = first_chunk_timeout_s if first else stream_idle_timeout_s
+                    try:
+                        tag, payload = await asyncio.wait_for(queue.get(), timeout=timeout_s)
+                    except asyncio.TimeoutError:
+                        if first:
+                            logging.error(
+                                "Qwen3 sidecar stream timeout before first chunk (>%ss).",
+                                timeout_s,
+                            )
+                            return
+                        logging.warning("Qwen3 sidecar stream idle timeout (>%ss). Closing stream.", timeout_s)
+                        break
                     if tag is sentinel:
                         break
                     if tag == "error":
@@ -532,7 +611,10 @@ def build_app(cfg: ServerConfig) -> FastAPI:
                             detail = str(payload or "stream worker failure")
                             logging.error("Qwen3 sidecar stream worker failed: %s", detail)
                         if first:
-                            raise RuntimeError(detail)
+                            # Return an empty stream body gracefully. Client side detects
+                            # zero-byte 200 as failure and can restart/retry without abrupt
+                            # socket resets from ASGI exception bubbling.
+                            return
                         break
                     if first:
                         first = False
@@ -592,6 +674,8 @@ def parse_args() -> ServerConfig:
     parser.add_argument("--warmup_speaker", type=str, default="")
     parser.add_argument("--warmup_language", type=str, default="")
     parser.add_argument("--warmup_chunks", type=int, default=2)
+    parser.add_argument("--first_chunk_timeout_s", type=float, default=18.0)
+    parser.add_argument("--stream_idle_timeout_s", type=float, default=20.0)
     ns = parser.parse_args()
     return ServerConfig(
         host=ns.host,
@@ -631,6 +715,8 @@ def parse_args() -> ServerConfig:
         warmup_speaker=ns.warmup_speaker,
         warmup_language=ns.warmup_language,
         warmup_chunks=ns.warmup_chunks,
+        first_chunk_timeout_s=float(ns.first_chunk_timeout_s),
+        stream_idle_timeout_s=float(ns.stream_idle_timeout_s),
     )
 
 
