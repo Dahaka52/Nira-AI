@@ -64,13 +64,12 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Quick TTS sidecar smoke benchmark (TTFB/RTF).")
     parser.add_argument("--url", default="http://127.0.0.1:6116/v1/tts/stream", help="TTS stream endpoint")
     parser.add_argument("--text", default="Привет, как дела?", help="Input text")
-    parser.add_argument("--speaker", default="serena")
     parser.add_argument("--language", default="russian")
-    parser.add_argument("--voice-mode", dest="voice_mode", default="custom_voice", help="custom_voice|voice_clone")
-    parser.add_argument("--ref-audio-path", dest="ref_audio_path", default="", help="Path to reference WAV for voice_clone")
+    parser.add_argument("--voice-mode", dest="voice_mode", default="voice_clone", help="voice_clone")
+    parser.add_argument("--ref-audio-path", dest="ref_audio_path", default="C:\\Nirmita\\Nira_voice.wav", help="Path to reference WAV")
     parser.add_argument("--ref-text", dest="ref_text", default="", help="Optional transcript for reference WAV")
     parser.add_argument("--x-vector-only-mode", dest="x_vector_only_mode", type=int, default=1, help="0|1")
-    parser.add_argument("--model-id", dest="model_id", default="Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice")
+    parser.add_argument("--model-id", dest="model_id", default="Qwen/Qwen3-TTS-12Hz-0.6B-Base")
     parser.add_argument("--provider", default="cuda", help="cpu|cuda")
     parser.add_argument("--gpu-id", dest="gpu_id", type=int, default=1)
     parser.add_argument("--device", default="cuda:0")
@@ -81,13 +80,8 @@ def main() -> int:
     parser.add_argument("--channels", type=int, default=1)
     parser.add_argument("--emit-every-frames", dest="emit_every_frames", type=int, default=8)
     parser.add_argument("--decode-window-frames", dest="decode_window_frames", type=int, default=64)
-    parser.add_argument("--first-chunk-emit-every", dest="first_chunk_emit_every", type=int, default=5)
-    parser.add_argument("--first-chunk-decode-window", dest="first_chunk_decode_window", type=int, default=48)
-    parser.add_argument("--first-chunk-frames", dest="first_chunk_frames", type=int, default=48)
     parser.add_argument("--overlap-samples", dest="overlap_samples", type=int, default=512)
-    parser.add_argument("--max-new-tokens", dest="max_new_tokens", type=int, default=384)
-    parser.add_argument("--repetition-penalty", dest="repetition_penalty", type=float, default=1.02)
-    parser.add_argument("--repetition-penalty-window", dest="repetition_penalty_window", type=int, default=64)
+    parser.add_argument("--max-frames", dest="max_frames", type=int, default=56)
     parser.add_argument("--do-sample", dest="do_sample", type=int, default=0, help="0|1")
     parser.add_argument("--top-p", dest="top_p", type=float, default=0.9)
     parser.add_argument("--top-k", dest="top_k", type=int, default=50)
@@ -99,7 +93,6 @@ def main() -> int:
 
     payload = {
         "text": args.text,
-        "speaker": args.speaker,
         "language": args.language,
         "voice_mode": args.voice_mode,
         "ref_audio_path": args.ref_audio_path,
@@ -116,13 +109,8 @@ def main() -> int:
         "channels": args.channels,
         "emit_every_frames": args.emit_every_frames,
         "decode_window_frames": args.decode_window_frames,
-        "first_chunk_emit_every": args.first_chunk_emit_every,
-        "first_chunk_decode_window": args.first_chunk_decode_window,
-        "first_chunk_frames": args.first_chunk_frames,
         "overlap_samples": args.overlap_samples,
-        "max_new_tokens": args.max_new_tokens,
-        "repetition_penalty": args.repetition_penalty,
-        "repetition_penalty_window": args.repetition_penalty_window,
+        "max_frames": args.max_frames,
         "do_sample": bool(int(args.do_sample)),
         "top_p": args.top_p,
         "top_k": args.top_k,
@@ -136,8 +124,7 @@ def main() -> int:
     print(
         "[TTS_SMOKE] params: "
         f"emit={args.emit_every_frames} decode={args.decode_window_frames} "
-        f"first=({args.first_chunk_emit_every},{args.first_chunk_decode_window},{args.first_chunk_frames}) "
-        f"overlap={args.overlap_samples} rep_pen={args.repetition_penalty}"
+        f"overlap={args.overlap_samples} max_frames={args.max_frames}"
     )
 
     results = []

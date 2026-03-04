@@ -17,5 +17,5 @@ httpx==0.28.1
 python-multipart==0.0.20
 triton-windows<3.7; platform_system == "Windows"
 
-# Streaming fork with CustomVoice real-time method stream_generate_custom_voice()
-qwen-tts @ git+https://github.com/groxaxo/Qwen3-TTS-Openai-Fastapi.git@b58ce6521bcd03885c3ae0bad61e06fed17f512a
+# Primary runtime: original dffdeeq streaming fork (local checkout in repo).
+-e ../dffdeeq_Qwen3-TTS-streaming-main

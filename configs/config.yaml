@@ -65,48 +65,38 @@ operations:
   - role: tts
     id: qwen3
     entrypoint: "utils.operations.tts.qwen3:Qwen3TTS"
-    mode: "sidecar"              # sidecar | local
+    mode: "sidecar"
     base_url: "http://127.0.0.1:6116"
     stream_endpoint: "/v1/tts/stream"
     health_endpoint: "/health"
-    sidecar_read_chunk_bytes: 4096 # Меньше сетевой квантуемости, ровнее realtime-подача PCM
+    sidecar_read_chunk_bytes: 8192
     sample_rate: 24000
     sample_width: 2
     channels: 1
-    voice_mode: "voice_clone"      # custom_voice | voice_clone
+    runtime_flavor: "dffdeeq"
+    voice_mode: "voice_clone"
     ref_audio_path: "C:\\Nirmita\\Nira_voice.wav"
-    ref_text: ""                   # для x_vector_only_mode=true можно оставить пустым
+    ref_text: ""
     x_vector_only_mode: true
     language: "russian"
-    speaker: "serena"              # serena|vivian|uncle_fu|ryan|aiden|ono_anna|sohee|eric|dylan
-    instruct_prefix: "Весёлый задорный голос, энергичный тон"          # Глобальный стиль голоса (например: "Спокойный мягкий голос, дружелюбный тон.")
-    provider: "cuda"             # cpu | cuda
-    gpu_id: 1                    # TTS на RTX 5060 (избегаем конкуренции с LLM на 5070)
+    provider: "cuda"
+    gpu_id: 1
     model_id: "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
-    device: "cuda:0"             # Для sidecar c CUDA_VISIBLE_DEVICES=1 это физическая RTX 5060
+    device: "cuda:0"
     dtype: "bfloat16"
-    attn_implementation: "flash_attention_2"  # Py3.12 sidecar + flash-attn wheel (Win, cu130)
+    attn_implementation: "flash_attention_2"
     emit_every_frames: 4
     decode_window_frames: 32
-    first_chunk_emit_every: 1
-    first_chunk_decode_window: 16
-    first_chunk_frames: 16
     overlap_samples: 0
-    max_new_tokens: 112
     max_frames: 56
     max_text_chars: 90
-    dynamic_max_frames: true
+    dynamic_max_frames: false
     dynamic_chars_per_second: 11.5
     dynamic_frame_budget_mul: 1.05
     dynamic_min_frames: 20
     dynamic_max_frames_cap: 56
-    dynamic_token_floor: 48
-    dynamic_token_span: 24
-    voice_clone_tail_silence_trim_ms: 900   # Обрезает длинный шипящий/тихий хвост voice_clone
-    voice_clone_tail_silence_rms: 0.0025
-    voice_clone_tail_trim_min_audio_ms: 900
     use_optimized_decode: true
-    do_sample: false             # Стабилизирует тембр и уменьшает "прыжки" высоты тона
+    do_sample: false
     top_p: 0.9
     top_k: 50
     temperature: 0.8
@@ -117,43 +107,47 @@ operations:
       type: "qwen3_tts_server"
       host: "127.0.0.1"
       port: 6116
-      provider: "cuda"           # cpu | cuda
-      gpu_id: 1                  # CUDA_VISIBLE_DEVICES для sidecar (RTX 5060)
+      provider: "cuda"
+      gpu_id: 1
+      runtime_flavor: "dffdeeq"
+      qwen_tts_repo_path: "C:\\Nirmita\\apps\\dffdeeq_Qwen3-TTS-streaming-main"
       voice_mode: "voice_clone"
-      ref_audio_path: "C:\\Nirmita\\Nira_voice.wav"
+      ref_audio_path: "C:\\Nirmita\\kuklina-1.wav"
       ref_text: ""
       x_vector_only_mode: 1
-      preload_voice_clone_prompt: 1
       python_executable: "C:\\Nirmita\\apps\\tts-qwen3-server\\.venv312\\Scripts\\python.exe"
-      device: "cuda:0"           # внутри sidecar после pin по CUDA_VISIBLE_DEVICES
+      device: "cuda:0"
       attn_implementation: "flash_attention_2"
-      use_compile: 1             # Speed profile B2: compile без cuda-graphs
+      use_compile: 1
       compile_mode: "reduce-overhead"
       compile_use_cuda_graphs: 0
       compile_codebook_predictor: 1
       compile_talker: 1
-      allow_compile_voice_clone: 1 # тест compile-path в voice_clone (без cuda-graphs)
+      compile_cudagraph_skip_dynamic_graphs: 0
       emit_every_frames: 4
       decode_window_frames: 32
-      first_chunk_emit_every: 1
-      first_chunk_decode_window: 16
-      first_chunk_frames: 16
       overlap_samples: 0
-      max_new_tokens: 112
       max_frames: 56
       use_optimized_decode: 1
+      do_sample: 0
+      top_p: 0.9
+      top_k: 50
+      temperature: 0.8
+      dynamic_max_frames: 0
+      dynamic_chars_per_second: 11.5
+      dynamic_frame_budget_mul: 1.05
+      dynamic_min_frames: 20
+      dynamic_max_frames_cap: 56
       sox_bin_dir: "C:\\Nirmita\\apps\\tts-qwen3-server\\third_party\\sox\\sox-14.4.2-win32\\sox-14.4.2"
       model_id: "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
       max_concurrent: 1
-      preload_on_start: 1        # Загружает модель при старте sidecar, а не на первом запросе
-      warmup_on_start: 0          # Ускоряет старт backend; прогрев можно запускать вручную
+      preload_on_start: 1
+      warmup_on_start: 1
       warmup_text: "Привет."
-      warmup_emit_every_frames: 4
-      warmup_decode_window_frames: 48
-      warmup_max_new_tokens: 96
-      warmup_chunks: 2
-      first_chunk_timeout_s: 30
-      stream_idle_timeout_s: 30
+      warmup_chunks: 1
+      startup_health_timeout_s: 300
+      first_chunk_timeout_s: 120
+      stream_idle_timeout_s: 60
 
 # Microphone & VAD Settings
 microphone:

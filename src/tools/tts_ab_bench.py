@@ -23,10 +23,6 @@ class CaseResult:
     sample_rate: int
     emit_every_frames: int
     decode_window_frames: int
-    first_chunk_emit_every: int
-    first_chunk_decode_window: int
-    first_chunk_frames: int
-    max_new_tokens: int
     max_frames: int
     overlap_samples: int
     use_optimized_decode: bool
@@ -101,10 +97,6 @@ def _default_matrix() -> List[Dict[str, Any]]:
             "case_id": "baseline_e4_d48_f1_24_24",
             "emit_every_frames": 4,
             "decode_window_frames": 48,
-            "first_chunk_emit_every": 1,
-            "first_chunk_decode_window": 24,
-            "first_chunk_frames": 24,
-            "max_new_tokens": 112,
             "max_frames": 80,
             "overlap_samples": 0,
             "use_optimized_decode": True,
@@ -117,10 +109,6 @@ def _default_matrix() -> List[Dict[str, Any]]:
             "case_id": "e6_d64_f2_32_32",
             "emit_every_frames": 6,
             "decode_window_frames": 64,
-            "first_chunk_emit_every": 2,
-            "first_chunk_decode_window": 32,
-            "first_chunk_frames": 32,
-            "max_new_tokens": 112,
             "max_frames": 80,
             "overlap_samples": 0,
             "use_optimized_decode": True,
@@ -133,10 +121,6 @@ def _default_matrix() -> List[Dict[str, Any]]:
             "case_id": "e8_d80_f2_48_48",
             "emit_every_frames": 8,
             "decode_window_frames": 80,
-            "first_chunk_emit_every": 2,
-            "first_chunk_decode_window": 48,
-            "first_chunk_frames": 48,
-            "max_new_tokens": 112,
             "max_frames": 80,
             "overlap_samples": 0,
             "use_optimized_decode": True,
@@ -149,10 +133,6 @@ def _default_matrix() -> List[Dict[str, Any]]:
             "case_id": "e4_d64_f2_32_32",
             "emit_every_frames": 4,
             "decode_window_frames": 64,
-            "first_chunk_emit_every": 2,
-            "first_chunk_decode_window": 32,
-            "first_chunk_frames": 32,
-            "max_new_tokens": 112,
             "max_frames": 80,
             "overlap_samples": 0,
             "use_optimized_decode": True,
@@ -165,10 +145,6 @@ def _default_matrix() -> List[Dict[str, Any]]:
             "case_id": "e6_d80_f3_48_48",
             "emit_every_frames": 6,
             "decode_window_frames": 80,
-            "first_chunk_emit_every": 3,
-            "first_chunk_decode_window": 48,
-            "first_chunk_frames": 48,
-            "max_new_tokens": 112,
             "max_frames": 80,
             "overlap_samples": 0,
             "use_optimized_decode": True,
@@ -184,7 +160,6 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="A/B benchmark for Qwen3 TTS sidecar.")
     parser.add_argument("--url", default="http://127.0.0.1:6116/v1/tts/stream")
     parser.add_argument("--text", default="Привет! Какой у тебя любимый компьютерный персонаж?")
-    parser.add_argument("--speaker", default="serena")
     parser.add_argument("--language", default="russian")
     parser.add_argument("--voice-mode", dest="voice_mode", default="voice_clone")
     parser.add_argument("--ref-audio-path", dest="ref_audio_path", default="C:\\Nirmita\\Nira_voice.wav")
@@ -226,7 +201,6 @@ def main() -> int:
             for i in range(1, int(args.runs_per_case) + 1):
                 payload = {
                     "text": args.text,
-                    "speaker": args.speaker,
                     "language": args.language,
                     "voice_mode": args.voice_mode,
                     "ref_audio_path": args.ref_audio_path,
@@ -243,11 +217,7 @@ def main() -> int:
                     "channels": int(args.channels),
                     "emit_every_frames": int(case["emit_every_frames"]),
                     "decode_window_frames": int(case["decode_window_frames"]),
-                    "first_chunk_emit_every": int(case["first_chunk_emit_every"]),
-                    "first_chunk_decode_window": int(case["first_chunk_decode_window"]),
-                    "first_chunk_frames": int(case["first_chunk_frames"]),
                     "overlap_samples": int(case["overlap_samples"]),
-                    "max_new_tokens": int(case["max_new_tokens"]),
                     "max_frames": int(case["max_frames"]),
                     "use_optimized_decode": bool(case["use_optimized_decode"]),
                     "do_sample": bool(case["do_sample"]),
@@ -283,10 +253,6 @@ def main() -> int:
                         sample_rate=0,
                         emit_every_frames=int(case["emit_every_frames"]),
                         decode_window_frames=int(case["decode_window_frames"]),
-                        first_chunk_emit_every=int(case["first_chunk_emit_every"]),
-                        first_chunk_decode_window=int(case["first_chunk_decode_window"]),
-                        first_chunk_frames=int(case["first_chunk_frames"]),
-                        max_new_tokens=int(case["max_new_tokens"]),
                         max_frames=int(case["max_frames"]),
                         overlap_samples=int(case["overlap_samples"]),
                         use_optimized_decode=bool(case["use_optimized_decode"]),
@@ -318,10 +284,6 @@ def main() -> int:
                     sample_rate=int(avg("sample_rate")),
                     emit_every_frames=int(case["emit_every_frames"]),
                     decode_window_frames=int(case["decode_window_frames"]),
-                    first_chunk_emit_every=int(case["first_chunk_emit_every"]),
-                    first_chunk_decode_window=int(case["first_chunk_decode_window"]),
-                    first_chunk_frames=int(case["first_chunk_frames"]),
-                    max_new_tokens=int(case["max_new_tokens"]),
                     max_frames=int(case["max_frames"]),
                     overlap_samples=int(case["overlap_samples"]),
                     use_optimized_decode=bool(case["use_optimized_decode"]),
@@ -361,4 +323,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -116,6 +116,8 @@ class Qwen3TTSProcess(BaseProcess):
 
         default_device = "cpu" if provider.startswith("cpu") else "cuda:0"
         device = str(runtime_cfg.get("device", "")).strip() or default_device
+        runtime_cfg.setdefault("runtime_flavor", "dffdeeq")
+        runtime_cfg.setdefault("voice_mode", "voice_clone")
 
         cmd = [
             python_executable,
@@ -136,7 +138,6 @@ class Qwen3TTSProcess(BaseProcess):
         # Optional runtime tuning forwarded to sidecar.
         for key, arg_name in (
             ("model_id", "--model_id"),
-            ("speaker", "--speaker"),
             ("language", "--language"),
             ("dtype", "--dtype"),
             ("attn_implementation", "--attn_implementation"),
@@ -145,31 +146,29 @@ class Qwen3TTSProcess(BaseProcess):
             ("sample_width", "--sample_width"),
             ("channels", "--channels"),
             ("voice_mode", "--voice_mode"),
+            ("runtime_flavor", "--runtime_flavor"),
+            ("qwen_tts_repo_path", "--qwen_tts_repo_path"),
             ("ref_audio_path", "--ref_audio_path"),
             ("ref_text", "--ref_text"),
             ("x_vector_only_mode", "--x_vector_only_mode"),
-            ("preload_voice_clone_prompt", "--preload_voice_clone_prompt"),
             ("emit_every_frames", "--emit_every_frames"),
             ("decode_window_frames", "--decode_window_frames"),
-            ("first_chunk_emit_every", "--first_chunk_emit_every"),
-            ("first_chunk_decode_window", "--first_chunk_decode_window"),
-            ("first_chunk_frames", "--first_chunk_frames"),
             ("overlap_samples", "--overlap_samples"),
-            ("max_new_tokens", "--max_new_tokens"),
             ("max_frames", "--max_frames"),
-            ("repetition_penalty", "--repetition_penalty"),
-            ("repetition_penalty_window", "--repetition_penalty_window"),
             ("use_optimized_decode", "--use_optimized_decode"),
+            ("do_sample", "--do_sample"),
+            ("top_p", "--top_p"),
+            ("top_k", "--top_k"),
+            ("temperature", "--temperature"),
+            ("dynamic_max_frames", "--dynamic_max_frames"),
+            ("dynamic_chars_per_second", "--dynamic_chars_per_second"),
+            ("dynamic_frame_budget_mul", "--dynamic_frame_budget_mul"),
+            ("dynamic_min_frames", "--dynamic_min_frames"),
+            ("dynamic_max_frames_cap", "--dynamic_max_frames_cap"),
             ("max_concurrent", "--max_concurrent"),
-            ("instruct_prefix", "--instruct_prefix"),
             ("preload_on_start", "--preload_on_start"),
             ("warmup_on_start", "--warmup_on_start"),
             ("warmup_text", "--warmup_text"),
-            ("warmup_emit_every_frames", "--warmup_emit_every_frames"),
-            ("warmup_decode_window_frames", "--warmup_decode_window_frames"),
-            ("warmup_max_new_tokens", "--warmup_max_new_tokens"),
-            ("warmup_speaker", "--warmup_speaker"),
-            ("warmup_language", "--warmup_language"),
             ("warmup_chunks", "--warmup_chunks"),
             ("first_chunk_timeout_s", "--first_chunk_timeout_s"),
             ("stream_idle_timeout_s", "--stream_idle_timeout_s"),
@@ -177,10 +176,13 @@ class Qwen3TTSProcess(BaseProcess):
             ("compile_use_cuda_graphs", "--compile_use_cuda_graphs"),
             ("compile_codebook_predictor", "--compile_codebook_predictor"),
             ("compile_talker", "--compile_talker"),
-            ("allow_compile_voice_clone", "--allow_compile_voice_clone"),
+            ("compile_cudagraph_skip_dynamic_graphs", "--compile_cudagraph_skip_dynamic_graphs"),
         ):
             if key in runtime_cfg and runtime_cfg[key] is not None:
-                cmd.extend([arg_name, str(runtime_cfg[key])])
+                value = runtime_cfg[key]
+                if isinstance(value, bool):
+                    value = int(value)
+                cmd.extend([arg_name, str(value)])
 
         log_path = os.path.join(args.log_dir, "qwen3_tts_server.log")
         os.makedirs(args.log_dir, exist_ok=True)
@@ -218,7 +220,11 @@ class Qwen3TTSProcess(BaseProcess):
         )
 
         health_url = f"http://{health_host}:{self.port}/health"
-        deadline_s = 90
+        try:
+            deadline_s = int(runtime_cfg.get("startup_health_timeout_s", 90))
+        except Exception:
+            deadline_s = 90
+        deadline_s = max(30, deadline_s)
         for _ in range(deadline_s * 2):
             await asyncio.sleep(0.5)
             if self.process.poll() is not None:

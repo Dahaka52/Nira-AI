@@ -1,0 +1,83 @@
+============================================================
+Loading model...
+============================================================
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files: 100%|██████████| 4/4 [00:00<00:00, 3966.24it/s]
+Setting `pad_token_id` to `eos_token_id`:2150 for open-end generation.
+W0304 23:55:37.907000 16612 Lib\site-packages\torch\_inductor\utils.py:1679] [0/0] Not enough SMs to use max_autotune_gemm mode
+CUDAGraph supports dynamic shapes by recording a new graph for each distinct input size. Recording too many CUDAGraphs may lead to extra overhead. We have observed 9 distinct sizes. Please consider the following options for better performance: a) padding inputs to a few fixed number of shapes; or b) set torch._inductor.config.triton.cudagraph_skip_dynamic_graphs=True. Set torch._inductor.config.triton.cudagraph_dynamic_shape_warn_limit=None to silence this warning.
+[11.49s] Model loaded
+[1.96s] Voice clone prompt created
+
+============================================================
+Test 1: Standard (non-streaming) generation
+============================================================
+[31.47s] Standard generation complete
+Audio duration: 6.63s, RTF: 4.74
+
+============================================================
+Test 2: Streaming WITHOUT optimizations
+============================================================
+First chunk: 1.42s, Total: 27.63s, Chunks: 20
+Audio duration: 6.32s, Chunk duration: 316ms, RTF: 4.37
+
+============================================================
+Test 3: Streaming WITH torch.compile (decoder + talker + codebook)
+============================================================
+
+Enabling streaming optimizations...
+[Tokenizer] Enabling streaming optimizations...
+  use_compile=True, compile_mode=reduce-overhead
+  use_cuda_graphs=False (manual)
+[Decoder] Compiling forward with mode=reduce-overhead, backend=inductor...
+[Decoder] Note: mode='reduce-overhead' includes CUDA graphs automatically
+[Decoder] Compilation complete
+[Talker] Enabling fast codebook generation...
+[Talker] Compiling model with mode=default...
+[CodePredictor] Compiling model with mode=reduce-overhead...
+
+Warmup runs (compilation happens here)...
+  Warmup 1: 200.22s, Audio: 2.48s, RTF: 80.76
+  Warmup 2: 1.57s, Audio: 2.64s, RTF: 0.60
+  Warmup 3: 3.29s, Audio: 5.36s, RTF: 0.61
+
+Optimized test runs...
+  Run 1 (short): First chunk: 0.26s, Total: 4.12s, Audio: 6.40s, RTF: 0.64
+  Run 2 (medium): First chunk: 0.29s, Total: 5.65s, Audio: 9.20s, RTF: 0.61
+  Run 3 (tiny): First chunk: 0.23s, Total: 0.77s, Audio: 1.12s, RTF: 0.69
+  Run 4 (short_repeat): First chunk: 0.23s, Total: 3.75s, Audio: 6.72s, RTF: 0.56
+
+================================================================================
+SUMMARY
+================================================================================
+
+Method                     1st Chunk    Total    Audio    RTF  Chunks  RTF Speedup
+--------------------------------------------------------------------------------
+Standard (no streaming)          N/A   31.47s    6.63s   4.74     N/A          N/A
+streaming_baseline             1.42s   27.63s    6.32s   4.37      20        1.00x
+optimized_short                0.26s    4.12s    6.40s   0.64      20        6.79x
+optimized_medium               0.29s    5.65s    9.20s   0.61      29        7.12x
+optimized_tiny                 0.23s    0.77s    1.12s   0.69       4        6.33x
+optimized_short_repeat         0.23s    3.75s    6.72s   0.56      21        7.84x
+
+Optimized runs statistics (4 runs):
+  Average RTF: 0.63
+  Average first chunk latency: 0.25s
+
+Chunk duration: ~316ms (7583 samples @ 24000Hz)
+
+[291.95s] TOTAL SCRIPT TIME
+
+============================================================
+TIPS FOR BEST PERFORMANCE
+============================================================
+
+1. Call enable_streaming_optimizations() ONCE after model loading
+2. Use compile_mode="reduce-overhead" (default) - it includes CUDA graphs automatically
+3. First run after compile is slow (compilation), subsequent runs are fast
+4. For lowest latency: use smaller emit_every_frames (e.g., 4)
+5. For best quality: use larger decode_window_frames (e.g., 80-100)
+6. compile_talker=True compiles the main talker model (uses "default" mode internally)
+7. compile_codebook_predictor=True compiles the codebook predictor
+8. You can also try compile_mode="max-autotune" for potentially better performance
+   (but longer initial compilation time)
+
