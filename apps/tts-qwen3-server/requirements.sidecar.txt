@@ -16,6 +16,5 @@ uvicorn[standard]==0.41.0
 httpx==0.28.1
 python-multipart==0.0.20
 
-# Streaming fork (priority upstream selected for this project)
-qwen-tts @ git+https://github.com/rekuenkdr/Qwen3-TTS-streaming.git@b8db6ff1cebc0d6554cf0977045850bcc796b383
-
+# Streaming fork with CustomVoice real-time method stream_generate_custom_voice()
+qwen-tts @ git+https://github.com/groxaxo/Qwen3-TTS-Openai-Fastapi.git@b58ce6521bcd03885c3ae0bad61e06fed17f512a
