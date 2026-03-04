@@ -55,8 +55,14 @@ class TTSRequest(BaseModel):
     first_chunk_emit_every: Optional[int] = None
     first_chunk_decode_window: Optional[int] = None
     first_chunk_frames: Optional[int] = None
+    overlap_samples: Optional[int] = None
+    use_optimized_decode: Optional[bool] = None
     repetition_penalty: Optional[float] = None
     repetition_penalty_window: Optional[int] = None
+    do_sample: Optional[bool] = None
+    top_p: Optional[float] = None
+    top_k: Optional[int] = None
+    temperature: Optional[float] = None
 
 
 @dataclass
@@ -79,12 +85,22 @@ class ServerConfig:
     first_chunk_emit_every: int = 5
     first_chunk_decode_window: int = 48
     first_chunk_frames: int = 48
+    overlap_samples: int = 512
     max_new_tokens: int = 1024
     repetition_penalty: float = 1.0
     repetition_penalty_window: int = 100
     max_concurrent: int = 1
     instruct_prefix: str = ""
     use_compile: bool = False
+    preload_on_start: bool = True
+    warmup_on_start: bool = True
+    warmup_text: str = "Привет."
+    warmup_emit_every_frames: int = 4
+    warmup_decode_window_frames: int = 64
+    warmup_max_new_tokens: int = 96
+    warmup_speaker: str = ""
+    warmup_language: str = ""
+    warmup_chunks: int = 2
 
 
 class Qwen3Runtime:
@@ -170,6 +186,25 @@ class Qwen3Runtime:
                 from qwen_tts import Qwen3TTSModel
 
                 torch_dtype = self._resolve_dtype(torch, dtype)
+                use_compile = bool(getattr(self.cfg, "use_compile", False))
+                if use_compile:
+                    try:
+                        import importlib.util
+
+                        if importlib.util.find_spec("triton") is None:
+                            logging.warning(
+                                "Qwen3 runtime: use_compile=1 requested, but triton is missing. Falling back to use_compile=0."
+                            )
+                            use_compile = False
+                    except Exception:
+                        use_compile = False
+
+                # Better defaults for tensor core throughput on RTX 50xx.
+                try:
+                    torch.set_float32_matmul_precision("high")
+                except Exception:
+                    pass
+
                 model = Qwen3TTSModel.from_pretrained(
                     model_id,
                     torch_dtype=torch_dtype,
@@ -179,7 +214,6 @@ class Qwen3Runtime:
 
                 if hasattr(model, "enable_streaming_optimizations"):
                     try:
-                        use_compile = bool(getattr(self.cfg, "use_compile", False))
                         if use_compile:
                             logging.info("Qwen3 runtime: enabling compile-based streaming optimizations.")
                         else:
@@ -204,6 +238,76 @@ class Qwen3Runtime:
                 self._attn_impl_loaded = None
                 raise
 
+    def preload_and_warmup(self) -> None:
+        if not bool(getattr(self.cfg, "preload_on_start", True)):
+            return
+
+        cfg = self.cfg
+        provider = str(cfg.provider or "cuda").strip().lower()
+        if provider.startswith("cpu"):
+            device = "cpu"
+        else:
+            device = str(cfg.device or "cuda:0").strip() or "cuda:0"
+
+        self._ensure_model_loaded(
+            model_id=str(cfg.model_id),
+            device=device,
+            dtype=str(cfg.dtype),
+            decode_window_frames=int(cfg.decode_window_frames),
+            attn_implementation=str(cfg.attn_implementation or "").strip() or None,
+        )
+
+        if not bool(getattr(cfg, "warmup_on_start", True)):
+            return
+
+        warmup_text = str(getattr(cfg, "warmup_text", "") or "").strip()
+        if not warmup_text:
+            return
+
+        req = TTSRequest(
+            text=warmup_text,
+            speaker=(str(getattr(cfg, "warmup_speaker", "") or "").strip() or cfg.speaker),
+            language=(str(getattr(cfg, "warmup_language", "") or "").strip() or cfg.language),
+            provider=cfg.provider,
+            gpu_id=cfg.gpu_id,
+            model_id=cfg.model_id,
+            device=cfg.device,
+            dtype=cfg.dtype,
+            attn_implementation=cfg.attn_implementation,
+            emit_every_frames=int(getattr(cfg, "warmup_emit_every_frames", 4)),
+            decode_window_frames=int(getattr(cfg, "warmup_decode_window_frames", 64)),
+            max_new_tokens=int(getattr(cfg, "warmup_max_new_tokens", 96)),
+            overlap_samples=int(getattr(cfg, "overlap_samples", 0)),
+            do_sample=False,
+            top_p=0.9,
+            top_k=50,
+            temperature=0.8,
+        )
+
+        started = time.perf_counter()
+        chunks = 0
+        samples = 0
+        max_chunks = max(1, int(getattr(cfg, "warmup_chunks", 2)))
+        try:
+            for pcm_bytes, sr in self.stream_custom_voice(req):
+                chunks += 1
+                if pcm_bytes:
+                    samples += int(len(pcm_bytes) // 2)  # mono int16
+                if chunks >= max_chunks:
+                    break
+        except Exception as exc:
+            logging.warning("Qwen3 runtime warmup failed: %s", exc)
+            return
+
+        elapsed_ms = int((time.perf_counter() - started) * 1000)
+        audio_ms = int((samples / max(1, int(sr))) * 1000) if samples > 0 else 0
+        logging.info(
+            "Qwen3 runtime warmup done: chunks=%s elapsed_ms=%s audio_ms=%s",
+            chunks,
+            elapsed_ms,
+            audio_ms,
+        )
+
     def stream_custom_voice(self, req: TTSRequest) -> Iterable[tuple[bytes, int]]:
         cfg = self.cfg
         model_id = req.model_id or cfg.model_id
@@ -223,6 +327,8 @@ class Qwen3Runtime:
         first_chunk_emit_every = int(req.first_chunk_emit_every or cfg.first_chunk_emit_every)
         first_chunk_decode_window = int(req.first_chunk_decode_window or cfg.first_chunk_decode_window)
         first_chunk_frames = int(req.first_chunk_frames or cfg.first_chunk_frames)
+        overlap_samples = int(req.overlap_samples or cfg.overlap_samples)
+        use_optimized_decode = bool(req.use_optimized_decode) if req.use_optimized_decode is not None else True
         repetition_penalty = float(req.repetition_penalty or cfg.repetition_penalty)
         repetition_penalty_window = int(req.repetition_penalty_window or cfg.repetition_penalty_window)
         max_new_tokens = int(req.max_new_tokens or cfg.max_new_tokens)
@@ -252,7 +358,17 @@ class Qwen3Runtime:
             "first_chunk_emit_every": first_chunk_emit_every,
             "first_chunk_decode_window": first_chunk_decode_window,
             "first_chunk_frames": first_chunk_frames,
+            "overlap_samples": overlap_samples,
+            "use_optimized_decode": use_optimized_decode,
         }
+        if req.do_sample is not None:
+            stream_kwargs["do_sample"] = bool(req.do_sample)
+            if req.top_p is not None:
+                stream_kwargs["top_p"] = float(req.top_p)
+            if req.top_k is not None:
+                stream_kwargs["top_k"] = int(req.top_k)
+            if req.temperature is not None:
+                stream_kwargs["temperature"] = float(req.temperature)
         if instruct:
             stream_kwargs["instruct"] = instruct
 
@@ -328,6 +444,10 @@ def build_app(cfg: ServerConfig) -> FastAPI:
     runtime = Qwen3Runtime(cfg)
     semaphore = asyncio.Semaphore(max(1, int(cfg.max_concurrent)))
 
+    @app.on_event("startup")
+    async def _startup_preload():
+        await asyncio.to_thread(runtime.preload_and_warmup)
+
     @app.get("/health")
     async def health():
         return JSONResponse(runtime.status_payload())
@@ -347,7 +467,7 @@ def build_app(cfg: ServerConfig) -> FastAPI:
         async with semaphore:
             async def stream_bytes():
                 loop = asyncio.get_running_loop()
-                queue: asyncio.Queue = asyncio.Queue(maxsize=32)
+                queue: asyncio.Queue = asyncio.Queue()
                 sentinel = object()
                 started = time.perf_counter()
 
@@ -409,12 +529,22 @@ def parse_args() -> ServerConfig:
     parser.add_argument("--first_chunk_emit_every", type=int, default=5)
     parser.add_argument("--first_chunk_decode_window", type=int, default=48)
     parser.add_argument("--first_chunk_frames", type=int, default=48)
+    parser.add_argument("--overlap_samples", type=int, default=512)
     parser.add_argument("--max_new_tokens", type=int, default=1024)
     parser.add_argument("--repetition_penalty", type=float, default=1.0)
     parser.add_argument("--repetition_penalty_window", type=int, default=100)
     parser.add_argument("--max_concurrent", type=int, default=1)
     parser.add_argument("--instruct_prefix", type=str, default="")
     parser.add_argument("--use_compile", type=int, default=0)
+    parser.add_argument("--preload_on_start", type=int, default=1)
+    parser.add_argument("--warmup_on_start", type=int, default=1)
+    parser.add_argument("--warmup_text", type=str, default="Привет.")
+    parser.add_argument("--warmup_emit_every_frames", type=int, default=4)
+    parser.add_argument("--warmup_decode_window_frames", type=int, default=64)
+    parser.add_argument("--warmup_max_new_tokens", type=int, default=96)
+    parser.add_argument("--warmup_speaker", type=str, default="")
+    parser.add_argument("--warmup_language", type=str, default="")
+    parser.add_argument("--warmup_chunks", type=int, default=2)
     ns = parser.parse_args()
     return ServerConfig(
         host=ns.host,
@@ -435,12 +565,22 @@ def parse_args() -> ServerConfig:
         first_chunk_emit_every=ns.first_chunk_emit_every,
         first_chunk_decode_window=ns.first_chunk_decode_window,
         first_chunk_frames=ns.first_chunk_frames,
+        overlap_samples=ns.overlap_samples,
         max_new_tokens=ns.max_new_tokens,
         repetition_penalty=ns.repetition_penalty,
         repetition_penalty_window=ns.repetition_penalty_window,
         max_concurrent=ns.max_concurrent,
         instruct_prefix=ns.instruct_prefix,
         use_compile=bool(int(ns.use_compile)),
+        preload_on_start=bool(int(ns.preload_on_start)),
+        warmup_on_start=bool(int(ns.warmup_on_start)),
+        warmup_text=ns.warmup_text,
+        warmup_emit_every_frames=ns.warmup_emit_every_frames,
+        warmup_decode_window_frames=ns.warmup_decode_window_frames,
+        warmup_max_new_tokens=ns.warmup_max_new_tokens,
+        warmup_speaker=ns.warmup_speaker,
+        warmup_language=ns.warmup_language,
+        warmup_chunks=ns.warmup_chunks,
     )
 
 

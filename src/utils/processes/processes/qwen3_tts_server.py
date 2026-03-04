@@ -141,11 +141,21 @@ class Qwen3TTSProcess(BaseProcess):
             ("first_chunk_emit_every", "--first_chunk_emit_every"),
             ("first_chunk_decode_window", "--first_chunk_decode_window"),
             ("first_chunk_frames", "--first_chunk_frames"),
+            ("overlap_samples", "--overlap_samples"),
             ("max_new_tokens", "--max_new_tokens"),
             ("repetition_penalty", "--repetition_penalty"),
             ("repetition_penalty_window", "--repetition_penalty_window"),
             ("max_concurrent", "--max_concurrent"),
             ("instruct_prefix", "--instruct_prefix"),
+            ("preload_on_start", "--preload_on_start"),
+            ("warmup_on_start", "--warmup_on_start"),
+            ("warmup_text", "--warmup_text"),
+            ("warmup_emit_every_frames", "--warmup_emit_every_frames"),
+            ("warmup_decode_window_frames", "--warmup_decode_window_frames"),
+            ("warmup_max_new_tokens", "--warmup_max_new_tokens"),
+            ("warmup_speaker", "--warmup_speaker"),
+            ("warmup_language", "--warmup_language"),
+            ("warmup_chunks", "--warmup_chunks"),
         ):
             if key in runtime_cfg and runtime_cfg[key] is not None:
                 cmd.extend([arg_name, str(runtime_cfg[key])])

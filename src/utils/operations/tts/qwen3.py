@@ -74,6 +74,10 @@ class Qwen3TTS(TTSOperation):
         self.dtype = "bfloat16"
         self.attn_implementation = "sdpa"
         self.max_new_tokens = 1024
+        self.do_sample = False
+        self.top_p = 0.9
+        self.top_k = 50
+        self.temperature = 0.8
 
         # Streaming tuning (fork-dependent; silently downgraded if unsupported)
         self.emit_every_frames = 12
@@ -81,6 +85,7 @@ class Qwen3TTS(TTSOperation):
         self.first_chunk_emit_every = 5
         self.first_chunk_decode_window = 48
         self.first_chunk_frames = 48
+        self.overlap_samples = 512
         self.repetition_penalty = 1.0
         self.repetition_penalty_window = 100
 
@@ -194,6 +199,14 @@ class Qwen3TTS(TTSOperation):
             self.attn_implementation = str(config_d["attn_implementation"]).strip()
         if "max_new_tokens" in config_d:
             self.max_new_tokens = int(config_d["max_new_tokens"])
+        if "do_sample" in config_d:
+            self.do_sample = bool(config_d["do_sample"])
+        if "top_p" in config_d:
+            self.top_p = float(config_d["top_p"])
+        if "top_k" in config_d:
+            self.top_k = int(config_d["top_k"])
+        if "temperature" in config_d:
+            self.temperature = float(config_d["temperature"])
 
         if "emit_every_frames" in config_d:
             self.emit_every_frames = int(config_d["emit_every_frames"])
@@ -205,6 +218,8 @@ class Qwen3TTS(TTSOperation):
             self.first_chunk_decode_window = int(config_d["first_chunk_decode_window"])
         if "first_chunk_frames" in config_d:
             self.first_chunk_frames = int(config_d["first_chunk_frames"])
+        if "overlap_samples" in config_d:
+            self.overlap_samples = int(config_d["overlap_samples"])
         if "repetition_penalty" in config_d:
             self.repetition_penalty = float(config_d["repetition_penalty"])
         if "repetition_penalty_window" in config_d:
@@ -249,6 +264,7 @@ class Qwen3TTS(TTSOperation):
             "first_chunk_emit_every",
             "first_chunk_decode_window",
             "first_chunk_frames",
+            "overlap_samples",
             "max_new_tokens",
             "repetition_penalty",
             "repetition_penalty_window",
@@ -279,7 +295,11 @@ class Qwen3TTS(TTSOperation):
         assert self.decode_window_frames > 0
         assert self.first_chunk_decode_window > 0
         assert self.first_chunk_frames >= 0
+        assert self.overlap_samples >= 0
         assert self.max_new_tokens > 0
+        assert self.top_p > 0 and self.top_p <= 1.0
+        assert self.top_k >= 0
+        assert self.temperature > 0
         assert self.process_startup_retries > 0
         assert self.process_startup_backoff_s > 0
 
@@ -304,11 +324,16 @@ class Qwen3TTS(TTSOperation):
             "dtype": self.dtype,
             "attn_implementation": self.attn_implementation,
             "max_new_tokens": self.max_new_tokens,
+            "do_sample": self.do_sample,
+            "top_p": self.top_p,
+            "top_k": self.top_k,
+            "temperature": self.temperature,
             "emit_every_frames": self.emit_every_frames,
             "decode_window_frames": self.decode_window_frames,
             "first_chunk_emit_every": self.first_chunk_emit_every,
             "first_chunk_decode_window": self.first_chunk_decode_window,
             "first_chunk_frames": self.first_chunk_frames,
+            "overlap_samples": self.overlap_samples,
             "repetition_penalty": self.repetition_penalty,
             "repetition_penalty_window": self.repetition_penalty_window,
             "instruct_prefix": self.instruct_prefix,
@@ -412,10 +437,16 @@ class Qwen3TTS(TTSOperation):
             "language": self.language,
             "emit_every_frames": self.emit_every_frames,
             "decode_window_frames": self.decode_window_frames,
+            "overlap_samples": self.overlap_samples,
             "max_new_tokens": self.max_new_tokens,
             "repetition_penalty": self.repetition_penalty,
             "repetition_penalty_window": self.repetition_penalty_window,
+            "do_sample": bool(self.do_sample),
         }
+        if self.do_sample:
+            kwargs["top_p"] = self.top_p
+            kwargs["top_k"] = self.top_k
+            kwargs["temperature"] = self.temperature
         if self.speaker:
             kwargs["speaker"] = self.speaker
         if instruct:
@@ -450,6 +481,7 @@ class Qwen3TTS(TTSOperation):
                             "first_chunk_emit_every",
                             "first_chunk_decode_window",
                             "first_chunk_frames",
+                            "overlap_samples",
                             "repetition_penalty",
                             "repetition_penalty_window",
                         ):
@@ -497,8 +529,13 @@ class Qwen3TTS(TTSOperation):
             "dtype": self.dtype,
             "attn_implementation": self.attn_implementation,
             "max_new_tokens": self.max_new_tokens,
+            "do_sample": bool(self.do_sample),
+            "top_p": self.top_p,
+            "top_k": self.top_k,
+            "temperature": self.temperature,
             "emit_every_frames": self.emit_every_frames,
             "decode_window_frames": self.decode_window_frames,
+            "overlap_samples": self.overlap_samples,
             "first_chunk_emit_every": self.first_chunk_emit_every,
             "first_chunk_decode_window": self.first_chunk_decode_window,
             "first_chunk_frames": self.first_chunk_frames,

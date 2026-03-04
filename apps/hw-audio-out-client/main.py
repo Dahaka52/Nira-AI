@@ -1,5 +1,6 @@
 import argparse
 import asyncio
+import audioop
 import base64
 import json
 import threading
@@ -139,6 +140,8 @@ class PCM16OutputPlayer:
         self._lock = threading.Lock()
         self._last_underflow_print = 0.0
         self._debug_chunks_seen = 0
+        self._ratecv_state = None
+        self._ratecv_src_sr = None
 
     async def start(self) -> None:
         if self._stream is not None:
@@ -213,6 +216,8 @@ class PCM16OutputPlayer:
     async def clear(self) -> None:
         with self._lock:
             self._buffer.clear()
+        self._ratecv_state = None
+        self._ratecv_src_sr = None
 
     def _apply_gain(self, pcm_bytes: bytes) -> bytes:
         if abs(self.output_gain - 1.0) < 1e-3:
@@ -248,10 +253,28 @@ class PCM16OutputPlayer:
         if int(ch) != 1:
             return
 
-        if int(sr) != self.sample_rate:
-            pcm_bytes = self._resample_pcm16_mono(pcm_bytes, int(sr), self.sample_rate)
+        src_sr = int(sr)
+        if src_sr != self.sample_rate:
+            if self._ratecv_src_sr != src_sr:
+                self._ratecv_state = None
+                self._ratecv_src_sr = src_sr
+            try:
+                pcm_bytes, self._ratecv_state = audioop.ratecv(
+                    pcm_bytes,
+                    2,  # sample width
+                    1,  # mono
+                    src_sr,
+                    self.sample_rate,
+                    self._ratecv_state,
+                )
+            except Exception:
+                # Fallback to stateless resample if ratecv fails for any reason.
+                pcm_bytes = self._resample_pcm16_mono(pcm_bytes, src_sr, self.sample_rate)
             if not pcm_bytes:
                 return
+        else:
+            self._ratecv_state = None
+            self._ratecv_src_sr = None
 
         pcm_bytes = self._apply_gain(pcm_bytes)
         if not pcm_bytes:
