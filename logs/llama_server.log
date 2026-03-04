@@ -164,7 +164,7 @@ sched_reserve:      CUDA0 compute buffer size =   266.00 MiB
 sched_reserve:  CUDA_Host compute buffer size =    36.01 MiB
 sched_reserve: graph nodes  = 1247
 sched_reserve: graph splits = 13 (with bs=512), 2 (with bs=1)
-sched_reserve: reserve took 6.89 ms, sched copies = 1
+sched_reserve: reserve took 6.55 ms, sched copies = 1
 common_init_from_params: warming up the model with an empty run - please wait ... (--no-warmup to disable)
 srv    load_model: initializing slots, n_slots = 4
 no implementations specified for speculative decoding
@@ -187,6 +187,6 @@ init: chat template, example_format: '[INST]Hello[/INST]Hi there</s>[INST]You ar
 How are you?[/INST]'
 srv          init: init: chat template, thinking = 0
 main: model loaded
-main: server is listening on http://127.0.0.1:3138
+main: server is listening on http://127.0.0.1:2924
 main: starting the main loop...
 srv  update_slots: all slots are idle

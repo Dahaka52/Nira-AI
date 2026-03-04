@@ -34,7 +34,7 @@ operations:
   # T2T (Text-to-Text) - Используем внешний llama-server
   - role: t2t
     id: llamacpp
-    max_length: 500
+    max_length: 140
     temperature: 0.7
     top_p: 0.95
     top_k: 40
@@ -57,7 +57,7 @@ operations:
     id: filter_clean
   - role: filter_text
     id: chunker_sentence
-    mode: "full"                 # sentence | full (для текущего Qwen3 избегаем повторной first-chunk задержки на каждое предложение)
+    mode: "full"                 # sentence | full
 
   # TTS (Qwen3) - активен через tts_active_id: "qwen3".
   # Для отключения поставь tts_active_id: null
@@ -68,7 +68,7 @@ operations:
     base_url: "http://127.0.0.1:6116"
     stream_endpoint: "/v1/tts/stream"
     health_endpoint: "/health"
-    sidecar_read_chunk_bytes: 1024  # Меньше сетевой коалесcинг на клиенте стрима -> ровнее подача PCM
+    sidecar_read_chunk_bytes: 4096 # Меньше сетевой квантуемости, ровнее realtime-подача PCM
     sample_rate: 24000
     sample_width: 2
     channels: 1
@@ -91,7 +91,14 @@ operations:
     first_chunk_decode_window: 32
     first_chunk_frames: 32
     overlap_samples: 0
-    max_new_tokens: 384
+    max_new_tokens: 192
+    max_frames: 220
+    max_text_chars: 180
+    dynamic_max_frames: true
+    dynamic_chars_per_second: 11.5
+    dynamic_frame_budget_mul: 1.55
+    dynamic_min_frames: 48
+    dynamic_max_frames_cap: 220
     use_optimized_decode: true
     do_sample: false             # Стабилизирует тембр и уменьшает "прыжки" высоты тона
     top_p: 0.9
@@ -114,25 +121,25 @@ operations:
       python_executable: "C:\\Nirmita\\apps\\tts-qwen3-server\\.venv312\\Scripts\\python.exe"
       device: "cuda:0"           # внутри sidecar после pin по CUDA_VISIBLE_DEVICES
       attn_implementation: "flash_attention_2"
-      use_compile: 1             # RTF-профиль: включаем compile для decoder/talker/codebook.
+      use_compile: 0             # Для voice_clone Base на Win: compile даёт нестабильность/долгий старт
       compile_mode: "reduce-overhead"
       compile_use_cuda_graphs: 0 # Для reduce-overhead обычно не нужен отдельный ручной cuda-graph capture.
-      compile_codebook_predictor: 1
-      compile_talker: 1
+      compile_codebook_predictor: 0
+      compile_talker: 0
       emit_every_frames: 4
       decode_window_frames: 64
       first_chunk_emit_every: 2
       first_chunk_decode_window: 32
       first_chunk_frames: 32
       overlap_samples: 0
-      max_new_tokens: 384
-      max_frames: 384
+      max_new_tokens: 192
+      max_frames: 220
       use_optimized_decode: 1
       sox_bin_dir: "C:\\Nirmita\\apps\\tts-qwen3-server\\third_party\\sox\\sox-14.4.2-win32\\sox-14.4.2"
       model_id: "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
       max_concurrent: 1
       preload_on_start: 1        # Загружает модель при старте sidecar, а не на первом запросе
-      warmup_on_start: 1          # Прогрев compile/графов на коротком тексте (убирает длинный "первый ответ")
+      warmup_on_start: 0          # Ускоряет старт backend; прогрев можно запускать вручную
       warmup_text: "Привет."
       warmup_emit_every_frames: 4
       warmup_decode_window_frames: 64
@@ -195,11 +202,11 @@ audio_output:
   sample_rate: 24000
   channels: 1
   blocksize: 256
-  max_buffer_ms: 700
-  prebuffer_ms: 120
-  rebuffer_ms: 120
-  rebuffer_max_wait_ms: 220
-  chunk_fade_ms: 6
+  max_buffer_ms: 1800
+  prebuffer_ms: 220
+  rebuffer_ms: 420
+  rebuffer_max_wait_ms: 350
+  chunk_fade_ms: 0
   clear_on_stop: true
   output_gain_db: 0.0
   reconnect_delay_ms: 1200

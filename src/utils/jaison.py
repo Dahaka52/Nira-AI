@@ -1279,6 +1279,9 @@ class JAIson(metaclass=Singleton):
             "хех", "хе-хе", "гы", "гыы", "гы-гы",
             "лол", "ржу", "ржом", "мда", "гм", "хм",
         }
+        greeting_words = {
+            "привет", "здравствуй", "здравствуйте", "хай", "хелло", "hello", "hey",
+        }
 
         mic_cfg = self._get_microphone_config()
         extra_wake_words = mic_cfg.get("wake_words", [])
@@ -1356,6 +1359,7 @@ class JAIson(metaclass=Singleton):
         short_emote_hit = respond_to_short_emotes and any(
             (_is_laughter_like(w) or (w in short_emote_words)) for w in words
         )
+        greeting_hit = len(non_filler_words) == 1 and any(w in greeting_words for w in non_filler_words)
 
         is_backchannel = len(words) <= 2 and len(non_filler_words) == 0
         is_stop_command_only = contains_stop_word and (
@@ -1371,6 +1375,7 @@ class JAIson(metaclass=Singleton):
             or len(non_filler_words) >= 2
             or is_wake_word_only
             or short_emote_hit
+            or greeting_hit
         ) and not is_stop_command_only
 
         if is_backchannel and not continue_intent and not short_emote_hit:

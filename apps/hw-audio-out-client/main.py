@@ -157,6 +157,7 @@ class PCM16OutputPlayer:
         self._primed = False
         self._need_rebuffer = False
         self._need_rebuffer_since = 0.0
+        self._stream_ended = False
 
     async def start(self) -> None:
         if self._stream is not None:
@@ -181,26 +182,61 @@ class PCM16OutputPlayer:
 
                     if self._need_rebuffer and self.rebuffer_bytes > 0:
                         now = time.time()
-                        # Avoid hard lock: for sparse/slow TTS streams, resume with smaller buffer
-                        # after a short wait, otherwise audio can stall indefinitely.
-                        dynamic_resume_bytes = min(
-                            self.rebuffer_bytes,
-                            max(requested * 4, self.frame_bytes * 512),
-                        )
+                        if self._stream_ended and 0 < len(self._buffer) < requested:
+                            # Final tail for this response: play once padded and finish.
+                            tail = bytes(self._buffer)
+                            self._buffer.clear()
+                            self._need_rebuffer = False
+                            self._need_rebuffer_since = 0.0
+                            tail = tail + (b"\x00" * (requested - len(tail)))
+                            outdata[:] = tail
+                            return
+                        # Prefer a true jitter-buffer resume target. The previous logic
+                        # resumed too early (tiny buffer), which produced micro-bursts.
+                        # Here we wait for rebuffer_bytes, and only relax target after
+                        # rebuffer_max_wait_ms to avoid hard lock on very slow streams.
+                        dynamic_resume_bytes = int(self.rebuffer_bytes)
                         waited_ms = (
                             (now - self._need_rebuffer_since) * 1000.0
                             if self._need_rebuffer_since > 0.0
                             else 0.0
                         )
+                        if self.rebuffer_max_wait_ms > 0 and waited_ms >= self.rebuffer_max_wait_ms:
+                            dynamic_resume_bytes = max(
+                                int(self.rebuffer_bytes * 0.35),
+                                max(requested * 8, self.frame_bytes * 1024),
+                            )
+                        elif waited_ms >= 180.0:
+                            # Low-latency soft-resume path: after short wait, allow playback
+                            # as soon as we have at least a few callback blocks buffered.
+                            dynamic_resume_bytes = max(
+                                requested * 3,
+                                self.frame_bytes * 512,
+                            )
+                        if self._stream_ended and len(self._buffer) > 0:
+                            # End-of-stream: do not wait for full rebuffer target.
+                            dynamic_resume_bytes = min(dynamic_resume_bytes, requested)
                         if len(self._buffer) < dynamic_resume_bytes and (
                             self.rebuffer_max_wait_ms <= 0 or waited_ms < self.rebuffer_max_wait_ms
                         ):
+                            if self._stream_ended and len(self._buffer) > 0:
+                                # Flush tail on stream end to avoid getting stuck forever.
+                                tail = bytes(self._buffer)
+                                self._buffer.clear()
+                                self._need_rebuffer = False
+                                self._need_rebuffer_since = 0.0
+                                if len(tail) < requested:
+                                    tail = tail + (b"\x00" * (requested - len(tail)))
+                                else:
+                                    tail = tail[:requested]
+                                outdata[:] = tail
+                                return
                             now = time.time()
                             if (now - self._last_rebuffer_print) > 2.0:
                                 self._last_rebuffer_print = now
                                 print(
                                     f"[AUDIO_OUT] Rebuffering: "
-                                    f"{len(self._buffer)}/{self.rebuffer_bytes} bytes"
+                                    f"{len(self._buffer)}/{dynamic_resume_bytes} bytes"
                                 )
                             outdata[:] = b"\x00" * requested
                             return
@@ -211,9 +247,9 @@ class PCM16OutputPlayer:
                         chunk = bytes(self._buffer[:requested])
                         del self._buffer[:requested]
                     elif len(self._buffer) > 0:
-                        available = bytes(self._buffer)
-                        self._buffer.clear()
-                        chunk = available + (b"\x00" * (requested - len(available)))
+                        # Do not flush tiny tail + zeros (it produces audible "puk"/chirps).
+                        # Keep buffered tail and resume only when rebuffer target is reached.
+                        chunk = b"\x00" * requested
                         self._need_rebuffer = True
                         if self._need_rebuffer_since <= 0.0:
                             self._need_rebuffer_since = time.time()
@@ -222,6 +258,10 @@ class PCM16OutputPlayer:
                         self._need_rebuffer = True
                         if self._need_rebuffer_since <= 0.0:
                             self._need_rebuffer_since = time.time()
+                        if self._stream_ended:
+                            # Nothing else is expected for this stream; avoid sticky rebuffer.
+                            self._need_rebuffer = False
+                            self._need_rebuffer_since = 0.0
             outdata[:] = chunk
 
         def _open_stream(sample_rate: int):
@@ -276,8 +316,16 @@ class PCM16OutputPlayer:
             self._primed = False
             self._need_rebuffer = False
             self._need_rebuffer_since = 0.0
+            self._stream_ended = False
         self._ratecv_state = None
         self._ratecv_src_sr = None
+
+    async def mark_stream_end(self) -> None:
+        with self._lock:
+            self._stream_ended = True
+            if len(self._buffer) <= 0:
+                self._need_rebuffer = False
+                self._need_rebuffer_since = 0.0
 
     def _apply_gain(self, pcm_bytes: bytes) -> bytes:
         if abs(self.output_gain - 1.0) < 1e-3:
@@ -372,6 +420,7 @@ class PCM16OutputPlayer:
             self._debug_chunks_seen += 1
 
         with self._lock:
+            self._stream_ended = False
             overflow = (len(self._buffer) + len(pcm_bytes)) - self.max_buffer_bytes
             if overflow > 0:
                 cut = overflow - (overflow % self.frame_bytes)
@@ -389,11 +438,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--sample_rate", type=int, default=24000)
     parser.add_argument("--channels", type=int, default=1)
     parser.add_argument("--blocksize", type=int, default=256)
-    parser.add_argument("--max_buffer_ms", type=int, default=700)
-    parser.add_argument("--prebuffer_ms", type=int, default=180)
-    parser.add_argument("--rebuffer_ms", type=int, default=260)
-    parser.add_argument("--rebuffer_max_wait_ms", type=int, default=220)
-    parser.add_argument("--chunk_fade_ms", type=int, default=6)
+    parser.add_argument("--max_buffer_ms", type=int, default=1800)
+    parser.add_argument("--prebuffer_ms", type=int, default=220)
+    parser.add_argument("--rebuffer_ms", type=int, default=420)
+    parser.add_argument("--rebuffer_max_wait_ms", type=int, default=350)
+    parser.add_argument("--chunk_fade_ms", type=int, default=0)
     parser.add_argument("--clear_on_stop", type=int, default=1)
     parser.add_argument("--output_gain_db", type=float, default=0.0)
     parser.add_argument("--reconnect_delay_ms", type=int, default=1200)
@@ -421,6 +470,10 @@ async def handle_ws_message(message: str, player: PCM16OutputPlayer) -> None:
     body = payload.get("response")
     if not isinstance(body, dict):
         return
+    status = str(body.get("status", "")).strip().lower()
+    if status in ("success", "cancelled", "error"):
+        await player.mark_stream_end()
+        return
     result = body.get("result")
     if not isinstance(result, dict):
         return
@@ -441,7 +494,7 @@ async def handle_ws_message(message: str, player: PCM16OutputPlayer) -> None:
         return
 
     try:
-        pcm_bytes = base64.b64decode(str(b64_chunk), validate=False)
+        pcm_bytes = base64.b64decode(str(b64_chunk), validate=True)
     except Exception:
         return
 

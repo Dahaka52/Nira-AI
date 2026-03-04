@@ -96,8 +96,8 @@ class ServerConfig:
     first_chunk_decode_window: int = 48
     first_chunk_frames: int = 48
     overlap_samples: int = 512
-    max_new_tokens: int = 1024
-    max_frames: int = 1024
+    max_new_tokens: int = 192
+    max_frames: int = 220
     use_optimized_decode: bool = True
     repetition_penalty: float = 1.0
     repetition_penalty_window: int = 100
@@ -235,6 +235,16 @@ class Qwen3Runtime:
 
                 torch_dtype = self._resolve_dtype(torch, dtype)
                 use_compile = bool(getattr(self.cfg, "use_compile", False)) and not self._compile_runtime_disabled
+                # On Windows + Base voice-clone models, compile path is currently
+                # unstable in long sessions (runtime ptr/cudagraph failures). Keep
+                # compile disabled in voice_clone mode by default for stability.
+                try:
+                    cfg_voice_mode = self._normalize_voice_mode(getattr(self.cfg, "voice_mode", "custom_voice"))
+                except Exception:
+                    cfg_voice_mode = "custom_voice"
+                if use_compile and cfg_voice_mode == "voice_clone":
+                    logging.info("Qwen3 runtime: forcing use_compile=false for voice_clone mode (stability profile).")
+                    use_compile = False
                 if use_compile:
                     try:
                         import importlib.util
@@ -343,6 +353,18 @@ class Qwen3Runtime:
         path_s = os.path.expandvars(path_s)
         path_s = os.path.expanduser(path_s)
         return os.path.abspath(path_s)
+
+    @staticmethod
+    def _estimate_voice_clone_max_frames(text: str) -> int:
+        # 12Hz acoustic frames. Cap by text length to avoid runaway tails/noise loops.
+        norm = " ".join(str(text or "").split())
+        text_len = len(norm)
+        punct = sum(1 for ch in norm if ch in ".!?;:")
+        est_seconds = (float(text_len) / 11.5) + (0.08 * punct) + 0.35
+        est_frames = int(est_seconds * 12.0 * 1.55)
+        est_frames = max(48, est_frames)
+        est_frames = min(220, est_frames)
+        return max(1, est_frames)
 
     def _get_or_build_voice_clone_prompt(
         self,
@@ -513,6 +535,16 @@ class Qwen3Runtime:
         ref_text_raw = _pick(req.ref_text, getattr(cfg, "ref_text", ""))
         ref_text = (str(ref_text_raw).strip() if ref_text_raw is not None else "")
         x_vector_only_mode = bool(_pick(req.x_vector_only_mode, getattr(cfg, "x_vector_only_mode", True)))
+        if voice_mode == "voice_clone":
+            auto_frames = self._estimate_voice_clone_max_frames(req.text)
+            if max_frames > auto_frames:
+                logging.info(
+                    "Qwen3 runtime clamp voice_clone max_frames: requested=%s auto=%s text_len=%s",
+                    max_frames,
+                    auto_frames,
+                    len(str(req.text or "")),
+                )
+            max_frames = min(max_frames, auto_frames)
         if cfg.instruct_prefix:
             instruct = f"{cfg.instruct_prefix} {instruct}".strip()
 
@@ -835,8 +867,8 @@ def parse_args() -> ServerConfig:
     parser.add_argument("--first_chunk_decode_window", type=int, default=48)
     parser.add_argument("--first_chunk_frames", type=int, default=48)
     parser.add_argument("--overlap_samples", type=int, default=512)
-    parser.add_argument("--max_new_tokens", type=int, default=1024)
-    parser.add_argument("--max_frames", type=int, default=1024)
+    parser.add_argument("--max_new_tokens", type=int, default=192)
+    parser.add_argument("--max_frames", type=int, default=220)
     parser.add_argument("--repetition_penalty", type=float, default=1.0)
     parser.add_argument("--repetition_penalty_window", type=int, default=100)
     parser.add_argument("--use_optimized_decode", type=int, default=1)
