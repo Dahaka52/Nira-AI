@@ -1,9 +1,3 @@
-C:\Nirmita\apps\stt-sherpa-server\start_server.py:701: DeprecationWarning: websockets.WebSocketServerProtocol is deprecated
-  socket: websockets.WebSocketServerProtocol,
-C:\Nirmita\apps\stt-sherpa-server\start_server.py:725: DeprecationWarning: websockets.WebSocketServerProtocol is deprecated
-  socket: websockets.WebSocketServerProtocol,
-C:\Nirmita\apps\stt-sherpa-server\start_server.py:784: DeprecationWarning: websockets.WebSocketServerProtocol is deprecated
-  socket: websockets.WebSocketServerProtocol,
 2026-03-05 02:58:27,833 INFO [start_server.py:849] {'encoder': 'C:\\Nirmita\\models\\vosk-model-small-streaming-ru\\am-onnx\\encoder.onnx', 'decoder': 'C:\\Nirmita\\models\\vosk-model-small-streaming-ru\\am-onnx\\decoder.onnx', 'joiner': 'C:\\Nirmita\\models\\vosk-model-small-streaming-ru\\am-onnx\\joiner.onnx', 'zipformer2_ctc': None, 'wenet_ctc': None, 'paraformer_encoder': None, 'paraformer_decoder': None, 'tokens': 'C:\\Nirmita\\models\\vosk-model-small-streaming-ru\\lang\\tokens.txt', 'sample_rate': 16000, 'feat_dim': 80, 'provider': 'cpu', 'decoding_method': 'modified_beam_search', 'num_active_paths': 6, 'use_endpoint': 0, 'rule1_min_trailing_silence': 2.4, 'rule2_min_trailing_silence': 1.2, 'rule3_min_utterance_length': 20, 'hotwords_file': 'C:\\Nirmita\\logs\\sherpa_hotwords.resolved.txt', 'hotwords_score': 3.5, 'modeling_unit': 'bpe', 'bpe_vocab': 'C:\\Nirmita\\models\\vosk-model-small-streaming-ru\\lang\\unigram_500.vocab', 'blank_penalty': 0.0, 'port': 6106, 'nn_pool_size': 1, 'max_batch_size': 3, 'max_wait_ms': 10, 'max_message_size': 1048576, 'max_queue_size': 32, 'max_active_connections': 200, 'num_threads': 2, 'certificate': None, 'doc_root': 'C:\\Nirmita\\apps\\stt-sherpa-server'}
 2026-03-05 02:58:29,239 INFO [start_server.py:667] No certificate provided
 2026-03-05 02:58:29,243 INFO [server.py:341] server listening on 0.0.0.0:6106
