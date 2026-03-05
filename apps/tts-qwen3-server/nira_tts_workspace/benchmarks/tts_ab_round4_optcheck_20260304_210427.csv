@@ -1,3 +1,0 @@
-case_id,ok,error,ttfb_ms,max_gap_ms,total_ms,audio_s,rtf,bytes_total,sample_rate,emit_every_frames,decode_window_frames,first_chunk_emit_every,first_chunk_decode_window,first_chunk_frames,max_new_tokens,max_frames,overlap_samples,use_optimized_decode,do_sample,temperature,top_p,top_k
-mf32_e4_d32_opt1,True,,1444.1269999952056,1094.5808999967994,8928.407999992487,2.557125,3.4915805836603555,122742,24000,4,32,1,16,16,96,32,0,True,False,0.8,0.9,50
-mf32_e4_d32_opt0,True,,1286.888300004648,1384.4971999933477,10370.46740000369,2.536875,4.087890574034468,121770,24000,4,32,1,16,16,96,32,0,False,False,0.8,0.9,50

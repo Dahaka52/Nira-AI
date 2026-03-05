@@ -1,9 +1,0 @@
-idx,file,ok,error,bytes,sr,audio_s,total_s,ttfb_ms,max_gap_ms,rtf,emit_every_frames,decode_window_frames,first_chunk_emit_every,first_chunk_decode_window,first_chunk_frames,max_new_tokens,max_frames,overlap_samples,use_optimized_decode,do_sample,temperature,top_p
-11,tts_ab_11_e4_d48_f2_24_24_mf80.wav,True,,287840,24000,5.997,21.545,1530.3,1180.0,3.593,4,48,2,24,24,112,80,0,True,False,0.8,0.9
-12,tts_ab_12_e4_d48_f1_24_24_mf80.wav,True,,307108,24000,6.398,22.446,1575.7,1173.2,3.508,4,48,1,24,24,112,80,0,True,False,0.8,0.9
-13,tts_ab_13_e3_d48_f1_24_24_mf80.wav,True,,307086,24000,6.398,22.701,1275.9,941.3,3.548,3,48,1,24,24,112,80,0,True,False,0.8,0.9
-14,tts_ab_14_e3_d56_f1_28_28_mf88.wav,True,,337844,24000,7.038,25.219,1239.8,942.1,3.583,3,56,1,28,28,120,88,0,True,False,0.8,0.9
-15,tts_ab_15_e5_d48_f2_24_24_mf80.wav,True,,287886,24000,5.998,25.353,1914.6,1876.7,4.227,5,48,2,24,24,112,80,0,True,False,0.8,0.9
-16,tts_ab_16_e4_d40_f1_20_20_mf72.wav,True,,276370,24000,5.758,24.762,1704.7,1586.5,4.301,4,40,1,20,20,104,72,0,True,False,0.8,0.9
-17,tts_ab_17_e2_d40_f1_20_20_mf72.wav,True,,272560,24000,5.678,25.371,1116.0,809.2,4.468,2,40,1,20,20,104,72,0,True,False,0.8,0.9
-18,tts_ab_18_e4_d48_f2_24_24_mf96_samp1.wav,True,,353188,24000,7.358,31.423,1875.8,1508.3,4.271,4,48,2,24,24,128,96,0,True,True,0.7,0.85
