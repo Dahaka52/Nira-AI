@@ -220,12 +220,12 @@ prompter:
 
 # Llama.cpp Settings (RTX 5070 12GB)
 llamacpp_filepath: "C:\\Nirmita\\bin\\llamacpp\\llama-server.exe"
-llamacpp_model_filepath: "C:\\Nirmita\\models\\Mistral-Nemo-Instruct-2407-absolute-heresy.i1-Q4_K_M.gguf"
+llamacpp_model_filepath: "C:\\Nirmita\\models\\MN-12B-Hydra-RP-RU.i1-Q5_K_M.gguf"
 llamacpp_ctx: 4096
 llamacpp_ngl: 40
 llamacpp_cache_type_k: "q8_0" # Конфигурация 8-битного квантования контекста (K-cache)
 llamacpp_cache_type_v: "q8_0" # Конфигурация 8-битного квантования контекста (V-cache)
-llamacpp_gpu_id: 0 # Эксперимент: LLM ТОЛЬКО НА RTX 5070. НА 5060 ВСЕГДА БУДЕТ ООМ ПОД ЛЛМ!!!
+llamacpp_gpu_id: 0 # LLM ТОЛЬКО НА RTX 5070. НА 5060 ВСЕГДА БУДЕТ ООM ПОД ЛЛM!!!
 llamacpp_extra_args: "--flash-attn on"
 
 # FFmpeg (настроен в системе)
