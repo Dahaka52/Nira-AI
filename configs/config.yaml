@@ -34,7 +34,7 @@ operations:
   # T2T (Text-to-Text) - Используем внешний llama-server
   - role: t2t
     id: llamacpp
-    max_length: 200
+    max_length: 500
     temperature: 0.7
     top_p: 0.95
     top_k: 40
@@ -72,7 +72,7 @@ operations:
     runtime_flavor: "dffdeeq"
     voice_mode: "voice_clone"
     ref_audio_path: "C:\\Nirmita\\kuklina-1.wav"
-    ref_text: ""
+    ref_text: "Взрослая, энергичная, весёлая девушка. Голос средней тональности, но открытый и с яркими эмоциями."
     x_vector_only_mode: true
     language: "russian"
     provider: "cuda"
@@ -109,7 +109,7 @@ operations:
       qwen_tts_repo_path: "C:\\Nirmita\\apps\\dffdeeq_Qwen3-TTS-streaming-main"
       voice_mode: "voice_clone"
       ref_audio_path: "C:\\Nirmita\\kuklina-1.wav"
-      ref_text: ""
+      ref_text: "Взрослая, энергичная, весёлая девушка. Голос средней тональности, но открытый и с яркими эмоциями."
       x_vector_only_mode: 1
       python_executable: "C:\\Nirmita\\apps\\tts-qwen3-server\\.venv312\\Scripts\\python.exe"
       device: "cuda:0"

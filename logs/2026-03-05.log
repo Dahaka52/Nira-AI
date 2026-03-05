@@ -1515,3 +1515,465 @@ RuntimeError: Qwen3 sidecar stream failed:
 [2026-03-05 03:08:53,459] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=69 source=mic turn=a91c90e3-0eb4-4ef9-ad41-025ed4c8648c utterance=22b58edd-b8c1-4420-9520-ad5c9eb370d4
 [2026-03-05 03:08:54,007] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=37 source=mic turn=a91c90e3-0eb4-4ef9-ad41-025ed4c8648c utterance=3ff20bff-534f-4a55-a367-f98479948bf8
 [2026-03-05 03:08:56,621] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=62 source=mic turn=a91c90e3-0eb4-4ef9-ad41-025ed4c8648c utterance=7c8ef196-1971-4096-8403-d8e12e3d4fb6
+[2026-03-05 03:14:30,410] [INFO ] [jaison.py::109 start]: Starting JAIson application layer.
+[2026-03-05 03:14:30,431] [INFO ] [manager.py::332 load_operations_from_config]: Active STT from config: sherpa_ru
+[2026-03-05 03:14:30,431] [INFO ] [manager.py::334 load_operations_from_config]: Active TTS from config: qwen3
+[2026-03-05 03:14:32,131] [INFO ] [operation.py::32 start]: Starting STT operation sherpa_ru
+[2026-03-05 03:14:32,131] [INFO ] [manager.py::28 load]: Loading process by type sherpa_stt
+[2026-03-05 03:14:32,132] [WARNI] [base.py::46 unload]: Attempted to unload process sherpa_stt when it is already unloaded
+[2026-03-05 03:14:32,134] [INFO ] [sherpa_server.py::85 _prepare_hotwords_file]: Sherpa STT hotwords validated: 3 entries
+[2026-03-05 03:14:32,134] [INFO ] [sherpa_server.py::295 reload]: Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5
+[2026-03-05 03:14:32,134] [INFO ] [sherpa_server.py::307 reload]: Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5
+[2026-03-05 03:14:36,471] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-03-05 03:14:36,471] [INFO ] [manager.py::28 load]: Loading process by type llamacpp
+[2026-03-05 03:14:36,475] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 28044) on port 14108 (GPU: 0)
+[2026-03-05 03:14:36,475] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:14108/health ...
+[2026-03-05 03:14:40,638] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 14108)
+[2026-03-05 03:14:40,640] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-03-05 03:14:40,641] [INFO ] [operation.py::32 start]: Starting TTS operation qwen3
+[2026-03-05 03:14:40,641] [INFO ] [manager.py::28 load]: Loading process by type qwen3_tts
+[2026-03-05 03:14:40,642] [WARNI] [qwen3_tts_server.py::203 reload]: Qwen3 TTS SoX bin not found. Install sox.exe or set process.sox_bin_dir.
+[2026-03-05 03:14:40,642] [INFO ] [qwen3_tts_server.py::205 reload]: Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv312\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 1 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-Base --language russian --dtype bfloat16 --attn_implementation flash_attention_2 --use_compile 1 --sample_rate 24000 --sample_width 2 --channels 1 --voice_mode voice_clone --runtime_flavor dffdeeq --qwen_tts_repo_path C:\Nirmita\apps\dffdeeq_Qwen3-TTS-streaming-main --ref_audio_path C:\Nirmita\kuklina-1.wav --ref_text Молодая, энергичная, весёлая девушка. Голос средней тональности, но с яркими эмоциями. --x_vector_only_mode 1 --emit_every_frames 4 --decode_window_frames 80 --overlap_samples 0 --max_frames 10000 --use_optimized_decode 1 --do_sample 0 --top_p 0.9 --top_k 50 --temperature 0.8 --dynamic_max_frames 0 --dynamic_chars_per_second 11.5 --dynamic_frame_budget_mul 1.05 --dynamic_min_frames 20 --dynamic_max_frames_cap 10000 --max_concurrent 1 --preload_on_start 1 --warmup_on_start 1 --warmup_text Привет. --warmup_chunks 2 --first_chunk_timeout_s 30 --stream_idle_timeout_s 30 --compile_mode reduce-overhead --compile_use_cuda_graphs 0 --compile_codebook_predictor 1 --compile_talker 1 --compile_cudagraph_skip_dynamic_graphs 0
+[2026-03-05 03:14:40,642] [INFO ] [qwen3_tts_server.py::206 reload]: Qwen3 TTS GPU pin: provider=cuda gpu_id=1 device=cuda:0 CUDA_VISIBLE_DEVICES=1
+[2026-03-05 03:15:29,207] [INFO ] [qwen3_tts_server.py::238 reload]: Qwen3 TTS sidecar is ready at http://127.0.0.1:6116/health
+[2026-03-05 03:15:29,520] [INFO ] [manager.py::28 load]: Loading process by type hw_mic
+[2026-03-05 03:15:29,520] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-03-05 03:15:29,527] [INFO ] [manager.py::28 load]: Loading process by type hw_audio_out
+[2026-03-05 03:15:29,527] [WARNI] [base.py::46 unload]: Attempted to unload process hw_audio_out when it is already unloaded
+[2026-03-05 03:15:29,532] [INFO ] [jaison.py::142 start]: JAIson application layer has started.
+[2026-03-05 03:15:29,532] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-03-05 03:15:29,779] [INFO ] [app_server.py::84 ws]: Opened new websocket connection
+[2026-03-05 03:15:30,160] [INFO ] [app_server.py::84 ws]: Opened new websocket connection
+[2026-03-05 03:15:36,145] [INFO ] [app_server.py::93 ws]: Closed websocket connection
+[2026-03-05 03:15:36,973] [INFO ] [app_server.py::84 ws]: Opened new websocket connection
+[2026-03-05 03:15:38,082] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=62 source=mic turn=23aa5c3c-9f68-44ab-8281-e0dd2aeefad3 utterance=ccfb8ab2-3b5c-47d1-83ed-305e7d6b70f6
+[2026-03-05 03:15:38,432] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=6 latency_ms=98 source=mic turn=1350917e-c1b3-41bd-bf09-d3dc1f5c850c utterance=64ac06cb-db92-4384-bca0-46e70f76af4d
+[2026-03-05 03:15:38,696] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job b241166f-3ad8-4f76-b7c3-5fedbf00679b
+[2026-03-05 03:15:38,696] [INFO ] [jaison.py::443 create_job]: Queued new response job 6d8f2d75-a896-4337-9fbe-bf49fd5c7b7f
+[2026-03-05 03:15:39,170] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 472.042599983979 ms
+[2026-03-05 03:15:43,295] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=25 bytes=199626 first_chunk_ms=644 max_gap_ms=307.8 total_ms=4124 audio_s=4.159 rtf=0.992 text_len=41
+[2026-03-05 03:15:43,295] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 4124.701799999457 ms
+[2026-03-05 03:15:43,295] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 4124.85100000049 ms
+[2026-03-05 03:15:43,296] [INFO ] [jaison.py::988 response_pipeline]: Response job 6d8f2d75-a896-4337-9fbe-bf49fd5c7b7f completed. Content: 'Привет-привет! Как дела? Чем занимаетесь?...'
+[2026-03-05 03:15:58,802] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=26 latency_ms=148 source=mic turn=3d7d8ad1-e033-4641-8cd2-013ad257c059 utterance=ab727e0b-5aaa-4a0e-abf7-b8323e4e246a
+[2026-03-05 03:15:58,802] [INFO ] [jaison.py::482 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-03-05 03:15:59,055] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job bbe8ef1e-30ff-483e-b7b5-8960178c2825
+[2026-03-05 03:15:59,055] [INFO ] [jaison.py::443 create_job]: Queued new response job 4b2f151a-b027-40d0-8a17-f44306915e2a
+[2026-03-05 03:16:02,676] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 3620.262200012803 ms
+[2026-03-05 03:16:25,616] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=62 source=mic turn=5950ff6b-608c-4d32-8b8a-9cc69b7e368c utterance=c7737c15-d15f-4fcd-bc8b-56fb6223b7bd
+[2026-03-05 03:16:36,073] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=250 bytes=2042826 first_chunk_ms=447 max_gap_ms=327.8 total_ms=33396 audio_s=42.559 rtf=0.785 text_len=579
+[2026-03-05 03:16:36,073] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 33396.72399999108 ms
+[2026-03-05 03:16:36,074] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 33396.873700025026 ms
+[2026-03-05 03:16:36,074] [INFO ] [jaison.py::988 response_pipeline]: Response job 4b2f151a-b027-40d0-8a17-f44306915e2a completed. Content: 'Ого, история про магов! Знаешь, есть одна история, которая меня всегда цепляла. Раз, давно-давно, в ...'
+[2026-03-05 03:17:07,883] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=90 source=mic turn=131a6597-9365-404d-bfef-bb0dbf035b98 utterance=78bb6244-b92d-44e3-bfd5-c461def7f8c9
+[2026-03-05 03:17:09,326] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=64 source=mic turn=131a6597-9365-404d-bfef-bb0dbf035b98 utterance=13c7b6a5-6411-412b-8ac9-85831e3aa091
+[2026-03-05 03:17:10,779] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=37 source=mic turn=131a6597-9365-404d-bfef-bb0dbf035b98 utterance=6b0b4886-a22a-4425-894f-e7c64aa16943
+[2026-03-05 03:17:32,510] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=59 source=mic turn=02f8a68a-e72d-44f9-88c9-fdfeec2f3d86 utterance=9ec98cd3-ede0-4198-b667-a20511a07acf
+[2026-03-05 03:17:32,857] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=63 source=mic turn=592d9876-0702-4d6f-b95a-00d66f4e3827 utterance=31d9c87e-cdf5-421d-89d4-8395a4b29104
+[2026-03-05 03:17:33,831] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=59 source=mic turn=592d9876-0702-4d6f-b95a-00d66f4e3827 utterance=1c4873b4-f54c-43e7-a949-824afd398443
+[2026-03-05 03:17:37,909] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=109 source=mic turn=592d9876-0702-4d6f-b95a-00d66f4e3827 utterance=94bb3f14-9dad-427e-94f8-a08349c87d9c
+[2026-03-05 03:17:40,127] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=86 source=mic turn=592d9876-0702-4d6f-b95a-00d66f4e3827 utterance=89e75914-1cbb-440d-9059-a95b0e9e9725
+[2026-03-05 03:17:44,109] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=39 source=mic turn=35119076-08a2-48b7-9462-f3190c65383e utterance=46fb3321-e97e-4199-819a-bdfcc9aec720
+[2026-03-05 03:18:36,626] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=38 source=mic turn=6bd4e4ee-d455-4b04-a85e-6361f462356a utterance=9fc3ee75-2b71-41dc-9cfa-a0a1d576e891
+[2026-03-05 03:18:37,417] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=38 source=mic turn=6bd4e4ee-d455-4b04-a85e-6361f462356a utterance=3a3be525-a794-4ca5-a4b5-4679f8b86dda
+[2026-03-05 03:18:41,818] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=118 source=mic turn=6bd4e4ee-d455-4b04-a85e-6361f462356a utterance=bb4e8661-3549-47c7-a125-acd9903e5cd8
+[2026-03-05 03:18:42,800] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=39 source=mic turn=6bd4e4ee-d455-4b04-a85e-6361f462356a utterance=e89c49c9-0b37-455f-8086-7bd3650da131
+[2026-03-05 03:18:49,546] [INFO ] [jaison.py::109 start]: Starting JAIson application layer.
+[2026-03-05 03:18:49,568] [INFO ] [manager.py::332 load_operations_from_config]: Active STT from config: sherpa_ru
+[2026-03-05 03:18:49,569] [INFO ] [manager.py::334 load_operations_from_config]: Active TTS from config: qwen3
+[2026-03-05 03:18:51,259] [INFO ] [operation.py::32 start]: Starting STT operation sherpa_ru
+[2026-03-05 03:18:51,259] [INFO ] [manager.py::28 load]: Loading process by type sherpa_stt
+[2026-03-05 03:18:51,260] [WARNI] [base.py::46 unload]: Attempted to unload process sherpa_stt when it is already unloaded
+[2026-03-05 03:18:51,261] [INFO ] [sherpa_server.py::85 _prepare_hotwords_file]: Sherpa STT hotwords validated: 3 entries
+[2026-03-05 03:18:51,261] [INFO ] [sherpa_server.py::295 reload]: Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5
+[2026-03-05 03:18:51,262] [INFO ] [sherpa_server.py::307 reload]: Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5
+[2026-03-05 03:18:55,593] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-03-05 03:18:55,593] [INFO ] [manager.py::28 load]: Loading process by type llamacpp
+[2026-03-05 03:18:55,597] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 13180) on port 13932 (GPU: 0)
+[2026-03-05 03:18:55,597] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:13932/health ...
+[2026-03-05 03:18:59,761] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 13932)
+[2026-03-05 03:18:59,763] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-03-05 03:18:59,764] [INFO ] [operation.py::32 start]: Starting TTS operation qwen3
+[2026-03-05 03:18:59,764] [INFO ] [manager.py::28 load]: Loading process by type qwen3_tts
+[2026-03-05 03:18:59,765] [WARNI] [qwen3_tts_server.py::203 reload]: Qwen3 TTS SoX bin not found. Install sox.exe or set process.sox_bin_dir.
+[2026-03-05 03:18:59,765] [INFO ] [qwen3_tts_server.py::205 reload]: Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv312\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 1 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-Base --language russian --dtype bfloat16 --attn_implementation flash_attention_2 --use_compile 1 --sample_rate 24000 --sample_width 2 --channels 1 --voice_mode voice_clone --runtime_flavor dffdeeq --qwen_tts_repo_path C:\Nirmita\apps\dffdeeq_Qwen3-TTS-streaming-main --ref_audio_path C:\Nirmita\kuklina-1.wav --ref_text Взрослая, энергичная, весёлая девушка. Голос средней тональности, но открытый и с яркими эмоциями. --x_vector_only_mode 1 --emit_every_frames 4 --decode_window_frames 80 --overlap_samples 0 --max_frames 10000 --use_optimized_decode 1 --do_sample 0 --top_p 0.9 --top_k 50 --temperature 0.8 --dynamic_max_frames 0 --dynamic_chars_per_second 11.5 --dynamic_frame_budget_mul 1.05 --dynamic_min_frames 20 --dynamic_max_frames_cap 10000 --max_concurrent 1 --preload_on_start 1 --warmup_on_start 1 --warmup_text Привет. --warmup_chunks 2 --first_chunk_timeout_s 30 --stream_idle_timeout_s 30 --compile_mode reduce-overhead --compile_use_cuda_graphs 0 --compile_codebook_predictor 1 --compile_talker 1 --compile_cudagraph_skip_dynamic_graphs 0
+[2026-03-05 03:18:59,765] [INFO ] [qwen3_tts_server.py::206 reload]: Qwen3 TTS GPU pin: provider=cuda gpu_id=1 device=cuda:0 CUDA_VISIBLE_DEVICES=1
+[2026-03-05 03:19:59,001] [INFO ] [qwen3_tts_server.py::238 reload]: Qwen3 TTS sidecar is ready at http://127.0.0.1:6116/health
+[2026-03-05 03:19:59,327] [INFO ] [manager.py::28 load]: Loading process by type hw_mic
+[2026-03-05 03:19:59,328] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-03-05 03:19:59,334] [INFO ] [manager.py::28 load]: Loading process by type hw_audio_out
+[2026-03-05 03:19:59,334] [WARNI] [base.py::46 unload]: Attempted to unload process hw_audio_out when it is already unloaded
+[2026-03-05 03:19:59,340] [INFO ] [jaison.py::142 start]: JAIson application layer has started.
+[2026-03-05 03:19:59,341] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-03-05 03:19:59,973] [INFO ] [app_server.py::84 ws]: Opened new websocket connection
+[2026-03-05 03:20:00,025] [INFO ] [app_server.py::84 ws]: Opened new websocket connection
+[2026-03-05 03:21:14,292] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=13 latency_ms=114 source=mic turn=e91330dc-e3ae-4b65-8ca3-27a4bee7d05f utterance=b3e8586f-723d-49c8-916a-617d5f6f1ec1
+[2026-03-05 03:21:14,545] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job 49fd891e-9620-4619-bfa1-a9416c63f2a0
+[2026-03-05 03:21:14,545] [INFO ] [jaison.py::443 create_job]: Queued new response job 993b1d1d-29a3-4520-921f-8ccba84eabcc
+[2026-03-05 03:21:14,882] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 336.08490001643077 ms
+[2026-03-05 03:21:16,012] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=73 source=mic turn=e91330dc-e3ae-4b65-8ca3-27a4bee7d05f utterance=40a3814c-133d-4a6f-8ae7-a847585f7ea5
+[2026-03-05 03:21:38,899] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=4 latency_ms=53 source=mic turn=3ff5271c-122d-4551-a70d-a676145b1726 utterance=d73927b7-15a4-4cf9-a9b1-f541310ff57f
+[2026-03-05 03:21:39,190] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job 870470f9-e8ee-44b2-9502-bc1d428c7c88
+[2026-03-05 03:21:39,190] [INFO ] [jaison.py::443 create_job]: Queued new response job d078030d-2d8a-45ff-8ad2-749c3b604861
+[2026-03-05 03:21:51,699] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=23 latency_ms=91 source=mic turn=82996104-18b3-450b-a386-86a1eb7f11b3 utterance=57fd14db-a6b9-467a-8050-0b67bf795eba
+[2026-03-05 03:21:51,699] [INFO ] [jaison.py::482 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-03-05 03:21:51,699] [INFO ] [jaison.py::476 _clear_current_job]: Job 993b1d1d-29a3-4520-921f-8ccba84eabcc (response) is being cancelled due to: user_speaking_significant
+[2026-03-05 03:21:51,700] [INFO ] [jaison.py::756 _process_job_loop]: Job 993b1d1d-29a3-4520-921f-8ccba84eabcc (response) was cancelled.
+[2026-03-05 03:21:51,967] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job 52fe495a-f73d-4732-b5d7-132bfd8e32a1
+[2026-03-05 03:21:51,967] [INFO ] [jaison.py::443 create_job]: Queued new response job 5f8bb9ef-4432-48be-9856-2cb7c4078e6c
+[2026-03-05 03:21:52,742] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 774.2082000186201 ms
+[2026-03-05 03:22:06,179] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=26 latency_ms=139 source=mic turn=5faa0af2-1834-441b-bc45-1abd2f86b249 utterance=07d9b068-73d3-4b75-aef6-2e2717044e0a
+[2026-03-05 03:22:06,179] [INFO ] [jaison.py::482 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-03-05 03:22:06,179] [INFO ] [jaison.py::476 _clear_current_job]: Job 5f8bb9ef-4432-48be-9856-2cb7c4078e6c (response) is being cancelled due to: user_speaking_significant
+[2026-03-05 03:22:06,181] [INFO ] [jaison.py::756 _process_job_loop]: Job 5f8bb9ef-4432-48be-9856-2cb7c4078e6c (response) was cancelled.
+[2026-03-05 03:22:06,445] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job d25121c4-1866-4f0e-b7ce-a0a4bbea4fbe
+[2026-03-05 03:22:06,445] [INFO ] [jaison.py::443 create_job]: Queued new response job f85912fd-7e3d-4c89-bab5-e0650b90e6d2
+[2026-03-05 03:22:08,451] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 2004.192200023681 ms
+[2026-03-05 03:22:38,472] [WARNI] [qwen3.py::505 _stream_sidecar_bytes]: Qwen3 sidecar request failed before first chunk (attempt 1/3): Qwen3 sidecar returned 200 but produced no audio bytes.
+[2026-03-05 03:23:08,428] [INFO ] [jaison.py::109 start]: Starting JAIson application layer.
+[2026-03-05 03:23:08,451] [INFO ] [manager.py::332 load_operations_from_config]: Active STT from config: sherpa_ru
+[2026-03-05 03:23:08,451] [INFO ] [manager.py::334 load_operations_from_config]: Active TTS from config: qwen3
+[2026-03-05 03:23:10,248] [INFO ] [operation.py::32 start]: Starting STT operation sherpa_ru
+[2026-03-05 03:23:10,248] [INFO ] [manager.py::28 load]: Loading process by type sherpa_stt
+[2026-03-05 03:23:10,249] [WARNI] [base.py::46 unload]: Attempted to unload process sherpa_stt when it is already unloaded
+[2026-03-05 03:23:10,251] [INFO ] [sherpa_server.py::85 _prepare_hotwords_file]: Sherpa STT hotwords validated: 3 entries
+[2026-03-05 03:23:10,251] [INFO ] [sherpa_server.py::295 reload]: Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5
+[2026-03-05 03:23:10,251] [INFO ] [sherpa_server.py::307 reload]: Starting Sherpa STT Server with command: C:\Nirmita\.conda\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5
+[2026-03-05 03:23:14,570] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-03-05 03:23:14,570] [INFO ] [manager.py::28 load]: Loading process by type llamacpp
+[2026-03-05 03:23:14,574] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 3348) on port 9439 (GPU: 0)
+[2026-03-05 03:23:14,574] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:9439/health ...
+[2026-03-05 03:23:18,806] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 9439)
+[2026-03-05 03:23:18,808] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-03-05 03:23:18,809] [INFO ] [operation.py::32 start]: Starting TTS operation qwen3
+[2026-03-05 03:23:18,809] [INFO ] [manager.py::28 load]: Loading process by type qwen3_tts
+[2026-03-05 03:23:18,812] [WARNI] [qwen3_tts_server.py::203 reload]: Qwen3 TTS SoX bin not found. Install sox.exe or set process.sox_bin_dir.
+[2026-03-05 03:23:18,812] [INFO ] [qwen3_tts_server.py::205 reload]: Starting Qwen3 TTS Server with command: C:\Nirmita\apps\tts-qwen3-server\.venv312\Scripts\python.exe -u C:\Nirmita\apps\tts-qwen3-server\start_server.py --host 127.0.0.1 --port 6116 --provider cuda --gpu_id 1 --device cuda:0 --model_id Qwen/Qwen3-TTS-12Hz-0.6B-Base --language russian --dtype bfloat16 --attn_implementation flash_attention_2 --use_compile 1 --sample_rate 24000 --sample_width 2 --channels 1 --voice_mode voice_clone --runtime_flavor dffdeeq --qwen_tts_repo_path C:\Nirmita\apps\dffdeeq_Qwen3-TTS-streaming-main --ref_audio_path C:\Nirmita\kuklina-1.wav --ref_text Взрослая, энергичная, весёлая девушка. Голос средней тональности, но открытый и с яркими эмоциями. --x_vector_only_mode 1 --emit_every_frames 4 --decode_window_frames 80 --overlap_samples 0 --max_frames 10000 --use_optimized_decode 1 --do_sample 0 --top_p 0.9 --top_k 50 --temperature 0.8 --dynamic_max_frames 0 --dynamic_chars_per_second 11.5 --dynamic_frame_budget_mul 1.05 --dynamic_min_frames 20 --dynamic_max_frames_cap 10000 --max_concurrent 1 --preload_on_start 1 --warmup_on_start 1 --warmup_text Привет. --warmup_chunks 2 --first_chunk_timeout_s 30 --stream_idle_timeout_s 30 --compile_mode reduce-overhead --compile_use_cuda_graphs 0 --compile_codebook_predictor 1 --compile_talker 1 --compile_cudagraph_skip_dynamic_graphs 0
+[2026-03-05 03:23:18,812] [INFO ] [qwen3_tts_server.py::206 reload]: Qwen3 TTS GPU pin: provider=cuda gpu_id=1 device=cuda:0 CUDA_VISIBLE_DEVICES=1
+[2026-03-05 03:24:20,183] [INFO ] [qwen3_tts_server.py::238 reload]: Qwen3 TTS sidecar is ready at http://127.0.0.1:6116/health
+[2026-03-05 03:24:20,509] [INFO ] [manager.py::28 load]: Loading process by type hw_mic
+[2026-03-05 03:24:20,511] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-03-05 03:24:20,517] [INFO ] [manager.py::28 load]: Loading process by type hw_audio_out
+[2026-03-05 03:24:20,517] [WARNI] [base.py::46 unload]: Attempted to unload process hw_audio_out when it is already unloaded
+[2026-03-05 03:24:20,524] [INFO ] [jaison.py::142 start]: JAIson application layer has started.
+[2026-03-05 03:24:20,525] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-03-05 03:24:21,208] [INFO ] [app_server.py::84 ws]: Opened new websocket connection
+[2026-03-05 03:24:22,902] [INFO ] [app_server.py::84 ws]: Opened new websocket connection
+[2026-03-05 03:24:31,415] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=179 source=mic turn=a6938d2b-fa34-48a4-8b17-4b6ab3452f52 utterance=8f094498-c834-47ce-a170-aad7833e1bd9
+[2026-03-05 03:24:50,566] [INFO ] [app_server.py::93 ws]: Closed websocket connection
+[2026-03-05 03:24:51,536] [INFO ] [app_server.py::84 ws]: Opened new websocket connection
+[2026-03-05 03:24:55,226] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=13 latency_ms=122 source=mic turn=f8687c7a-4ae3-4878-ae26-f808f38ae9fb utterance=f352bca7-4121-4dc1-972d-dbdbad448847
+[2026-03-05 03:24:55,485] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job 1ec7b898-8b9e-43ef-8d4e-fa9e5ede6d96
+[2026-03-05 03:24:55,485] [INFO ] [jaison.py::443 create_job]: Queued new response job 3f2d2441-4d2a-4204-90f3-df9127217b30
+[2026-03-05 03:24:55,936] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 449.6830999851227 ms
+[2026-03-05 03:24:59,506] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=23 bytes=180356 first_chunk_ms=448 max_gap_ms=678.7 total_ms=3569 audio_s=3.757 rtf=0.950 text_len=43
+[2026-03-05 03:24:59,506] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 3569.9765000026673 ms
+[2026-03-05 03:24:59,506] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 3570.0945999997202 ms
+[2026-03-05 03:24:59,507] [INFO ] [jaison.py::988 response_pipeline]: Response job 3f2d2441-4d2a-4204-90f3-df9127217b30 completed. Content: 'Привет! Как дела в этом замечательном мире?...'
+[2026-03-05 03:25:04,666] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=26 latency_ms=73 source=mic turn=998b474e-cc94-4301-8c4d-f57fd126b546 utterance=3b3ee4da-ad6c-4aa2-861a-9e5326af3d93
+[2026-03-05 03:25:04,666] [INFO ] [jaison.py::482 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-03-05 03:25:04,919] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job ed9da44a-c257-4e89-906e-42978135a134
+[2026-03-05 03:25:04,919] [INFO ] [jaison.py::443 create_job]: Queued new response job c1923477-bc01-4939-83e4-ca7e479db5a6
+[2026-03-05 03:25:09,083] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 4162.531799986027 ms
+[2026-03-05 03:25:42,497] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=263 bytes=2154174 first_chunk_ms=394 max_gap_ms=301.9 total_ms=33414 audio_s=44.879 rtf=0.745 text_len=628
+[2026-03-05 03:25:42,498] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 33414.34489999665 ms
+[2026-03-05 03:25:42,498] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 33414.451999997254 ms
+[2026-03-05 03:25:42,498] [INFO ] [jaison.py::988 response_pipeline]: Response job c1923477-bc01-4939-83e4-ca7e479db5a6 completed. Content: 'Когда-то давно, в мире, полном магии, жили двое лучших друзей — маг огня по имени Феникс и маг воды ...'
+[2026-03-05 03:26:09,956] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=20 latency_ms=121 source=mic turn=343645f6-1b12-4d80-ab05-ec4d6dcbae6b utterance=7950597f-690e-41a5-a270-b7442dbaafa5
+[2026-03-05 03:26:09,956] [INFO ] [jaison.py::482 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-03-05 03:26:10,216] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job a3ded955-8a92-46b0-a0e4-99f00b048930
+[2026-03-05 03:26:10,216] [INFO ] [jaison.py::443 create_job]: Queued new response job ae987d25-7ffd-4bbc-9ffb-775087127cc1
+[2026-03-05 03:26:11,408] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 1190.0809000071604 ms
+[2026-03-05 03:26:19,392] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=56 bytes=453040 first_chunk_ms=456 max_gap_ms=291.3 total_ms=7984 audio_s=9.438 rtf=0.846 text_len=136
+[2026-03-05 03:26:19,392] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 7984.380300011253 ms
+[2026-03-05 03:26:19,392] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 7984.520099998917 ms
+[2026-03-05 03:26:19,392] [INFO ] [jaison.py::988 response_pipeline]: Response job ae987d25-7ffd-4bbc-9ffb-775087127cc1 completed. Content: 'Может, хочешь узнать, что я думаю о последней части "Ведьмака"? Или как насчет того, чтобы посплетни...'
+[2026-03-05 03:26:26,132] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=46 latency_ms=169 source=mic turn=bfdfe399-1792-41ae-ba27-6dfe8ebf25d7 utterance=c922e801-d3bd-4eee-804a-b26ab54cde2d
+[2026-03-05 03:26:26,132] [INFO ] [jaison.py::482 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-03-05 03:26:26,392] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job 0dd35625-58fd-4b1d-b4f3-bd9e37558330
+[2026-03-05 03:26:26,392] [INFO ] [jaison.py::443 create_job]: Queued new response job 69bc3596-8545-468e-a507-6f26e30d9033
+[2026-03-05 03:26:28,748] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 2354.7872999915853 ms
+[2026-03-05 03:26:48,434] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=144 bytes=1174960 first_chunk_ms=452 max_gap_ms=306.8 total_ms=19685 audio_s=24.478 rtf=0.804 text_len=359
+[2026-03-05 03:26:48,434] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 19685.95680000726 ms
+[2026-03-05 03:26:48,434] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 19686.094200005755 ms
+[2026-03-05 03:26:48,435] [INFO ] [jaison.py::988 response_pipeline]: Response job 69bc3596-8545-468e-a507-6f26e30d9033 completed. Content: 'У Зефира только одна любовь — это программирование! Он проводит дни и ночи за компьютером, создавая ...'
+[2026-03-05 03:27:01,121] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=56 latency_ms=245 source=mic turn=ae10e083-debb-4e19-b307-e5d1131dea89 utterance=845d6eaf-f016-40f8-a053-517a10889735
+[2026-03-05 03:27:01,121] [INFO ] [jaison.py::482 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-03-05 03:27:01,376] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job f367fd10-3a34-4c8a-883c-74441895f41c
+[2026-03-05 03:27:01,376] [INFO ] [jaison.py::443 create_job]: Queued new response job 7ffc8d85-6804-4f58-a9cd-fa6c3128e609
+[2026-03-05 03:27:01,999] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 623.1309000286274 ms
+[2026-03-05 03:27:04,703] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=16 bytes=130442 first_chunk_ms=423 max_gap_ms=486.3 total_ms=2702 audio_s=2.718 rtf=0.994 text_len=30
+[2026-03-05 03:27:04,703] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 2702.6994999905583 ms
+[2026-03-05 03:27:04,703] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 2702.836699987529 ms
+[2026-03-05 03:27:04,704] [INFO ] [jaison.py::988 response_pipeline]: Response job 7ffc8d85-6804-4f58-a9cd-fa6c3128e609 completed. Content: 'Ну конечно, я общаюсь с тобой!...'
+[2026-03-05 03:27:08,723] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=22 latency_ms=110 source=mic turn=84e7e729-bcef-4c23-be5c-f49f99317264 utterance=840a2b03-f668-44f7-af94-7cb5548d5b5e
+[2026-03-05 03:27:08,724] [INFO ] [jaison.py::482 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-03-05 03:27:08,989] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job 5efc8795-463b-4b55-b50c-767dd11983ce
+[2026-03-05 03:27:08,989] [INFO ] [jaison.py::443 create_job]: Queued new response job f91f3f8f-2c5a-4e68-8ffb-149f6c337a68
+[2026-03-05 03:27:09,578] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 588.2312999747228 ms
+[2026-03-05 03:27:12,990] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=25 bytes=199626 first_chunk_ms=286 max_gap_ms=287.5 total_ms=3411 audio_s=4.159 rtf=0.820 text_len=48
+[2026-03-05 03:27:12,990] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 3412.009699997725 ms
+[2026-03-05 03:27:12,990] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 3412.1100999764167 ms
+[2026-03-05 03:27:12,991] [INFO ] [jaison.py::988 response_pipeline]: Response job f91f3f8f-2c5a-4e68-8ffb-149f6c337a68 completed. Content: 'Ну, привет, я Нира! А с кем имею честь общаться?...'
+[2026-03-05 03:27:18,200] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=28 latency_ms=106 source=mic turn=2c2b39cd-692c-41e8-a70d-e97ebd522d78 utterance=57946ce0-a50c-40d9-9f55-edac6dd9a739
+[2026-03-05 03:27:18,200] [INFO ] [jaison.py::482 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-03-05 03:27:18,459] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job 3726ceb1-f90b-4f06-866d-d1f8ec42e393
+[2026-03-05 03:27:18,459] [INFO ] [jaison.py::443 create_job]: Queued new response job 548b2046-ff20-4a2f-a58f-b3d10b2dcb9a
+[2026-03-05 03:27:19,015] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 554.8721999803092 ms
+[2026-03-05 03:27:22,461] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=25 bytes=199626 first_chunk_ms=407 max_gap_ms=284.2 total_ms=3445 audio_s=4.159 rtf=0.828 text_len=46
+[2026-03-05 03:27:22,462] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 3446.0513000085484 ms
+[2026-03-05 03:27:22,462] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 3446.192900009919 ms
+[2026-03-05 03:27:22,462] [INFO ] [jaison.py::988 response_pipeline]: Response job 548b2046-ff20-4a2f-a58f-b3d10b2dcb9a completed. Content: 'А, так ты и есть Зефир! Приятно познакомиться....'
+[2026-03-05 03:27:30,131] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=30 latency_ms=140 source=mic turn=52f6bb28-0a31-4930-9fca-0d173077617f utterance=514a7a27-cee1-424c-af82-fcfea5e1472c
+[2026-03-05 03:27:30,131] [INFO ] [jaison.py::482 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-03-05 03:27:30,384] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job cf890bb6-1cc1-45f4-8be7-510c19561def
+[2026-03-05 03:27:30,384] [INFO ] [jaison.py::443 create_job]: Queued new response job fae78925-c30a-4aa9-930b-3a01e698d1d5
+[2026-03-05 03:27:31,052] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 666.6795999917667 ms
+[2026-03-05 03:27:35,461] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=32 bytes=261066 first_chunk_ms=376 max_gap_ms=288.1 total_ms=4408 audio_s=5.439 rtf=0.810 text_len=46
+[2026-03-05 03:27:35,461] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 4409.09540001303 ms
+[2026-03-05 03:27:35,461] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 4409.234699996887 ms
+[2026-03-05 03:27:35,462] [INFO ] [jaison.py::988 response_pipeline]: Response job fae78925-c30a-4aa9-930b-3a01e698d1d5 completed. Content: 'Ну, привет, меня зовут Нира! А как тебя зовут?...'
+[2026-03-05 03:27:47,453] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=70 latency_ms=247 source=mic turn=14144ff4-899f-40f0-9ef4-cb6f7d2dd969 utterance=eef077af-95a7-47fd-a646-4bf58f97749a
+[2026-03-05 03:27:47,453] [INFO ] [jaison.py::482 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-03-05 03:27:47,713] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job 19c324cf-cfc7-462e-b511-9149f7c455a2
+[2026-03-05 03:27:47,713] [INFO ] [jaison.py::443 create_job]: Queued new response job 1f861378-fffe-4085-a486-f90855115424
+[2026-03-05 03:27:48,450] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 735.0302999839187 ms
+[2026-03-05 03:27:53,881] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=39 bytes=318626 first_chunk_ms=417 max_gap_ms=287.1 total_ms=5431 audio_s=6.638 rtf=0.818 text_len=66
+[2026-03-05 03:27:53,881] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 5431.823200022336 ms
+[2026-03-05 03:27:53,881] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 5431.9555000110995 ms
+[2026-03-05 03:27:53,882] [INFO ] [jaison.py::988 response_pipeline]: Response job 1f861378-fffe-4085-a486-f90855115424 completed. Content: 'Зефир — это твой создатель, тот, кто придумал и создал меня, Ниру....'
+[2026-03-05 03:27:59,690] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=39 latency_ms=167 source=mic turn=28f4b240-0e73-4562-a0bb-5b84cd39e517 utterance=9aa7b1ce-7301-4899-b06b-c2f605d90f32
+[2026-03-05 03:27:59,690] [INFO ] [jaison.py::482 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-03-05 03:27:59,955] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job b28ce4a4-c21c-413e-8467-48c86474744a
+[2026-03-05 03:27:59,955] [INFO ] [jaison.py::443 create_job]: Queued new response job 528abaae-9223-48be-b8c2-1d1d259dc7b7
+[2026-03-05 03:28:00,412] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 455.213500012178 ms
+[2026-03-05 03:28:02,850] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=15 bytes=115072 first_chunk_ms=437 max_gap_ms=474.1 total_ms=2437 audio_s=2.397 rtf=1.017 text_len=26
+[2026-03-05 03:28:02,850] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 2437.5768000027165 ms
+[2026-03-05 03:28:02,850] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 2437.737300002482 ms
+[2026-03-05 03:28:02,851] [INFO ] [jaison.py::988 response_pipeline]: Response job 528abaae-9223-48be-b8c2-1d1d259dc7b7 completed. Content: 'Ты — мой создатель, Зефир!...'
+[2026-03-05 03:28:08,582] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=39 latency_ms=140 source=mic turn=3b8c2f8d-a111-4cfb-b405-4aa96e10a454 utterance=ccb85d40-47a5-4d45-9481-338b90fef39f
+[2026-03-05 03:28:08,582] [INFO ] [jaison.py::482 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-03-05 03:28:08,834] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job cdd3c189-fdae-44d1-84a3-6ec99c06000c
+[2026-03-05 03:28:08,834] [INFO ] [jaison.py::443 create_job]: Queued new response job 820fa2f2-31a5-4848-af1a-c6dbd9b6502f
+[2026-03-05 03:28:09,379] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 544.5185000135098 ms
+[2026-03-05 03:28:13,039] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=22 bytes=180182 first_chunk_ms=458 max_gap_ms=338.8 total_ms=3659 audio_s=3.754 rtf=0.975 text_len=39
+[2026-03-05 03:28:13,040] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 3659.4554999901447 ms
+[2026-03-05 03:28:13,040] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 3659.619999991264 ms
+[2026-03-05 03:28:13,041] [INFO ] [jaison.py::988 response_pipeline]: Response job 820fa2f2-31a5-4848-af1a-c6dbd9b6502f completed. Content: 'Ты — Зефир, тот, кто создал меня, Ниру....'
+[2026-03-05 03:28:18,256] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=15 latency_ms=115 source=mic turn=f953e103-8735-4d18-82d3-cd68713ab045 utterance=64b8b986-72f8-4757-a6bb-f6257c8ed3f9
+[2026-03-05 03:28:18,510] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job c56f6e39-55f9-4027-90dc-9eb0ea07b177
+[2026-03-05 03:28:18,510] [INFO ] [jaison.py::443 create_job]: Queued new response job 52db2ca4-ac9b-482e-ae8c-c76bb4c03b1d
+[2026-03-05 03:28:18,932] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 421.06119997333735 ms
+[2026-03-05 03:28:22,123] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=19 bytes=153546 first_chunk_ms=493 max_gap_ms=317.1 total_ms=3190 audio_s=3.199 rtf=0.997 text_len=34
+[2026-03-05 03:28:22,124] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 3190.8423000131734 ms
+[2026-03-05 03:28:22,124] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 3190.9809000208043 ms
+[2026-03-05 03:28:22,124] [INFO ] [jaison.py::988 response_pipeline]: Response job 52db2ca4-ac9b-482e-ae8c-c76bb4c03b1d completed. Content: 'Привет, меня зовут Нира! Как дела?...'
+[2026-03-05 03:28:33,515] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=20 latency_ms=113 source=mic turn=101a08dd-e784-4488-b8ef-3d0f825cb6ed utterance=99f88381-5f87-4c38-a9f8-fea71defbf08
+[2026-03-05 03:28:33,515] [INFO ] [jaison.py::482 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-03-05 03:28:33,767] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job 70ba1b24-ce21-4942-8a58-4143cb4cb3b1
+[2026-03-05 03:28:33,767] [INFO ] [jaison.py::443 create_job]: Queued new response job 1fbb8323-ac7a-4cbb-8ee3-4767cdb31a0a
+[2026-03-05 03:28:34,196] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 427.45889999787323 ms
+[2026-03-05 03:28:36,289] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=10 bytes=80534 first_chunk_ms=498 max_gap_ms=406.0 total_ms=2092 audio_s=1.678 rtf=1.247 text_len=18
+[2026-03-05 03:28:36,289] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 2093.2886000082362 ms
+[2026-03-05 03:28:36,290] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 2093.437100003939 ms
+[2026-03-05 03:28:36,290] [INFO ] [jaison.py::988 response_pipeline]: Response job 1fbb8323-ac7a-4cbb-8ee3-4767cdb31a0a completed. Content: 'Меня создал Зефир....'
+[2026-03-05 03:28:39,865] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=18 latency_ms=89 source=mic turn=6d14c240-eafb-4351-8e66-e9d5dea196da utterance=ce607be1-72de-47e0-bb38-daa1ec1cecab
+[2026-03-05 03:28:39,865] [INFO ] [jaison.py::482 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-03-05 03:28:40,119] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job fda2e817-b89e-4891-af01-c3f97bee58d1
+[2026-03-05 03:28:40,119] [INFO ] [jaison.py::443 create_job]: Queued new response job 9f4666d3-2f97-4fad-b257-6b67a053536a
+[2026-03-05 03:28:40,454] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 333.2155999960378 ms
+[2026-03-05 03:28:43,688] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=19 bytes=149622 first_chunk_ms=312 max_gap_ms=622.8 total_ms=3233 audio_s=3.117 rtf=1.037 text_len=28
+[2026-03-05 03:28:43,688] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 3233.98210000596 ms
+[2026-03-05 03:28:43,688] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 3234.1368999914266 ms
+[2026-03-05 03:28:43,688] [INFO ] [jaison.py::988 response_pipeline]: Response job 9f4666d3-2f97-4fad-b257-6b67a053536a completed. Content: 'Для меня это радиослушатель....'
+[2026-03-05 03:28:49,719] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=15 latency_ms=88 source=mic turn=e78daf07-5269-41b3-a6bd-96cd6e2ad43b utterance=f4a34454-eb41-40ce-b4b6-33d0ec039c1f
+[2026-03-05 03:28:49,719] [INFO ] [jaison.py::482 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-03-05 03:28:49,983] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job afb924b6-f469-4131-b7c3-b1ee56538d99
+[2026-03-05 03:28:49,983] [INFO ] [jaison.py::443 create_job]: Queued new response job d2a852ae-9a99-4236-b953-cc9d2dd1e445
+[2026-03-05 03:28:50,608] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 623.495300009381 ms
+[2026-03-05 03:28:54,197] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=20 bytes=161174 first_chunk_ms=471 max_gap_ms=578.9 total_ms=3589 audio_s=3.358 rtf=1.069 text_len=47
+[2026-03-05 03:28:54,197] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 3589.48289998807 ms
+[2026-03-05 03:28:54,197] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 3589.6486999990884 ms
+[2026-03-05 03:28:54,197] [INFO ] [jaison.py::988 response_pipeline]: Response job d2a852ae-9a99-4236-b953-cc9d2dd1e445 completed. Content: 'Зефир - это человек, который создал меня, Ниру....'
+[2026-03-05 03:28:57,693] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=7 latency_ms=62 source=mic turn=42a3d9bd-fed8-43b1-a402-ca181ddc856e utterance=f4bbb87f-b5d3-4977-ba95-d66b16691de7
+[2026-03-05 03:28:57,959] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job 07d6b5cb-f3ee-45d4-8747-99729b5cfa28
+[2026-03-05 03:28:57,959] [INFO ] [jaison.py::443 create_job]: Queued new response job f647c48d-75f9-427f-8cd6-824bae3475a4
+[2026-03-05 03:28:58,352] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 391.55609998852015 ms
+[2026-03-05 03:29:01,860] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=23 bytes=184266 first_chunk_ms=326 max_gap_ms=317.7 total_ms=3508 audio_s=3.839 rtf=0.914 text_len=21
+[2026-03-05 03:29:01,860] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 3508.9691000175662 ms
+[2026-03-05 03:29:01,860] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 3509.108500002185 ms
+[2026-03-05 03:29:01,862] [INFO ] [jaison.py::988 response_pipeline]: Response job f647c48d-75f9-427f-8cd6-824bae3475a4 completed. Content: 'Ты — собеседник Ниры....'
+[2026-03-05 03:29:05,620] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=16 latency_ms=89 source=mic turn=0cc6dbf6-b461-48c2-a7dc-88d5a099987c utterance=6c8fdcf4-6d37-4235-860b-484c047293ed
+[2026-03-05 03:29:05,620] [INFO ] [jaison.py::482 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-03-05 03:29:05,878] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job 1a6ad3c4-ddf0-4fe3-8033-982c8fb68c1a
+[2026-03-05 03:29:05,878] [INFO ] [jaison.py::443 create_job]: Queued new response job c1b0f232-ad9d-4329-8195-fed3e25d6cae
+[2026-03-05 03:29:06,266] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 387.6996000180952 ms
+[2026-03-05 03:29:10,120] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=22 bytes=176420 first_chunk_ms=330 max_gap_ms=602.3 total_ms=3853 audio_s=3.675 rtf=1.048 text_len=33
+[2026-03-05 03:29:10,120] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 3853.3299999835435 ms
+[2026-03-05 03:29:10,121] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 3853.4713000117335 ms
+[2026-03-05 03:29:10,121] [INFO ] [jaison.py::988 response_pipeline]: Response job c1b0f232-ad9d-4329-8195-fed3e25d6cae completed. Content: 'Привет! Как дела? Как зовут тебя?...'
+[2026-03-05 03:29:17,220] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=54 latency_ms=199 source=mic turn=348fdedf-8dd9-455c-b377-527fafe75e07 utterance=83795871-83a7-470e-9d2a-9d66396603bb
+[2026-03-05 03:29:17,220] [INFO ] [jaison.py::482 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-03-05 03:29:17,484] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job 57972247-448f-4011-a361-56d3ad0dcb84
+[2026-03-05 03:29:17,484] [INFO ] [jaison.py::443 create_job]: Queued new response job ae52d989-9e40-4449-abcb-ce552dd1019f
+[2026-03-05 03:29:18,006] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 521.6286000213586 ms
+[2026-03-05 03:29:22,524] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=25 bytes=203394 first_chunk_ms=504 max_gap_ms=552.1 total_ms=4517 audio_s=4.237 rtf=1.066 text_len=50
+[2026-03-05 03:29:22,525] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 4517.901999992318 ms
+[2026-03-05 03:29:22,525] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 4518.0488000041805 ms
+[2026-03-05 03:29:22,525] [INFO ] [jaison.py::988 response_pipeline]: Response job ae52d989-9e40-4449-abcb-ce552dd1019f completed. Content: 'Конечно! Приключения магов — это всегда интересно....'
+[2026-03-05 03:29:27,104] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=7 latency_ms=69 source=mic turn=ee3bdae6-c78d-4b34-b8f9-7ecf8e40d504 utterance=2b52832b-aa31-4d0c-acd5-622b61e548fe
+[2026-03-05 03:29:27,104] [INFO ] [jaison.py::268 _record_stt_metrics]: STT metrics(window=20): avg_latency_ms=132 empty_rate=0.050 stop_cmd_recall=0.000
+[2026-03-05 03:29:27,369] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job 619c8544-cdb4-46de-b7fb-4964629a0935
+[2026-03-05 03:29:27,369] [INFO ] [jaison.py::581 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-03-05 03:29:32,883] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=13 latency_ms=92 source=mic turn=d9d8066c-4ce7-44cc-8cad-9157233165f0 utterance=09586267-5459-41af-9d85-8fab76feb67c
+[2026-03-05 03:29:33,150] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job cfad9f60-d899-4cf8-9aae-cd64c1e66cfd
+[2026-03-05 03:29:33,150] [INFO ] [jaison.py::443 create_job]: Queued new response job 741282fe-9dd5-45c5-8c3c-53d3a3b70576
+[2026-03-05 03:29:33,704] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 552.9213999980129 ms
+[2026-03-05 03:29:37,209] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=20 bytes=157360 first_chunk_ms=375 max_gap_ms=534.5 total_ms=3505 audio_s=3.278 rtf=1.069 text_len=43
+[2026-03-05 03:29:37,209] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 3505.619699979434 ms
+[2026-03-05 03:29:37,209] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 3505.7857999927364 ms
+[2026-03-05 03:29:37,210] [INFO ] [jaison.py::988 response_pipeline]: Response job 741282fe-9dd5-45c5-8c3c-53d3a3b70576 completed. Content: 'Привет! Как дела в этом замечательном мире?...'
+[2026-03-05 03:29:46,779] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=40 source=mic turn=d84cba9d-2d49-4ad0-85cc-673e0666ae8e utterance=b74fe93b-fdf5-44f3-ab56-0dddd440dcca
+[2026-03-05 03:29:47,262] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=42 source=mic turn=a8ad7748-3a22-4a24-9a54-91800b315691 utterance=67ab2788-5d22-4b97-9b40-eb58696c9e13
+[2026-03-05 03:29:50,621] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=40 source=mic turn=425e1b9b-3e62-457d-8727-28c6dbbd5d34 utterance=d8ec198a-0692-44a5-9144-fc5c6fb1af40
+[2026-03-05 03:30:21,488] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=40 source=mic turn=173b1a6f-e7b9-4a42-87f5-8068921ab3d8 utterance=c2481338-f468-47bb-b9e7-cfd70cb42b97
+[2026-03-05 03:31:02,833] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=39 source=mic turn=7c309d62-5554-4f75-b246-737c58e35eac utterance=6e757126-a8be-4da3-9331-c283beb46cc9
+[2026-03-05 03:34:37,038] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=37 source=mic turn=09aa0efb-6b6f-4f67-8e27-222d964dac5f utterance=a0119731-b037-495f-b8c5-7621c726ccc0
+[2026-03-05 03:35:35,527] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=66 source=mic turn=b224a8d1-cd9d-41a4-a3a2-fb505902c865 utterance=1d96bc01-2d9f-4dfa-a6d4-fb02b267667e
+[2026-03-05 03:36:36,510] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=66 source=mic turn=fa7a6f7d-94d6-485a-993e-afe9802834a5 utterance=8a294c2b-f2f9-4515-ad4b-1def97f846dd
+[2026-03-05 03:36:39,159] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=94 source=mic turn=fa7a6f7d-94d6-485a-993e-afe9802834a5 utterance=bdb1a0f3-b5cc-42e9-a2b4-4b3413ee9607
+[2026-03-05 03:36:40,384] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=41 source=mic turn=fa7a6f7d-94d6-485a-993e-afe9802834a5 utterance=a8052f3c-c85b-4665-b119-d82dc0d990cf
+[2026-03-05 03:36:53,988] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=39 source=mic turn=05419ceb-1861-4a44-9564-191ea570f008 utterance=74d65407-0e72-48fc-97d1-df15dcd4b3f9
+[2026-03-05 03:37:07,892] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=19 latency_ms=158 source=mic turn=714d9dc3-b1f0-4a4a-b13d-41847160897c utterance=e1c4cd53-697c-4bf9-8870-71ef6913ce55
+[2026-03-05 03:37:08,154] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job be08a22e-4472-4564-95df-fffb3b369e81
+[2026-03-05 03:37:08,154] [INFO ] [jaison.py::443 create_job]: Queued new response job 8bb22861-9f8a-4b92-bbfe-d2826f86284b
+[2026-03-05 03:37:10,604] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=49 source=mic turn=714d9dc3-b1f0-4a4a-b13d-41847160897c utterance=22d9ebf9-0258-4d45-be84-56b447898f95
+[2026-03-05 03:37:12,489] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 4333.4098999912385 ms
+[2026-03-05 03:37:19,661] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=80 source=mic turn=a1808a28-cf7c-45dd-a72f-2d327e771b40 utterance=a0f7a93b-77a9-43f7-ac45-9140da4b71b2
+[2026-03-05 03:37:25,109] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=105 source=mic turn=e67f3065-8af7-40d6-800d-438bf9cdbf6d utterance=1d79d06d-ac26-4afa-b137-27c184b551e9
+[2026-03-05 03:37:28,219] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=73 source=mic turn=e67f3065-8af7-40d6-800d-438bf9cdbf6d utterance=2bcb635b-50e4-46e8-8a88-232b73467605
+[2026-03-05 03:37:29,815] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=72 source=mic turn=e67f3065-8af7-40d6-800d-438bf9cdbf6d utterance=191a70f1-59d7-4250-b6ef-49005fd014b3
+[2026-03-05 03:37:30,613] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=39 source=mic turn=e67f3065-8af7-40d6-800d-438bf9cdbf6d utterance=6c6bff50-6dcf-4bd7-8793-a2ac9af7893e
+[2026-03-05 03:37:38,388] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=48 source=mic turn=1760503a-4113-40ef-9098-a38a38d63312 utterance=9f01b119-fcfd-4906-b957-3778298e0756
+[2026-03-05 03:37:38,391] [INFO ] [jaison.py::268 _record_stt_metrics]: STT metrics(window=40): avg_latency_ms=97 empty_rate=0.475 stop_cmd_recall=0.000
+[2026-03-05 03:37:40,347] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=74 source=mic turn=c6997d06-43b3-4ae8-b7c6-0a0e8c232448 utterance=c5706b0b-5dd7-4011-98c1-6e087bb72fa9
+[2026-03-05 03:37:43,130] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=136 source=mic turn=c6997d06-43b3-4ae8-b7c6-0a0e8c232448 utterance=30002555-e10e-4892-8bf9-77288ebb66ab
+[2026-03-05 03:37:44,244] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=40 source=mic turn=c6997d06-43b3-4ae8-b7c6-0a0e8c232448 utterance=ae116067-60ab-477f-a790-29c2eb6fc9f3
+[2026-03-05 03:37:49,342] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=49 source=mic turn=5bd866aa-4a31-4e32-99f6-8ce33e15f33c utterance=43a11b01-c79c-4202-bfbe-f172c5f6c502
+[2026-03-05 03:37:49,521] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=271 bytes=2219440 first_chunk_ms=383 max_gap_ms=293.6 total_ms=37030 audio_s=46.238 rtf=0.801 text_len=632
+[2026-03-05 03:37:49,521] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 37031.18630000972 ms
+[2026-03-05 03:37:49,521] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 37031.33430000162 ms
+[2026-03-05 03:37:49,521] [INFO ] [jaison.py::988 response_pipeline]: Response job 8bb22861-9f8a-4b92-bbfe-d2826f86284b completed. Content: 'Хм, хорошо. Значит, жили-были три мага. Один был маг огня, другой — маг воды, а третий — маг земли. ...'
+[2026-03-05 03:37:54,639] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=66 source=mic turn=a1d8926a-1a3a-430a-8c75-ff8757e602f8 utterance=2871306e-8c2c-4330-81fb-1e997b3dfa7e
+[2026-03-05 03:37:57,914] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=41 source=mic turn=342bc28e-ec48-4e1e-b17d-f54375e62990 utterance=ae5ed155-fe94-4141-869a-3643d2aa705e
+[2026-03-05 03:37:59,861] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=39 source=mic turn=342bc28e-ec48-4e1e-b17d-f54375e62990 utterance=3306e561-2548-4e19-90e9-94f08df021b7
+[2026-03-05 03:38:01,522] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=39 source=mic turn=342bc28e-ec48-4e1e-b17d-f54375e62990 utterance=d7349dcf-5dbd-410e-aeda-ec854156dd02
+[2026-03-05 03:38:04,161] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=76 source=mic turn=342bc28e-ec48-4e1e-b17d-f54375e62990 utterance=0472c7ab-47ee-4d4c-b28c-3594f93315c8
+[2026-03-05 03:38:04,760] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=37 source=mic turn=342bc28e-ec48-4e1e-b17d-f54375e62990 utterance=e28f66fe-0555-4875-a0c7-593c2a971a9f
+[2026-03-05 03:38:09,137] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=65 source=mic turn=f4fc39c0-d565-47d8-8cbb-c2c5eb889a0f utterance=901f0655-216d-4a8f-8872-d975ec4307e3
+[2026-03-05 03:38:17,134] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=39 source=mic turn=32bca230-3484-4b61-8f2c-a42b0d94ef62 utterance=be11bb0a-c84c-419b-b6e4-bcda0648e613
+[2026-03-05 03:38:19,778] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=213 source=mic turn=2778758d-216f-413e-94d7-df3e98899f5d utterance=730861d2-4fa4-47c6-ab7b-70466fb3fac1
+[2026-03-05 03:38:22,455] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=43 source=mic turn=2778758d-216f-413e-94d7-df3e98899f5d utterance=13fc5036-df12-43a1-9d1c-b30821d311de
+[2026-03-05 03:38:23,752] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=40 source=mic turn=2778758d-216f-413e-94d7-df3e98899f5d utterance=4e587603-ff5e-44db-ad9d-4938f80f9321
+[2026-03-05 03:38:25,004] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=41 source=mic turn=2778758d-216f-413e-94d7-df3e98899f5d utterance=7a3b042e-4a30-4f58-ab21-ad336804fece
+[2026-03-05 03:38:26,670] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=39 source=mic turn=2778758d-216f-413e-94d7-df3e98899f5d utterance=2abf78ee-3618-43a5-b0f8-f39f754ada58
+[2026-03-05 03:38:29,219] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=96 source=mic turn=2778758d-216f-413e-94d7-df3e98899f5d utterance=3a10c04e-1edc-4d33-ab11-db46f5e5dbd0
+[2026-03-05 03:38:31,370] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=97 source=mic turn=2778758d-216f-413e-94d7-df3e98899f5d utterance=fb9b933d-e28b-46ae-90f1-cdfe4933588b
+[2026-03-05 03:38:32,741] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=67 source=mic turn=2778758d-216f-413e-94d7-df3e98899f5d utterance=078a649c-cb06-42bf-8538-2a087c9ecd40
+[2026-03-05 03:38:32,741] [INFO ] [jaison.py::268 _record_stt_metrics]: STT metrics(window=60): avg_latency_ms=87 empty_rate=0.650 stop_cmd_recall=0.000
+[2026-03-05 03:38:34,404] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=91 source=mic turn=2778758d-216f-413e-94d7-df3e98899f5d utterance=d774fe89-cccc-4fdc-aa3a-719e64c453f5
+[2026-03-05 03:38:36,844] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=101 source=mic turn=2778758d-216f-413e-94d7-df3e98899f5d utterance=d5287098-ab57-4a1c-af3b-7416e33064e0
+[2026-03-05 03:38:46,665] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=38 source=mic turn=60c7d632-70eb-4a2a-8944-0221917a3ee3 utterance=254f8f89-63ca-418c-a0cc-4f3e19443a64
+[2026-03-05 03:38:47,100] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=117 source=mic turn=33f81234-4aac-4f7a-a991-c2dd46ece424 utterance=1c3901fa-59b1-4b1d-b2da-689d716b3bbd
+[2026-03-05 03:38:47,750] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=38 source=mic turn=33f81234-4aac-4f7a-a991-c2dd46ece424 utterance=560d1902-3a2a-42bd-b5fa-6e2e642c9dad
+[2026-03-05 03:38:51,793] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=41 source=mic turn=467269ba-cd18-4fd0-8ab6-c1a5948587a2 utterance=48b5cd02-756a-48de-8395-2064c05980f4
+[2026-03-05 03:38:53,321] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=37 source=mic turn=467269ba-cd18-4fd0-8ab6-c1a5948587a2 utterance=9eaef67c-64ab-4438-82a5-90355f8d7b57
+[2026-03-05 03:38:54,949] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=38 source=mic turn=467269ba-cd18-4fd0-8ab6-c1a5948587a2 utterance=8ad645dc-8f0e-480f-9dac-0bd989fee785
+[2026-03-05 03:38:56,007] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=36 source=mic turn=467269ba-cd18-4fd0-8ab6-c1a5948587a2 utterance=6a8f0021-9083-46e3-a879-bc16fe1673ec
+[2026-03-05 03:39:00,251] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=119 source=mic turn=467269ba-cd18-4fd0-8ab6-c1a5948587a2 utterance=d87a0ba3-71c6-4fa3-bc06-d060b9ab62be
+[2026-03-05 03:39:03,263] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=92 source=mic turn=467269ba-cd18-4fd0-8ab6-c1a5948587a2 utterance=e0c9db97-ae4f-4ef3-b481-07834be2d0db
+[2026-03-05 03:39:06,053] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=130 source=mic turn=467269ba-cd18-4fd0-8ab6-c1a5948587a2 utterance=a8058a94-e700-4b47-b24c-cc0c6b3cb861
+[2026-03-05 03:39:07,051] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=68 source=mic turn=467269ba-cd18-4fd0-8ab6-c1a5948587a2 utterance=a20eca55-b49f-440b-9292-642fe20bc345
+[2026-03-05 03:39:08,415] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=63 source=mic turn=467269ba-cd18-4fd0-8ab6-c1a5948587a2 utterance=03a53943-b3da-4851-8476-a24686fdb1c0
+[2026-03-05 03:39:22,530] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=158 source=mic turn=44e536d1-3b0e-4b5a-aacd-ff5cacafc30e utterance=3909db5a-9753-41b1-be7d-00cabe42c109
+[2026-03-05 03:39:24,029] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=65 source=mic turn=44e536d1-3b0e-4b5a-aacd-ff5cacafc30e utterance=3b45a1be-c769-480b-b97f-6faa91fc5395
+[2026-03-05 03:39:30,483] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=220 source=mic turn=44e536d1-3b0e-4b5a-aacd-ff5cacafc30e utterance=ff46196a-e853-46c6-8c24-f39760284243
+[2026-03-05 03:39:32,449] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=38 source=mic turn=44e536d1-3b0e-4b5a-aacd-ff5cacafc30e utterance=0551ed59-2bcf-44d2-b41d-89d9e2221e41
+[2026-03-05 03:39:47,598] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=35 source=mic turn=0a48ed71-5cee-43de-bebe-a20cce5a6922 utterance=3444beea-2f82-43c8-bb93-5d1ec27eecca
+[2026-03-05 03:39:57,914] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=93 source=mic turn=d9b90846-b054-4e29-b0ca-869e27266dc1 utterance=58627dc9-db6c-4f3c-90ff-7045a3010c41
+[2026-03-05 03:39:57,915] [INFO ] [jaison.py::268 _record_stt_metrics]: STT metrics(window=80): avg_latency_ms=85 empty_rate=0.738 stop_cmd_recall=0.000
+[2026-03-05 03:40:08,130] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=39 source=mic turn=4e63ca20-8eff-408b-9416-e52bbfb27f02 utterance=27bd7501-8888-4be9-bd8a-ad973831f7f2
+[2026-03-05 03:40:09,378] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=65 source=mic turn=6451c216-1f89-404a-b9e1-381781bec496 utterance=379afc37-108e-4216-b58b-1b9d3025481c
+[2026-03-05 03:40:10,454] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=93 source=mic turn=4e63ca20-8eff-408b-9416-e52bbfb27f02 utterance=ad28d086-2736-4624-8b04-378becd20982
+[2026-03-05 03:40:14,907] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=67 source=mic turn=99e6fcc7-cf4b-4079-a437-5fd91a084ad0 utterance=861a2173-3c6b-403c-ab1f-cc07912f4c43
+[2026-03-05 03:40:16,444] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=64 source=mic turn=99e6fcc7-cf4b-4079-a437-5fd91a084ad0 utterance=88a12639-161a-4e9f-8640-87cad5755edb
+[2026-03-05 03:40:17,857] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=36 source=mic turn=99e6fcc7-cf4b-4079-a437-5fd91a084ad0 utterance=53d24f9e-502e-4de2-9914-380a60bff09d
+[2026-03-05 03:40:23,983] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=122 source=mic turn=defd5289-6bd0-48a0-8648-e2da09144a51 utterance=b01da40f-7c31-47ff-97fd-33846d4aa475
+[2026-03-05 03:40:24,796] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=37 source=mic turn=defd5289-6bd0-48a0-8648-e2da09144a51 utterance=b05d025e-21b7-4598-b2b9-b305d663ca63
+[2026-03-05 03:40:27,350] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=88 source=mic turn=defd5289-6bd0-48a0-8648-e2da09144a51 utterance=6d6abf30-5ba3-432d-b690-1f127fc4f244
+[2026-03-05 03:40:29,739] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=119 source=mic turn=defd5289-6bd0-48a0-8648-e2da09144a51 utterance=c82a3171-ef30-410d-9c9e-2ed5706a1f8f
+[2026-03-05 03:40:30,690] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=39 source=mic turn=defd5289-6bd0-48a0-8648-e2da09144a51 utterance=b0ff5dec-5ea7-4db7-8291-40047db2b0d1
+[2026-03-05 03:40:32,060] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=69 source=mic turn=defd5289-6bd0-48a0-8648-e2da09144a51 utterance=efc6101a-73c6-43e8-9f14-fc3397c995c3
+[2026-03-05 03:40:33,378] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=37 source=mic turn=defd5289-6bd0-48a0-8648-e2da09144a51 utterance=7fd11c54-6608-42e3-af97-48bf2236c868
+[2026-03-05 03:40:45,654] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=38 source=mic turn=b265f1be-61ad-4bd2-8391-cb668623dd3c utterance=5d33c29e-af77-48c4-8a43-7c0f91b92578
+[2026-03-05 03:40:46,413] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=63 source=mic turn=c8261786-dc6c-4e36-bc90-981e6c0bb68b utterance=23b29ad2-bd1a-459c-82ce-e9c5d11bc6e4
+[2026-03-05 03:40:47,220] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=38 source=mic turn=c8261786-dc6c-4e36-bc90-981e6c0bb68b utterance=38961c6e-d3ad-4e5c-9dbc-59d109262e84
+[2026-03-05 03:40:48,088] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=39 source=mic turn=c8261786-dc6c-4e36-bc90-981e6c0bb68b utterance=3a4d930b-7cac-448c-ab74-be1bbf826299
+[2026-03-05 03:40:48,979] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=39 source=mic turn=c8261786-dc6c-4e36-bc90-981e6c0bb68b utterance=9b332319-2348-4c0c-90c2-b696e737adce
+[2026-03-05 03:40:50,866] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=35 source=mic turn=c8261786-dc6c-4e36-bc90-981e6c0bb68b utterance=469a214f-b7c0-4f38-810f-e6a635e9c3df
+[2026-03-05 03:40:52,437] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=67 source=mic turn=c8261786-dc6c-4e36-bc90-981e6c0bb68b utterance=2189cc55-2670-4b77-b15f-12a99f2749f8
+[2026-03-05 03:40:52,438] [INFO ] [jaison.py::268 _record_stt_metrics]: STT metrics(window=100): avg_latency_ms=80 empty_rate=0.790 stop_cmd_recall=0.000
+[2026-03-05 03:40:54,227] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=97 source=mic turn=c8261786-dc6c-4e36-bc90-981e6c0bb68b utterance=8b628666-29a4-4975-8480-1cec22bf830c
+[2026-03-05 03:40:57,484] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=94 source=mic turn=c8261786-dc6c-4e36-bc90-981e6c0bb68b utterance=b8ce5de6-ab18-4d18-bcf6-03bf1743cfb0
+[2026-03-05 03:41:01,838] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=97 source=mic turn=d1026564-3826-4367-85ad-ecb10c3477a1 utterance=a0420336-08ad-44c5-b174-8b339d82e426
+[2026-03-05 03:41:03,481] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=41 source=mic turn=d1026564-3826-4367-85ad-ecb10c3477a1 utterance=f0d9fde2-8599-439f-a75c-97eda5730546
+[2026-03-05 03:41:07,800] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=39 source=mic turn=e954decb-ab73-49a4-b9ee-40274b6f56c1 utterance=8327d964-3c21-4446-8ec8-c38f5e9d33b6
+[2026-03-05 03:41:09,103] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=34 source=mic turn=e954decb-ab73-49a4-b9ee-40274b6f56c1 utterance=95434bdf-d4af-49ce-994d-35e2f1af8fc6
+[2026-03-05 03:41:12,393] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=93 source=mic turn=e954decb-ab73-49a4-b9ee-40274b6f56c1 utterance=1dffdf25-72c5-441c-b334-9ac36145b23f
+[2026-03-05 03:41:15,216] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=37 source=mic turn=cc4e308f-82a2-41ea-a4a7-aa85a40e670e utterance=6bc4a617-0fdd-4d49-a8db-f54ba467e9f5
+[2026-03-05 03:41:23,955] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=65 source=mic turn=f8144fa1-7c36-49d5-a13e-c7511f5049a5 utterance=6adf845c-3d5b-400e-8511-12365dd266da
+[2026-03-05 03:41:24,978] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=38 source=mic turn=f8144fa1-7c36-49d5-a13e-c7511f5049a5 utterance=eade4f89-5d2c-48f5-9e8d-a83657be8d7a
+[2026-03-05 03:41:27,479] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=39 source=mic turn=f8144fa1-7c36-49d5-a13e-c7511f5049a5 utterance=366a35f7-6c1c-47e0-9b8f-cf1e263447e8
+[2026-03-05 03:41:29,133] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=33 source=mic turn=f8144fa1-7c36-49d5-a13e-c7511f5049a5 utterance=a784acae-35a4-4b0e-8e62-b220dc0ef87e
+[2026-03-05 03:41:34,634] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=95 source=mic turn=bacffa65-d52f-4bf4-83a9-27ad3da43c42 utterance=c22ac1bb-8256-4966-a27c-30e8bc65b706
+[2026-03-05 03:41:37,748] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=39 source=mic turn=e2a7b452-a6ac-4a85-8524-5a74b62973a3 utterance=3c1bf624-fdc0-4650-81eb-baef28226aa6
+[2026-03-05 03:41:39,248] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=38 source=mic turn=e2a7b452-a6ac-4a85-8524-5a74b62973a3 utterance=835158f1-90ee-4df9-b337-d8d631485eb0
+[2026-03-05 03:41:40,972] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=93 source=mic turn=e2a7b452-a6ac-4a85-8524-5a74b62973a3 utterance=fa57255b-6a45-4bdd-b287-f8bf4a0e66b3
+[2026-03-05 03:41:43,888] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=36 source=mic turn=040f3755-8415-495a-bdb0-1198ba2e2597 utterance=92478ba1-f7ec-486d-9f1c-17b4f41a34d7
+[2026-03-05 03:41:44,756] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=38 source=mic turn=040f3755-8415-495a-bdb0-1198ba2e2597 utterance=2c853dba-f681-4ccd-b521-f2bd02315f1e
+[2026-03-05 03:41:46,387] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=68 source=mic turn=040f3755-8415-495a-bdb0-1198ba2e2597 utterance=47676485-f179-4b30-b5ec-58dca20aa4ec
+[2026-03-05 03:41:59,647] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=68 source=mic turn=8b856f47-85fa-4cfb-b733-9fbc109cd711 utterance=6046c2fb-6681-40bc-8047-dd4c61fb5d29
+[2026-03-05 03:41:59,648] [INFO ] [jaison.py::268 _record_stt_metrics]: STT metrics(window=120): avg_latency_ms=76 empty_rate=0.825 stop_cmd_recall=0.000
+[2026-03-05 03:42:01,445] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=37 source=mic turn=0fc4118e-89d0-42ca-b610-104c07600f24 utterance=de79dba0-9389-46b6-9906-f61cb7c579e6
+[2026-03-05 03:42:03,307] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=68 source=mic turn=0fc4118e-89d0-42ca-b610-104c07600f24 utterance=6f2b5c9f-9a95-470c-b32e-804a27aae2c6
+[2026-03-05 03:42:04,748] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=39 source=mic turn=0fc4118e-89d0-42ca-b610-104c07600f24 utterance=7eb9bf89-da5d-4f04-9da6-ad359100b037
+[2026-03-05 03:42:08,078] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=39 source=mic turn=2a5d225c-3bde-4d0e-9257-dc0ea9c5cf03 utterance=de81dadc-ee91-418c-b73a-6d58934e169a
+[2026-03-05 03:42:20,570] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=92 source=mic turn=e484c6f8-d7be-4c4c-a5d4-cba9da44b9f5 utterance=26b12245-3f2f-4cdc-aaa6-8542362beb4a
+[2026-03-05 03:42:23,612] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=123 source=mic turn=e484c6f8-d7be-4c4c-a5d4-cba9da44b9f5 utterance=d8a6570e-9570-43eb-8b4c-f5aa195907c6
+[2026-03-05 03:42:37,991] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=65 source=mic turn=b07c2d56-1564-4394-8493-8e42a6f85b99 utterance=bfa79bdc-f286-4bdc-9134-e83f9040bed5
+[2026-03-05 03:42:43,333] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=195 source=mic turn=fdacafd9-b99c-4a08-9d9c-14d314b23ce7 utterance=73647485-8605-4512-a718-486b46e8fa21
+[2026-03-05 03:42:56,829] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=40 source=mic turn=5128a7ee-9f8e-42f6-b6ef-68934108fe0e utterance=bae3c442-4125-496b-92b3-b9f57f003e13
+[2026-03-05 03:43:02,661] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=74 source=mic turn=396b657d-8213-4f65-bc58-94a4461a51f2 utterance=b0fbbd40-d785-4906-9779-9f755d08939e
+[2026-03-05 03:43:05,693] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=28 latency_ms=105 source=mic turn=396b657d-8213-4f65-bc58-94a4461a51f2 utterance=b8370c7d-cd73-489b-b8bf-3c2a957d2355
+[2026-03-05 03:43:05,693] [INFO ] [jaison.py::482 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-03-05 03:43:05,956] [INFO ] [jaison.py::443 create_job]: Queued new context_conversation_add_text job 981d8cf4-0b9d-4aa4-8dfe-ea4157bb4540
+[2026-03-05 03:43:05,956] [INFO ] [jaison.py::443 create_job]: Queued new response job a2b5339e-83fe-4135-a7d5-ac1dfe8dcd84
+[2026-03-05 03:43:09,813] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 3854.6189999906346 ms
+[2026-03-05 03:43:16,760] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=41 source=mic turn=3016eea6-9710-4382-a896-6d45e8142ab1 utterance=98ce5d9e-7caf-4d08-b036-791f60ad48e7
+[2026-03-05 03:43:19,171] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=42 source=mic turn=a782f6c0-0557-4553-922a-c035d7e6b30f utterance=420c8d99-bd44-428c-8f1c-7585fc328021
+[2026-03-05 03:43:41,374] [INFO ] [qwen3.py::487 _stream_sidecar_bytes]: Qwen3 stream stats: chunks=233 bytes=1904586 first_chunk_ms=424 max_gap_ms=314.1 total_ms=31560 audio_s=39.679 rtf=0.795 text_len=562
+[2026-03-05 03:43:41,374] [INFO ] [operation.py::25 __call__]: TTS operation qwen3 completed in 31560.62329999986 ms
+[2026-03-05 03:43:41,374] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 31560.757900006138 ms
+[2026-03-05 03:43:41,375] [INFO ] [jaison.py::988 response_pipeline]: Response job a2b5339e-83fe-4135-a7d5-ac1dfe8dcd84 completed. Content: 'В лесу жила-была белочка, которая очень любила желуди. Однажды она нашла волшебный желудь, который п...'
+[2026-03-05 03:43:56,254] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=39 source=mic turn=cadf7650-c5a7-49b5-93b3-3d519350b7a3 utterance=c6afe604-5b47-40e3-b101-f9dbd0351e70
+[2026-03-05 03:44:41,419] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=66 source=mic turn=0202e6cd-b5fa-4413-a842-33eca1fcbf0e utterance=a0d54908-6f6f-4523-ab9e-e2a4911d48e4
+[2026-03-05 03:44:52,568] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=41 source=mic turn=60732983-c968-4a77-bfc8-9802e8df32e8 utterance=673b85be-1632-4d6e-9e2b-3fd4e56abf39
+[2026-03-05 03:45:02,241] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=36 source=mic turn=b9b989ee-f251-4c09-8d34-d015fe03801c utterance=de4be7b2-79af-4d39-843b-68dac933c901
+[2026-03-05 03:45:03,621] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=36 source=mic turn=a15b5258-1f2c-4ff5-a75d-6672e6869727 utterance=e51d28ea-092d-4163-b971-11bf50d29f2f
+[2026-03-05 03:45:37,656] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=35 source=mic turn=c6bef7f2-3016-43b9-8dff-5ca86a73ebbf utterance=82afd483-b16f-4f3d-8cbc-3192ab7295e2
+[2026-03-05 03:46:24,285] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=37 source=mic turn=df105401-7654-4c31-8c89-109dda2003e4 utterance=cc8aa1f0-c328-4063-a33e-dd36c86b34bb
+[2026-03-05 03:46:24,285] [INFO ] [jaison.py::268 _record_stt_metrics]: STT metrics(window=140): avg_latency_ms=74 empty_rate=0.843 stop_cmd_recall=0.000
+[2026-03-05 03:47:11,555] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=121 source=mic turn=7118217f-6ee1-4b3b-87ac-4ad605580a35 utterance=dda08a6f-2249-428c-b969-977b14b3d741
+[2026-03-05 03:47:12,824] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=39 source=mic turn=7118217f-6ee1-4b3b-87ac-4ad605580a35 utterance=9c54d919-7221-4a71-8f91-028d486466c4
+[2026-03-05 03:47:15,762] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=38 source=mic turn=0a8fb190-6159-4d65-a212-25c75ecf20f3 utterance=af7f46d6-0ee8-45a0-8487-698879da0ee9
+[2026-03-05 03:49:23,731] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=40 source=mic turn=c4fd1951-b858-4e12-90d5-1cde15eca6db utterance=c2fa454c-e883-4513-a7f9-daf194e340f3
