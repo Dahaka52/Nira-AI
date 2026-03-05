@@ -7,6 +7,7 @@ import psutil
 import subprocess
 import os
 import time
+import re
 from datetime import datetime
 from utils.args import args
 from utils.helpers.singleton import Singleton
@@ -18,6 +19,13 @@ from .common import create_response, create_preflight
 app = Quart(__name__)
 cors_header = {'Access-Control-Allow-Origin': '*'}
 _gpu_cache = {"ts": 0.0, "gpus": []}
+
+
+def _preview_for_log(text: str, limit: int = 220) -> str:
+    compact = re.sub(r"\s+", " ", str(text or "")).strip()
+    if len(compact) <= limit:
+        return compact
+    return compact[: max(0, limit - 1)].rstrip() + "…"
 
 
 def _read_gpus_sync():
@@ -205,7 +213,22 @@ async def context_request_add():
 # Context - Conversation
 @app.route('/api/context/conversation/text', methods=['POST'])    
 async def context_conversation_add_text():
-    return await _request_job(JobType.CONTEXT_CONVERSATION_ADD_TEXT)
+    try:
+        request_data = (await request.get_json(silent=True)) or dict()
+        content = str(request_data.get("content", "")).strip()
+        if content:
+            logging.info(
+                "[USER_TEXT_API] user=%s source=%s turn=%s text='%s'",
+                request_data.get("user", "user"),
+                request_data.get("source_id"),
+                request_data.get("turn_id"),
+                _preview_for_log(content, limit=220),
+            )
+        job_id = await JAIson().create_job(JobType.CONTEXT_CONVERSATION_ADD_TEXT, **request_data)
+        return create_response(200, f"{JobType.CONTEXT_CONVERSATION_ADD_TEXT} job created", {"job_id": job_id}, cors_header)
+    except Exception as err:
+        logging.error(f"Error occured for {JobType.CONTEXT_CONVERSATION_ADD_TEXT} API request", stack_info=True, exc_info=True)
+        return create_response(500, str(err), {}, cors_header)
 
 @app.route('/api/context/conversation/audio', methods=['POST'])    
 async def context_conversation_add_audio():

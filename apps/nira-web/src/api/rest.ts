@@ -54,7 +54,10 @@ class RestClient {
         // 2. Запускаем генерацию ответа
         return this.request('/response', {
             method: 'POST',
-            body: JSON.stringify({ include_audio: false }),
+            body: JSON.stringify({
+                include_audio: true,
+                input_mode: 'text'
+            }),
         });
     }
 

@@ -21,6 +21,17 @@ interface Msg {
 }
 
 const CHAT_CACHE_KEY = 'nira_ui_chat_messages_v1';
+const THEME_CACHE_KEY = 'nira_ui_theme_v1';
+
+const loadCachedTheme = (): 'dark' | 'light' => {
+    if (typeof window === 'undefined') return 'dark';
+    try {
+        const raw = String(window.localStorage.getItem(THEME_CACHE_KEY) || '').trim().toLowerCase();
+        if (raw === 'light') return 'light';
+        if (raw === 'dark') return 'dark';
+    } catch { }
+    return 'dark';
+};
 
 const loadCachedMessages = (): Msg[] => {
     if (typeof window === 'undefined') return [];
@@ -52,7 +63,7 @@ const mergeMessages = (current: Msg[], incoming: Msg[]): Msg[] => {
 };
 
 function App() {
-    const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+    const [theme, setTheme] = useState<'dark' | 'light'>(() => loadCachedTheme());
     const [messages, setMessages] = useState<Msg[]>(() => loadCachedMessages());
     const [input, setInput] = useState('');
     const [fullConfig, setFullConfig] = useState<any>(null);
@@ -81,6 +92,9 @@ function App() {
     // Theme Switcher
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
+        try {
+            window.localStorage.setItem(THEME_CACHE_KEY, theme);
+        } catch { }
     }, [theme]);
 
     useEffect(() => {

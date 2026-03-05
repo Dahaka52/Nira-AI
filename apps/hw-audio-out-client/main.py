@@ -3,6 +3,7 @@ import asyncio
 import audioop
 import base64
 import json
+import sys
 import threading
 import time
 from typing import Optional
@@ -10,6 +11,20 @@ from typing import Optional
 import numpy as np
 import sounddevice as sd
 import websockets
+
+
+ANSI_RESET = "\x1b[0m"
+ANSI_CYAN = "\x1b[1;96m"
+ANSI_PINK = "\x1b[1;95m"
+ANSI_YELLOW = "\x1b[1;93m"
+ANSI_RED = "\x1b[1;91m"
+ANSI_GREEN = "\x1b[1;92m"
+
+
+def _colorize(msg: str, color: str) -> str:
+    if not color:
+        return str(msg)
+    return f"{color}{msg}{ANSI_RESET}"
 
 
 def _get_hostapi_name(hostapi_index: int) -> str:
@@ -176,7 +191,7 @@ class PCM16OutputPlayer:
                 now = time.time()
                 if (now - self._last_underflow_print) > 2.0:
                     self._last_underflow_print = now
-                    print(f"[AUDIO_OUT] Stream status: {status}")
+                    print(_colorize(f"[AUDIO_OUT] Stream status: {status}", ANSI_YELLOW))
 
             requested = int(frames) * self.frame_bytes
             chunk = b""
@@ -222,8 +237,11 @@ class PCM16OutputPlayer:
                             else:
                                 tail = tail[:requested]
                             print(
-                                f"[AUDIO_OUT] Rebuffer stall guard flushed tail: "
-                                f"{len(tail)} bytes after {int(waited_ms)}ms wait"
+                                _colorize(
+                                    f"[AUDIO_OUT] Rebuffer stall guard flushed tail: "
+                                    f"{len(tail)} bytes after {int(waited_ms)}ms wait",
+                                    ANSI_YELLOW,
+                                )
                             )
                             outdata[:] = tail
                             return
@@ -254,8 +272,11 @@ class PCM16OutputPlayer:
                             if (now - self._last_rebuffer_print) > 2.0:
                                 self._last_rebuffer_print = now
                                 print(
-                                    f"[AUDIO_OUT] Rebuffering: "
-                                    f"{len(self._buffer)}/{dynamic_resume_bytes} bytes"
+                                    _colorize(
+                                        f"[AUDIO_OUT] Rebuffering: "
+                                        f"{len(self._buffer)}/{dynamic_resume_bytes} bytes",
+                                        ANSI_YELLOW,
+                                    )
                                 )
                             outdata[:] = b"\x00" * requested
                             return
@@ -322,8 +343,11 @@ class PCM16OutputPlayer:
 
             if fallback_sr > 0 and fallback_sr != self.sample_rate:
                 print(
-                    f"[AUDIO_OUT] WARNING: sample_rate {self.sample_rate} not accepted by device. "
-                    f"Falling back to {fallback_sr}."
+                    _colorize(
+                        f"[AUDIO_OUT] WARNING: sample_rate {self.sample_rate} not accepted by device. "
+                        f"Falling back to {fallback_sr}.",
+                        ANSI_YELLOW,
+                    )
                 )
                 self.sample_rate = fallback_sr
                 self.max_buffer_bytes = int(self.sample_rate * self.frame_bytes * self.max_buffer_ms / 1000.0)
@@ -372,7 +396,7 @@ class PCM16OutputPlayer:
             self._stream_ended = False
             self._pending_stream_start_fade = True
         if dropped_bytes > 0:
-            print(f"[AUDIO_OUT] Switched response stream, dropped {dropped_bytes} pending bytes.")
+            print(_colorize(f"[AUDIO_OUT] Switched response stream, dropped {dropped_bytes} pending bytes.", ANSI_YELLOW))
         if self.reset_resampler_on_stream_start:
             self._ratecv_state = None
             self._ratecv_src_sr = None
@@ -520,8 +544,11 @@ class PCM16OutputPlayer:
                 if (now - self._last_overflow_print) > 2.0:
                     self._last_overflow_print = now
                     print(
-                        f"[AUDIO_OUT] Buffer overflow: queue full ({len(self._buffer)}/{self.max_buffer_bytes} bytes), "
-                        "dropping incoming chunk."
+                        _colorize(
+                            f"[AUDIO_OUT] Buffer overflow: queue full ({len(self._buffer)}/{self.max_buffer_bytes} bytes), "
+                            "dropping incoming chunk.",
+                            ANSI_RED,
+                        )
                     )
                 return
 
@@ -536,8 +563,11 @@ class PCM16OutputPlayer:
                 if (now - self._last_overflow_print) > 2.0:
                     self._last_overflow_print = now
                     print(
-                        f"[AUDIO_OUT] Buffer overflow: dropped {dropped} incoming bytes "
-                        f"(queue={len(self._buffer)}/{self.max_buffer_bytes})."
+                        _colorize(
+                            f"[AUDIO_OUT] Buffer overflow: dropped {dropped} incoming bytes "
+                            f"(queue={len(self._buffer)}/{self.max_buffer_bytes}).",
+                            ANSI_RED,
+                        )
                     )
 
             self._buffer.extend(pcm_bytes)
@@ -666,11 +696,14 @@ async def run() -> None:
         dev_info = sd.query_devices(device_index, "output")
         hostapi_name = _get_hostapi_name(int(dev_info.get("hostapi", -1)))
         print(
-            f"[AUDIO_OUT] Listening WS={args.ws_url} and streaming to "
-            f"{dev_info['name']} (ID: {device_index}, hostapi: {hostapi_name}, sr={player.sample_rate})"
+            _colorize(
+                f"[AUDIO_OUT] Listening WS={args.ws_url} and streaming to "
+                f"{dev_info['name']} (ID: {device_index}, hostapi: {hostapi_name}, sr={player.sample_rate})",
+                ANSI_CYAN,
+            )
         )
     except Exception:
-        print(f"[AUDIO_OUT] Listening WS={args.ws_url} and streaming to device index {device_index}")
+        print(_colorize(f"[AUDIO_OUT] Listening WS={args.ws_url} and streaming to device index {device_index}", ANSI_CYAN))
     print("========================================================")
 
     reconnect_delay_s = max(0.2, float(args.reconnect_delay_ms) / 1000.0)
@@ -684,7 +717,7 @@ async def run() -> None:
                     ping_timeout=20,
                     close_timeout=2,
                 ) as ws:
-                    print("[AUDIO_OUT] WebSocket connected.")
+                    print(_colorize("[AUDIO_OUT] WebSocket connected.", ANSI_GREEN))
                     async for msg in ws:
                         await handle_ws_message(msg, player)
             except KeyboardInterrupt:
@@ -693,7 +726,7 @@ async def run() -> None:
                 # If WS drops mid-stream, mark end so callback can drain/flush tail
                 # instead of staying in sticky rebuffer state.
                 await player.mark_stream_end()
-                print(f"[AUDIO_OUT] WS disconnected: {err}. Reconnect in {reconnect_delay_s:.1f}s.")
+                print(_colorize(f"[AUDIO_OUT] WS disconnected: {err}. Reconnect in {reconnect_delay_s:.1f}s.", ANSI_YELLOW))
                 await asyncio.sleep(reconnect_delay_s)
     finally:
         await player.stop()
@@ -703,4 +736,4 @@ if __name__ == "__main__":
     try:
         asyncio.run(run())
     except KeyboardInterrupt:
-        print("\n[AUDIO_OUT] Stopped by user.")
+        print(_colorize("\n[AUDIO_OUT] Stopped by user.", ANSI_YELLOW))

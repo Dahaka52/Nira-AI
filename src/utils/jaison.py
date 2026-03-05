@@ -47,6 +47,14 @@ class NonexistantJobException(Exception):
 class UnknownJobType(Exception):
     pass
 
+
+def _preview_for_log(text: str, limit: int = 220) -> str:
+    compact = re.sub(r"\s+", " ", str(text or "")).strip()
+    if len(compact) <= limit:
+        return compact
+    return compact[: max(0, limit - 1)].rstrip() + "…"
+
+
 class JobType(Enum):
     RESPONSE = 'response'
     CONTEXT_CLEAR = 'context_clear'
@@ -563,6 +571,15 @@ class JAIson(metaclass=Singleton):
             if continue_from_text:
                 logging.info("Continue-intent detected: next response will continue previous thought.")
 
+        logging.info(
+            "[USER_VOICE] source=%s turn=%s utterances=%s speaker=%s text='%s'",
+            source_id,
+            turn_id,
+            len(utterance_ids),
+            (speaker_id or ""),
+            _preview_for_log(content, limit=220),
+        )
+
         await self.create_job(
             JobType.CONTEXT_CONVERSATION_ADD_TEXT,
             user=user,
@@ -985,7 +1002,8 @@ class JAIson(metaclass=Singleton):
                         
         # Broadcast completion
         await self._handle_broadcast_success(job_id, job_type)
-        logging.info(f"Response job {job_id} completed. Content: '{full_filtered_text[:100]}...'")
+        reply_preview = _preview_for_log(full_filtered_text, limit=220)
+        logging.info("[NIRA_REPLY] job=%s text='%s'", job_id, reply_preview)
 
 
     # Context modification
@@ -1074,6 +1092,14 @@ class JAIson(metaclass=Singleton):
             "stt_confidence": stt_confidence,
             "stt_latency_ms": stt_latency_ms,
         })
+        if content and not stt_provider:
+            logging.info(
+                "[USER_TEXT] source=%s turn=%s user=%s text='%s'",
+                source_id,
+                turn_id,
+                user,
+                _preview_for_log(content, limit=220),
+            )
         self.prompter.add_chat(
             user,
             content,

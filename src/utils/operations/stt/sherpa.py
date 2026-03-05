@@ -38,6 +38,13 @@ _SHERPA_PRESETS = {
 }
 
 
+def _preview_for_log(text: str, limit: int = 220) -> str:
+    compact = re.sub(r"\s+", " ", str(text or "")).strip()
+    if len(compact) <= limit:
+        return compact
+    return compact[: max(0, limit - 1)].rstrip() + "…"
+
+
 class SherpaSTT(STTOperation):
     def __init__(self):
         super().__init__("sherpa")
@@ -317,13 +324,15 @@ class SherpaSTT(STTOperation):
 
         text = self._normalize_text(text)
         latency_ms = int((time.perf_counter() - started) * 1000)
+        text_preview = _preview_for_log(text, limit=220)
         logging.info(
-            "Sherpa STT final: len=%s latency_ms=%s source=%s turn=%s utterance=%s",
+            "Sherpa STT final: len=%s latency_ms=%s source=%s turn=%s utterance=%s text='%s'",
             len(text),
             latency_ms,
             source_id,
             turn_id,
             utterance_id,
+            text_preview,
         )
 
         yield {

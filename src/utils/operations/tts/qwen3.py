@@ -26,6 +26,13 @@ def _as_bool(value: Any, default: bool = False) -> bool:
     return default
 
 
+def _preview_for_log(text: str, limit: int = 160) -> str:
+    compact = re.sub(r"\s+", " ", str(text or "")).strip()
+    if len(compact) <= limit:
+        return compact
+    return compact[: max(0, limit - 1)].rstrip() + "…"
+
+
 class Qwen3TTS(TTSOperation):
     """
     Qwen3 TTS provider bound to dffdeeq voice_clone sidecar runtime.
@@ -71,6 +78,7 @@ class Qwen3TTS(TTSOperation):
         self.temperature = 0.8
 
         self.max_text_chars = 800
+        self.stream_segment_chars = 260
         self.dynamic_max_frames = False
         self.dynamic_chars_per_second = 11.5
         self.dynamic_frame_budget_mul = 1.05
@@ -176,6 +184,8 @@ class Qwen3TTS(TTSOperation):
 
         if "max_text_chars" in config_d:
             self.max_text_chars = int(config_d["max_text_chars"])
+        if "stream_segment_chars" in config_d:
+            self.stream_segment_chars = int(config_d["stream_segment_chars"])
         if "dynamic_max_frames" in config_d:
             self.dynamic_max_frames = _as_bool(config_d["dynamic_max_frames"], default=True)
         if "dynamic_chars_per_second" in config_d:
@@ -282,6 +292,7 @@ class Qwen3TTS(TTSOperation):
         assert self.top_k >= 0
         assert self.temperature > 0
         assert self.max_text_chars >= 16
+        assert self.stream_segment_chars >= 32
         assert self.dynamic_chars_per_second > 0
         assert self.dynamic_frame_budget_mul > 0
         assert self.dynamic_min_frames > 0
@@ -322,6 +333,7 @@ class Qwen3TTS(TTSOperation):
             "top_k": self.top_k,
             "temperature": self.temperature,
             "max_text_chars": self.max_text_chars,
+            "stream_segment_chars": self.stream_segment_chars,
             "dynamic_max_frames": self.dynamic_max_frames,
             "dynamic_chars_per_second": self.dynamic_chars_per_second,
             "dynamic_frame_budget_mul": self.dynamic_frame_budget_mul,
@@ -371,6 +383,60 @@ class Qwen3TTS(TTSOperation):
         est_frames = max(int(self.dynamic_min_frames), est_frames)
         est_frames = min(int(self.dynamic_max_frames_cap), est_frames)
         return max(16, min(limit, est_frames))
+
+    def _split_text_for_streaming(self, text: str) -> list[str]:
+        normalized = re.sub(r"\s+", " ", str(text or "")).strip()
+        if not normalized:
+            return []
+
+        max_chars = max(32, int(self.stream_segment_chars))
+        if len(normalized) <= max_chars:
+            return [normalized]
+
+        clauses = re.split(r"(?<=[.!?;:…])\s+", normalized)
+        segments: list[str] = []
+        current = ""
+
+        for clause in clauses:
+            clause = clause.strip()
+            if not clause:
+                continue
+
+            if len(clause) > max_chars:
+                words = clause.split(" ")
+                for word in words:
+                    word = word.strip()
+                    if not word:
+                        continue
+                    if len(word) > max_chars:
+                        if current:
+                            segments.append(current)
+                            current = ""
+                        for start in range(0, len(word), max_chars):
+                            segments.append(word[start : start + max_chars])
+                        continue
+
+                    if not current:
+                        current = word
+                    elif len(current) + 1 + len(word) <= max_chars:
+                        current = f"{current} {word}"
+                    else:
+                        segments.append(current)
+                        current = word
+                continue
+
+            if not current:
+                current = clause
+            elif len(current) + 1 + len(clause) <= max_chars:
+                current = f"{current} {clause}"
+            else:
+                segments.append(current)
+                current = clause
+
+        if current:
+            segments.append(current)
+
+        return [segment for segment in segments if segment]
 
     async def _stream_sidecar_bytes(self, text: str):
         payload = {
@@ -508,15 +574,21 @@ class Qwen3TTS(TTSOperation):
                     max_attempts,
                     exc,
                 )
+                recovery_hint = str(exc).lower()
+                prefer_restart = ("no audio bytes" in recovery_hint) or ("timeout" in recovery_hint)
+                recovery_mode = "restart" if prefer_restart else "ensure_healthy"
                 try:
-                    await self._runner.ensure_healthy()
+                    if prefer_restart:
+                        await self._runner.restart()
+                    else:
+                        await self._runner.ensure_healthy()
                     health = await self._runner.health()
                     if health.get("port"):
                         self.base_url = f"http://127.0.0.1:{int(health['port'])}"
                         url = f"{self.base_url}{self.stream_endpoint}"
                     await asyncio.sleep(min(1.2, 0.35 * float(attempt)))
                 except Exception as restart_exc:
-                    logging.warning("Qwen3 sidecar auto-recovery failed: %s", restart_exc)
+                    logging.warning("Qwen3 sidecar auto-recovery failed (%s): %s", recovery_mode, restart_exc)
                     break
 
         raise RuntimeError(f"Qwen3 sidecar stream failed: {last_exc}")
