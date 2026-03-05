@@ -7,7 +7,6 @@ import psutil
 import subprocess
 import os
 import time
-import re
 from datetime import datetime
 from utils.args import args
 from utils.helpers.singleton import Singleton
@@ -19,13 +18,6 @@ from .common import create_response, create_preflight
 app = Quart(__name__)
 cors_header = {'Access-Control-Allow-Origin': '*'}
 _gpu_cache = {"ts": 0.0, "gpus": []}
-
-
-def _preview_for_log(text: str, limit: int = 220) -> str:
-    compact = re.sub(r"\s+", " ", str(text or "")).strip()
-    if len(compact) <= limit:
-        return compact
-    return compact[: max(0, limit - 1)].rstrip() + "…"
 
 
 def _read_gpus_sync():
@@ -60,19 +52,12 @@ class SocketServerObserver(BaseObserverClient, metaclass=Singleton):
         self.connections = set()
         self.shutdown_signal = asyncio.Future()
 
-    def _json_safe(self, value):
-        if isinstance(value, bytes):
-            return base64.b64encode(value).decode("utf-8")
-        if isinstance(value, dict):
-            return {k: self._json_safe(v) for k, v in value.items()}
-        if isinstance(value, (list, tuple)):
-            return [self._json_safe(v) for v in value]
-        return value
-
     async def handle_event(self, event_id: str, payload) -> None:
         '''Broadcast events from broadcast server'''
-        payload_safe = self._json_safe(payload)
-        message = json.dumps(create_response(200, event_id, payload_safe))
+        for key in payload:
+            if isinstance(payload[key], bytes):
+                  payload[key] = base64.b64encode(payload[key]).decode('utf-8')
+        message = json.dumps(create_response(200, event_id, payload))
         logging.debug(f"Broadcasting event to {len(self.connections)} clients")
         dead_connections = set()
         for ws in set(self.connections):
@@ -213,22 +198,7 @@ async def context_request_add():
 # Context - Conversation
 @app.route('/api/context/conversation/text', methods=['POST'])    
 async def context_conversation_add_text():
-    try:
-        request_data = (await request.get_json(silent=True)) or dict()
-        content = str(request_data.get("content", "")).strip()
-        if content:
-            logging.info(
-                "[USER_TEXT_API] user=%s source=%s turn=%s text='%s'",
-                request_data.get("user", "user"),
-                request_data.get("source_id"),
-                request_data.get("turn_id"),
-                _preview_for_log(content, limit=220),
-            )
-        job_id = await JAIson().create_job(JobType.CONTEXT_CONVERSATION_ADD_TEXT, **request_data)
-        return create_response(200, f"{JobType.CONTEXT_CONVERSATION_ADD_TEXT} job created", {"job_id": job_id}, cors_header)
-    except Exception as err:
-        logging.error(f"Error occured for {JobType.CONTEXT_CONVERSATION_ADD_TEXT} API request", stack_info=True, exc_info=True)
-        return create_response(500, str(err), {}, cors_header)
+    return await _request_job(JobType.CONTEXT_CONVERSATION_ADD_TEXT)
 
 @app.route('/api/context/conversation/audio', methods=['POST'])    
 async def context_conversation_add_audio():

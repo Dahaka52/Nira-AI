@@ -1,8 +1,6 @@
 # Enabled operations
 stt_active_id: "sherpa_ru"  # Быстрое переключение STT: выбери id и вызови /api/operations/reload
 stt_strict_active_id: true  # Ошибка старта, если выбранный stt_active_id отсутствует в operations
-tts_active_id: "qwen3"      # Быстрое переключение TTS по id (null = TTS не активен)
-tts_strict_active_id: false # Если true и tts_active_id не найден в operations, старт завершится ошибкой
 broadcast_debug_prompt_events: false  # Служебные raw prompt/history события в WS (держать false для меньшей нагрузки)
 
 operations:
@@ -55,95 +53,8 @@ operations:
   # Text filters
   - role: filter_text
     id: filter_clean
-
-  # TTS (Qwen3) - активен через tts_active_id: "qwen3".
-  # Для отключения поставь tts_active_id: null
-  - role: tts
-    id: qwen3
-    entrypoint: "utils.operations.tts.qwen3:Qwen3TTS"
-    mode: "sidecar"
-    base_url: "http://127.0.0.1:6116"
-    stream_endpoint: "/v1/tts/stream"
-    health_endpoint: "/health"
-    sidecar_read_chunk_bytes: 8192
-    sample_rate: 24000
-    sample_width: 2
-    channels: 1
-    runtime_flavor: "dffdeeq"
-    voice_mode: "voice_clone"
-    ref_audio_path: "C:\\Nirmita\\kuklina-1.wav"
-    ref_text: "Взрослая, энергичная, весёлая девушка. Голос средней тональности, но открытый и с яркими эмоциями."
-    x_vector_only_mode: true
-    language: "russian"
-    provider: "cuda"
-    gpu_id: 1
-    model_id: "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
-    device: "cuda:0"
-    dtype: "bfloat16"
-    attn_implementation: "flash_attention_2"
-    emit_every_frames: 4
-    decode_window_frames: 80
-    overlap_samples: 0
-    max_frames: 10000
-    max_text_chars: 2000
-    dynamic_max_frames: false
-    dynamic_chars_per_second: 11.5
-    dynamic_frame_budget_mul: 1.05
-    dynamic_min_frames: 20
-    dynamic_max_frames_cap: 10000
-    use_optimized_decode: true
-    do_sample: false
-    top_p: 0.9
-    top_k: 50
-    temperature: 0.8
-    process_autostart: true
-    process_startup_retries: 3
-    process_startup_backoff_s: 0.6
-    process:
-      type: "qwen3_tts_server"
-      host: "127.0.0.1"
-      port: 6116
-      provider: "cuda"
-      gpu_id: 1
-      runtime_flavor: "dffdeeq"
-      qwen_tts_repo_path: "C:\\Nirmita\\apps\\dffdeeq_Qwen3-TTS-streaming-main"
-      voice_mode: "voice_clone"
-      ref_audio_path: "C:\\Nirmita\\kuklina-1.wav"
-      ref_text: "Взрослая, энергичная, весёлая девушка. Голос средней тональности, но открытый и с яркими эмоциями."
-      x_vector_only_mode: 1
-      python_executable: "C:\\Nirmita\\apps\\tts-qwen3-server\\.venv312\\Scripts\\python.exe"
-      device: "cuda:0"
-      attn_implementation: "flash_attention_2"
-      use_compile: 1
-      compile_mode: "reduce-overhead"
-      compile_use_cuda_graphs: 0
-      compile_codebook_predictor: 1
-      compile_talker: 1
-      compile_cudagraph_skip_dynamic_graphs: 0
-      emit_every_frames: 4
-      decode_window_frames: 80
-      overlap_samples: 0
-      max_frames: 10000
-      use_optimized_decode: 1
-      do_sample: 0
-      top_p: 0.9
-      top_k: 50
-      temperature: 0.8
-      dynamic_max_frames: 0
-      dynamic_chars_per_second: 11.5
-      dynamic_frame_budget_mul: 1.05
-      dynamic_min_frames: 20
-      dynamic_max_frames_cap: 10000
-      sox_bin_dir: "C:\\Nirmita\\apps\\tts-qwen3-server\\third_party\\sox\\sox-14.4.2-win32\\sox-14.4.2"
-      model_id: "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
-      max_concurrent: 1
-      preload_on_start: 1
-      warmup_on_start: 1
-      warmup_text: "Привет."
-      warmup_chunks: 2
-      startup_health_timeout_s: 300
-      first_chunk_timeout_s: 30
-      stream_idle_timeout_s: 30
+  - role: filter_text
+    id: chunker_sentence
 
 # Microphone & VAD Settings
 microphone:
@@ -173,7 +84,6 @@ microphone:
   speech_start_confirm_ms: 140  # Раньше подтверждаем старт речи на тихом голосе
   min_speech_ms_interrupt: 100  # Короткие команды перебивания не отбрасывать
   speech_start_interrupt_mode: "soft"  # soft|hard: мягкий режим не прерывает активный response только по старту голоса
-  barge_in_min_non_filler_words: 4     # Минимум слов для прерывания активного ответа (кроме stop/continue-intent)
   turn_merge_window_ms: 2200    # Окно повторного использования turn_id на стороне микрофонного клиента
   stt_immediate_max_active: 2   # Максимум параллельных immediate STT-воркеров
   stt_immediate_max_pending: 8  # Максимум ожидающих audio-сегментов
@@ -188,27 +98,7 @@ microphone:
   respond_to_short_emotes: true
   short_emote_words: ["ха-ха", "хаха", "ахах", "ахаха", "хм", "гм", "лол", "ржу"]
 
-# Realtime TTS audio output routing (UI does not play audio).
-# Output is sent to selected Windows playback device, e.g. VB-Cable/Voicemeeter Input.
-audio_output:
-  enabled: true
-  ws_url: "ws://127.0.0.1:7272/"
-  device_name: "CABLE Input"
-  device_hostapi: "WASAPI"
-  device_index: null
-  sample_rate: 48000
-  channels: 1
-  blocksize: 256
-  max_buffer_ms: 12000
-  prebuffer_ms: 650
-  rebuffer_ms: 900
-  rebuffer_max_wait_ms: 750
-  chunk_fade_ms: 0
-  start_fade_ms: 20
-  reset_resampler_on_stream_start: true
-  clear_on_stop: true
-  output_gain_db: 0.0
-  reconnect_delay_ms: 1200
+  # TTS (Text-to-Speech) пока не подключен
 
 # Prompter settings
 prompter:
@@ -220,12 +110,12 @@ prompter:
 
 # Llama.cpp Settings (RTX 5070 12GB)
 llamacpp_filepath: "C:\\Nirmita\\bin\\llamacpp\\llama-server.exe"
-llamacpp_model_filepath: "C:\\Nirmita\\models\\MN-12B-Hydra-RP-RU.i1-Q5_K_M.gguf"
-llamacpp_ctx: 4096
+llamacpp_model_filepath: "C:\\Nirmita\\models\\Mistral-Nemo-Instruct-2407-absolute-heresy.i1-Q4_K_M.gguf"
+llamacpp_ctx: 8192
 llamacpp_ngl: 40
 llamacpp_cache_type_k: "q8_0" # Конфигурация 8-битного квантования контекста (K-cache)
 llamacpp_cache_type_v: "q8_0" # Конфигурация 8-битного квантования контекста (V-cache)
-llamacpp_gpu_id: 0 # LLM ТОЛЬКО НА RTX 5070. НА 5060 ВСЕГДА БУДЕТ ООM ПОД ЛЛM!!!
+llamacpp_gpu_id: 0 # Жесткая привязка к RTX 5070
 llamacpp_extra_args: "--flash-attn on"
 
 # FFmpeg (настроен в системе)

@@ -23,10 +23,7 @@ class Config(metaclass=Singleton):
     operations: list = list()
     stt_active_id: str = None
     stt_strict_active_id: bool = False
-    tts_active_id: str = None
-    tts_strict_active_id: bool = False
     microphone: dict = dict()
-    audio_output: dict = dict()
     broadcast_debug_prompt_events: bool = False
     
     # Prompter

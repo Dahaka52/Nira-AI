@@ -13,6 +13,7 @@ from enum import Enum
 from utils.args import args
 
 from utils.helpers.singleton import Singleton
+from utils.helpers.iterable import chunk_buffer
 from utils.helpers.observer import ObserverServer
 
 from utils.config import Config, UnknownField, UnknownFile
@@ -46,14 +47,6 @@ class NonexistantJobException(Exception):
 
 class UnknownJobType(Exception):
     pass
-
-
-def _preview_for_log(text: str, limit: int = 220) -> str:
-    compact = re.sub(r"\s+", " ", str(text or "")).strip()
-    if len(compact) <= limit:
-        return compact
-    return compact[: max(0, limit - 1)].rstrip() + "…"
-
 
 class JobType(Enum):
     RESPONSE = 'response'
@@ -141,11 +134,6 @@ class JAIson(metaclass=Singleton):
             await self.process_manager.link("core_hw_mic", ProcessType.HW_MIC)
         except Exception as e:
             logging.error(f"Could not start HW_MIC process: {e}")
-        # Start audio output if enabled
-        try:
-            await self.process_manager.link("core_hw_audio_out", ProcessType.HW_AUDIO_OUT)
-        except Exception as e:
-            logging.error(f"Could not start HW_AUDIO_OUT process: {e}")
 
         logging.info("JAIson application layer has started.")
         
@@ -158,15 +146,6 @@ class JAIson(metaclass=Singleton):
         self._immediate_audio_active = 0
         await self.op_manager.close_operation_all()
         await self.mcp_manager.close()
-        from utils.processes.manager import ProcessType
-        for link_id, process_type in (
-            ("core_hw_mic", ProcessType.HW_MIC),
-            ("core_hw_audio_out", ProcessType.HW_AUDIO_OUT),
-        ):
-            try:
-                await self.process_manager.unlink(link_id, process_type)
-            except Exception:
-                pass
         await self.process_manager.unload()
         logging.info("JAIson application layer has been shut down")
 
@@ -571,15 +550,6 @@ class JAIson(metaclass=Singleton):
             if continue_from_text:
                 logging.info("Continue-intent detected: next response will continue previous thought.")
 
-        logging.info(
-            "[USER_VOICE] source=%s turn=%s utterances=%s speaker=%s text='%s'",
-            source_id,
-            turn_id,
-            len(utterance_ids),
-            (speaker_id or ""),
-            _preview_for_log(content, limit=220),
-        )
-
         await self.create_job(
             JobType.CONTEXT_CONVERSATION_ADD_TEXT,
             user=user,
@@ -947,49 +917,26 @@ class JAIson(metaclass=Singleton):
                     async for audio_chunk_out in self.op_manager.use_operation(OpRoles.TTS, text_chunk_out):
                         # Apply tts filters
                         async for final_audio_chunk_out in self.op_manager.use_operation(OpRoles.FILTER_AUDIO, audio_chunk_out):
-                            for metric_key in (
-                                "tts_provider_latency_ms",
-                                "tts_rtf",
-                                "tts_audio_s",
-                                "tts_total_ms",
-                                "tts_first_chunk_ms",
-                                "tts_max_gap_ms",
-                                "tts_chunks",
-                                "tts_text_len",
-                            ):
-                                if metric_key in audio_chunk_out and metric_key not in final_audio_chunk_out:
-                                    final_audio_chunk_out[metric_key] = audio_chunk_out[metric_key]
-                            # Broadcast results (single WS event per PCM chunk).
-                            audio_event = {
-                                "audio_bytes": base64.b64encode(final_audio_chunk_out["audio_bytes"]).decode("utf-8"),
-                                "sr": final_audio_chunk_out["sr"],
-                                "sw": final_audio_chunk_out["sw"],
-                                "ch": final_audio_chunk_out["ch"],
-                                "event": "audio_chunk",
-                            }
-                            for metric_key in (
-                                "tts_provider_latency_ms",
-                                "tts_rtf",
-                                "tts_audio_s",
-                                "tts_total_ms",
-                                "tts_first_chunk_ms",
-                                "tts_max_gap_ms",
-                                "tts_chunks",
-                                "tts_text_len",
-                            ):
-                                if metric_key in final_audio_chunk_out:
-                                    audio_event[metric_key] = final_audio_chunk_out[metric_key]
-                            # First-audio metrics (time to first playable TTS chunk)
-                            if not first_audio_sent:
-                                first_audio_sent = True
-                                tts_start_ms = int((time.time() - start_time) * 1000)
-                                audio_event["tts_start_ms"] = tts_start_ms
-                                if input_timestamp is not None:
-                                    try:
-                                        audio_event["e2e_tts_start_ms"] = int((time.time() - float(input_timestamp)) * 1000)
-                                    except Exception:
-                                        pass
-                            await self._handle_broadcast_event(job_id, job_type, audio_event)
+                            # Broadcast results (only the audio data for now)
+                            for ws_chunk in chunk_buffer(base64.b64encode(final_audio_chunk_out['audio_bytes']).decode('utf-8')):
+                                audio_event = {
+                                    "audio_bytes": ws_chunk,
+                                    "sr": final_audio_chunk_out['sr'],
+                                    "sw": final_audio_chunk_out['sw'],
+                                    "ch": final_audio_chunk_out['ch'],
+                                    "event": "audio_chunk"
+                                }
+                                # First-audio metrics (time to first playable TTS chunk)
+                                if not first_audio_sent:
+                                    first_audio_sent = True
+                                    tts_start_ms = int((time.time() - start_time) * 1000)
+                                    audio_event["tts_start_ms"] = tts_start_ms
+                                    if input_timestamp is not None:
+                                        try:
+                                            audio_event["e2e_tts_start_ms"] = int((time.time() - float(input_timestamp)) * 1000)
+                                        except Exception:
+                                            pass
+                                await self._handle_broadcast_event(job_id, job_type, audio_event)
         
         if full_filtered_text:
             self.prompter.add_chat(self.prompter.character_name, full_filtered_text)
@@ -1002,8 +949,7 @@ class JAIson(metaclass=Singleton):
                         
         # Broadcast completion
         await self._handle_broadcast_success(job_id, job_type)
-        reply_preview = _preview_for_log(full_filtered_text, limit=220)
-        logging.info("[NIRA_REPLY] job=%s text='%s'", job_id, reply_preview)
+        logging.info(f"Response job {job_id} completed. Content: '{full_filtered_text[:100]}...'")
 
 
     # Context modification
@@ -1092,14 +1038,6 @@ class JAIson(metaclass=Singleton):
             "stt_confidence": stt_confidence,
             "stt_latency_ms": stt_latency_ms,
         })
-        if content and not stt_provider:
-            logging.info(
-                "[USER_TEXT] source=%s turn=%s user=%s text='%s'",
-                source_id,
-                turn_id,
-                user,
-                _preview_for_log(content, limit=220),
-            )
         self.prompter.add_chat(
             user,
             content,
@@ -1329,9 +1267,6 @@ class JAIson(metaclass=Singleton):
             "хех", "хе-хе", "гы", "гыы", "гы-гы",
             "лол", "ржу", "ржом", "мда", "гм", "хм",
         }
-        greeting_words = {
-            "привет", "здравствуй", "здравствуйте", "хай", "хелло", "hello", "hey",
-        }
 
         mic_cfg = self._get_microphone_config()
         extra_wake_words = mic_cfg.get("wake_words", [])
@@ -1361,13 +1296,6 @@ class JAIson(metaclass=Singleton):
                 wake_words.add(cfg_name)
         except Exception:
             pass
-        try:
-            barge_in_min_non_filler_words = int(mic_cfg.get("barge_in_min_non_filler_words", 2))
-        except Exception:
-            barge_in_min_non_filler_words = 2
-        if barge_in_min_non_filler_words < 1:
-            barge_in_min_non_filler_words = 1
-
         continue_intent = self._is_continue_intent(content)
 
         if not words:
@@ -1409,23 +1337,17 @@ class JAIson(metaclass=Singleton):
         short_emote_hit = respond_to_short_emotes and any(
             (_is_laughter_like(w) or (w in short_emote_words)) for w in words
         )
-        greeting_hit = len(non_filler_words) == 1 and any(w in greeting_words for w in non_filler_words)
 
         is_backchannel = len(words) <= 2 and len(non_filler_words) == 0
         is_stop_command_only = contains_stop_word and (
             len(non_stop_words) == 0 or stop_like_count >= max(1, len(words) - 1)
         )
-        is_significant = (
-            contains_stop_word
-            or continue_intent
-            or len(non_filler_words) >= barge_in_min_non_filler_words
-        )
+        is_significant = contains_stop_word or continue_intent or len(non_filler_words) >= 2
         should_respond = (
             continue_intent
             or len(non_filler_words) >= 2
             or is_wake_word_only
             or short_emote_hit
-            or greeting_hit
         ) and not is_stop_command_only
 
         if is_backchannel and not continue_intent and not short_emote_hit:
@@ -1597,19 +1519,6 @@ class JAIson(metaclass=Singleton):
     ):
         await self._handle_broadcast_start(job_id, job_type, {})
         await self.op_manager.load_operations_from_config()
-        from utils.processes.manager import ProcessType
-        for link_id, process_type in (
-            ("core_hw_mic", ProcessType.HW_MIC),
-            ("core_hw_audio_out", ProcessType.HW_AUDIO_OUT),
-        ):
-            try:
-                await self.process_manager.unlink(link_id, process_type)
-            except Exception:
-                pass
-            try:
-                await self.process_manager.link(link_id, process_type)
-            except Exception as e:
-                logging.error(f"Could not reload {process_type.value} process: {e}")
         await self._handle_broadcast_success(job_id, job_type)
         
     async def unload_operations(
