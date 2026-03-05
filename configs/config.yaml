@@ -55,10 +55,6 @@ operations:
   # Text filters
   - role: filter_text
     id: filter_clean
-  - role: filter_text
-    id: chunker_sentence
-    mode: "sentence"             # sentence | full
-    max_chars: 140               # Менее агрессивный разрез: меньше шансов рваных длинных фраз
 
   # TTS (Qwen3) - активен через tts_active_id: "qwen3".
   # Для отключения поставь tts_active_id: null
@@ -75,7 +71,7 @@ operations:
     channels: 1
     runtime_flavor: "dffdeeq"
     voice_mode: "voice_clone"
-    ref_audio_path: "C:\\Nirmita\\Nira_voice.wav"
+    ref_audio_path: "C:\\Nirmita\\kuklina-1.wav"
     ref_text: ""
     x_vector_only_mode: true
     language: "russian"
@@ -86,15 +82,15 @@ operations:
     dtype: "bfloat16"
     attn_implementation: "flash_attention_2"
     emit_every_frames: 4
-    decode_window_frames: 32
+    decode_window_frames: 80
     overlap_samples: 0
-    max_frames: 128
-    max_text_chars: 220
+    max_frames: 10000
+    max_text_chars: 2000
     dynamic_max_frames: false
     dynamic_chars_per_second: 11.5
     dynamic_frame_budget_mul: 1.05
     dynamic_min_frames: 20
-    dynamic_max_frames_cap: 128
+    dynamic_max_frames_cap: 10000
     use_optimized_decode: true
     do_sample: false
     top_p: 0.9
@@ -112,7 +108,7 @@ operations:
       runtime_flavor: "dffdeeq"
       qwen_tts_repo_path: "C:\\Nirmita\\apps\\dffdeeq_Qwen3-TTS-streaming-main"
       voice_mode: "voice_clone"
-      ref_audio_path: "C:\\Nirmita\\Nira_voice.wav"
+      ref_audio_path: "C:\\Nirmita\\kuklina-1.wav"
       ref_text: ""
       x_vector_only_mode: 1
       python_executable: "C:\\Nirmita\\apps\\tts-qwen3-server\\.venv312\\Scripts\\python.exe"
@@ -125,9 +121,9 @@ operations:
       compile_talker: 1
       compile_cudagraph_skip_dynamic_graphs: 0
       emit_every_frames: 4
-      decode_window_frames: 32
+      decode_window_frames: 80
       overlap_samples: 0
-      max_frames: 128
+      max_frames: 10000
       use_optimized_decode: 1
       do_sample: 0
       top_p: 0.9
@@ -137,17 +133,17 @@ operations:
       dynamic_chars_per_second: 11.5
       dynamic_frame_budget_mul: 1.05
       dynamic_min_frames: 20
-      dynamic_max_frames_cap: 128
+      dynamic_max_frames_cap: 10000
       sox_bin_dir: "C:\\Nirmita\\apps\\tts-qwen3-server\\third_party\\sox\\sox-14.4.2-win32\\sox-14.4.2"
       model_id: "Qwen/Qwen3-TTS-12Hz-0.6B-Base"
       max_concurrent: 1
       preload_on_start: 1
       warmup_on_start: 1
       warmup_text: "Привет."
-      warmup_chunks: 1
+      warmup_chunks: 2
       startup_health_timeout_s: 300
-      first_chunk_timeout_s: 120
-      stream_idle_timeout_s: 60
+      first_chunk_timeout_s: 30
+      stream_idle_timeout_s: 30
 
 # Microphone & VAD Settings
 microphone:
@@ -202,13 +198,13 @@ audio_output:
   device_index: null
   sample_rate: 48000
   channels: 1
-  blocksize: 512
-  max_buffer_ms: 1200
-  prebuffer_ms: 40
-  rebuffer_ms: 32
-  rebuffer_max_wait_ms: 90
+  blocksize: 256
+  max_buffer_ms: 12000
+  prebuffer_ms: 650
+  rebuffer_ms: 900
+  rebuffer_max_wait_ms: 750
   chunk_fade_ms: 0
-  start_fade_ms: 2
+  start_fade_ms: 20
   reset_resampler_on_stream_start: true
   clear_on_stop: true
   output_gain_db: 0.0

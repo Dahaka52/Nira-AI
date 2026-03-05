@@ -1571,6 +1571,19 @@ class JAIson(metaclass=Singleton):
     ):
         await self._handle_broadcast_start(job_id, job_type, {})
         await self.op_manager.load_operations_from_config()
+        from utils.processes.manager import ProcessType
+        for link_id, process_type in (
+            ("core_hw_mic", ProcessType.HW_MIC),
+            ("core_hw_audio_out", ProcessType.HW_AUDIO_OUT),
+        ):
+            try:
+                await self.process_manager.unlink(link_id, process_type)
+            except Exception:
+                pass
+            try:
+                await self.process_manager.link(link_id, process_type)
+            except Exception as e:
+                logging.error(f"Could not reload {process_type.value} process: {e}")
         await self._handle_broadcast_success(job_id, job_type)
         
     async def unload_operations(

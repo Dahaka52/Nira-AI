@@ -156,6 +156,7 @@ class PCM16OutputPlayer:
         self._lock = threading.Lock()
         self._last_underflow_print = 0.0
         self._last_rebuffer_print = 0.0
+        self._last_overflow_print = 0.0
         self._debug_chunks_seen = 0
         self._ratecv_state = None
         self._ratecv_src_sr = None
@@ -230,13 +231,6 @@ class PCM16OutputPlayer:
                             dynamic_resume_bytes = max(
                                 int(self.rebuffer_bytes * 0.35),
                                 max(requested * 8, self.frame_bytes * 1024),
-                            )
-                        elif waited_ms >= 180.0:
-                            # Low-latency soft-resume path: after short wait, allow playback
-                            # as soon as we have at least a few callback blocks buffered.
-                            dynamic_resume_bytes = max(
-                                requested * 3,
-                                self.frame_bytes * 512,
                             )
                         if self._stream_ended and len(self._buffer) > 0:
                             # End-of-stream: do not wait for full rebuffer target.
@@ -520,11 +514,32 @@ class PCM16OutputPlayer:
 
         with self._lock:
             self._stream_ended = False
-            overflow = (len(self._buffer) + len(pcm_bytes)) - self.max_buffer_bytes
-            if overflow > 0:
-                cut = overflow - (overflow % self.frame_bytes)
-                if cut > 0:
-                    del self._buffer[:cut]
+            free_bytes = self.max_buffer_bytes - len(self._buffer)
+            if free_bytes <= 0:
+                now = time.time()
+                if (now - self._last_overflow_print) > 2.0:
+                    self._last_overflow_print = now
+                    print(
+                        f"[AUDIO_OUT] Buffer overflow: queue full ({len(self._buffer)}/{self.max_buffer_bytes} bytes), "
+                        "dropping incoming chunk."
+                    )
+                return
+
+            aligned_free = free_bytes - (free_bytes % self.frame_bytes)
+            if aligned_free <= 0:
+                return
+
+            if len(pcm_bytes) > aligned_free:
+                dropped = len(pcm_bytes) - aligned_free
+                pcm_bytes = pcm_bytes[:aligned_free]
+                now = time.time()
+                if (now - self._last_overflow_print) > 2.0:
+                    self._last_overflow_print = now
+                    print(
+                        f"[AUDIO_OUT] Buffer overflow: dropped {dropped} incoming bytes "
+                        f"(queue={len(self._buffer)}/{self.max_buffer_bytes})."
+                    )
+
             self._buffer.extend(pcm_bytes)
 
 

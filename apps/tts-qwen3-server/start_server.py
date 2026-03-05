@@ -98,9 +98,9 @@ class ServerConfig:
     x_vector_only_mode: bool = True
 
     emit_every_frames: int = 4
-    decode_window_frames: int = 32
+    decode_window_frames: int = 80
     overlap_samples: int = 0
-    max_frames: int = 56
+    max_frames: int = 10000
     use_optimized_decode: bool = True
 
     do_sample: bool = False
@@ -108,11 +108,11 @@ class ServerConfig:
     top_k: int = 50
     temperature: float = 0.8
 
-    dynamic_max_frames: bool = True
+    dynamic_max_frames: bool = False
     dynamic_chars_per_second: float = 11.5
     dynamic_frame_budget_mul: float = 1.05
     dynamic_min_frames: int = 20
-    dynamic_max_frames_cap: int = 56
+    dynamic_max_frames_cap: int = 10000
 
     use_compile: bool = False
     compile_mode: str = "reduce-overhead"
@@ -731,9 +731,9 @@ def parse_args() -> ServerConfig:
     parser.add_argument("--x_vector_only_mode", type=int, default=1)
 
     parser.add_argument("--emit_every_frames", type=int, default=4)
-    parser.add_argument("--decode_window_frames", type=int, default=32)
+    parser.add_argument("--decode_window_frames", type=int, default=80)
     parser.add_argument("--overlap_samples", type=int, default=0)
-    parser.add_argument("--max_frames", type=int, default=56)
+    parser.add_argument("--max_frames", type=int, default=10000)
     parser.add_argument("--use_optimized_decode", type=int, default=1)
 
     parser.add_argument("--do_sample", type=int, default=0)
@@ -741,11 +741,11 @@ def parse_args() -> ServerConfig:
     parser.add_argument("--top_k", type=int, default=50)
     parser.add_argument("--temperature", type=float, default=0.8)
 
-    parser.add_argument("--dynamic_max_frames", type=int, default=1)
+    parser.add_argument("--dynamic_max_frames", type=int, default=0)
     parser.add_argument("--dynamic_chars_per_second", type=float, default=11.5)
     parser.add_argument("--dynamic_frame_budget_mul", type=float, default=1.05)
     parser.add_argument("--dynamic_min_frames", type=int, default=20)
-    parser.add_argument("--dynamic_max_frames_cap", type=int, default=56)
+    parser.add_argument("--dynamic_max_frames_cap", type=int, default=10000)
     parser.add_argument("--use_compile", type=int, default=0)
     parser.add_argument("--compile_mode", type=str, default="reduce-overhead")
     parser.add_argument("--compile_use_cuda_graphs", type=int, default=0)

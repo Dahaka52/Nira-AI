@@ -52,12 +52,19 @@ class SocketServerObserver(BaseObserverClient, metaclass=Singleton):
         self.connections = set()
         self.shutdown_signal = asyncio.Future()
 
+    def _json_safe(self, value):
+        if isinstance(value, bytes):
+            return base64.b64encode(value).decode("utf-8")
+        if isinstance(value, dict):
+            return {k: self._json_safe(v) for k, v in value.items()}
+        if isinstance(value, (list, tuple)):
+            return [self._json_safe(v) for v in value]
+        return value
+
     async def handle_event(self, event_id: str, payload) -> None:
         '''Broadcast events from broadcast server'''
-        for key in payload:
-            if isinstance(payload[key], bytes):
-                  payload[key] = base64.b64encode(payload[key]).decode('utf-8')
-        message = json.dumps(create_response(200, event_id, payload))
+        payload_safe = self._json_safe(payload)
+        message = json.dumps(create_response(200, event_id, payload_safe))
         logging.debug(f"Broadcasting event to {len(self.connections)} clients")
         dead_connections = set()
         for ws in set(self.connections):

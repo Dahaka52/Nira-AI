@@ -60,9 +60,9 @@ class Qwen3TTS(TTSOperation):
         self.attn_implementation = "flash_attention_2"
 
         self.emit_every_frames = 4
-        self.decode_window_frames = 32
+        self.decode_window_frames = 80
         self.overlap_samples = 0
-        self.max_frames = 56
+        self.max_frames = 10000
         self.use_optimized_decode = True
 
         self.do_sample = False
@@ -70,12 +70,12 @@ class Qwen3TTS(TTSOperation):
         self.top_k = 50
         self.temperature = 0.8
 
-        self.max_text_chars = 90
-        self.dynamic_max_frames = True
+        self.max_text_chars = 800
+        self.dynamic_max_frames = False
         self.dynamic_chars_per_second = 11.5
         self.dynamic_frame_budget_mul = 1.05
         self.dynamic_min_frames = 20
-        self.dynamic_max_frames_cap = 56
+        self.dynamic_max_frames_cap = 10000
 
         self.process_autostart = True
         self.process_startup_retries = 3
