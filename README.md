@@ -38,37 +38,52 @@ Build your own applications using our [Developer Guide](#developer-guide)!
 
 ### Installation
 
-**1. Create a virtual environment:**
+**1. Create a conda environment (Python 3.12):**
 
-
-Install [PyTorch](https://pytorch.org/get-started/locally/) with the right integration. Example below for computers with RTX graphics card.
 ```bash
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu130
+conda create -y -p ./.conda312 python=3.12 pip
+conda activate ./.conda312
 ```
 
-**2. Install dependencies:**
+**2. Install PyTorch with CUDA 13.0 (NVIDIA):**
+
+```bash
+pip install torch==2.10.0 torchvision==0.25.0 torchaudio==2.10.0 --index-url https://download.pytorch.org/whl/cu130
+```
+
+**3. Install flash-attn wheel (Windows) and triton:**
+
+```bash
+pip install https://github.com/mjun0812/flash-attention-prebuild-wheels/releases/download/v0.7.12/flash_attn-2.8.3%2Bcu130torch2.10-cp312-cp312-win_amd64.whl
+pip install -U "triton-windows<3.7"
+```
+
+**4. Install project dependencies:**
 
 ```bash
 pip install -r requirements.txt
 pip install --no-deps -r requirements.no_deps.txt
 python -m spacy download en_core_web_sm
-python install.py
 python -m unidic download
 ```
 
-**3. Install PyTorch:**
+> Current STT track in this branch is CPU-only. No GPU STT setup is required.
 
-For NVIDIA GPUs:
+**5. (Optional) Install legacy RVC/MeloTTS stack in a separate env:**
+
 ```bash
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+pip install -r requirements.legacy-tts.txt
 ```
+
+> Recommended: keep legacy voice stack out of the main `py312+cu130` env.
+> It is preserved as optional because it has known dependency conflicts.
+
+**6. Install FFmpeg:**
 
 > **Note:** If you encounter `libiomp5md.dll` duplicate errors on Windows:
 > 1. Navigate to your conda environment's package directory
 > 2. Search for `libiomp5md.dll`
 > 3. Delete the version under the `torch` package folder
-
-**4. Install FFmpeg:**
 
 - **Ubuntu/Debian:**
   ```bash
@@ -82,7 +97,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
   1. Download [`ffmpeg-git-essentials.7z`](https://www.gyan.dev/ffmpeg/builds/)
   2. Extract and copy all files from `bin/` to the project root directory
 
-**5. Configure your setup:**
+**7. Configure your setup:**
 
 1. Copy `.env-template` to `.env` and add your API keys for the services you plan to use.
 
@@ -114,6 +129,20 @@ See the **[Development Guide](DEVELOPER.md)** for detailed configuration instruc
 - Configuring cloud providers (Azure, OpenAI, Fish Audio)
 - Customizing prompts and operations
 - Choosing the right services for your use case
+
+### One-command Setup (Windows)
+
+You can use the bootstrap script to prepare `py312 + cu130 + flash-attn` automatically:
+
+```bash
+pwsh -File .\setup_env_py312_cu130.ps1
+```
+
+Run with custom env path if needed:
+
+```bash
+pwsh -File .\setup_env_py312_cu130.ps1 -EnvPath .\.conda312
+```
 
 ---
 

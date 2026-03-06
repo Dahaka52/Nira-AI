@@ -52,8 +52,11 @@ class BaseProcess(): # Be sure to make it a singleton (metaclass=Singleton)
         if process_config is not None:
             self.set_runtime_config(process_config)
         
-        if self.process is None:
+        if self.process is None or self.process.poll() is not None:
             await self.reload()
+
+        if self.process is None or self.process.poll() is not None:
+            raise RuntimeError(f"Failed to start process {self.id}")
             
         self.links.add(link_id) # Add to links after loading process to ensure link established
         

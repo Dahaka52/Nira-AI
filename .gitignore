@@ -155,6 +155,7 @@ ENV/
 env.bak/
 venv.bak/
 .conda/
+.conda312/
 .conda_old/
 
 # App-specific exclusions

@@ -219,7 +219,7 @@ Run everything on your own hardware without external API calls.
 **Recommended for:** Users who want consistent latency and are comfortable with model configuration.
 
 **Installation**
-1. MeloTTS was automatically installed during setup when you ran `pip install --no-deps -r requirements.no_deps.txt`
+1. MeloTTS is now treated as an optional legacy stack. Install it manually via `pip install -r requirements.legacy-tts.txt` (preferably in a separate legacy environment).
 2. Browse the [MeloTTS](https://github.com/myshell-ai/MeloTTS) repo to see available languages and accents. Then, update the `speaker_id` in the JAIson config file. The available speakers are: `EN-Default`, `EN-US`, `EN-BR`, `EN_INDIA`, `EN-AU`. Here is an example config for English (Australian accent):
     ```
     - role: tts
