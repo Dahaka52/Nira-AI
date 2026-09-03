@@ -18,7 +18,7 @@ common_init_result: fitting params to device memory, for bugs during this step t
 llama_params_fit_impl: projected to use 7754 MiB of device memory vs. 11036 MiB of free device memory
 llama_params_fit_impl: will leave 3281 >= 1024 MiB of free device memory, no changes needed
 llama_params_fit: successfully fit params to free device memory
-llama_params_fit: fitting params to free memory took 0.37 seconds
+llama_params_fit: fitting params to free memory took 0.39 seconds
 llama_model_load_from_file_impl: using device CUDA0 (NVIDIA GeForce RTX 5070) (0000:0a:00.0) - 11036 MiB free
 llama_model_loader: loaded meta data with 46 key-value pairs and 464 tensors from C:\Nirmita\models\saiga_gemma2_10b.i1-Q5_K_M.gguf (version GGUF V3 (latest))
 llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
@@ -173,7 +173,7 @@ sched_reserve:      CUDA0 compute buffer size =   507.00 MiB
 sched_reserve:  CUDA_Host compute buffer size =    47.02 MiB
 sched_reserve: graph nodes  = 1524
 sched_reserve: graph splits = 41 (with bs=512), 2 (with bs=1)
-sched_reserve: reserve took 8.11 ms, sched copies = 1
+sched_reserve: reserve took 67.90 ms, sched copies = 1
 common_init_from_params: warming up the model with an empty run - please wait ... (--no-warmup to disable)
 srv    load_model: initializing slots, n_slots = 4
 no implementations specified for speculative decoding
@@ -203,39 +203,6 @@ How are you?<end_of_turn>
 '
 srv          init: init: chat template, thinking = 0
 main: model loaded
-main: server is listening on http://127.0.0.1:9281
+main: server is listening on http://127.0.0.1:8497
 main: starting the main loop...
 srv  update_slots: all slots are idle
-srv  params_from_: Chat format: Content-only
-slot get_availabl: id  3 | task -1 | selected slot by LRU, t_last = -1
-slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> dist 
-slot launch_slot_: id  3 | task 0 | processing task, is_child = 0
-slot update_slots: id  3 | task 0 | new prompt, n_ctx_slot = 8192, n_keep = 0, task.n_tokens = 291
-slot update_slots: id  3 | task 0 | n_tokens = 0, memory_seq_rm [0, end)
-slot update_slots: id  3 | task 0 | prompt processing progress, n_tokens = 291, batch.n_tokens = 291, progress = 1.000000
-slot update_slots: id  3 | task 0 | prompt done, n_tokens = 291, batch.n_tokens = 291
-slot init_sampler: id  3 | task 0 | init sampler, took 0.03 ms, tokens: text = 291, total = 291
-slot print_timing: id  3 | task 0 | 
-prompt eval time =     168.73 ms /   291 tokens (    0.58 ms per token,  1724.65 tokens per second)
-       eval time =     147.12 ms /     6 tokens (   24.52 ms per token,    40.78 tokens per second)
-      total time =     315.85 ms /   297 tokens
-slot      release: id  3 | task 0 | stop processing: n_tokens = 296, truncated = 0
-srv  update_slots: all slots are idle
-srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
-srv  params_from_: Chat format: Content-only
-slot get_availabl: id  3 | task -1 | selected slot by LCP similarity, sim_best = 0.958 (> 0.100 thold), f_keep = 1.000
-slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> dist 
-slot launch_slot_: id  3 | task 7 | processing task, is_child = 0
-slot update_slots: id  3 | task 7 | new prompt, n_ctx_slot = 8192, n_keep = 0, task.n_tokens = 309
-slot update_slots: id  3 | task 7 | n_tokens = 296, memory_seq_rm [296, end)
-slot update_slots: id  3 | task 7 | prompt processing progress, n_tokens = 309, batch.n_tokens = 13, progress = 1.000000
-slot update_slots: id  3 | task 7 | prompt done, n_tokens = 309, batch.n_tokens = 13
-slot init_sampler: id  3 | task 7 | init sampler, took 0.04 ms, tokens: text = 309, total = 309
-slot update_slots: id  3 | task 7 | created context checkpoint 1 of 8 (pos_min = 0, pos_max = 295, size = 25.803 MiB)
-slot print_timing: id  3 | task 7 | 
-prompt eval time =     255.09 ms /    13 tokens (   19.62 ms per token,    50.96 tokens per second)
-       eval time =     404.06 ms /    16 tokens (   25.25 ms per token,    39.60 tokens per second)
-      total time =     659.15 ms /    29 tokens
-slot      release: id  3 | task 7 | stop processing: n_tokens = 324, truncated = 0
-srv  update_slots: all slots are idle
-srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200

@@ -227,6 +227,10 @@ def is_speech(audio_float32: np.ndarray, threshold: float = 0.05) -> bool:
 # ПАЙПЛАЙН
 # ==============================================================
 
+# Streaming anti-aliasing filter for 48k -> 16k decimation
+_b, _a = signal.butter(4, 1.0 / 3.0)
+_zi_init = signal.lfilter_zi(_b, _a)
+
 state = {
     "in_speech": False,
     "buffer": [],
@@ -240,7 +244,9 @@ state = {
     "max_rms_recent": 0.0,
     "max_prob_recent": 0.0,
     "last_samples": np.zeros(5),
-    "last_log_time": time.time()
+    "last_log_time": time.time(),
+    "resample_zi": _zi_init,
+    "current_agc_gain": 1.0
 }
 
 # [OPTIMIZE] Use Session for faster subsequent requests
@@ -287,7 +293,8 @@ def send_to_jaison(audio_buffer: list, turn_id: Optional[str] = None):
     audio_data = np.concatenate(audio_buffer)
     
     # Конвертируем обратно в int16 bytes
-    audio_int16 = (audio_data * 32767).astype(np.int16).tobytes()
+    audio_data = np.clip(audio_data, -1.0, 1.0)
+    audio_int16 = (audio_data * 32767).astype('''<i2''').tobytes()
     
     base64_audio = base64.b64encode(audio_int16).decode('utf-8')
     utterance_id = str(uuid.uuid4())
@@ -331,14 +338,24 @@ def apply_fixed_gain(samples: np.ndarray) -> np.ndarray:
 
 
 def apply_gain_and_agc(samples: np.ndarray) -> np.ndarray:
+    global state
     out = samples.astype(np.float32, copy=False)
     if args.agc_enable:
         rms = float(np.sqrt(np.mean(out ** 2)))
+        target_gain = 1.0
         if rms > max(1e-6, VAD_FLOOR_RMS):
             target = max(1e-6, float(args.agc_target_rms))
-            dyn_gain = min(target / rms, AGC_MAX_GAIN)
-            if dyn_gain > 1.0:
-                out = out * dyn_gain
+            target_gain = min(target / rms, AGC_MAX_GAIN)
+            if target_gain < 1.0:
+                target_gain = 1.0
+                
+        # Сглаживание AGC (Attack/Release), чтобы избежать рваных искажений на границах чанков
+        current_gain = state["current_agc_gain"]
+        new_gain = current_gain * 0.9 + target_gain * 0.1
+        state["current_agc_gain"] = new_gain
+        
+        if new_gain > 1.0:
+            out = out * new_gain
 
     # Hard clip to avoid numeric overflow before int16 conversion.
     out = np.clip(out, -SOFT_LIMIT, SOFT_LIMIT)
@@ -353,11 +370,11 @@ def audio_callback(indata, frames, time_info, status):
     ch_native = indata[:, 0]
     
     # 2. Ресемплинг 48к -> 16к.
-    # Для качества распознавания по умолчанию используем polyphase.
-    if args.resample_mode == "polyphase":
-        ch16_raw = signal.resample_poly(ch_native, up=1, down=3).astype(np.float32)
-    else:
-        ch16_raw = ch_native[::3].astype(np.float32)
+    # Для устранения алиасинга используем lfilter с сохранением стейта, а затем прореживание.
+    zi = state["resample_zi"]
+    ch_filtered, zi = signal.lfilter(_b, _a, ch_native, zi=zi)
+    state["resample_zi"] = zi
+    ch16_raw = ch_filtered[::3].astype(np.float32)
 
     # Use fixed-gain signal for VAD/RMS decisions (more stable on noise),
     # and AGC-enriched signal only for STT payload quality.

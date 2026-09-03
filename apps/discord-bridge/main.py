@@ -109,6 +109,9 @@ class SpeakerBuffer:
         with self.lock:
             if not self.audio:
                 self.started_at = time.time()
+            if len(pcm) % 4 != 0:
+                import logging
+                logging.warning(f"PCM length {len(pcm)} is not a multiple of 4! Byte alignment corrupted!")
             self.audio.extend(pcm)
             self.last_packet_time = time.time()
 
@@ -249,37 +252,32 @@ class NiraDiscordBot(discord.Client):
             if self.vc.channel.id != channel.id:
                 await self.vc.move_to(channel)
             return
-        self.vc = await channel.connect(cls=voice_recv.VoiceRecvClient, reconnect=True, self_deaf=False)
-        self.sink = DiscordInputSink(self)
-        self.vc.listen(self.sink)
+        # Отключаем прием аудио через voice_recv, так как он несовместим с DAVE.
+        # Оставляем только передачу TTS (self_deaf=True)
+        self.vc = await channel.connect(reconnect=True, self_deaf=True)
+        # self.sink = DiscordInputSink(self)
+        # self.vc.listen(self.sink)
         logging.info("Joined voice channel %s (%s)", channel.name, channel.id)
 
     def submit_speech_from_thread(self, member, audio: bytes, timestamp: float) -> None:
         asyncio.create_task(self.submit_speech(member, audio, timestamp))
 
-    @staticmethod
-    def _resample_to_stt(audio: bytes) -> bytes:
-        """Конвертирует 48kHz стерео 16-bit → 16kHz моно 16-bit для Sherpa STT."""
-        try:
-            # Стерео → моно (0.5, 0.5 — безопасное микширование обоих каналов)
-            mono = audioop.tomono(audio, SAMPLE_WIDTH, 0.5, 0.5)
-            # 48kHz → 16kHz (делим на 3)
-            mono16k, _ = audioop.ratecv(mono, SAMPLE_WIDTH, 1, SAMPLE_RATE, STT_SAMPLE_RATE, None)
-            return mono16k
-        except audioop.error as e:
-            logging.warning("Discord STT resample failed: %s", e)
-            return audio
-
     async def submit_speech(self, member, audio: bytes, timestamp: float) -> None:
-        audio_stt = self._resample_to_stt(audio)
+        import wave
+        with wave.open(f"C:\\Nirmita\\scratch\\discord_bridge_raw.wav", "wb") as wf:
+            wf.setnchannels(CHANNELS)
+            wf.setsampwidth(SAMPLE_WIDTH)
+            wf.setframerate(SAMPLE_RATE)
+            wf.writeframes(audio)
+
         payload = {
             "user": member.display_name or member.name,
             "speaker_id": str(member.id),
             "timestamp": timestamp,
-            "audio_bytes": base64.b64encode(audio_stt).decode('ascii'),
-            "sr": STT_SAMPLE_RATE,
+            "audio_bytes": base64.b64encode(audio).decode('ascii'),
+            "sr": SAMPLE_RATE,
             "sw": SAMPLE_WIDTH,
-            "ch": 1,
+            "ch": CHANNELS,
             "source_id": self.source_id,
         }
         try:
@@ -287,8 +285,8 @@ class NiraDiscordBot(discord.Client):
                 response = await client.post(self.api_url, json=payload)
                 response.raise_for_status()
             logging.info(
-                "Submitted Discord speech from %s (%d bytes raw → %d bytes @16kHz mono)",
-                payload["user"], len(audio), len(audio_stt)
+                "Submitted Discord speech from %s (%d bytes raw 48kHz stereo)",
+                payload["user"], len(audio)
             )
         except Exception:
             logging.exception("Could not send Discord speech to JAIson")

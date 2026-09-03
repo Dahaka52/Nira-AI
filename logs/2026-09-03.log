@@ -2103,3 +2103,459 @@ ImportError: cannot import name 'AudioFilterOperation' from 'utils.operations.fi
 [2026-09-03 22:13:45,915] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=69 source=discord turn=874f7431-4868-4bc1-a058-560a024f063e utterance=a5c85042-6c50-41e0-947a-575a9a27d45d
 [2026-09-03 22:14:16,935] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=91 source=discord turn=955915f1-6ff3-4ed3-b780-48517b606111 utterance=791178af-3895-4388-99d1-2cbd40ad229b
 [2026-09-03 22:14:54,463] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-03 22:42:33,491] [INFO ] [jaison.py::110 start]: Starting JAIson application layer.
+[2026-09-03 22:42:33,502] [INFO ] [manager.py::300 load_operations_from_config]: Active STT from config: faster_whisper_ru
+[2026-09-03 22:42:35,314] [INFO ] [operation.py::32 start]: Starting STT operation faster_whisper_ru
+[2026-09-03 22:42:35,314] [INFO ] [faster_whisper.py::35 start]: Loading Faster Whisper model 'large-v3' on cuda (float16)...
+[2026-09-03 22:42:40,874] [INFO ] [faster_whisper.py::38 start]: Faster Whisper model loaded successfully.
+[2026-09-03 22:42:40,877] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-09-03 22:42:40,877] [INFO ] [manager.py::27 load]: Loading process by type llamacpp
+[2026-09-03 22:42:40,883] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 45240) on port 2866 (GPU: 0)
+[2026-09-03 22:42:40,883] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:2866/health ...
+[2026-09-03 22:42:46,153] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 10, port 2866)
+[2026-09-03 22:42:46,180] [INFO ] [fishaudio.py::159 configure]: FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2026-09-03 22:42:46,181] [INFO ] [operation.py::32 start]: Starting TTS operation fish_audio
+[2026-09-03 22:42:46,181] [INFO ] [fishaudio.py::85 start]: FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2026-09-03 22:42:46,183] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-09-03 22:42:50,068] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation chunker_sentence
+[2026-09-03 22:42:50,611] [INFO ] [manager.py::27 load]: Loading process by type hw_mic
+[2026-09-03 22:42:50,612] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-03 22:42:50,612] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-03 22:42:50,612] [ERROR] [jaison.py::136 start]: Could not start HW_MIC process: Failed to start process hw_mic
+[2026-09-03 22:42:50,613] [INFO ] [manager.py::27 load]: Loading process by type discord
+[2026-09-03 22:42:50,613] [WARNI] [base.py::46 unload]: Attempted to unload process discord when it is already unloaded
+[2026-09-03 22:42:50,613] [INFO ] [discord.py::52 reload]: Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+[2026-09-03 22:42:50,620] [INFO ] [jaison.py::149 start]: JAIson application layer has started.
+[2026-09-03 22:42:50,622] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-09-03 22:42:53,351] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 22:42:54,389] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 22:43:16,223] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-03 22:43:17,064] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 22:43:19,874] [INFO ] [jaison.py::441 create_job]: Queued new context_conversation_add_text job 9248bcaa-6e73-41ed-a56a-e10fec4987de
+[2026-09-03 22:43:19,886] [INFO ] [jaison.py::441 create_job]: Queued new response job c18c5e3c-6714-4638-9641-a4c859a2e853
+[2026-09-03 22:43:20,249] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 360.7301999581978 ms
+[2026-09-03 22:43:21,526] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1261.6736999480054 ms
+[2026-09-03 22:43:23,274] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1748.2889000093564 ms
+[2026-09-03 22:43:23,275] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation chunker_sentence completed in 3025.456800009124 ms
+[2026-09-03 22:43:23,275] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 3025.5613999906927 ms
+[2026-09-03 22:43:23,275] [INFO ] [jaison.py::963 response_pipeline]: Response job c18c5e3c-6714-4638-9641-a4c859a2e853 completed. Content: 'Привет! Как дела?...'
+[2026-09-03 22:43:32,203] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-03 22:43:32,320] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-03 22:43:39,060] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.058
+[2026-09-03 22:43:39,066] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:02.058 of audio
+[2026-09-03 22:43:40,660] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.670
+[2026-09-03 22:43:40,662] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-03 22:43:44,574] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.202
+[2026-09-03 22:43:44,577] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.202 of audio
+[2026-09-03 22:43:46,394] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.585
+[2026-09-03 22:43:46,397] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.585 of audio
+[2026-09-03 22:43:53,808] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.750
+[2026-09-03 22:43:53,811] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-03 22:43:57,214] [INFO ] [jaison.py::480 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-03 22:43:57,470] [INFO ] [jaison.py::441 create_job]: Queued new context_conversation_add_text job 53889c7d-cbd7-4e1a-8e62-28528889bcb9
+[2026-09-03 22:43:57,470] [INFO ] [jaison.py::441 create_job]: Queued new response job cbdf673f-c13a-4e56-99d2-3e004b5443d2
+[2026-09-03 22:43:58,845] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.948
+[2026-09-03 22:43:58,854] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.948 of audio
+[2026-09-03 22:43:59,104] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 1633.234600070864 ms
+[2026-09-03 22:44:02,033] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2915.5764000024647 ms
+[2026-09-03 22:44:03,640] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.815
+[2026-09-03 22:44:03,644] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.815 of audio
+[2026-09-03 22:44:04,175] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2141.6923000942916 ms
+[2026-09-03 22:44:04,175] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation chunker_sentence completed in 5070.9941000677645 ms
+[2026-09-03 22:44:04,175] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 5071.096000028774 ms
+[2026-09-03 22:44:04,177] [INFO ] [jaison.py::963 response_pipeline]: Response job cbdf673f-c13a-4e56-99d2-3e004b5443d2 completed. Content: 'Я как всегда — летаю на крыльях компьютерных игр и настольных ролевых историй! А у тебя?...'
+[2026-09-03 22:44:04,940] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.590
+[2026-09-03 22:44:04,942] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-03 22:44:14,972] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.528
+[2026-09-03 22:44:14,974] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.528 of audio
+[2026-09-03 22:46:35,785] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-03 22:46:49,463] [INFO ] [jaison.py::110 start]: Starting JAIson application layer.
+[2026-09-03 22:46:49,474] [INFO ] [manager.py::300 load_operations_from_config]: Active STT from config: faster_whisper_ru
+[2026-09-03 22:46:51,161] [INFO ] [operation.py::32 start]: Starting STT operation faster_whisper_ru
+[2026-09-03 22:46:51,161] [INFO ] [faster_whisper.py::35 start]: Loading Faster Whisper model 'large-v3' on cuda (float16)...
+[2026-09-03 22:46:57,064] [INFO ] [faster_whisper.py::38 start]: Faster Whisper model loaded successfully.
+[2026-09-03 22:46:57,066] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-09-03 22:46:57,066] [INFO ] [manager.py::27 load]: Loading process by type llamacpp
+[2026-09-03 22:46:57,073] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 39244) on port 11944 (GPU: 0)
+[2026-09-03 22:46:57,073] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:11944/health ...
+[2026-09-03 22:47:01,782] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 9, port 11944)
+[2026-09-03 22:47:01,808] [INFO ] [fishaudio.py::159 configure]: FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2026-09-03 22:47:01,808] [INFO ] [operation.py::32 start]: Starting TTS operation fish_audio
+[2026-09-03 22:47:01,808] [INFO ] [fishaudio.py::85 start]: FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2026-09-03 22:47:01,810] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-09-03 22:47:04,593] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation chunker_sentence
+[2026-09-03 22:47:05,135] [INFO ] [manager.py::27 load]: Loading process by type hw_mic
+[2026-09-03 22:47:05,136] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-03 22:47:05,136] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-03 22:47:05,136] [ERROR] [jaison.py::136 start]: Could not start HW_MIC process: Failed to start process hw_mic
+[2026-09-03 22:47:05,136] [INFO ] [manager.py::27 load]: Loading process by type discord
+[2026-09-03 22:47:05,136] [WARNI] [base.py::46 unload]: Attempted to unload process discord when it is already unloaded
+[2026-09-03 22:47:05,136] [INFO ] [discord.py::52 reload]: Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+[2026-09-03 22:47:05,145] [INFO ] [jaison.py::149 start]: JAIson application layer has started.
+[2026-09-03 22:47:05,146] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-09-03 22:47:06,414] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 22:47:09,053] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 22:47:17,809] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.305
+[2026-09-03 22:47:17,878] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-03 22:47:20,087] [INFO ] [jaison.py::480 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-03 22:47:20,349] [INFO ] [jaison.py::441 create_job]: Queued new context_conversation_add_text job 49224900-58c5-4f1a-b2af-9cdd6bb90c22
+[2026-09-03 22:47:20,349] [INFO ] [jaison.py::441 create_job]: Queued new response job b048d6e8-dadb-400e-9f7d-69a4a5451974
+[2026-09-03 22:47:22,248] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 1897.3241000203416 ms
+[2026-09-03 22:47:24,310] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2051.5531999990344 ms
+[2026-09-03 22:47:26,610] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2299.0591999841854 ms
+[2026-09-03 22:47:26,610] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation chunker_sentence completed in 4361.573399975896 ms
+[2026-09-03 22:47:26,610] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 4361.694399965927 ms
+[2026-09-03 22:47:26,611] [INFO ] [jaison.py::963 response_pipeline]: Response job b048d6e8-dadb-400e-9f7d-69a4a5451974 completed. Content: 'Ну что, с его субтитрами точно не заскучаешь! Надеюсь, не переборщил с эмодзи....'
+[2026-09-03 22:49:39,535] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-03 22:50:32,091] [INFO ] [jaison.py::110 start]: Starting JAIson application layer.
+[2026-09-03 22:50:32,103] [INFO ] [manager.py::300 load_operations_from_config]: Active STT from config: faster_whisper_ru
+[2026-09-03 22:50:33,750] [INFO ] [operation.py::32 start]: Starting STT operation faster_whisper_ru
+[2026-09-03 22:50:33,751] [INFO ] [faster_whisper.py::35 start]: Loading Faster Whisper model 'large-v3' on cuda (float16)...
+[2026-09-03 22:50:38,002] [INFO ] [faster_whisper.py::38 start]: Faster Whisper model loaded successfully.
+[2026-09-03 22:50:38,004] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-09-03 22:50:38,004] [INFO ] [manager.py::27 load]: Loading process by type llamacpp
+[2026-09-03 22:50:38,011] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 164) on port 12594 (GPU: 0)
+[2026-09-03 22:50:38,011] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:12594/health ...
+[2026-09-03 22:50:42,701] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 9, port 12594)
+[2026-09-03 22:50:42,728] [INFO ] [fishaudio.py::159 configure]: FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2026-09-03 22:50:42,728] [INFO ] [operation.py::32 start]: Starting TTS operation fish_audio
+[2026-09-03 22:50:42,728] [INFO ] [fishaudio.py::85 start]: FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2026-09-03 22:50:42,729] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-09-03 22:50:45,562] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation chunker_sentence
+[2026-09-03 22:50:46,093] [INFO ] [manager.py::27 load]: Loading process by type hw_mic
+[2026-09-03 22:50:46,093] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-03 22:50:46,093] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-03 22:50:46,094] [ERROR] [jaison.py::136 start]: Could not start HW_MIC process: Failed to start process hw_mic
+[2026-09-03 22:50:46,094] [INFO ] [manager.py::27 load]: Loading process by type discord
+[2026-09-03 22:50:46,094] [WARNI] [base.py::46 unload]: Attempted to unload process discord when it is already unloaded
+[2026-09-03 22:50:46,094] [INFO ] [discord.py::52 reload]: Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+[2026-09-03 22:50:46,101] [INFO ] [jaison.py::149 start]: JAIson application layer has started.
+[2026-09-03 22:50:46,102] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-09-03 22:50:49,897] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 22:50:50,049] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 22:50:57,653] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.828
+[2026-09-03 22:50:57,725] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:02.828 of audio
+[2026-09-03 22:50:57,962] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.668
+[2026-09-03 22:50:57,965] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.668 of audio
+[2026-09-03 22:51:03,673] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-03 22:51:04,482] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 22:51:10,522] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.708
+[2026-09-03 22:51:10,526] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.708 of audio
+[2026-09-03 22:53:26,847] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-03 22:56:55,212] [INFO ] [jaison.py::110 start]: Starting JAIson application layer.
+[2026-09-03 22:56:55,223] [INFO ] [manager.py::300 load_operations_from_config]: Active STT from config: faster_whisper_ru
+[2026-09-03 22:56:56,559] [INFO ] [operation.py::32 start]: Starting STT operation faster_whisper_ru
+[2026-09-03 22:56:56,559] [INFO ] [faster_whisper.py::35 start]: Loading Faster Whisper model 'large-v3' on cuda (float16)...
+[2026-09-03 22:57:00,548] [INFO ] [faster_whisper.py::38 start]: Faster Whisper model loaded successfully.
+[2026-09-03 22:57:00,550] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-09-03 22:57:00,550] [INFO ] [manager.py::27 load]: Loading process by type llamacpp
+[2026-09-03 22:57:00,558] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 33024) on port 8001 (GPU: 0)
+[2026-09-03 22:57:00,558] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:8001/health ...
+[2026-09-03 22:57:05,313] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 9, port 8001)
+[2026-09-03 22:57:05,344] [INFO ] [fishaudio.py::159 configure]: FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2026-09-03 22:57:05,344] [INFO ] [operation.py::32 start]: Starting TTS operation fish_audio
+[2026-09-03 22:57:05,344] [INFO ] [fishaudio.py::85 start]: FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2026-09-03 22:57:05,346] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-09-03 22:57:08,678] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation chunker_sentence
+[2026-09-03 22:57:09,301] [INFO ] [manager.py::27 load]: Loading process by type hw_mic
+[2026-09-03 22:57:09,301] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-03 22:57:09,301] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-03 22:57:09,301] [ERROR] [jaison.py::136 start]: Could not start HW_MIC process: Failed to start process hw_mic
+[2026-09-03 22:57:09,301] [INFO ] [manager.py::27 load]: Loading process by type discord
+[2026-09-03 22:57:09,303] [WARNI] [base.py::46 unload]: Attempted to unload process discord when it is already unloaded
+[2026-09-03 22:57:09,303] [INFO ] [discord.py::52 reload]: Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+[2026-09-03 22:57:09,310] [INFO ] [jaison.py::149 start]: JAIson application layer has started.
+[2026-09-03 22:57:09,311] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-09-03 22:57:11,987] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 22:57:13,590] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 22:57:20,151] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.945
+[2026-09-03 22:57:20,236] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.945 of audio
+[2026-09-03 22:57:21,367] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.000
+[2026-09-03 22:57:21,371] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:02.000 of audio
+[2026-09-03 22:57:23,850] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.578
+[2026-09-03 22:57:23,851] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.578 of audio
+[2026-09-03 22:57:52,292] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-03 23:26:36,512] [INFO ] [jaison.py::110 start]: Starting JAIson application layer.
+[2026-09-03 23:26:36,523] [INFO ] [manager.py::300 load_operations_from_config]: Active STT from config: faster_whisper_ru
+[2026-09-03 23:26:37,940] [INFO ] [operation.py::32 start]: Starting STT operation faster_whisper_ru
+[2026-09-03 23:26:37,940] [INFO ] [faster_whisper.py::35 start]: Loading Faster Whisper model 'large-v3' on cuda (float16)...
+[2026-09-03 23:26:41,808] [INFO ] [faster_whisper.py::38 start]: Faster Whisper model loaded successfully.
+[2026-09-03 23:26:41,810] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-09-03 23:26:41,810] [INFO ] [manager.py::27 load]: Loading process by type llamacpp
+[2026-09-03 23:26:41,817] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 40156) on port 1901 (GPU: 0)
+[2026-09-03 23:26:41,817] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:1901/health ...
+[2026-09-03 23:26:46,498] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 9, port 1901)
+[2026-09-03 23:26:46,525] [INFO ] [fishaudio.py::159 configure]: FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2026-09-03 23:26:46,526] [INFO ] [operation.py::32 start]: Starting TTS operation fish_audio
+[2026-09-03 23:26:46,526] [INFO ] [fishaudio.py::85 start]: FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2026-09-03 23:26:46,528] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-09-03 23:26:49,595] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation chunker_sentence
+[2026-09-03 23:26:50,115] [INFO ] [manager.py::27 load]: Loading process by type hw_mic
+[2026-09-03 23:26:50,117] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-03 23:26:50,117] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-03 23:26:50,117] [ERROR] [jaison.py::136 start]: Could not start HW_MIC process: Failed to start process hw_mic
+[2026-09-03 23:26:50,117] [INFO ] [manager.py::27 load]: Loading process by type discord
+[2026-09-03 23:26:50,117] [WARNI] [base.py::46 unload]: Attempted to unload process discord when it is already unloaded
+[2026-09-03 23:26:50,118] [INFO ] [discord.py::52 reload]: Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+[2026-09-03 23:26:50,126] [INFO ] [jaison.py::149 start]: JAIson application layer has started.
+[2026-09-03 23:26:50,127] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-09-03 23:26:53,727] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 23:26:54,226] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 23:26:59,151] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-03 23:27:00,018] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 23:27:01,489] [INFO ] [jaison.py::441 create_job]: Queued new context_conversation_add_text job 69820806-ed39-4431-9d01-a7b8a94702e9
+[2026-09-03 23:27:01,502] [INFO ] [jaison.py::441 create_job]: Queued new response job 3b24ac60-db12-4545-ae08-3e7abe8d2d91
+[2026-09-03 23:27:01,884] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 379.17010008823127 ms
+[2026-09-03 23:27:03,538] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1631.4688000129536 ms
+[2026-09-03 23:27:05,188] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1650.5786000052467 ms
+[2026-09-03 23:27:05,188] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation chunker_sentence completed in 3304.9698000540957 ms
+[2026-09-03 23:27:05,188] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 3305.0694999983534 ms
+[2026-09-03 23:27:05,190] [INFO ] [jaison.py::963 response_pipeline]: Response job 3b24ac60-db12-4545-ae08-3e7abe8d2d91 completed. Content: 'Привет! Как дела?...'
+[2026-09-03 23:27:13,172] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.028
+[2026-09-03 23:27:13,267] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.028 of audio
+[2026-09-03 23:27:14,604] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.545
+[2026-09-03 23:27:14,606] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.545 of audio
+[2026-09-03 23:27:15,809] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.660
+[2026-09-03 23:27:15,811] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-03 23:27:22,346] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.542
+[2026-09-03 23:27:22,350] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.542 of audio
+[2026-09-03 23:27:30,749] [INFO ] [jaison.py::441 create_job]: Queued new context_conversation_add_text job 733cdc10-fca5-481c-8dd9-d88f5963b9b4
+[2026-09-03 23:27:30,749] [INFO ] [jaison.py::579 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-03 23:27:45,824] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-03 23:41:55,163] [INFO ] [jaison.py::110 start]: Starting JAIson application layer.
+[2026-09-03 23:41:55,174] [INFO ] [manager.py::300 load_operations_from_config]: Active STT from config: sherpa_ru
+[2026-09-03 23:41:56,880] [INFO ] [operation.py::32 start]: Starting STT operation sherpa_ru
+[2026-09-03 23:41:56,880] [INFO ] [manager.py::27 load]: Loading process by type sherpa_stt
+[2026-09-03 23:41:56,882] [WARNI] [base.py::46 unload]: Attempted to unload process sherpa_stt when it is already unloaded
+[2026-09-03 23:41:56,884] [INFO ] [sherpa_server.py::85 _prepare_hotwords_file]: Sherpa STT hotwords validated: 3 entries
+[2026-09-03 23:41:56,885] [INFO ] [sherpa_server.py::295 reload]: Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5
+[2026-09-03 23:41:56,885] [INFO ] [sherpa_server.py::307 reload]: Starting Sherpa STT Server with command: C:\Nirmita\.conda312\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5
+[2026-09-03 23:42:01,204] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-09-03 23:42:01,205] [INFO ] [manager.py::27 load]: Loading process by type llamacpp
+[2026-09-03 23:42:01,210] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 11312) on port 8583 (GPU: 0)
+[2026-09-03 23:42:01,210] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:8583/health ...
+[2026-09-03 23:42:05,441] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 8583)
+[2026-09-03 23:42:05,456] [INFO ] [fishaudio.py::159 configure]: FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2026-09-03 23:42:05,456] [INFO ] [operation.py::32 start]: Starting TTS operation fish_audio
+[2026-09-03 23:42:05,456] [INFO ] [fishaudio.py::85 start]: FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2026-09-03 23:42:05,457] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-09-03 23:42:06,032] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation chunker_sentence
+[2026-09-03 23:42:06,540] [INFO ] [manager.py::27 load]: Loading process by type hw_mic
+[2026-09-03 23:42:06,540] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-03 23:42:06,547] [INFO ] [manager.py::27 load]: Loading process by type discord
+[2026-09-03 23:42:06,548] [WARNI] [base.py::46 unload]: Attempted to unload process discord when it is already unloaded
+[2026-09-03 23:42:06,548] [INFO ] [discord.py::52 reload]: Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+[2026-09-03 23:42:06,554] [INFO ] [jaison.py::149 start]: JAIson application layer has started.
+[2026-09-03 23:42:06,555] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-09-03 23:42:08,459] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 23:42:10,521] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 23:42:19,277] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-03 23:42:20,555] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 23:42:21,322] [INFO ] [jaison.py::441 create_job]: Queued new context_conversation_add_text job 366c369c-2a22-4416-92e8-56d2446b57d4
+[2026-09-03 23:42:21,333] [INFO ] [jaison.py::441 create_job]: Queued new response job 81d0fdc9-f374-40a9-9e3f-49e7038cde55
+[2026-09-03 23:42:21,650] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 315.6952999997884 ms
+[2026-09-03 23:42:23,311] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1652.9428000794724 ms
+[2026-09-03 23:42:24,858] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1547.4490999476984 ms
+[2026-09-03 23:42:24,858] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation chunker_sentence completed in 3208.3163999486715 ms
+[2026-09-03 23:42:24,858] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 3208.435600041412 ms
+[2026-09-03 23:42:24,860] [INFO ] [jaison.py::963 response_pipeline]: Response job 81d0fdc9-f374-40a9-9e3f-49e7038cde55 completed. Content: 'Привет! Как дела?...'
+[2026-09-03 23:42:29,153] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=6 latency_ms=76 source=mic turn=28a51479-c618-425e-8b55-b73047f15529 utterance=b4b4269a-40e0-4aeb-b780-1827e0a56d97
+[2026-09-03 23:42:29,419] [INFO ] [jaison.py::441 create_job]: Queued new context_conversation_add_text job df3963de-8878-42be-8505-47276902f03b
+[2026-09-03 23:42:29,419] [INFO ] [jaison.py::579 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-03 23:42:31,825] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=72 source=mic turn=28a51479-c618-425e-8b55-b73047f15529 utterance=4f7909ee-2551-4c5a-a996-e4a6c440483a
+[2026-09-03 23:42:33,583] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=27 latency_ms=70 source=mic turn=28a51479-c618-425e-8b55-b73047f15529 utterance=e2f045f3-7e4b-40ab-9945-a1df0c9278f1
+[2026-09-03 23:42:33,583] [INFO ] [jaison.py::480 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-03 23:42:33,842] [INFO ] [jaison.py::441 create_job]: Queued new context_conversation_add_text job 5a515d88-b11d-4c0a-b544-160520c7ea26
+[2026-09-03 23:42:33,843] [INFO ] [jaison.py::441 create_job]: Queued new response job 6e05c715-0677-4de4-a05c-a0f80be909c6
+[2026-09-03 23:42:34,737] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 892.5470999674872 ms
+[2026-09-03 23:42:37,570] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2821.8102999962866 ms
+[2026-09-03 23:42:37,570] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation chunker_sentence completed in 2834.116299985908 ms
+[2026-09-03 23:42:37,570] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 2834.209799999371 ms
+[2026-09-03 23:42:37,571] [INFO ] [jaison.py::963 response_pipeline]: Response job 6e05c715-0677-4de4-a05c-a0f80be909c6 completed. Content: 'Ну, то есть, если у тебя всё равно что, то я думаю, что у нас сегодня будет интересный разговор!...'
+[2026-09-03 23:42:47,945] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=16 latency_ms=92 source=mic turn=ea1b6c6c-dc2c-4dbd-a83e-8e69406893bc utterance=87167d20-41fb-47bc-883f-e2d97292d763
+[2026-09-03 23:42:47,945] [INFO ] [jaison.py::480 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-03 23:42:48,204] [INFO ] [jaison.py::441 create_job]: Queued new context_conversation_add_text job 454b666f-cf69-47b1-a1df-18aca643fb65
+[2026-09-03 23:42:48,204] [INFO ] [jaison.py::441 create_job]: Queued new response job 6c6c7a0a-9ec1-4593-8459-26f8ec8da5d5
+[2026-09-03 23:42:49,343] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 1138.263300061226 ms
+[2026-09-03 23:42:51,384] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2029.8148000147194 ms
+[2026-09-03 23:42:54,941] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3557.6949999667704 ms
+[2026-09-03 23:42:56,536] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1594.2084999987856 ms
+[2026-09-03 23:42:56,536] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation chunker_sentence completed in 7193.052100017667 ms
+[2026-09-03 23:42:56,536] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 7193.178899935447 ms
+[2026-09-03 23:42:56,536] [INFO ] [jaison.py::963 response_pipeline]: Response job 6c6c7a0a-9ec1-4593-8459-26f8ec8da5d5 completed. Content: 'У меня всё супер! На днях пробовала новую стратегию в любимой игре, теперь чувствую себя почти как п...'
+[2026-09-03 23:43:48,219] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-03 23:45:18,917] [INFO ] [jaison.py::110 start]: Starting JAIson application layer.
+[2026-09-03 23:45:18,929] [INFO ] [manager.py::300 load_operations_from_config]: Active STT from config: faster_whisper_ru
+[2026-09-03 23:45:20,538] [INFO ] [operation.py::32 start]: Starting STT operation faster_whisper_ru
+[2026-09-03 23:45:20,538] [INFO ] [faster_whisper.py::35 start]: Loading Faster Whisper model 'large-v3' on cuda (float16)...
+[2026-09-03 23:45:25,897] [INFO ] [faster_whisper.py::38 start]: Faster Whisper model loaded successfully.
+[2026-09-03 23:45:25,898] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-09-03 23:45:25,899] [INFO ] [manager.py::27 load]: Loading process by type llamacpp
+[2026-09-03 23:45:25,906] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 45752) on port 8225 (GPU: 0)
+[2026-09-03 23:45:25,906] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:8225/health ...
+[2026-09-03 23:45:31,197] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 10, port 8225)
+[2026-09-03 23:45:31,234] [INFO ] [fishaudio.py::159 configure]: FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2026-09-03 23:45:31,234] [INFO ] [operation.py::32 start]: Starting TTS operation fish_audio
+[2026-09-03 23:45:31,234] [INFO ] [fishaudio.py::85 start]: FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2026-09-03 23:45:31,236] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-09-03 23:45:34,802] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation chunker_sentence
+[2026-09-03 23:45:35,477] [INFO ] [manager.py::27 load]: Loading process by type hw_mic
+[2026-09-03 23:45:35,478] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-03 23:45:35,485] [INFO ] [manager.py::27 load]: Loading process by type discord
+[2026-09-03 23:45:35,486] [WARNI] [base.py::46 unload]: Attempted to unload process discord when it is already unloaded
+[2026-09-03 23:45:35,486] [INFO ] [discord.py::52 reload]: Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+[2026-09-03 23:45:35,494] [INFO ] [jaison.py::149 start]: JAIson application layer has started.
+[2026-09-03 23:45:35,495] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-09-03 23:45:38,772] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 23:45:39,175] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 23:45:46,141] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.472
+[2026-09-03 23:45:46,228] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-03 23:45:46,844] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-03 23:45:46,846] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-03 23:45:48,463] [INFO ] [jaison.py::441 create_job]: Queued new context_conversation_add_text job d83ec0c3-00bd-46ed-8836-337a7297e2bb
+[2026-09-03 23:45:48,463] [INFO ] [jaison.py::579 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-03 23:46:02,492] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.824
+[2026-09-03 23:46:02,496] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-03 23:46:03,284] [INFO ] [jaison.py::441 create_job]: Queued new context_conversation_add_text job 9aa927d6-812a-47d6-93f0-d5cf4c39b111
+[2026-09-03 23:46:03,284] [INFO ] [jaison.py::579 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-03 23:46:13,910] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.208
+[2026-09-03 23:46:13,915] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.144 of audio
+[2026-09-03 23:46:14,331] [INFO ] [jaison.py::480 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-03 23:46:14,594] [INFO ] [jaison.py::441 create_job]: Queued new context_conversation_add_text job 57130a72-3899-4922-948d-6d9e1f25f617
+[2026-09-03 23:46:14,594] [INFO ] [jaison.py::441 create_job]: Queued new response job b29bda8b-bffe-4d42-946b-6614333d89a8
+[2026-09-03 23:46:16,324] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 1727.0932999672368 ms
+[2026-09-03 23:46:17,883] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1549.134899978526 ms
+[2026-09-03 23:46:19,619] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1735.3836999973282 ms
+[2026-09-03 23:46:21,319] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1700.5523999687284 ms
+[2026-09-03 23:46:21,319] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation chunker_sentence completed in 4995.487999985926 ms
+[2026-09-03 23:46:21,319] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 4995.590999955311 ms
+[2026-09-03 23:46:21,319] [INFO ] [jaison.py::963 response_pipeline]: Response job b29bda8b-bffe-4d42-946b-6614333d89a8 completed. Content: 'Привет! Как твои дела? Все в порядке?...'
+[2026-09-03 23:46:26,581] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.592
+[2026-09-03 23:46:26,587] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.624 of audio
+[2026-09-03 23:46:29,188] [INFO ] [jaison.py::441 create_job]: Queued new context_conversation_add_text job 50672bea-320c-49af-95f0-95dc153ee67a
+[2026-09-03 23:46:29,188] [INFO ] [jaison.py::579 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-03 23:46:55,060] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.144
+[2026-09-03 23:46:55,064] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.112 of audio
+[2026-09-03 23:46:55,691] [INFO ] [jaison.py::480 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-03 23:46:55,958] [INFO ] [jaison.py::441 create_job]: Queued new context_conversation_add_text job 4121349d-e671-418e-9510-8b479f198da8
+[2026-09-03 23:46:55,958] [INFO ] [jaison.py::441 create_job]: Queued new response job 0012b910-243e-4f63-b4e4-ca15a8173b18
+[2026-09-03 23:46:56,917] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 957.3360999347642 ms
+[2026-09-03 23:47:00,158] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3231.513199978508 ms
+[2026-09-03 23:47:01,853] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1694.3718999391422 ms
+[2026-09-03 23:47:03,755] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1902.286299970001 ms
+[2026-09-03 23:47:03,756] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation chunker_sentence completed in 6838.987700059079 ms
+[2026-09-03 23:47:03,756] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 6839.099099976011 ms
+[2026-09-03 23:47:03,756] [INFO ] [jaison.py::963 response_pipeline]: Response job 0012b910-243e-4f63-b4e4-ca15a8173b18 completed. Content: 'Привет! Ну как там жизнь? Какие планы на выходные?...'
+[2026-09-03 23:47:08,133] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-03 23:48:11,994] [INFO ] [jaison.py::110 start]: Starting JAIson application layer.
+[2026-09-03 23:48:12,006] [INFO ] [manager.py::300 load_operations_from_config]: Active STT from config: sherpa_ru
+[2026-09-03 23:48:13,681] [INFO ] [operation.py::32 start]: Starting STT operation sherpa_ru
+[2026-09-03 23:48:13,681] [INFO ] [manager.py::27 load]: Loading process by type sherpa_stt
+[2026-09-03 23:48:13,683] [WARNI] [base.py::46 unload]: Attempted to unload process sherpa_stt when it is already unloaded
+[2026-09-03 23:48:13,684] [INFO ] [sherpa_server.py::85 _prepare_hotwords_file]: Sherpa STT hotwords validated: 3 entries
+[2026-09-03 23:48:13,685] [INFO ] [sherpa_server.py::295 reload]: Sherpa STT config: port=6106 model_dir=C:\Nirmita\models\vosk-model-small-streaming-ru, model_variant=fp32, decoding_method=modified_beam_search, num_active_paths=6, use_endpoint=0, bpe_vocab=C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab, hotwords_file=C:\Nirmita\models\hotwords.txt, hotwords_score=3.5
+[2026-09-03 23:48:13,685] [INFO ] [sherpa_server.py::307 reload]: Starting Sherpa STT Server with command: C:\Nirmita\.conda312\python.exe C:\Nirmita\apps\stt-sherpa-server\start_server.py --encoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\encoder.onnx --decoder C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\decoder.onnx --joiner C:\Nirmita\models\vosk-model-small-streaming-ru\am-onnx\joiner.onnx --tokens C:\Nirmita\models\vosk-model-small-streaming-ru\lang\tokens.txt --modeling-unit bpe --decoding-method modified_beam_search --num-active-paths 6 --use-endpoint 0 --port 6106 --provider cpu --doc-root C:\Nirmita\apps\stt-sherpa-server --bpe-vocab C:\Nirmita\models\vosk-model-small-streaming-ru\lang\unigram_500.vocab --hotwords-file C:\Nirmita\logs\sherpa_hotwords.resolved.txt --hotwords-score 3.5
+[2026-09-03 23:48:18,008] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-09-03 23:48:18,009] [INFO ] [manager.py::27 load]: Loading process by type llamacpp
+[2026-09-03 23:48:18,014] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 47928) on port 12592 (GPU: 0)
+[2026-09-03 23:48:18,014] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:12592/health ...
+[2026-09-03 23:48:22,187] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 12592)
+[2026-09-03 23:48:22,203] [INFO ] [fishaudio.py::159 configure]: FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2026-09-03 23:48:22,204] [INFO ] [operation.py::32 start]: Starting TTS operation fish_audio
+[2026-09-03 23:48:22,204] [INFO ] [fishaudio.py::85 start]: FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2026-09-03 23:48:22,204] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-09-03 23:48:22,767] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation chunker_sentence
+[2026-09-03 23:48:23,280] [INFO ] [manager.py::27 load]: Loading process by type hw_mic
+[2026-09-03 23:48:23,281] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-03 23:48:23,288] [INFO ] [manager.py::27 load]: Loading process by type discord
+[2026-09-03 23:48:23,288] [WARNI] [base.py::46 unload]: Attempted to unload process discord when it is already unloaded
+[2026-09-03 23:48:23,288] [INFO ] [discord.py::52 reload]: Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+[2026-09-03 23:48:23,294] [INFO ] [jaison.py::149 start]: JAIson application layer has started.
+[2026-09-03 23:48:23,295] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-09-03 23:48:23,643] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 23:48:27,039] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 23:48:27,074] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=0 latency_ms=36 source=mic turn=6128fabc-b597-4cfb-b8a4-19e718765348 utterance=2e424792-0d29-43cf-9910-41609b067658
+[2026-09-03 23:48:38,650] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=13 latency_ms=90 source=mic turn=d5a8c63c-6b14-4fd0-8c92-d11cbe043e76 utterance=b5f31501-87e0-4d1f-9ebe-9b8fe9d25eaf
+[2026-09-03 23:48:38,651] [INFO ] [jaison.py::480 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-03 23:48:38,928] [INFO ] [jaison.py::441 create_job]: Queued new context_conversation_add_text job d0471a48-abe4-47f9-8f73-04141e96d52a
+[2026-09-03 23:48:38,928] [INFO ] [jaison.py::441 create_job]: Queued new response job 74afcd66-342a-4178-9513-24ad6d518ca7
+[2026-09-03 23:48:39,657] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 727.4046000093222 ms
+[2026-09-03 23:48:41,649] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1981.4229999901727 ms
+[2026-09-03 23:48:43,351] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1702.101800008677 ms
+[2026-09-03 23:48:43,351] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation chunker_sentence completed in 3694.3551000440493 ms
+[2026-09-03 23:48:43,352] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 3694.4856999907643 ms
+[2026-09-03 23:48:43,352] [INFO ] [jaison.py::963 response_pipeline]: Response job 74afcd66-342a-4178-9513-24ad6d518ca7 completed. Content: 'Привет! Да, слышу, как там дела?...'
+[2026-09-03 23:48:50,554] [INFO ] [sherpa.py::320 _generate]: Sherpa STT final: len=15 latency_ms=110 source=mic turn=3d18372c-9335-45d9-b41e-0777df341e1b utterance=9258ba0e-542d-4f23-90b1-6cf2e84160fc
+[2026-09-03 23:48:50,554] [INFO ] [jaison.py::480 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-03 23:48:50,811] [INFO ] [jaison.py::441 create_job]: Queued new context_conversation_add_text job cd5cb2b5-09aa-4e43-8117-85a0bb368cfd
+[2026-09-03 23:48:50,811] [INFO ] [jaison.py::441 create_job]: Queued new response job 97772472-91d6-4377-b76c-1df51f0a1d0c
+[2026-09-03 23:48:51,339] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 527.0141999935731 ms
+[2026-09-03 23:48:53,583] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2233.515099971555 ms
+[2026-09-03 23:48:55,329] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1745.2778000151739 ms
+[2026-09-03 23:48:55,329] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation chunker_sentence completed in 3989.8766999831423 ms
+[2026-09-03 23:48:55,329] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 3990.108500001952 ms
+[2026-09-03 23:48:55,329] [INFO ] [jaison.py::963 response_pipeline]: Response job 97772472-91d6-4377-b76c-1df51f0a1d0c completed. Content: 'У меня все супер! А что у тебя нового?...'
+[2026-09-03 23:52:02,043] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-03 23:52:03,631] [INFO ] [jaison.py::110 start]: Starting JAIson application layer.
+[2026-09-03 23:52:03,643] [INFO ] [manager.py::300 load_operations_from_config]: Active STT from config: faster_whisper_ru
+[2026-09-03 23:52:05,148] [INFO ] [operation.py::32 start]: Starting STT operation faster_whisper_ru
+[2026-09-03 23:52:05,148] [INFO ] [faster_whisper.py::35 start]: Loading Faster Whisper model 'medium' on cuda (int8_float16)...
+[2026-09-03 23:52:08,415] [INFO ] [faster_whisper.py::38 start]: Faster Whisper model loaded successfully.
+[2026-09-03 23:52:08,417] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-09-03 23:52:08,417] [INFO ] [manager.py::27 load]: Loading process by type llamacpp
+[2026-09-03 23:52:08,423] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 44040) on port 14012 (GPU: 0)
+[2026-09-03 23:52:08,423] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:14012/health ...
+[2026-09-03 23:52:12,610] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 14012)
+[2026-09-03 23:52:12,630] [INFO ] [fishaudio.py::159 configure]: FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2026-09-03 23:52:12,630] [INFO ] [operation.py::32 start]: Starting TTS operation fish_audio
+[2026-09-03 23:52:12,630] [INFO ] [fishaudio.py::85 start]: FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2026-09-03 23:52:12,633] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-09-03 23:52:15,037] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation chunker_sentence
+[2026-09-03 23:52:15,546] [INFO ] [manager.py::27 load]: Loading process by type hw_mic
+[2026-09-03 23:52:15,546] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-03 23:52:15,554] [INFO ] [manager.py::27 load]: Loading process by type discord
+[2026-09-03 23:52:15,554] [WARNI] [base.py::46 unload]: Attempted to unload process discord when it is already unloaded
+[2026-09-03 23:52:15,555] [INFO ] [discord.py::52 reload]: Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+[2026-09-03 23:52:15,560] [INFO ] [jaison.py::149 start]: JAIson application layer has started.
+[2026-09-03 23:52:15,562] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-09-03 23:52:15,892] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 23:52:19,281] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.608
+[2026-09-03 23:52:19,335] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-03 23:52:19,346] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.608 of audio
+[2026-09-03 23:52:29,469] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.624
+[2026-09-03 23:52:29,475] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.112 of audio
+[2026-09-03 23:52:30,942] [INFO ] [jaison.py::441 create_job]: Queued new context_conversation_add_text job 5850e819-6cef-4888-b031-f56a485d7f15
+[2026-09-03 23:52:30,942] [INFO ] [jaison.py::579 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-03 23:52:37,108] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.536
+[2026-09-03 23:52:37,112] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-03 23:52:37,437] [INFO ] [jaison.py::480 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-03 23:52:37,690] [INFO ] [jaison.py::441 create_job]: Queued new context_conversation_add_text job 5cc58cb7-0ed0-495d-a33f-246823e06a83
+[2026-09-03 23:52:37,690] [INFO ] [jaison.py::441 create_job]: Queued new response job c7314d38-0cb8-402b-b5eb-8be5ed65ad50
+[2026-09-03 23:52:38,224] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 533.3561999723315 ms
+[2026-09-03 23:52:38,588] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-03 23:52:38,590] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-03 23:52:40,053] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1816.8993999715894 ms
+[2026-09-03 23:52:41,671] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1617.9442999418825 ms
+[2026-09-03 23:52:41,671] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation chunker_sentence completed in 3446.631300030276 ms
+[2026-09-03 23:52:41,672] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 3447.003700071946 ms
+[2026-09-03 23:52:41,672] [INFO ] [jaison.py::963 response_pipeline]: Response job c7314d38-0cb8-402b-b5eb-8be5ed65ad50 completed. Content: 'Привет! Неплохо, а ты как? Что нового?...'
+[2026-09-03 23:52:52,730] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:05.696
+[2026-09-03 23:52:52,742] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.080 of audio
+[2026-09-03 23:52:53,422] [INFO ] [jaison.py::480 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-03 23:52:53,680] [INFO ] [jaison.py::441 create_job]: Queued new context_conversation_add_text job 2610aebf-4e02-4316-8577-7f3f962fa0a4
+[2026-09-03 23:52:53,680] [INFO ] [jaison.py::441 create_job]: Queued new response job e2874b56-8350-4ecf-bf96-d82b06528170
+[2026-09-03 23:52:54,817] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 1135.311899939552 ms
+[2026-09-03 23:52:54,867] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.272
+[2026-09-03 23:52:54,881] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-03 23:52:55,292] [INFO ] [jaison.py::480 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-03 23:52:55,292] [INFO ] [jaison.py::474 _clear_current_job]: Job e2874b56-8350-4ecf-bf96-d82b06528170 (response) is being cancelled due to: user_speaking_significant
+[2026-09-03 23:52:55,294] [INFO ] [jaison.py::754 _process_job_loop]: Job e2874b56-8350-4ecf-bf96-d82b06528170 (response) was cancelled.
+[2026-09-03 23:52:55,560] [INFO ] [jaison.py::441 create_job]: Queued new context_conversation_add_text job d77c5652-0441-4d2a-94b0-47c30f55bf95
+[2026-09-03 23:52:55,560] [INFO ] [jaison.py::441 create_job]: Queued new response job 42f3a0d7-19d5-43a4-86e8-676f6567aab2
+[2026-09-03 23:52:56,425] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 864.6174999885261 ms
+[2026-09-03 23:52:58,398] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1959.5468000043184 ms
+[2026-09-03 23:53:00,696] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2297.048300039023 ms
+[2026-09-03 23:53:00,696] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation chunker_sentence completed in 4270.559500087984 ms
+[2026-09-03 23:53:00,697] [INFO ] [operation.py::25 __call__]: FILTER_TEXT operation filter_clean completed in 4270.725200069137 ms
+[2026-09-03 23:53:00,697] [INFO ] [jaison.py::963 response_pipeline]: Response job 42f3a0d7-19d5-43a4-86e8-676f6567aab2 completed. Content: 'Ой, Зефир, ты снова со своими экспериментами? Хорошо, давай я тебе потом расскажу, как я тебя слышу....'
+[2026-09-03 23:54:58,466] [INFO ] [app_server.py::86 ws]: Closed websocket connection

@@ -1,9 +1,19 @@
 # Enabled operations
-stt_active_id: "sherpa_ru"  # Быстрое переключение STT: выбери id и вызови /api/operations/reload
+stt_active_id: "faster_whisper_ru"  # Быстрое переключение STT: выбери id и вызови /api/operations/reload
 stt_strict_active_id: true  # Ошибка старта, если выбранный stt_active_id отсутствует в operations
 broadcast_debug_prompt_events: false  # Служебные raw prompt/history события в WS (держать false для меньшей нагрузки)
 
 operations:
+  # STT (Speech-to-Text) - Новый высокоточный модуль Faster Whisper
+  - role: stt
+    id: faster_whisper_ru
+    entrypoint: "utils.operations.stt.faster_whisper:FasterWhisperSTT"
+    model_size: "medium"
+    device: "cuda"
+    compute_type: "int8_float16"
+    language: "ru"
+    process_autostart: true
+
   # STT (Speech-to-Text): текущий рабочий модуль — sherpa.
   - role: stt
     id: sherpa_ru
@@ -53,7 +63,7 @@ operations:
   # TTS (Text-to-Speech) — Fish Audio WebSocket streaming
   - role: tts
     id: fish_audio
-    api_key: "sk-fish-9BgqjIpX07tVQhhadF2vetrgVsSMUG-QxpVRCpIl1kU"                        # Вставь свой API ключ fish.audio (или задай FISH_API_KEY в .env)
+    api_key: ""                        # Вставь свой API ключ fish.audio (или задай FISH_API_KEY в .env)
     reference_id: "8579f19895d8412d9f9e6d515872d455"                   # UUID клона голоса: fish.audio → My Voices → скопируй ID
     model: "s2.1-pro-free"              # s1 | s2-pro | s2.1-pro | s2.1-pro-free (текущий ключ = free tier)
     latency: "balanced"                # low (минимум задержки) | balanced | normal (макс. качество)
@@ -77,7 +87,7 @@ operations:
 
 # Microphone & VAD Settings
 microphone:
-  enabled: false  # Discord-only mode: do not start the local Fifine client.
+  enabled: true  # Discord-only mode: do not start the local Fifine client.
   source_id: "mic"             # Сквозной идентификатор источника аудио
   device_name: "Fifine"         # Основной выбор по имени устройства (устойчив к смене ID)
   device_hostapi: "WASAPI"    # Опционально: фильтр по hostapi для точного совпадения
@@ -87,7 +97,7 @@ microphone:
   vad_hold_rms: 0.0052          # Не держать фразу на комнатном шуме
   vad_floor_rms: 0.0012         # Отсечка совсем тихого фона для вызова VAD
   rms_bridge_ms: 96             # Короткий мост между слогами, без заметного роста TTFT
-  min_silence_ms: 420           # Быстрее закрытие фразы без заметной обрезки хвоста
+  min_silence_ms: 500           # Увеличено для комфортных пауз и вздохов без разрыва фразы
   min_speech_ms: 220            # Немного мягче минималка для тихой речи
   pre_roll_ms: 300              # ПАМЯТЬ: сколько мс тишины хранить перед фразой
   resample_mode: "polyphase"    # Качественный ресемпл 48k->16k (лучше для VAD/STT)
@@ -97,7 +107,7 @@ microphone:
   agc_max_gain_db: 9.0          # Жёстче ограничиваем AGC для стабильной сегментации
   soft_limit: 0.97              # Лимитер от клиппинга
   voice_merge_window_ms: 2200   # Окно склейки соседних STT-сегментов в один пользовательский ход
-  response_debounce_ms: 250     # Отложенный автозапуск RESPONSE для склейки близких VAD-сегментов
+  response_debounce_ms: 500     # Отложено автозапуск RESPONSE, чтобы дать тебе время продолжить мысль после короткой паузы
   response_min_quiet_ms_after_speech_start: 350  # Не запускать response, пока не прошло короткое "окно тишины" после speech_start
   speech_start_min_interval_ms: 900  # Анти-спам для /speech_start
   speech_start_confirm_ms: 140  # Раньше подтверждаем старт речи на тихом голосе
