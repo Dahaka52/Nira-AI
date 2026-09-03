@@ -2330,3 +2330,29 @@ openai.APIStatusError: Error code: 402 - {'message': 'Payment required to access
 [API] Фраза отправлена (45056 байт).
 [1m[1;34m[2026-09-04 01:45:43,743][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:01.408[0m
 [1m[1;34m[2026-09-04 01:45:43,747][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:01.408 of audio[0m
+
+[2026-09-04 01:45:47 +0300] [46964] [INFO] 127.0.0.1:4241 POST /api/context/conversation/speech_start 1.1 200 71 1008
+[VAD] Голос! (Prob: 0.001, RMS: 0.0080) Завершена (960ms, speech: 160ms).
+[2026-09-04 01:45:47 +0300] [46964] [INFO] 127.0.0.1:4241 POST /api/context/conversation/audio 1.1 200 142 0
+[1m[1;34m[2026-09-04 01:45:47,559][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:00.960[0m
+
+[API] Фраза отправлена (30720 байт).
+[1m[1;34m[2026-09-04 01:45:47,562][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.960 of audio[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0120) Завершена (1056ms, speech: 256ms).
+[2026-09-04 01:48:46 +0300] [46964] [INFO] 127.0.0.1:14933 POST /api/context/conversation/speech_start 1.1 200 71 1006
+[2026-09-04 01:48:48 +0300] [46964] [INFO] 127.0.0.1:14934 POST /api/context/conversation/audio 1.1 200 142 0
+[1m[1;34m[2026-09-04 01:48:48,592][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:01.056[0m
+
+[API] Фраза отправлена (33792 байт).
+[1m[1;34m[2026-09-04 01:48:48,595][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:01.056 of audio[0m
+[2026-09-04 01:49:05 +0300] [46964] [INFO] 127.0.0.1:8486 POST /api/context/conversation/speech_start 1.1 200 71 499
+[VAD] Голос! (Prob: 0.002, RMS: 0.0473) Завершена (3520ms, speech: 2624ms).
+[2026-09-04 01:49:07 +0300] [46964] [INFO] 127.0.0.1:8486 POST /api/context/conversation/audio 1.1 200 142 1000
+
+[API] Фраза отправлена (112640 байт).
+[1m[1;34m[2026-09-04 01:49:07,617][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:03.520[0m
+[1m[1;34m[2026-09-04 01:49:07,624][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.176 of audio[0m
+[1m[1;34m[2026-09-04 01:49:07,988][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::483 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-09-04 01:49:08,502][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new context_conversation_add_text job 2e1d24ec-c9d7-43ba-8d17-10e2fd4e912a[0m
+[1m[1;34m[2026-09-04 01:49:08,502][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new response job 2339e846-8961-4343-909b-c78e36372c45[0m
+[1m[1;34m[2026-09-04 01:49:08,858][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation universal_api completed in 355.40309990756214 ms[0m

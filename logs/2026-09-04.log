@@ -887,3 +887,18 @@ openai.APIStatusError: Error code: 402 - {'message': 'Payment required to access
 [2026-09-04 01:45:21,769] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.024 of audio
 [2026-09-04 01:45:25,376] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
 [2026-09-04 01:45:25,379] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-04 01:45:43,743] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.408
+[2026-09-04 01:45:43,747] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.408 of audio
+[2026-09-04 01:45:47,559] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-04 01:45:47,562] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-04 01:48:48,592] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.056
+[2026-09-04 01:48:48,595] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.056 of audio
+[2026-09-04 01:49:07,617] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:03.520
+[2026-09-04 01:49:07,624] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.176 of audio
+[2026-09-04 01:49:07,988] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 01:49:08,502] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job 2e1d24ec-c9d7-43ba-8d17-10e2fd4e912a
+[2026-09-04 01:49:08,502] [INFO ] [jaison.py::444 create_job]: Queued new response job 2339e846-8961-4343-909b-c78e36372c45
+[2026-09-04 01:49:08,858] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 355.40309990756214 ms
+[2026-09-04 01:49:10,363] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1587.1257999679074 ms
+[2026-09-04 01:49:12,592] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-04 01:49:13,854] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3489.757900009863 ms
