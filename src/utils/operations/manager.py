@@ -57,9 +57,9 @@ def load_op(op_type: OpTypes, op_id: str, op_details: Dict[str, Any] | None = No
         case OpTypes.STT:
             return load_stt_operation(op_id=op_id, op_details=op_details)
         case OpTypes.T2T:
-            if op_id == "openai":
-                from .t2t.openai import OpenAIT2T
-                return OpenAIT2T()
+            if op_id in ("openai", "google_ai", "universal_api", "groq", "openrouter", "cerebras"):
+                from .t2t.universal_api import UniversalApiT2T
+                return UniversalApiT2T()
             elif op_id == "kobold":
                 from .t2t.kobold import KoboldT2T
                 return KoboldT2T()
@@ -283,21 +283,51 @@ class OperationManager(metaclass=Singleton):
         elif getattr(config, "stt_active_id", None) and stt_strict_active_id:
             raise UnknownOpID("STT", str(getattr(config, "stt_active_id")))
 
+        # Similarly for T2T
+        t2t_entries = [op for op in operations if str(op.get("role", "")).lower() == OpRoles.T2T.value]
+        selected_t2t = None
+        t2t_strict_active_id = bool(getattr(config, "t2t_strict_active_id", False))
+        if t2t_entries:
+            active_t2t_id = getattr(config, "t2t_active_id", None)
+            if active_t2t_id:
+                selected_t2t = next((op for op in t2t_entries if str(op.get("id", "")) == str(active_t2t_id)), None)
+                if selected_t2t is None:
+                    if t2t_strict_active_id:
+                        raise UnknownOpID("T2T", str(active_t2t_id))
+                    selected_t2t = t2t_entries[0]
+                    logging.warning(
+                        "t2t_active_id='%s' not found in operations; falling back to first T2T '%s'.",
+                        active_t2t_id,
+                        selected_t2t.get("id")
+                    )
+            else:
+                selected_t2t = t2t_entries[0]
+        elif getattr(config, "t2t_active_id", None) and t2t_strict_active_id:
+            raise UnknownOpID("T2T", str(getattr(config, "t2t_active_id")))
+
         filtered_ops: List[Dict[str, Any]] = []
         stt_added = False
+        t2t_added = False
         for op_details in operations:
             role = str(op_details.get("role", "")).lower()
-            if role != OpRoles.STT.value:
+            
+            if role == OpRoles.STT.value:
+                # Keep only selected STT entry.
+                if selected_stt is not None and (op_details is selected_stt) and not stt_added:
+                    filtered_ops.append(op_details)
+                    stt_added = True
+            elif role == OpRoles.T2T.value:
+                # Keep only selected T2T entry.
+                if selected_t2t is not None and (op_details is selected_t2t) and not t2t_added:
+                    filtered_ops.append(op_details)
+                    t2t_added = True
+            else:
                 filtered_ops.append(op_details)
-                continue
-
-            # Keep only selected STT entry.
-            if selected_stt is not None and (op_details is selected_stt) and not stt_added:
-                filtered_ops.append(op_details)
-                stt_added = True
 
         if stt_entries and selected_stt:
             logging.info("Active STT from config: %s", selected_stt.get("id"))
+        if t2t_entries and selected_t2t:
+            logging.info("Active T2T from config: %s", selected_t2t.get("id"))
 
         for op_details in filtered_ops:
             op_role = OpRoles(op_details['role'])

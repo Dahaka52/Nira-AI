@@ -155,9 +155,12 @@ class JAIson(metaclass=Singleton):
         self._immediate_audio_tasks.clear()
         self._immediate_audio_pending.clear()
         self._immediate_audio_active = 0
-        await self.op_manager.close_operation_all()
-        await self.mcp_manager.close()
-        await self.process_manager.unload()
+        if getattr(self, "op_manager", None):
+            await self.op_manager.close_operation_all()
+        if getattr(self, "mcp_manager", None):
+            await self.mcp_manager.close()
+        if getattr(self, "process_manager", None):
+            await self.process_manager.unload()
         logging.info("JAIson application layer has been shut down")
 
     def _get_microphone_config(self) -> Dict[str, Any]:

@@ -12,6 +12,7 @@ from utils.processes import ProcessManager, ProcessType
 from .base import T2TOperation
 from utils.prompter.message import ChatMessage
 from utils.prompter import Prompter
+from utils.config import Config
 
 class LlamaCppT2T(T2TOperation):
     LLAMACPP_LINK_ID = "llamacpp_t2t"
@@ -41,11 +42,13 @@ class LlamaCppT2T(T2TOperation):
     
     async def configure(self, config_d: Dict[str, Any]):
         '''Configure sampler overrides'''
-        if "max_length" in config_d: self.max_length = int(config_d["max_length"])
-        if "temperature" in config_d: self.temperature = float(config_d["temperature"])
-        if "top_p" in config_d: self.top_p = float(config_d["top_p"])
-        if "top_k" in config_d: self.top_k = int(config_d["top_k"])
-        if "stream" in config_d: self.stream = bool(config_d["stream"])
+        global_t2t = getattr(Config(), "t2t", {}) or {}
+        
+        self.max_length = int(config_d.get("max_length", global_t2t.get("max_length", self.max_length)))
+        self.temperature = float(config_d.get("temperature", global_t2t.get("temperature", self.temperature)))
+        self.top_p = float(config_d.get("top_p", global_t2t.get("top_p", self.top_p)))
+        self.top_k = int(config_d.get("top_k", global_t2t.get("top_k", self.top_k)))
+        self.stream = bool(config_d.get("stream", global_t2t.get("stream", self.stream)))
         
         assert self.max_length > 0
         assert self.temperature >= 0

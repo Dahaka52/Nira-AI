@@ -1,7 +1,17 @@
 # Enabled operations
 stt_active_id: "faster_whisper_ru"  # Быстрое переключение STT: выбери id и вызови /api/operations/reload
 stt_strict_active_id: true  # Ошибка старта, если выбранный stt_active_id отсутствует в operations
+t2t_active_id: "groq"           # Быстрое переключение T2T: "llamacpp" или "google_ai"
+t2t_strict_active_id: true  # Ошибка старта, если выбранный t2t_active_id отсутствует в operations
 broadcast_debug_prompt_events: false  # Служебные raw prompt/history события в WS (держать false для меньшей нагрузки)
+
+# Глобальные настройки генерации текста (будут применяться ко всем T2T модулям)
+t2t:
+  max_length: 1000
+  temperature: 0.7
+  top_p: 0.95
+  top_k: 40
+  stream: true
 
 operations:
   # STT (Speech-to-Text) - Новый высокоточный модуль Faster Whisper
@@ -42,11 +52,27 @@ operations:
   # T2T (Text-to-Text) - Используем внешний llama-server
   - role: t2t
     id: llamacpp
-    max_length: 500
-    temperature: 0.7
-    top_p: 0.95
-    top_k: 40
-    stream: true
+
+  # T2T (Text-to-Text) - Резервный способ через Google AI Studio API (Gemini)
+  - role: t2t
+    id: google_ai
+    model: "gemini-3.6-flash"  # Рекомендуемая быстрая модель
+    api_key: ""                # Впишите ключ или оставьте пустым для использования GEMINI_API_KEY из .env
+    # base_url: "https://generativelanguage.googleapis.com/v1beta/openai/" # Можно указать любой OpenAI-совместимый эндпоинт
+
+  # T2T (Text-to-Text) - Альтернативный провайдер через Groq
+  - role: t2t
+    id: groq
+    model: "openai/gpt-oss-120b"
+    api_key: ""                # Будет использован GROQ_API_KEY из .env
+    base_url: "https://api.groq.com/openai/v1"
+
+  # T2T (Text-to-Text) - Альтернативный сверхбыстрый провайдер Cerebras
+  - role: t2t
+    id: cerebras
+    model: "gpt-oss-120b"
+    api_key: "csk-k8j34ccj4kkj3f4xnpeedkvejdemnywykchwfvpdmctdw9r9"                # Впишите ваш ключ от Cerebras или задайте CEREBRAS_API_KEY в .env
+    base_url: "https://api.cerebras.ai/v1"
 
   # Запасной вариант (прямая библиотека)
   # - role: t2t
