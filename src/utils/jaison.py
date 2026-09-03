@@ -860,98 +860,129 @@ class JAIson(metaclass=Singleton):
                 f"Незавершенный фрагмент: {tail}\n"
             )
         
-        # Appy t2t
+        # Apply t2t and stream to TTS
         t2t_result = ""
+        full_filtered_text = ""
         t2t_start_time = 0
-        async for chunk_out in self.op_manager.use_operation(OpRoles.T2T, {"instruction_prompt": instruction_prompt, "messages": history}):
-            chunk_content = chunk_out.get('content', '')
-            t2t_result += chunk_content
-            if chunk_content:
-                self._assistant_live_reply += chunk_content
-            
-            # Внедряем метрики для стриминга в чат
-            token_count += len(chunk_content.split())
-            if t2t_start_time == 0: t2t_start_time = time.time()
-            elapsed = time.time() - t2t_start_time
-            if latency == 0: latency = int((time.time() - start_time) * 1000)
-            tps = round(token_count / elapsed, 1) if elapsed > 0 else 0
-
-            # First-token metrics (for chat responsiveness / TTFT)
-            if chunk_content and not first_token_sent:
-                first_token_sent = True
-                chunk_out["ttft_ms"] = latency
-                if input_timestamp is not None:
+        
+        tts_queue = asyncio.Queue()
+        
+        async def tts_worker():
+            nonlocal full_filtered_text, first_audio_sent, first_token_sent
+            while True:
+                phrase = await tts_queue.get()
+                if phrase is None: # Sentinel
+                    break
+                    
+                phrase = phrase.strip()
+                if not phrase:
+                    continue
+                    
+                if full_filtered_text and not full_filtered_text.endswith((" ", "\n")):
+                    full_filtered_text += " "
+                full_filtered_text += phrase
+                
+                if include_audio:
                     try:
-                        chunk_out["e2e_ttft_ms"] = int((time.time() - float(input_timestamp)) * 1000)
-                    except Exception:
-                        pass
-            
-            # Транслируем чанк немедленно для стриминга в чате
-            chunk_out.update({"tps": tps, "latency": latency})
-            await self._handle_broadcast_event(job_id, job_type, chunk_out)
+                        async for audio_chunk_out in self.op_manager.use_operation(OpRoles.TTS, {"content": phrase}):
+                            async for final_audio_chunk_out in self.op_manager.use_operation(OpRoles.FILTER_AUDIO, audio_chunk_out):
+                                for ws_chunk in chunk_buffer(base64.b64encode(final_audio_chunk_out['audio_bytes']).decode('utf-8')):
+                                    audio_event = {
+                                        "audio_bytes": ws_chunk,
+                                        "sr": final_audio_chunk_out['sr'],
+                                        "sw": final_audio_chunk_out['sw'],
+                                        "ch": final_audio_chunk_out['ch'],
+                                        "event": "audio_chunk"
+                                    }
+                                    if not first_audio_sent:
+                                        first_audio_sent = True
+                                        audio_event["tts_start_ms"] = int((time.time() - start_time) * 1000)
+                                        if input_timestamp is not None:
+                                            try:
+                                                audio_event["e2e_tts_start_ms"] = int((time.time() - float(input_timestamp)) * 1000)
+                                            except Exception: pass
+                                    await self._handle_broadcast_event(job_id, job_type, audio_event)
+                    except Exception as e:
+                        logging.error(f"TTS Worker error: {e}", exc_info=True)
+                
+                tts_queue.task_done()
+                
+        tts_task = asyncio.create_task(tts_worker())
+        sentence_buffer = ""
+        boundaries = (". ", "? ", "! ", ".\n", "?\n", "!\n")
+        
+        try:
+            async for chunk_out in self.op_manager.use_operation(OpRoles.T2T, {"instruction_prompt": instruction_prompt, "messages": history}):
+                chunk_content = chunk_out.get('content', '')
+                t2t_result += chunk_content
+                sentence_buffer += chunk_content
+                
+                if chunk_content:
+                    self._assistant_live_reply += chunk_content
+                
+                token_count += len(chunk_content.split())
+                if t2t_start_time == 0: t2t_start_time = time.time()
+                elapsed = time.time() - t2t_start_time
+                if latency == 0: latency = int((time.time() - start_time) * 1000)
+                tps = round(token_count / elapsed, 1) if elapsed > 0 else 0
 
-        # Optional heavy debug events; disabled by default to keep WS traffic light.
+                if chunk_content and not first_token_sent:
+                    first_token_sent = True
+                    chunk_out["ttft_ms"] = latency
+                    if input_timestamp is not None:
+                        try:
+                            chunk_out["e2e_ttft_ms"] = int((time.time() - float(input_timestamp)) * 1000)
+                        except Exception: pass
+                
+                chunk_out.update({"tps": tps, "latency": latency})
+                await self._handle_broadcast_event(job_id, job_type, chunk_out)
+
+                while True:
+                    best_idx = -1
+                    best_bnd = None
+                    for bnd in boundaries:
+                        idx = sentence_buffer.find(bnd)
+                        if idx != -1 and (best_idx == -1 or idx < best_idx):
+                            best_idx = idx
+                            best_bnd = bnd
+                            
+                    if best_idx != -1:
+                        phrase = sentence_buffer[:best_idx + len(best_bnd)]
+                        sentence_buffer = sentence_buffer[best_idx + len(best_bnd):]
+                        if phrase.strip():
+                            await tts_queue.put(phrase)
+                    else:
+                        break 
+        finally:
+            if sentence_buffer.strip():
+                await tts_queue.put(sentence_buffer.strip())
+            
+            await tts_queue.put(None)
+            await tts_task
+
         debug_prompt_events = False
         try:
             debug_prompt_events = bool(getattr(Config(), "broadcast_debug_prompt_events", False))
         except Exception:
-            debug_prompt_events = False
+            pass
 
         if debug_prompt_events:
             await self._handle_broadcast_event(job_id, job_type, {"instruction_prompt": instruction_prompt})
             await self._handle_broadcast_event(job_id, job_type, {"history": [msg.to_dict() for msg in history]})
             await self._handle_broadcast_event(job_id, job_type, {"raw_content": t2t_result})
 
-        # Guard: FILTER_TEXT asserts on empty content, so finish gracefully.
         if not t2t_result or not t2t_result.strip():
             await self._handle_broadcast_event(job_id, job_type, {
                 "event": "empty_response",
                 "reason": "t2t_empty"
             })
             await self._handle_broadcast_success(job_id, job_type)
-            logging.warning(f"Response job {job_id} produced empty T2T output. Finished without FILTER_TEXT/TTS.")
+            logging.warning(f"Response job {job_id} produced empty T2T output.")
             if self._assistant_live_job_id == job_id:
                 self._assistant_live_job_id = None
                 self._assistant_live_reply = ""
             return
 
-        # Apply text filters and TTS streaming
-        full_filtered_text = ""
-        # Мы используем генератор фильтров как основной поток для TTS
-        async for text_chunk_out in self.op_manager.use_operation(OpRoles.FILTER_TEXT, {"content": t2t_result}):
-            chunk_content = text_chunk_out.get('content', '')
-            if chunk_content:
-                # [FIX] Склеиваем полный текст для истории
-                if full_filtered_text and not full_filtered_text.endswith((" ", "\n")):
-                    full_filtered_text += " "
-                full_filtered_text += chunk_content
-                
-                # [STREAM] Шлем чанк на TTS немедленно
-                if include_audio:
-                    async for audio_chunk_out in self.op_manager.use_operation(OpRoles.TTS, text_chunk_out):
-                        # Apply tts filters
-                        async for final_audio_chunk_out in self.op_manager.use_operation(OpRoles.FILTER_AUDIO, audio_chunk_out):
-                            # Broadcast results (only the audio data for now)
-                            for ws_chunk in chunk_buffer(base64.b64encode(final_audio_chunk_out['audio_bytes']).decode('utf-8')):
-                                audio_event = {
-                                    "audio_bytes": ws_chunk,
-                                    "sr": final_audio_chunk_out['sr'],
-                                    "sw": final_audio_chunk_out['sw'],
-                                    "ch": final_audio_chunk_out['ch'],
-                                    "event": "audio_chunk"
-                                }
-                                # First-audio metrics (time to first playable TTS chunk)
-                                if not first_audio_sent:
-                                    first_audio_sent = True
-                                    tts_start_ms = int((time.time() - start_time) * 1000)
-                                    audio_event["tts_start_ms"] = tts_start_ms
-                                    if input_timestamp is not None:
-                                        try:
-                                            audio_event["e2e_tts_start_ms"] = int((time.time() - float(input_timestamp)) * 1000)
-                                        except Exception:
-                                            pass
-                                await self._handle_broadcast_event(job_id, job_type, audio_event)
-        
         if full_filtered_text:
             self.prompter.add_chat(self.prompter.character_name, full_filtered_text)
             self._assistant_last_full_reply = full_filtered_text[-2000:]

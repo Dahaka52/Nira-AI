@@ -1878,3 +1878,455 @@ openai.APIStatusError: Error code: 402 - {'message': 'Payment required to access
 
 [API] Фраза отправлена (29696 байт).
 [1m[1;34m[2026-09-04 01:09:51,159][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.928 of audio[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0079) Завершена (960ms, speech: 160ms).
+[2026-09-04 01:10:05 +0300] [4380] [INFO] 127.0.0.1:9237 POST /api/context/conversation/speech_start 1.1 200 71 502
+[2026-09-04 01:10:06 +0300] [4380] [INFO] 127.0.0.1:9239 POST /api/context/conversation/audio 1.1 200 142 499
+[1m[1;34m[2026-09-04 01:10:06,600][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:00.960[0m
+
+[API] Фраза отправлена (30720 байт).
+[1m[1;34m[2026-09-04 01:10:06,603][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.960 of audio[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0076) Завершена (928ms, speech: 128ms).
+[2026-09-04 01:10:11 +0300] [4380] [INFO] 127.0.0.1:9239 POST /api/context/conversation/audio 1.1 200 142 1512
+[1m[1;34m[2026-09-04 01:10:11,021][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:00.928[0m
+
+[API] Фраза отправлена (29696 байт).
+[1m[1;34m[2026-09-04 01:10:11,023][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.000 of audio[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0080) Завершена (928ms, speech: 128ms).
+[2026-09-04 01:10:41 +0300] [4380] [INFO] 127.0.0.1:9255 POST /api/context/conversation/audio 1.1 200 142 3041
+
+[1m[1;34m[2026-09-04 01:10:41,414][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:00.928[0m
+[API] Фраза отправлена (29696 байт).
+[1m[1;34m[2026-09-04 01:10:41,416][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.000 of audio[0m
+[2026-09-04 01:11:27 +0300] [4380] [INFO] 127.0.0.1:2436 POST /api/context/conversation/speech_start 1.1 200 71 498
+[VAD] Голос! (Prob: 0.001, RMS: 0.0723) Завершена (3456ms, speech: 2656ms).
+[2026-09-04 01:11:29 +0300] [4380] [INFO] 127.0.0.1:2436 POST /api/context/conversation/audio 1.1 200 142 507
+
+[API] Фраза отправлена (110592 байт).
+[1m[1;34m[2026-09-04 01:11:29,390][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:03.456[0m
+[1m[1;34m[2026-09-04 01:11:29,396][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.000 of audio[0m
+[1m[1;34m[2026-09-04 01:11:29,908][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::483 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-09-04 01:11:30,411][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new context_conversation_add_text job e41d7c98-1700-435d-8905-306fece4ada6[0m
+[1m[1;34m[2026-09-04 01:11:30,411][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new response job 4a3dd089-ef71-4699-bee6-1cb82860c112[0m
+[1m[1;34m[2026-09-04 01:11:31,017][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation universal_api completed in 605.3948999615386 ms[0m
+[1m[1;34m[2026-09-04 01:11:34,504][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 3470.8275999873877 ms[0m
+[1m[1;34m[2026-09-04 01:11:38,898][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 4393.7796000391245 ms[0m
+[1m[1;34m[2026-09-04 01:11:41,056][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 2157.1456999517977 ms[0m
+[1m[1;34m[2026-09-04 01:11:41,057][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 10038.700399920344 ms[0m
+[1m[1;34m[2026-09-04 01:11:41,057][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 10038.84759999346 ms[0m
+[1m[1;34m[2026-09-04 01:11:41,057][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::966 response_pipeline]:[0m Response job 4a3dd089-ef71-4699-bee6-1cb82860c112 completed. Content: 'В Компудахтере всё как обычно: коды бегают, баги шипят, а я всё время ищу, где спрятан следующий апд...'[0m
+[2026-09-04 01:11:54 +0300] [4380] [INFO] 127.0.0.1:2449 POST /api/context/conversation/speech_start 1.1 200 71 0
+[VAD] Голос! (Prob: 0.001, RMS: 0.0080) Завершена (4160ms, speech: 3328ms).
+[2026-09-04 01:11:57 +0300] [4380] [INFO] 127.0.0.1:2449 POST /api/context/conversation/audio 1.1 200 142 1013
+[1m[1;34m[2026-09-04 01:11:57,711][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:04.160[0m
+
+[API] Фраза отправлена (133120 байт).
+[1m[1;34m[2026-09-04 01:11:57,719][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.016 of audio[0m
+[1m[1;34m[2026-09-04 01:11:58,181][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::483 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-09-04 01:11:58,695][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new context_conversation_add_text job 8f8cb940-99ae-41ca-8b34-999667bf13f2[0m
+[1m[1;34m[2026-09-04 01:11:58,695][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new response job 5c56c507-288d-4f67-888e-2cd56a29ab52[0m
+[1m[1;34m[2026-09-04 01:11:59,301][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation universal_api completed in 605.9112000511959 ms[0m
+[1m[1;34m[2026-09-04 01:12:02,138][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 2819.455499993637 ms[0m
+[1m[1;34m[2026-09-04 01:12:05,518][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 3379.592299927026 ms[0m
+[1m[1;34m[2026-09-04 01:12:05,518][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 6216.480299946852 ms[0m
+[1m[1;34m[2026-09-04 01:12:05,519][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 6216.634500073269 ms[0m
+[1m[1;34m[2026-09-04 01:12:05,519][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::966 response_pipeline]:[0m Response job 5c56c507-288d-4f67-888e-2cd56a29ab52 completed. Content: 'Тогда держи виртуальный кусок: хрустящий, слегка 8‑битный, с ароматом «сохранения без ошибок». Прият...'[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0087) Завершена (1088ms, speech: 288ms).
+[2026-09-04 01:12:44 +0300] [4380] [INFO] 127.0.0.1:10077 POST /api/context/conversation/speech_start 1.1 200 71 500
+[2026-09-04 01:12:45 +0300] [4380] [INFO] 127.0.0.1:10078 POST /api/context/conversation/audio 1.1 200 142 999
+[1m[1;34m[2026-09-04 01:12:45,825][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:01.088[0m
+
+[API] Фраза отправлена (34816 байт).
+[1m[1;34m[2026-09-04 01:12:45,828][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:01.088 of audio[0m
+
+[2026-09-04 01:12:47 +0300] [4380] [INFO] 127.0.0.1:10078 POST /api/context/conversation/speech_start 1.1 200 71 1005
+[VAD] Голос! (Prob: 0.001, RMS: 0.0095) Завершена (1216ms, speech: 416ms).
+[2026-09-04 01:12:48 +0300] [4380] [INFO] 127.0.0.1:10078 POST /api/context/conversation/audio 1.1 200 142 1003
+[1m[1;34m[2026-09-04 01:12:48,458][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:01.216[0m
+
+[API] Фраза отправлена (38912 байт).
+[1m[1;34m[2026-09-04 01:12:48,461][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.000 of audio[0m
+[1m[1;34m[2026-09-04 01:12:50,538][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new context_conversation_add_text job 0808521e-a208-406c-b221-c5e4e4258220[0m
+[1m[1;34m[2026-09-04 01:12:50,538][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::582 _commit_pending_voice_turn]:[0m Voice turn committed as context-only (no RESPONSE job).[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0084) Завершена (928ms, speech: 128ms).
+[2026-09-04 01:13:59 +0300] [4380] [INFO] 127.0.0.1:7783 POST /api/context/conversation/audio 1.1 200 142 498
+
+[1m[1;34m[2026-09-04 01:13:59,506][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:00.928[0m
+[API] Фраза отправлена (29696 байт).
+[1m[1;34m[2026-09-04 01:13:59,508][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.928 of audio[0m
+[1m[1;34m[2026-09-04 01:13:59,512][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::269 _record_stt_metrics]:[0m STT metrics(window=20): avg_latency_ms=344 empty_rate=0.400 stop_cmd_recall=0.000[0m
+[2026-09-04 01:14:17 +0300] [4380] [INFO] 127.0.0.1:3397 POST /api/context/conversation/speech_start 1.1 200 71 1506
+[VAD] Голос! (Prob: 0.001, RMS: 0.0630) Завершена (2464ms, speech: 1664ms).
+[2026-09-04 01:14:18 +0300] [4380] [INFO] 127.0.0.1:3397 POST /api/context/conversation/audio 1.1 200 142 1002
+[1m[1;34m[2026-09-04 01:14:18,466][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:02.464[0m
+
+[API] Фраза отправлена (78848 байт).
+[1m[1;34m[2026-09-04 01:14:18,471][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.000 of audio[0m
+[1m[1;34m[2026-09-04 01:14:19,576][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new context_conversation_add_text job 6f5e0b7d-5069-444e-b0d1-6de622724544[0m
+[1m[1;34m[2026-09-04 01:14:19,576][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::582 _commit_pending_voice_turn]:[0m Voice turn committed as context-only (no RESPONSE job).[0m
+[2026-09-04 01:14:27 +0300] [4380] [INFO] 127.0.0.1:12253 POST /api/context/conversation/speech_start 1.1 200 71 1002
+[VAD] Голос! (Prob: 0.001, RMS: 0.0550) Завершена (3808ms, speech: 2816ms).
+[2026-09-04 01:14:30 +0300] [4380] [INFO] 127.0.0.1:12253 POST /api/context/conversation/audio 1.1 200 142 10775
+[1m[1;34m[2026-09-04 01:14:30,159][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:03.808[0m
+
+[API] Фраза отправлена (121856 байт).
+[1m[1;34m[2026-09-04 01:14:30,166][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.000 of audio[0m
+[1m[1;34m[2026-09-04 01:14:30,594][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::483 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-09-04 01:14:31,107][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new context_conversation_add_text job 3b0c10fd-365a-4d40-a5a3-9bc64b5639ae[0m
+[1m[1;34m[2026-09-04 01:14:31,107][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new response job 5fbe4ccd-f138-46b1-9bf2-824ff659cd8b[0m
+[1m[1;34m[2026-09-04 01:14:32,241][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation universal_api completed in 1132.3016999522224 ms[0m
+[1m[1;34m[2026-09-04 01:14:38,996][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 6739.399299956858 ms[0m
+[1m[1;34m[2026-09-04 01:14:38,997][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 6755.380799993873 ms[0m
+[1m[1;34m[2026-09-04 01:14:38,997][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 6755.5457999696955 ms[0m
+[1m[1;34m[2026-09-04 01:14:38,997][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::966 response_pipeline]:[0m Response job 5fbe4ccd-f138-46b1-9bf2-824ff659cd8b completed. Content: 'Ладно, включаю режим «пиксельный дуэлянт»: берём виртуальные мечи, бросаем баги в цель и посмотрим, ...'[0m
+[2026-09-04 01:14:49 +0300] [4380] [INFO] 127.0.0.1:12264 POST /api/context/conversation/speech_start 1.1 200 71 507
+[VAD] Голос! (Prob: 0.001, RMS: 0.0323) Завершена (1600ms, speech: 800ms).
+[2026-09-04 01:14:49 +0300] [4380] [INFO] 127.0.0.1:12264 POST /api/context/conversation/audio 1.1 200 142 1003
+[1m[1;34m[2026-09-04 01:14:49,158][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:01.600[0m
+
+[API] Фраза отправлена (51200 байт).
+[1m[1;34m[2026-09-04 01:14:49,162][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.000 of audio[0m
+
+[2026-09-04 01:14:49 +0300] [4380] [INFO] 127.0.0.1:12264 POST /api/context/conversation/speech_start 1.1 200 71 1507
+[VAD] Голос! (Prob: 0.001, RMS: 0.0137) Завершена (1600ms, speech: 1056ms).
+[2026-09-04 01:14:50 +0300] [4380] [INFO] 127.0.0.1:12264 POST /api/context/conversation/audio 1.1 200 142 1001
+[1m[1;34m[2026-09-04 01:14:50,729][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:01.600[0m
+
+[API] Фраза отправлена (51200 байт).
+[1m[1;34m[2026-09-04 01:14:50,732][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.000 of audio[0m
+
+[2026-09-04 01:14:51 +0300] [4380] [INFO] 127.0.0.1:12264 POST /api/context/conversation/speech_start 1.1 200 71 503
+[VAD] Голос! (Prob: 0.001, RMS: 0.0178) Завершена (2272ms, speech: 1344ms).
+[2026-09-04 01:14:53 +0300] [4380] [INFO] 127.0.0.1:12264 POST /api/context/conversation/audio 1.1 200 141 1006
+
+[API] Фраза отправлена (72704 байт).
+[1m[1;34m[2026-09-04 01:14:53,237][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::483 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-09-04 01:14:53,240][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:02.272[0m
+[1m[1;34m[2026-09-04 01:14:53,244][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.000 of audio[0m
+[1m[1;34m[2026-09-04 01:14:53,957][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::483 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-09-04 01:14:53,958][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new context_conversation_add_text job 4744e595-3c02-47b5-a457-9b21f6ab7086[0m
+[1m[1;34m[2026-09-04 01:14:53,958][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new response job 01a188e8-d206-4091-a649-024a1bfbddd8[0m
+[1m[1;34m[2026-09-04 01:14:54,448][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new context_conversation_add_text job 46c1481d-baad-4c7d-992c-9a2c230cee45[0m
+[1m[1;34m[2026-09-04 01:14:54,448][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new response job a63929ee-d96e-4d9a-8488-b4a7e76db93d[0m
+[1m[1;34m[2026-09-04 01:14:54,789][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation universal_api completed in 828.8197999354452 ms[0m
+[1m[1;34m[2026-09-04 01:14:57,253][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 2450.1144000096247 ms[0m
+[1m[1;34m[2026-09-04 01:14:59,588][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 2335.7211000984535 ms[0m
+[1m[1;34m[2026-09-04 01:14:59,589][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 4799.808699986897 ms[0m
+[1m[1;34m[2026-09-04 01:14:59,589][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 4799.963900004514 ms[0m
+[1m[1;34m[2026-09-04 01:14:59,590][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::966 response_pipeline]:[0m Response job 01a188e8-d206-4091-a649-024a1bfbddd8 completed. Content: 'Ой, промахнулся — держи новый раунд, на этот раз без багов и с полной силой. Что дальше, готов к реа...'[0m
+[1m[1;34m[2026-09-04 01:15:00,202][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation universal_api completed in 610.6471000239253 ms[0m
+[1m[1;34m[2026-09-04 01:15:02,715][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 2496.993000037037 ms[0m
+[1m[1;34m[2026-09-04 01:15:06,140][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 3424.15279999841 ms[0m
+[1m[1;34m[2026-09-04 01:15:06,140][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation chunker_sentence completed in 5937.706300057471 ms[0m
+[1m[1;34m[2026-09-04 01:15:06,140][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m FILTER_TEXT operation filter_clean completed in 5937.8323999699205 ms[0m
+[1m[1;34m[2026-09-04 01:15:06,140][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::966 response_pipeline]:[0m Response job a63929ee-d96e-4d9a-8488-b4a7e76db93d completed. Content: 'Ля-ля-ля, в ритме битов и пикселей, поём вместе, будто код нам подпевает. 🎤 (но без смайликов, прост...'[0m
+[1m[1;34m[2026-09-04 01:30:30,106][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::110 start]:[0m Starting JAIson application layer.[0m
+[1m[1;34m[2026-09-04 01:30:30,119][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::328 load_operations_from_config]:[0m Active STT from config: faster_whisper_ru[0m
+[1m[1;34m[2026-09-04 01:30:30,120][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::330 load_operations_from_config]:[0m Active T2T from config: groq[0m
+[1m[1;34m[2026-09-04 01:30:31,431][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting STT operation faster_whisper_ru[0m
+[1m[1;34m[2026-09-04 01:30:31,431][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[faster_whisper.py::35 start]:[0m Loading Faster Whisper model 'medium' on cuda (int8_float16)...[0m
+[1m[1;34m[2026-09-04 01:30:34,368][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[faster_whisper.py::38 start]:[0m Faster Whisper model loaded successfully.[0m
+[1m[1;34m[2026-09-04 01:30:34,660][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting T2T operation universal_api[0m
+[1m[1;34m[2026-09-04 01:30:34,700][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[fishaudio.py::159 configure]:[0m FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0[0m
+[1m[1;34m[2026-09-04 01:30:34,700][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting TTS operation fish_audio[0m
+[1m[1;34m[2026-09-04 01:30:34,700][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[fishaudio.py::85 start]:[0m FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)[0m
+[1m[1;34m[2026-09-04 01:30:34,702][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::32 start]:[0m Starting FILTER_TEXT operation filter_clean[0m
+[1m[1;34m[2026-09-04 01:30:34,702][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::27 load]:[0m Loading process by type hw_mic[0m
+[1m[1;34m[2026-09-04 01:30:34,704][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process hw_mic when it is already unloaded[0m
+[ProcessManager] Starting Hardware Microphone (hw-mic-client)...
+[1m[1;34m[2026-09-04 01:30:34,711][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[manager.py::27 load]:[0m Loading process by type discord[0m
+[1m[1;34m[2026-09-04 01:30:34,711][0m [1m[1;30m[43m[WARNI][0m [1m[1;33m[base.py::46 unload]:[0m Attempted to unload process discord when it is already unloaded[0m
+[1m[1;34m[2026-09-04 01:30:34,711][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[discord.py::52 reload]:[0m Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.[0m
+[1m[1;34m[2026-09-04 01:30:34,718][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::149 start]:[0m JAIson application layer has started.[0m
+[1m[1;34m[2026-09-04 01:30:34,719][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[logging.py::106 info]:[0m Running on http://127.0.0.1:7272 (CTRL + C to quit)[0m
+[discord] C:\Nirmita\apps\discord-bridge\main.py:11: DeprecationWarning: 'audioop' is deprecated and slated for removal in Python 3.13
+[discord]   import audioop
+[discord] 2026-09-04 01:30:35,171 [INFO] logging in using static token
+[INFO] Loading Silero VAD ONNX Session (CPU)...
+[2026-09-04 01:30:35 +0300] [46964] [INFO] 127.0.0.1:10577 GET /api/config 1.1 200 4247 1511
+[MIC] Selected by name: [72] Микрофон (4- fifine Microphone) (Windows WASAPI)
+[2026-09-04 01:30:35 +0300] [46964] [INFO] 127.0.0.1:10579 GET /api/config 1.1 200 4247 502
+[INFO] SoundDevice Listening on: Микрофон (4- fifine Microphone) (ID: 72, hostapi: Windows WASAPI)
+========================================================
+
+
+[2026-09-04 01:30:35 +0300] [46964] [INFO] 127.0.0.1:10581 GET /api/context/history 1.1 200 59 0
+[2026-09-04 01:30:35 +0300] [46964] [INFO] 127.0.0.1:10583 GET /api/context/history 1.1 200 59 0
+[discord] 2026-09-04 01:30:36,364 [INFO] Shard ID None has connected to Gateway (Session ID: 0ea6892c491dae4aa76d4b47928f5f79).
+[VAD] Голос! (Prob: 0.001, RMS: 0.0483) Завершена (672ms, speech: 128ms).
+
+[discord] 2026-09-04 01:30:38,381 [INFO] Authenticated as Nira#4162
+[discord] 2026-09-04 01:30:38,393 [INFO] Connecting to voice...
+[discord] 2026-09-04 01:30:38,393 [INFO] Starting voice handshake... (connection attempt 1)
+[1m[1;34m[2026-09-04 01:30:38,394][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-09-04 01:30:38 +0300] [46964] [INFO] 127.0.0.1:7411 GET / 1.1 101 - 1002
+[discord] 2026-09-04 01:30:38,395 [INFO] Connected to JAIson WebSocket
+[2026-09-04 01:30:38 +0300] [46964] [INFO] 127.0.0.1:7412 POST /api/context/conversation/audio 1.1 200 142 1119
+[1m[1;34m[2026-09-04 01:30:38,477][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:00.672[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0194)
+[API] Фраза отправлена (21504 байт).
+[1m[1;34m[2026-09-04 01:30:38,540][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.672 of audio[0m
+[discord] 2026-09-04 01:30:38,733 [INFO] Voice handshake complete. Endpoint found: c-otp01-f984b1df.discord.media:2087
+[discord] 2026-09-04 01:30:39,049 [INFO] Voice connection complete.
+[discord] 2026-09-04 01:30:39,056 [INFO] Joined voice channel 🏕️Таверна "Астрал" (390301473210236932)
+[2026-09-04 01:30:39 +0300] [46964] [INFO] 127.0.0.1:2148 POST /api/context/conversation/speech_start 1.1 200 71 503
+[1m[1;34m[2026-09-04 01:30:39,373][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[app_server.py::77 ws]:[0m Opened new websocket connection[0m
+[2026-09-04 01:30:39 +0300] [46964] [INFO] 127.0.0.1:7896 GET / 1.1 101 - 1008
+ Завершена (2528ms, speech: 1600ms).
+[2026-09-04 01:30:40 +0300] [46964] [INFO] 127.0.0.1:2148 POST /api/context/conversation/audio 1.1 200 142 1512
+
+[1m[1;34m[2026-09-04 01:30:40,309][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:02.528[0m
+[API] Фраза отправлена (80896 байт).
+[1m[1;34m[2026-09-04 01:30:40,314][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:02.528 of audio[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0081) Завершена (928ms, speech: 128ms).
+[2026-09-04 01:30:42 +0300] [46964] [INFO] 127.0.0.1:2148 POST /api/context/conversation/audio 1.1 200 142 507
+[1m[1;34m[2026-09-04 01:30:42,767][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:00.928[0m
+
+[API] Фраза отправлена (29696 байт).
+[1m[1;34m[2026-09-04 01:30:42,770][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.928 of audio[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0091) Завершена (928ms, speech: 128ms).
+[2026-09-04 01:30:44 +0300] [46964] [INFO] 127.0.0.1:2148 POST /api/context/conversation/audio 1.1 200 142 1020
+
+[1m[1;34m[2026-09-04 01:30:44,746][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:00.928[0m
+[API] Фраза отправлена (29696 байт).
+[1m[1;34m[2026-09-04 01:30:44,748][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.928 of audio[0m
+
+[2026-09-04 01:30:46 +0300] [46964] [INFO] 127.0.0.1:2148 POST /api/context/conversation/speech_start 1.1 200 71 500
+[VAD] Голос! (Prob: 0.001, RMS: 0.0176) Завершена (2304ms, speech: 1472ms).
+[2026-09-04 01:30:48 +0300] [46964] [INFO] 127.0.0.1:2148 POST /api/context/conversation/audio 1.1 200 142 509
+[1m[1;34m[2026-09-04 01:30:48,716][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:02.304[0m
+
+[API] Фраза отправлена (73728 байт).
+[1m[1;34m[2026-09-04 01:30:48,721][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.000 of audio[0m
+[1m[1;34m[2026-09-04 01:30:49,539][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::483 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-09-04 01:30:50,057][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new context_conversation_add_text job 7b2e43b2-c520-4bdf-807d-b670481238be[0m
+[1m[1;34m[2026-09-04 01:30:50,057][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new response job de1a024d-888d-4bd6-a1b9-a5f7d5f99437[0m
+[1m[1;34m[2026-09-04 01:30:50,774][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation universal_api completed in 715.627400088124 ms[0m
+[1m[1;34m[2026-09-04 01:30:52,346][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 1650.3767999820411 ms[0m
+[1m[1;34m[2026-09-04 01:30:55,935][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 3588.354400009848 ms[0m
+[1m[1;34m[2026-09-04 01:30:57,554][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 1618.8789999578148 ms[0m
+[1m[1;34m[2026-09-04 01:30:57,554][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::997 response_pipeline]:[0m Response job de1a024d-888d-4bd6-a1b9-a5f7d5f99437 completed. Content: 'Привет, Зефир! Вечер просто супер, уже успела прокачать пару новых мемов про RPG и задуматься, как б...'[0m
+[2026-09-04 01:31:15 +0300] [46964] [INFO] 127.0.0.1:4878 POST /api/context/conversation/speech_start 1.1 200 71 507
+[VAD] Голос! (Prob: 0.001, RMS: 0.0312) Завершена (3680ms, speech: 2880ms).
+[2026-09-04 01:31:17 +0300] [46964] [INFO] 127.0.0.1:4878 POST /api/context/conversation/audio 1.1 200 142 1004
+
+[1m[1;34m[2026-09-04 01:31:17,426][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:03.680[0m
+[API] Фраза отправлена (117760 байт).
+[1m[1;34m[2026-09-04 01:31:17,435][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.000 of audio[0m
+[1m[1;34m[2026-09-04 01:31:17,835][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::483 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-09-04 01:31:18,342][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new context_conversation_add_text job 12ef6efd-711c-4b64-9d6f-7b364a5e11d3[0m
+[1m[1;34m[2026-09-04 01:31:18,342][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new response job a8a96535-a63d-45bb-8fc1-ade92fdbfc4f[0m
+[1m[1;34m[2026-09-04 01:31:18,786][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation universal_api completed in 443.408599938266 ms[0m
+[1m[1;34m[2026-09-04 01:31:22,752][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 4010.9470000024885 ms[0m
+[1m[1;34m[2026-09-04 01:31:25,327][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 2574.598400038667 ms[0m
+[1m[1;34m[2026-09-04 01:31:26,986][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 1658.9647999498993 ms[0m
+[1m[1;34m[2026-09-04 01:31:26,986][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::997 response_pipeline]:[0m Response job a8a96535-a63d-45bb-8fc1-ade92fdbfc4f completed. Content: 'Ну, представляешь: берём наши любимые настолки, добавляем онлайн‑механики, а потом собираем реальную...'[0m
+[2026-09-04 01:31:42 +0300] [46964] [INFO] 127.0.0.1:10934 POST /api/context/conversation/speech_start 1.1 200 71 504
+[VAD] Голос! (Prob: 0.001, RMS: 0.0146) Завершена (9824ms, speech: 8352ms).
+[2026-09-04 01:31:53 +0300] [46964] [INFO] 127.0.0.1:10939 POST /api/context/conversation/audio 1.1 200 142 2522
+
+[1m[1;34m[2026-09-04 01:31:53,063][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:09.824[0m
+[API] Фраза отправлена (314368 байт).
+[1m[1;34m[2026-09-04 01:31:53,079][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.304 of audio[0m
+[1m[1;34m[2026-09-04 01:31:53,936][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::483 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-09-04 01:31:54,452][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new context_conversation_add_text job 666fb920-0b58-4935-8d1d-6d124f588644[0m
+[1m[1;34m[2026-09-04 01:31:54,452][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new response job 234945d1-7fb4-4d8a-9cc5-5fe9b8f406a4[0m
+[1m[1;34m[2026-09-04 01:31:55,098][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation universal_api completed in 644.5366999832913 ms[0m
+[1m[1;34m[2026-09-04 01:31:57,398][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 2517.647900036536 ms[0m
+[1m[1;34m[2026-09-04 01:32:01,859][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 4461.3597999559715 ms[0m
+[1m[1;34m[2026-09-04 01:32:05,514][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 3654.852299951017 ms[0m
+[1m[1;34m[2026-09-04 01:32:07,349][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 1834.6173000754789 ms[0m
+[1m[1;34m[2026-09-04 01:32:07,350][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::997 response_pipeline]:[0m Response job 234945d1-7fb4-4d8a-9cc5-5fe9b8f406a4 completed. Content: 'Отлично, тогда делаем её звездой! Возьмём её любимую кампанию, добавим живые локации в парке, раздаё...'[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0105) Завершена (1312ms, speech: 480ms).
+[2026-09-04 01:33:08 +0300] [46964] [INFO] 127.0.0.1:8914 POST /api/context/conversation/speech_start 1.1 200 71 508
+[2026-09-04 01:33:10 +0300] [46964] [INFO] 127.0.0.1:8915 POST /api/context/conversation/audio 1.1 200 142 505
+[1m[1;34m[2026-09-04 01:33:10,463][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:01.312[0m
+
+[API] Фраза отправлена (41984 байт).
+[1m[1;34m[2026-09-04 01:33:10,465][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:01.312 of audio[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0121) Завершена (1312ms, speech: 384ms).
+[2026-09-04 01:33:39 +0300] [46964] [INFO] 127.0.0.1:2934 POST /api/context/conversation/speech_start 1.1 200 71 508
+[2026-09-04 01:33:41 +0300] [46964] [INFO] 127.0.0.1:2935 POST /api/context/conversation/audio 1.1 200 142 1025
+
+[API] Фраза отправлена (41984 байт).
+[1m[1;34m[2026-09-04 01:33:41,274][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:01.312[0m
+[1m[1;34m[2026-09-04 01:33:41,277][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:01.312 of audio[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0079) Завершена (1152ms, speech: 320ms).
+[2026-09-04 01:34:52 +0300] [46964] [INFO] 127.0.0.1:2885 POST /api/context/conversation/speech_start 1.1 200 71 1003
+[VAD] Голос! (Prob: 0.001, RMS: 0.0101) Завершена (928ms, speech: 128ms).
+[2026-09-04 01:34:53 +0300] [46964] [INFO] 127.0.0.1:2885 POST /api/context/conversation/audio 1.1 200 142 999
+[1m[1;34m[2026-09-04 01:34:53,326][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:00.928[0m
+
+[API] Фраза отправлена (29696 байт).
+[1m[1;34m[2026-09-04 01:34:53,328][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.928 of audio[0m
+[2026-09-04 01:34:54 +0300] [46964] [INFO] 127.0.0.1:2866 POST /api/context/conversation/audio 1.1 200 142 504
+[1m[1;34m[2026-09-04 01:34:54,239][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:01.152[0m
+
+[API] Фраза отправлена (36864 байт).
+[1m[1;34m[2026-09-04 01:34:54,243][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:01.152 of audio[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0125) Завершена (960ms, speech: 160ms).
+[2026-09-04 01:35:33 +0300] [46964] [INFO] 127.0.0.1:12105 POST /api/context/conversation/speech_start 1.1 200 71 1011
+[2026-09-04 01:35:34 +0300] [46964] [INFO] 127.0.0.1:12106 POST /api/context/conversation/audio 1.1 200 142 501
+
+[1m[1;34m[2026-09-04 01:35:34,957][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:00.960[0m
+[API] Фраза отправлена (30720 байт).
+[1m[1;34m[2026-09-04 01:35:34,959][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.960 of audio[0m
+
+[2026-09-04 01:35:36 +0300] [46964] [INFO] 127.0.0.1:12106 POST /api/context/conversation/speech_start 1.1 200 71 1002
+[VAD] Голос! (Prob: 0.001, RMS: 0.0103) Завершена (2912ms, speech: 2112ms).
+[2026-09-04 01:35:39 +0300] [46964] [INFO] 127.0.0.1:12106 POST /api/context/conversation/audio 1.1 200 142 1005
+[1m[1;34m[2026-09-04 01:35:39,055][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:02.912[0m
+
+[API] Фраза отправлена (93184 байт).
+[1m[1;34m[2026-09-04 01:35:39,060][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.528 of audio[0m
+[1m[1;34m[2026-09-04 01:35:39,513][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::483 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-09-04 01:35:40,032][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new context_conversation_add_text job d3b89010-07f2-4948-a9db-e9a8b66e8d96[0m
+[1m[1;34m[2026-09-04 01:35:40,032][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new response job fafcc489-5aa6-4ca7-bd7e-8f920997dcad[0m
+[1m[1;34m[2026-09-04 01:35:40,656][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation universal_api completed in 622.3250000039116 ms[0m
+[1m[1;34m[2026-09-04 01:35:44,203][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 3588.490800000727 ms[0m
+[1m[1;34m[2026-09-04 01:35:46,184][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 1981.3344000140205 ms[0m
+[1m[1;34m[2026-09-04 01:35:46,184][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::997 response_pipeline]:[0m Response job fafcc489-5aa6-4ca7-bd7e-8f920997dcad completed. Content: 'Расскажи, какие миры и персонажи ей нравятся больше всего, и какие «реальные» локации подойдут под и...'[0m
+[2026-09-04 01:35:53 +0300] [46964] [INFO] 127.0.0.1:1858 POST /api/context/conversation/speech_start 1.1 200 71 1006
+[VAD] Голос! (Prob: 0.001, RMS: 0.0120) Завершена (1504ms, speech: 640ms).
+[2026-09-04 01:35:53 +0300] [46964] [INFO] 127.0.0.1:1858 POST /api/context/conversation/audio 1.1 200 142 0
+[1m[1;34m[2026-09-04 01:35:53,903][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:01.504[0m
+
+[API] Фраза отправлена (48128 байт).
+[1m[1;34m[2026-09-04 01:35:53,907][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.208 of audio[0m
+
+[2026-09-04 01:35:54 +0300] [46964] [INFO] 127.0.0.1:1858 POST /api/context/conversation/speech_start 1.1 200 71 1008
+[VAD] Голос! (Prob: 0.001, RMS: 0.0301) Завершена (6592ms, speech: 5440ms).
+[2026-09-04 01:36:03 +0300] [46964] [INFO] 127.0.0.1:1860 POST /api/context/conversation/audio 1.1 200 142 507
+
+[API] Фраза отправлена (210944 байт).
+[1m[1;34m[2026-09-04 01:36:03,020][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:06.592[0m
+[1m[1;34m[2026-09-04 01:36:03,034][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.000 of audio[0m
+[1m[1;34m[2026-09-04 01:36:03,915][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::483 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-09-04 01:36:04,426][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new context_conversation_add_text job 4b3841b8-7be5-49cb-84b8-78a710fb11f1[0m
+[1m[1;34m[2026-09-04 01:36:04,426][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new response job d957e861-b6db-468b-812f-ab996bcc4a33[0m
+[1m[1;34m[2026-09-04 01:36:05,265][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation universal_api completed in 837.7468000398949 ms[0m
+[1m[1;34m[2026-09-04 01:36:07,549][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 2312.2827999759465 ms[0m
+[1m[1;34m[2026-09-04 01:36:09,738][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 2189.350300002843 ms[0m
+[1m[1;34m[2026-09-04 01:36:09,739][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::997 response_pipeline]:[0m Response job d957e861-b6db-468b-812f-ab996bcc4a33 completed. Content: 'Извини, но я могу общаться только с тем, кто сейчас пишет в чат. Если у тебя есть вопросы или идеи, ...'[0m
+[2026-09-04 01:36:18 +0300] [46964] [INFO] 127.0.0.1:9819 POST /api/context/conversation/speech_start 1.1 200 71 499
+[VAD] Голос! (Prob: 0.001, RMS: 0.0315) Завершена (7776ms, speech: 6912ms).
+[2026-09-04 01:36:26 +0300] [46964] [INFO] 127.0.0.1:9828 POST /api/context/conversation/audio 1.1 200 142 2008
+[1m[1;34m[2026-09-04 01:36:26,870][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:07.776[0m
+
+[API] Фраза отправлена (248832 байт).
+[1m[1;34m[2026-09-04 01:36:26,887][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.000 of audio[0m
+[1m[1;34m[2026-09-04 01:36:27,865][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::483 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-09-04 01:36:28,380][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new context_conversation_add_text job e64e6eac-87a7-4a80-ae25-3575ed5aa3ee[0m
+[1m[1;34m[2026-09-04 01:36:28,380][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new response job 2072f96f-ce38-4aa4-becc-9a871eb2b574[0m
+[1m[1;34m[2026-09-04 01:36:28,927][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation universal_api completed in 545.97500001546 ms[0m
+[1m[1;34m[2026-09-04 01:36:30,700][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 1856.0974999563769 ms[0m
+[1m[1;34m[2026-09-04 01:36:33,642][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 2942.44150002487 ms[0m
+[1m[1;34m[2026-09-04 01:36:35,402][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 1759.2193000018597 ms[0m
+[1m[1;34m[2026-09-04 01:36:35,402][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::997 response_pipeline]:[0m Response job 2072f96f-ce38-4aa4-becc-9a871eb2b574 completed. Content: 'Конечно, буду рад пообщаться! Скажи, какие темы ей нравятся: любимые игры, персонажи, может, даже её...'[0m
+[2026-09-04 01:36:47 +0300] [46964] [INFO] 127.0.0.1:9837 POST /api/context/conversation/speech_start 1.1 200 71 498
+[VAD] Голос! (Prob: 0.001, RMS: 0.0207) [LIMIT: 12000ms].
+ Завершена (12064ms, speech: 10048ms).
+
+[2026-09-04 01:36:58 +0300] [46964] [INFO] 127.0.0.1:9847 POST /api/context/conversation/speech_start 1.1 200 71 1015
+[VAD] Голос! (Prob: 0.001, RMS: 0.0783) Завершена (1760ms, speech: 1152ms).
+[2026-09-04 01:36:59 +0300] [46964] [INFO] 127.0.0.1:9847 POST /api/context/conversation/audio 1.1 200 142 1019
+
+[1m[1;34m[2026-09-04 01:36:59,465][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:01.760[0m
+[API] Фраза отправлена (56320 байт).
+[1m[1;34m[2026-09-04 01:36:59,470][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.000 of audio[0m
+
+[2026-09-04 01:36:59 +0300] [46964] [INFO] 127.0.0.1:9847 POST /api/context/conversation/speech_start 1.1 200 71 1003
+[1m[1;34m[2026-09-04 01:36:59,770][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::483 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[2026-09-04 01:36:59 +0300] [46964] [INFO] 127.0.0.1:9848 POST /api/context/conversation/audio 1.1 200 142 1667
+[VAD] Голос! (Prob: 0.001, RMS: 0.0241)
+[1m[1;34m[2026-09-04 01:36:59,819][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:12.064[0m
+[API] Фраза отправлена (386048 байт).
+[1m[1;34m[2026-09-04 01:36:59,839][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.016 of audio[0m
+[1m[1;34m[2026-09-04 01:37:00,281][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new context_conversation_add_text job 7d5d18a1-697b-4d9f-a1af-940bf524cdb5[0m
+[1m[1;34m[2026-09-04 01:37:00,281][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new response job 5df359bf-c6a1-4f55-9772-f2d6e7509e46[0m
+[1m[1;34m[2026-09-04 01:37:00,691][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation universal_api completed in 408.81910000462085 ms[0m
+[1m[1;34m[2026-09-04 01:37:00,822][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::483 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-09-04 01:37:00,822][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::477 _clear_current_job]:[0m Job 5df359bf-c6a1-4f55-9772-f2d6e7509e46 (response) is being cancelled due to: user_speaking_significant[0m
+[1m[1;34m[2026-09-04 01:37:00,823][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::757 _process_job_loop]:[0m Job 5df359bf-c6a1-4f55-9772-f2d6e7509e46 (response) was cancelled.[0m
+[1m[1;34m[2026-09-04 01:37:01,336][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new context_conversation_add_text job a36b9f56-c7f5-4056-803e-5f47053f1282[0m
+[1m[1;34m[2026-09-04 01:37:01,336][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new response job 3c6f37ed-4c42-4d06-83d9-9e453dc522af[0m
+[1m[1;34m[2026-09-04 01:37:01,826][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation universal_api completed in 488.83069993462414 ms[0m
+[1m[1;34m[2026-09-04 01:37:03,365][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 1709.0177000500262 ms[0m
+ Завершена (4480ms, speech: 3872ms).
+[2026-09-04 01:37:03 +0300] [46964] [INFO] 127.0.0.1:9848 POST /api/context/conversation/audio 1.1 200 142 1003
+[1m[1;34m[2026-09-04 01:37:03,884][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:04.480[0m
+
+[API] Фраза отправлена (143360 байт).
+[1m[1;34m[2026-09-04 01:37:03,894][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.000 of audio[0m
+[1m[1;34m[2026-09-04 01:37:04,481][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::483 _interrupt_jobs]:[0m Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant[0m
+[1m[1;34m[2026-09-04 01:37:04,481][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::477 _clear_current_job]:[0m Job 3c6f37ed-4c42-4d06-83d9-9e453dc522af (response) is being cancelled due to: user_speaking_significant[0m
+[1m[1;34m[2026-09-04 01:37:04,784][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::757 _process_job_loop]:[0m Job 3c6f37ed-4c42-4d06-83d9-9e453dc522af (response) was cancelled.[0m
+[1m[1;34m[2026-09-04 01:37:04,998][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new context_conversation_add_text job aaecd3fb-cb01-4436-83ec-f5e2e5574d5e[0m
+[1m[1;34m[2026-09-04 01:37:04,998][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::444 create_job]:[0m Queued new response job 3e989953-147d-4652-b001-25d8f9b6772f[0m
+[1m[1;34m[2026-09-04 01:37:05,757][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m T2T operation universal_api completed in 759.0286999475211 ms[0m
+[1m[1;34m[2026-09-04 01:37:07,160][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 1590.5301999300718 ms[0m
+[1m[1;34m[2026-09-04 01:37:11,362][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 4202.172700082883 ms[0m
+[1m[1;34m[2026-09-04 01:37:14,016][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 2654.1420000139624 ms[0m
+[1m[1;34m[2026-09-04 01:37:16,982][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[operation.py::25 __call__]:[0m TTS operation fish_audio completed in 2966.2674999563023 ms[0m
+[1m[1;34m[2026-09-04 01:37:16,984][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::997 response_pipeline]:[0m Response job 3e989953-147d-4652-b001-25d8f9b6772f completed. Content: 'Привет! Слышала, ты фанат D&D и фэнтезийных ММО — какие кампании или миры тебе нравятся больше всего...'[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0078) Завершена (928ms, speech: 128ms).
+[2026-09-04 01:38:13 +0300] [46964] [INFO] 127.0.0.1:2745 POST /api/context/conversation/audio 1.1 200 142 1005
+
+[1m[1;34m[2026-09-04 01:38:13,229][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:00.928[0m
+[API] Фраза отправлена (29696 байт).
+[1m[1;34m[2026-09-04 01:38:13,231][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.928 of audio[0m
+[1m[1;34m[2026-09-04 01:38:13,236][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[jaison.py::269 _record_stt_metrics]:[0m STT metrics(window=20): avg_latency_ms=334 empty_rate=0.550 stop_cmd_recall=0.000[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0128) Завершена (928ms, speech: 128ms).
+[2026-09-04 01:39:35 +0300] [46964] [INFO] 127.0.0.1:4853 POST /api/context/conversation/audio 1.1 200 142 500
+[1m[1;34m[2026-09-04 01:39:35,406][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:00.928[0m
+
+[API] Фраза отправлена (29696 байт).
+[1m[1;34m[2026-09-04 01:39:35,408][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.928 of audio[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0081) Завершена (928ms, speech: 128ms).
+[2026-09-04 01:40:15 +0300] [46964] [INFO] 127.0.0.1:8717 POST /api/context/conversation/audio 1.1 200 142 1128
+
+[1m[1;34m[2026-09-04 01:40:15,585][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:00.928[0m
+[API] Фраза отправлена (29696 байт).
+[1m[1;34m[2026-09-04 01:40:15,588][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.928 of audio[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0089) Завершена (960ms, speech: 160ms).
+[2026-09-04 01:44:03 +0300] [46964] [INFO] 127.0.0.1:12105 POST /api/context/conversation/speech_start 1.1 200 71 1006
+[2026-09-04 01:44:05 +0300] [46964] [INFO] 127.0.0.1:11822 POST /api/context/conversation/audio 1.1 200 142 1013
+[1m[1;34m[2026-09-04 01:44:05,259][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:00.960[0m
+
+[API] Фраза отправлена (30720 байт).
+[1m[1;34m[2026-09-04 01:44:05,262][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.960 of audio[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0098) Завершена (1280ms, speech: 384ms).
+[2026-09-04 01:44:50 +0300] [46964] [INFO] 127.0.0.1:10402 POST /api/context/conversation/speech_start 1.1 200 71 1007
+[2026-09-04 01:44:51 +0300] [46964] [INFO] 127.0.0.1:10403 POST /api/context/conversation/audio 1.1 200 142 0
+
+[API] Фраза отправлена (40960 байт).
+[1m[1;34m[2026-09-04 01:44:51,971][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:01.280[0m
+[1m[1;34m[2026-09-04 01:44:51,974][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:01.280 of audio[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0112) Завершена (1088ms, speech: 288ms).
+[2026-09-04 01:45:19 +0300] [46964] [INFO] 127.0.0.1:6624 POST /api/context/conversation/speech_start 1.1 200 71 0
+
+[2026-09-04 01:45:21 +0300] [46964] [INFO] 127.0.0.1:6626 POST /api/context/conversation/audio 1.1 200 142 998
+[VAD] Голос! (Prob: 0.001, RMS: 0.0092)
+[1m[1;34m[2026-09-04 01:45:21,075][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:01.088[0m
+[API] Фраза отправлена (34816 байт).
+[1m[1;34m[2026-09-04 01:45:21,079][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:01.088 of audio[0m
+[2026-09-04 01:45:21 +0300] [46964] [INFO] 127.0.0.1:6626 POST /api/context/conversation/speech_start 1.1 200 71 1006
+ Завершена (1024ms, speech: 224ms).
+[2026-09-04 01:45:21 +0300] [46964] [INFO] 127.0.0.1:6626 POST /api/context/conversation/audio 1.1 200 142 0
+[1m[1;34m[2026-09-04 01:45:21,766][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:01.024[0m
+
+[API] Фраза отправлена (32768 байт).
+[1m[1;34m[2026-09-04 01:45:21,769][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:01.024 of audio[0m
+[2026-09-04 01:45:24 +0300] [46964] [INFO] 127.0.0.1:6626 POST /api/context/conversation/speech_start 1.1 200 71 500
+[VAD] Голос! (Prob: 0.001, RMS: 0.0102) Завершена (960ms, speech: 160ms).
+[2026-09-04 01:45:25 +0300] [46964] [INFO] 127.0.0.1:6626 POST /api/context/conversation/audio 1.1 200 142 1007
+[1m[1;34m[2026-09-04 01:45:25,376][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:00.960[0m
+
+[API] Фраза отправлена (30720 байт).
+[1m[1;34m[2026-09-04 01:45:25,379][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:00.960 of audio[0m
+[VAD] Голос! (Prob: 0.001, RMS: 0.0095) Завершена (1408ms, speech: 544ms).
+[2026-09-04 01:45:41 +0300] [46964] [INFO] 127.0.0.1:4240 POST /api/context/conversation/speech_start 1.1 200 71 0
+[2026-09-04 01:45:43 +0300] [46964] [INFO] 127.0.0.1:4241 POST /api/context/conversation/audio 1.1 200 142 0
+
+[API] Фраза отправлена (45056 байт).
+[1m[1;34m[2026-09-04 01:45:43,743][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::881 transcribe]:[0m Processing audio with duration 00:01.408[0m
+[1m[1;34m[2026-09-04 01:45:43,747][0m [1m[1;30m[42m[INFO ][0m [1m[1;33m[transcribe.py::895 transcribe]:[0m VAD filter removed 00:01.408 of audio[0m

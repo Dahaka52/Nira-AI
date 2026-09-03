@@ -106,8 +106,6 @@ operations:
   # Text filters
   - role: filter_text
     id: filter_clean
-  - role: filter_text
-    id: chunker_sentence
 
   # Local audio output is disabled: Discord bridge receives TTS from WebSocket.
 
