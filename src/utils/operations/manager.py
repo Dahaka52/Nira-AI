@@ -72,7 +72,11 @@ def load_op(op_type: OpTypes, op_id: str, op_details: Dict[str, Any] | None = No
             else:
                 raise UnknownOpID("T2T", op_id)
         case OpTypes.TTS:
-            raise UnknownOpID("TTS", op_id)
+            if op_id == "fish_audio":
+                from .tts.fishaudio import FishAudioTTS
+                return FishAudioTTS()
+            else:
+                raise UnknownOpID("TTS", op_id)
         case OpTypes.FILTER_AUDIO:
             if op_id == "rvc":
                 from .filter_audio.rvc import RVCFilter
@@ -80,6 +84,9 @@ def load_op(op_type: OpTypes, op_id: str, op_details: Dict[str, Any] | None = No
             elif op_id == "pitch":
                 from .filter_audio.pitch import PitchFilter
                 return PitchFilter()
+            elif op_id == "speaker":
+                from .filter_audio.speaker import SpeakerOutputFilter
+                return SpeakerOutputFilter()
             else:
                 raise UnknownOpID("FILTER_AUDIO", op_id)
         case OpTypes.FILTER_TEXT:

@@ -1,6 +1,7 @@
 param (
     [string]$config = "config",
-    [string]$envPath = ""
+    [string]$envPath = "",
+    [string]$dotenvPath = ""
 )
 
 # Очистка консоли
@@ -13,6 +14,23 @@ Write-Host ""
 
 # Корневая директория проекта — абсолютный путь (не зависит от cwd)
 $rootDir = (Get-Item -Path $PSScriptRoot).FullName
+
+# Файл с API-ключами: новый nira.env имеет приоритет, .env остаётся совместимым fallback.
+if ([string]::IsNullOrWhiteSpace($dotenvPath)) {
+    $niraDotenv = Join-Path $rootDir "nira.env"
+    $legacyDotenv = Join-Path $rootDir ".env"
+    if (Test-Path -LiteralPath $niraDotenv) {
+        $dotenvPath = $niraDotenv
+    } elseif (Test-Path -LiteralPath $legacyDotenv) {
+        $dotenvPath = $legacyDotenv
+    }
+} elseif (-not [System.IO.Path]::IsPathRooted($dotenvPath)) {
+    $dotenvPath = Join-Path $rootDir $dotenvPath
+}
+
+if (-not [string]::IsNullOrWhiteSpace($dotenvPath)) {
+    $dotenvPath = (Resolve-Path -LiteralPath $dotenvPath).Path
+}
 
 # Автовыбор окружения: .conda312 -> .conda
 if ([string]::IsNullOrWhiteSpace($envPath)) {
@@ -80,34 +98,43 @@ Write-Host ""
 # 1. Запуск Backend
 Write-Host "[*] Запуск backend из env: $envPath" -ForegroundColor Yellow
 $backendAction = {
-    param($config, $rootDir, $envPath)
+    param($config, $rootDir, $envPath, $dotenvPath)
 
+    Set-Location -LiteralPath $rootDir
     $env:PYTHONNOUSERSITE = "1"
     $env:CONDA_PREFIX = $envPath
     $env:CONDA_DEFAULT_ENV = $envPath
     $env:PATH = "$envPath;$envPath\Library\mingw-w64\bin;$envPath\Library\usr\bin;$envPath\Library\bin;$envPath\Scripts;$envPath\bin;" + $env:PATH
 
-    & "$envPath\python.exe" "$rootDir\src\main.py" --config=$config --log_dir="$rootDir\logs"
+    $backendArgs = @(
+        "--config=$config",
+        "--log_dir=$rootDir\logs"
+    )
+    if (-not [string]::IsNullOrWhiteSpace($dotenvPath)) {
+        $backendArgs += "--env=$dotenvPath"
+    }
+    & "$envPath\python.exe" "$rootDir\src\main.py" @backendArgs
 }
 
 # 2. Запуск Nira Web (Frontend)
 Write-Host "[*] Подготовка и запуск Web Dashboard (Vite)..." -ForegroundColor Yellow
 $frontendAction = {
     param($nodePath, $rootDir)
+    Set-Location -LiteralPath "$rootDir\apps\nira-web"
     if (Test-Path $nodePath) {
         $env:PATH = "$nodePath;" + $env:PATH
     }
     npm run dev -- --port 3000
 }
 
-# Запускаем backend первым — WorkingDirectory задаёт правильный cwd (PS7+)
-$jobBackend = Start-Job -ScriptBlock $backendAction -ArgumentList $config, $rootDir, $envPath -WorkingDirectory $rootDir
+# Запускаем backend первым (Set-Location внутри ScriptBlock — совместимо с PS5+)
+$jobBackend = Start-Job -ScriptBlock $backendAction -ArgumentList $config, $rootDir, $envPath, $dotenvPath
 
 Write-Host "[*] Ожидаем старт backend (5 сек)..." -ForegroundColor DarkGray
 Start-Sleep -Seconds 5
 
-# Запускаем frontend — WorkingDirectory для npm
-$jobFrontend = Start-Job -ScriptBlock $frontendAction -ArgumentList $nodePath, $rootDir -WorkingDirectory "$rootDir\apps\nira-web"
+# Запускаем frontend
+$jobFrontend = Start-Job -ScriptBlock $frontendAction -ArgumentList $nodePath, $rootDir
 
 Write-Host ""
 Write-Host ">>> Система запущена!" -ForegroundColor Green
@@ -115,6 +142,9 @@ Write-Host ">>> Dashboard:  http://localhost:3000" -ForegroundColor Cyan
 Write-Host ">>> API:        http://localhost:7272/api" -ForegroundColor Gray
 Write-Host ">>> Логи:       $rootDir\logs\" -ForegroundColor Gray
 Write-Host ">>> Env:        $envPath" -ForegroundColor Gray
+if (-not [string]::IsNullOrWhiteSpace($dotenvPath)) {
+    Write-Host ">>> Secrets:    $dotenvPath" -ForegroundColor Gray
+}
 Write-Host ">>> (Нажмите Ctrl+C для выхода)" -ForegroundColor Cyan
 Write-Host "-------------------------------------------------------"
 

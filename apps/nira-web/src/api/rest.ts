@@ -41,7 +41,7 @@ class RestClient {
         return this.request('/config');
     }
 
-    async sendMessage(content: string) {
+    async sendMessage(content: string, includeAudio: boolean = true) {
         // 1. Добавляем текст в контекст
         await this.request('/context/conversation/text', {
             method: 'POST',
@@ -54,7 +54,7 @@ class RestClient {
         // 2. Запускаем генерацию ответа
         return this.request('/response', {
             method: 'POST',
-            body: JSON.stringify({ include_audio: false }),
+            body: JSON.stringify({ include_audio: includeAudio }),
         });
     }
 

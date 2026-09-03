@@ -24,6 +24,7 @@ class Config(metaclass=Singleton):
     stt_active_id: str = None
     stt_strict_active_id: bool = False
     microphone: dict = dict()
+    discord: dict = dict()
     broadcast_debug_prompt_events: bool = False
     
     # Prompter

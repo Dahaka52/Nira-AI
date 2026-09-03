@@ -135,6 +135,17 @@ class JAIson(metaclass=Singleton):
         except Exception as e:
             logging.error(f"Could not start HW_MIC process: {e}")
 
+        discord_cfg = Config().discord or {}
+        if isinstance(discord_cfg, dict) and discord_cfg.get("enabled", False):
+            try:
+                await self.process_manager.link(
+                    "core_discord",
+                    ProcessType.DISCORD,
+                    process_config=discord_cfg,
+                )
+            except Exception as e:
+                logging.error(f"Could not start Discord bridge: {e}")
+
         logging.info("JAIson application layer has started.")
         
     async def stop(self):

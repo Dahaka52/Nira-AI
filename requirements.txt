@@ -223,3 +223,7 @@ win32_setctime==1.2.0
 wrapt==1.17.2
 
 wsproto==1.2.0
+
+# Discord voice bridge (DAVE/E2EE + incoming voice support)
+discord.py[voice] @ git+https://github.com/Rapptz/discord.py.git
+discord-ext-voice-recv @ git+https://github.com/imayhaveborkedit/discord-ext-voice-recv.git

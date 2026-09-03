@@ -17,6 +17,7 @@ class ProcessType(Enum):
     LLAMACPP = "llamacpp"
     SHERPA = "sherpa_stt"
     HW_MIC = "hw_mic"
+    DISCORD = "discord"
 
 class ProcessManager(metaclass=Singleton):
     loaded_processes = dict()
@@ -49,6 +50,12 @@ class ProcessManager(metaclass=Singleton):
                 if process_config is not None:
                     self.loaded_processes[ProcessType.HW_MIC].set_runtime_config(process_config)
                 await self.loaded_processes[ProcessType.HW_MIC].reload()
+            case ProcessType.DISCORD:
+                from .processes.discord import DiscordProcess
+                self.loaded_processes[ProcessType.DISCORD] = DiscordProcess()
+                if process_config is not None:
+                    self.loaded_processes[ProcessType.DISCORD].set_runtime_config(process_config)
+                await self.loaded_processes[ProcessType.DISCORD].reload()
             case _:
                 raise UnknownProcessError(process_type)
         

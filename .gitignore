@@ -147,6 +147,8 @@ celerybeat.pid
 
 # Environments
 .env
+.env.*
+nira.env
 .env.local
 .venv
 env/

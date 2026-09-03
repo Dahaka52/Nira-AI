@@ -7,6 +7,7 @@ import {
     Volume2, VolumeX, Play, Sun, Moon, Trash2, Clock,
     Brain, BarChart3
 } from 'lucide-react'
+import { PCMPlayer } from './api/pcmPlayer'
 
 interface Msg {
     id: string;
@@ -75,6 +76,12 @@ function App() {
     const inputRef = useRef<HTMLInputElement>(null);
     const processedJobIds = useRef<Set<string>>(new Set());
     const persistTimerRef = useRef<number | null>(null);
+    const pcmPlayer = useRef<PCMPlayer>(new PCMPlayer());
+
+    // Обновляем мут-статус плеера при изменении isVoiceMuted
+    useEffect(() => {
+        pcmPlayer.current.setMuted(isVoiceMuted);
+    }, [isVoiceMuted]);
 
     // Theme Switcher
     useEffect(() => {
@@ -161,6 +168,7 @@ function App() {
 
                 // Глобальный/локальный stop сигнал (barge-in): просто выходим из thinking
                 if (result?.event === 'stop_audio') {
+                    pcmPlayer.current.stop(); // Обрываем текущий звук
                     setIsThinking(false);
                     setStatus('idle');
                     return;
@@ -255,6 +263,14 @@ function App() {
                     });
                 }
             }
+            
+            // Воспроизведение аудио чанков от TTS
+            if (data.event === 'audio_chunk') {
+                const payload = data.payload || data;
+                if (payload.audio_bytes) {
+                    pcmPlayer.current.feedBase64(payload.audio_bytes, payload.sr || 44100);
+                }
+            }
 
         });
 
@@ -322,7 +338,7 @@ function App() {
         setTimeout(() => inputRef.current?.focus(), 0);
 
         try {
-            await restClient.sendMessage(text);
+            await restClient.sendMessage(text, !isVoiceMuted);
         } catch (e) {
             setIsThinking(false);
             setStatus('idle');

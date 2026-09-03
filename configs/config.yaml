@@ -41,7 +41,7 @@ operations:
   # Запасной вариант (прямая библиотека)
   # - role: t2t
   #   id: llamacpp_python
-  #   model_path: "C:\\Nirmita\\models\\Mistral-Nemo-Instruct-2407-absolute-heresy.i1-Q4_K_M.gguf"
+  #   model_path: "C:\\Nirmita\\models\\saiga_gemma2_10b.i1-Q5_K_M.gguf"
   #   n_ctx: 4096
   #   n_gpu_layers: 99
   #   max_tokens: 500
@@ -50,15 +50,34 @@ operations:
   #   cache_type_v: "q8_0"
   #   gpu_id: 0
 
+  # TTS (Text-to-Speech) — Fish Audio WebSocket streaming
+  - role: tts
+    id: fish_audio
+    api_key: "sk-fish-9BgqjIpX07tVQhhadF2vetrgVsSMUG-QxpVRCpIl1kU"                        # Вставь свой API ключ fish.audio (или задай FISH_API_KEY в .env)
+    reference_id: "8579f19895d8412d9f9e6d515872d455"                   # UUID клона голоса: fish.audio → My Voices → скопируй ID
+    model: "s2.1-pro-free"              # s1 | s2-pro | s2.1-pro | s2.1-pro-free (текущий ключ = free tier)
+    latency: "balanced"                # low (минимум задержки) | balanced | normal (макс. качество)
+    sample_rate: 44100                 # Гц (44100 = дефолт PCM у Fish Audio)
+    temperature: 0.7                   # Выразительность голоса [0.0 – 1.0]
+    top_p: 0.7                         # Разнообразие [0.0 – 1.0]
+    repetition_penalty: 1.2            # Штраф за повторы (> 1.0 — меньше повторов)
+    chunk_length: 200                  # Размер текстового чанка [100 – 300] симв.
+    min_chunk_length: 50               # Минимум символов перед разбивкой [0 – 100]
+    max_new_tokens: 1024               # Макс. токенов аудио на чанк
+    speed: 1.0                         # Скорость речи [0.5 – 2.0]
+    volume: 0.0                        # Громкость в dB [-20 – +20]
+
   # Text filters
   - role: filter_text
     id: filter_clean
   - role: filter_text
     id: chunker_sentence
 
+  # Local audio output is disabled: Discord bridge receives TTS from WebSocket.
+
 # Microphone & VAD Settings
 microphone:
-  enabled: true
+  enabled: false  # Discord-only mode: do not start the local Fifine client.
   source_id: "mic"             # Сквозной идентификатор источника аудио
   device_name: "Fifine"         # Основной выбор по имени устройства (устойчив к смене ID)
   device_hostapi: "WASAPI"    # Опционально: фильтр по hostapi для точного совпадения
@@ -98,6 +117,19 @@ microphone:
   respond_to_short_emotes: true
   short_emote_words: ["ха-ха", "хаха", "ахах", "ахаха", "хм", "гм", "лол", "ржу"]
 
+# Discord voice bridge. Kept disabled until its bot token and voice dependencies are installed.
+# The token belongs only in .env as DISCORD_BOT_TOKEN.
+discord:
+  enabled: true
+  auto_join: true
+  guild_id: "390301473210236928"
+  voice_channel_id: "390301473210236932"
+  source_id: "discord"
+  api_url: "http://127.0.0.1:7272/api/context/conversation/audio"
+  ws_url: "ws://127.0.0.1:7272/"
+  silence_ms: 500
+  min_speech_ms: 220
+
   # TTS (Text-to-Speech) пока не подключен
 
 # Prompter settings
@@ -110,7 +142,7 @@ prompter:
 
 # Llama.cpp Settings (RTX 5070 12GB)
 llamacpp_filepath: "C:\\Nirmita\\bin\\llamacpp\\llama-server.exe"
-llamacpp_model_filepath: "C:\\Nirmita\\models\\Mistral-Nemo-Instruct-2407-absolute-heresy.i1-Q4_K_M.gguf"
+llamacpp_model_filepath: "C:\\Nirmita\\models\\saiga_gemma2_10b.i1-Q5_K_M.gguf"
 llamacpp_ctx: 8192
 llamacpp_ngl: 40
 llamacpp_cache_type_k: "q8_0" # Конфигурация 8-битного квантования контекста (K-cache)
