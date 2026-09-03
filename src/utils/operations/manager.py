@@ -60,15 +60,9 @@ def load_op(op_type: OpTypes, op_id: str, op_details: Dict[str, Any] | None = No
             if op_id in ("openai", "google_ai", "universal_api", "groq", "openrouter", "cerebras"):
                 from .t2t.universal_api import UniversalApiT2T
                 return UniversalApiT2T()
-            elif op_id == "kobold":
-                from .t2t.kobold import KoboldT2T
-                return KoboldT2T()
             elif op_id == "llamacpp":
                 from .t2t.llamacpp import LlamaCppT2T
                 return LlamaCppT2T()
-            elif op_id == "llamacpp_python":
-                from .t2t.llamacpp_python import LlamaCppPythonT2T
-                return LlamaCppPythonT2T()
             else:
                 raise UnknownOpID("T2T", op_id)
         case OpTypes.TTS:
@@ -78,28 +72,13 @@ def load_op(op_type: OpTypes, op_id: str, op_details: Dict[str, Any] | None = No
             else:
                 raise UnknownOpID("TTS", op_id)
         case OpTypes.FILTER_AUDIO:
-            if op_id == "rvc":
-                from .filter_audio.rvc import RVCFilter
-                return RVCFilter()
-            elif op_id == "pitch":
-                from .filter_audio.pitch import PitchFilter
-                return PitchFilter()
-            elif op_id == "speaker":
+            if op_id == "speaker":
                 from .filter_audio.speaker import SpeakerOutputFilter
                 return SpeakerOutputFilter()
             else:
                 raise UnknownOpID("FILTER_AUDIO", op_id)
         case OpTypes.FILTER_TEXT:
-            if op_id == "chunker_sentence":
-                from .filter_text.chunker_sentence import SentenceChunkerFilter
-                return SentenceChunkerFilter()
-            elif op_id == "emotion_roberta":
-                from .filter_text.emotion_roberta import RobertaEmotionFilter
-                return RobertaEmotionFilter()
-            elif op_id == "mod_koala":
-                from .filter_text.mod_koala import KoalaModerationFilter
-                return KoalaModerationFilter()
-            elif op_id == "filter_clean":
+            if op_id == "filter_clean":
                 from .filter_text.filter_clean import ResponseCleaningFilter
                 return ResponseCleaningFilter()
             else:

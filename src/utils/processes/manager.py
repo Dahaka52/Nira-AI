@@ -1,8 +1,8 @@
 '''
 Global processes manager
 
-Enables expensive processes used in one place to be reused elsewhere
-For example: Kobold server shared between STT and T2T operation implementation
+Enables expensive processes used in one place to be reused elsewhere.
+For example: LlamaCPP server shared between T2T operation instances.
 '''
 
 import logging
@@ -13,7 +13,6 @@ from utils.helpers.singleton import Singleton
 from .error import UnknownProcessError, UnloadedProcessError
 
 class ProcessType(Enum):
-    KOBOLD = "kobold"
     LLAMACPP = "llamacpp"
     SHERPA = "sherpa_stt"
     HW_MIC = "hw_mic"
@@ -26,32 +25,26 @@ class ProcessManager(metaclass=Singleton):
     async def load(self, process_type: ProcessType, process_config: dict | None = None):
         logging.info("Loading process by type {}".format(process_type.value))
         match process_type:
-            case ProcessType.KOBOLD:
-                from .processes.koboldcpp import KoboldCPPProcess
-                self.loaded_processes[ProcessType.KOBOLD] = KoboldCPPProcess()
-                if process_config is not None:
-                    self.loaded_processes[ProcessType.KOBOLD].set_runtime_config(process_config)
-                await self.loaded_processes[ProcessType.KOBOLD].reload()
             case ProcessType.LLAMACPP:
-                from .processes.llamacpp import LlamaCPPProcess
+                from .drivers.llamacpp import LlamaCPPProcess
                 self.loaded_processes[ProcessType.LLAMACPP] = LlamaCPPProcess()
                 if process_config is not None:
                     self.loaded_processes[ProcessType.LLAMACPP].set_runtime_config(process_config)
                 await self.loaded_processes[ProcessType.LLAMACPP].reload()
             case ProcessType.SHERPA:
-                from .processes.sherpa_server import SherpaSTTProcess
+                from .drivers.sherpa_server import SherpaSTTProcess
                 self.loaded_processes[ProcessType.SHERPA] = SherpaSTTProcess()
                 if process_config is not None:
                     self.loaded_processes[ProcessType.SHERPA].set_runtime_config(process_config)
                 await self.loaded_processes[ProcessType.SHERPA].reload()
             case ProcessType.HW_MIC:
-                from .processes.hw_mic import HwMicProcess
+                from .drivers.hw_mic import HwMicProcess
                 self.loaded_processes[ProcessType.HW_MIC] = HwMicProcess()
                 if process_config is not None:
                     self.loaded_processes[ProcessType.HW_MIC].set_runtime_config(process_config)
                 await self.loaded_processes[ProcessType.HW_MIC].reload()
             case ProcessType.DISCORD:
-                from .processes.discord import DiscordProcess
+                from .drivers.discord import DiscordProcess
                 self.loaded_processes[ProcessType.DISCORD] = DiscordProcess()
                 if process_config is not None:
                     self.loaded_processes[ProcessType.DISCORD].set_runtime_config(process_config)

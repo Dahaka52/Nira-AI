@@ -43,10 +43,6 @@ class Config(metaclass=Singleton):
     MCP_DIR: str = portable_path(os.path.join(os.getcwd(), "models", "mcp"))
     mcp: list = list()
 
-    # Kobold
-    kobold_filepath: str = None
-    kcpps_filepath: str = None
-    
     # Llama.cpp
     llamacpp_filepath: str = None
     llamacpp_model_filepath: str = None
@@ -57,9 +53,6 @@ class Config(metaclass=Singleton):
     llamacpp_cache_type_v: str = "f16"
     llamacpp_gpu_id: int = 0 # GPU ID to use for inference
     
-    # Melo
-    MELO_DIR: str = portable_path(os.path.join(os.getcwd(), "models", "melotts"))
-
     # Shared
     stt_working_src: str = portable_path(os.path.join(WORKING_DIR,'stt_src.wav'))
     ffmpeg_working_src: str = portable_path(os.path.join(WORKING_DIR,'ffmpeg_src.wav'))

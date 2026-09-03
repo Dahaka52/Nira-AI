@@ -1,11 +1,18 @@
-# Enabled operations
-stt_active_id: "faster_whisper_ru"  # Быстрое переключение STT: выбери id и вызови /api/operations/reload
-stt_strict_active_id: true  # Ошибка старта, если выбранный stt_active_id отсутствует в operations
-t2t_active_id: "groq"           # Быстрое переключение T2T: "llamacpp" или "google_ai"
-t2t_strict_active_id: true  # Ошибка старта, если выбранный t2t_active_id отсутствует в operations
-broadcast_debug_prompt_events: false  # Служебные raw prompt/history события в WS (держать false для меньшей нагрузки)
+# =============================================================================
+# КОНФИГУРАЦИЯ НИРА
+# =============================================================================
 
-# Глобальные настройки генерации текста (будут применяться ко всем T2T модулям)
+# -----------------------------------------------------------------------------
+# 1. АКТИВНЫЕ ОПЕРАЦИИ (быстрое переключение без правки остального конфига)
+# -----------------------------------------------------------------------------
+stt_active_id: "faster_whisper_ru"   # Выбери id из секции operations.stt
+stt_strict_active_id: true           # Падать при старте если id не найден
+t2t_active_id: "groq"               # Выбери id из секции operations.t2t
+t2t_strict_active_id: true          # Падать при старте если id не найден
+
+# -----------------------------------------------------------------------------
+# 2. ГЛОБАЛЬНЫЕ ПАРАМЕТРЫ ГЕНЕРАЦИИ ТЕКСТА (применяются ко всем T2T модулям)
+# -----------------------------------------------------------------------------
 t2t:
   max_length: 1000
   temperature: 0.7
@@ -13,8 +20,17 @@ t2t:
   top_k: 40
   stream: true
 
+# Служебные WS-события raw prompt/history (true = много трафика, только для отладки)
+broadcast_debug_prompt_events: false
+
+# -----------------------------------------------------------------------------
+# 3. МОДУЛИ (OPERATIONS)
+# -----------------------------------------------------------------------------
 operations:
-  # STT (Speech-to-Text) - Новый высокоточный модуль Faster Whisper
+
+  # --- STT: Speech-to-Text ---------------------------------------------------
+
+  # Faster Whisper — высокоточная русская транскрипция (рекомендуется)
   - role: stt
     id: faster_whisper_ru
     entrypoint: "utils.operations.stt.faster_whisper:FasterWhisperSTT"
@@ -24,12 +40,12 @@ operations:
     language: "ru"
     process_autostart: true
 
-  # STT (Speech-to-Text): текущий рабочий модуль — sherpa.
+  # Sherpa ONNX — резервный потоковый STT (низкая задержка, работает offline)
   - role: stt
     id: sherpa_ru
     entrypoint: "utils.operations.stt.sherpa:SherpaSTT"
     ws_url: "ws://127.0.0.1:6106"
-    provider: "cpu"   # cpu | cuda
+    provider: "cpu"              # cpu | cuda
     language: "ru"
     normalize_output: true
     process_autostart: true
@@ -37,122 +53,150 @@ operations:
     process_startup_backoff_s: 0.6
     process:
       type: "sherpa_onnx_server"
-      preset: "balanced" # low_latency | balanced | noisy_room
+      preset: "balanced"         # low_latency | balanced | noisy_room
       port: 6106
-      provider: "cpu"    # cpu | cuda
-      gpu_id: 1          # используется если provider=cuda (RTX 5060 = 1)
+      provider: "cpu"            # cpu | cuda
+      gpu_id: 1                  # RTX 5060 = 1
       model_dir: "C:\\Nirmita\\models\\vosk-model-small-streaming-ru"
-      model_variant: "fp32"   # int8 | fp32 | chunk64
+      model_variant: "fp32"      # int8 | fp32 | chunk64
       decoding_method: "modified_beam_search"
       num_active_paths: 6
       use_endpoint: 0
       hotwords_file: "C:\\Nirmita\\models\\hotwords.txt"
       hotwords_score: 3.5
 
-  # T2T (Text-to-Text) - Используем внешний llama-server
-  - role: t2t
-    id: llamacpp
+  # --- T2T: Text-to-Text -----------------------------------------------------
 
-  # T2T (Text-to-Text) - Резервный способ через Google AI Studio API (Gemini)
-  - role: t2t
-    id: google_ai
-    model: "gemini-3.6-flash"  # Рекомендуемая быстрая модель
-    api_key: ""                # Впишите ключ или оставьте пустым для использования GEMINI_API_KEY из .env
-    # base_url: "https://generativelanguage.googleapis.com/v1beta/openai/" # Можно указать любой OpenAI-совместимый эндпоинт
-
-  # T2T (Text-to-Text) - Альтернативный провайдер через Groq
+  # Groq API — ультрабыстрый облачный инференс (активен по умолчанию)
   - role: t2t
     id: groq
     model: "openai/gpt-oss-120b"
-    api_key: ""                # Будет использован GROQ_API_KEY из .env
+    api_key: ""
     base_url: "https://api.groq.com/openai/v1"
 
-  # T2T (Text-to-Text) - Альтернативный сверхбыстрый провайдер Cerebras
+  # Google AI Studio — Gemini (резерв или замена Groq)
+  - role: t2t
+    id: google_ai
+    model: "gemini-3.6-flash"
+    api_key: ""
+    # base_url: "https://generativelanguage.googleapis.com/v1beta/openai/"
+
+  # Cerebras — сверхбыстрый облачный инференс (альтернатива Groq)
   - role: t2t
     id: cerebras
     model: "gpt-oss-120b"
-    api_key: "csk-k8j34ccj4kkj3f4xnpeedkvejdemnywykchwfvpdmctdw9r9"                # Впишите ваш ключ от Cerebras или задайте CEREBRAS_API_KEY в .env
+    api_key: "csk-k8j34ccj4kkj3f4xnpeedkvejdemnywykchwfvpdmctdw9r9"
     base_url: "https://api.cerebras.ai/v1"
 
-  # Запасной вариант (прямая библиотека)
-  # - role: t2t
-  #   id: llamacpp_python
-  #   model_path: "C:\\Nirmita\\models\\saiga_gemma2_10b.i1-Q5_K_M.gguf"
-  #   n_ctx: 4096
-  #   n_gpu_layers: 99
-  #   max_tokens: 500
-  #   temperature: 0.7
-  #   cache_type_k: "q8_0" 
-  #   cache_type_v: "q8_0"
-  #   gpu_id: 0
+  # LlamaCPP — локальная LLM через llama-server (offline, RTX 5070)
+  - role: t2t
+    id: llamacpp
 
-  # TTS (Text-to-Speech) — Fish Audio WebSocket streaming
+  # --- TTS: Text-to-Speech ---------------------------------------------------
+
+  # Fish Audio — стриминговый TTS через WebSocket (текущий рабочий модуль)
   - role: tts
     id: fish_audio
-    api_key: ""                        # Вставь свой API ключ fish.audio (или задай FISH_API_KEY в .env)
-    reference_id: "8579f19895d8412d9f9e6d515872d455"                   # UUID клона голоса: fish.audio → My Voices → скопируй ID
-    model: "s2.1-pro-free"              # s1 | s2-pro | s2.1-pro | s2.1-pro-free (текущий ключ = free tier)
-    latency: "balanced"                # low (минимум задержки) | balanced | normal (макс. качество)
-    sample_rate: 44100                 # Гц (44100 = дефолт PCM у Fish Audio)
-    temperature: 0.7                   # Выразительность голоса [0.0 – 1.0]
-    top_p: 0.7                         # Разнообразие [0.0 – 1.0]
-    repetition_penalty: 1.2            # Штраф за повторы (> 1.0 — меньше повторов)
-    chunk_length: 200                  # Размер текстового чанка [100 – 300] симв.
-    min_chunk_length: 50               # Минимум символов перед разбивкой [0 – 100]
-    max_new_tokens: 1024               # Макс. токенов аудио на чанк
-    speed: 1.0                         # Скорость речи [0.5 – 2.0]
-    volume: 0.0                        # Громкость в dB [-20 – +20]
+    api_key: ""
+    reference_id: "8579f19895d8412d9f9e6d515872d455"  # UUID клона голоса
+    model: "s2.1-pro-free"       # s1 | s2-pro | s2.1-pro | s2.1-pro-free
+    latency: "balanced"          # low | balanced | normal
+    sample_rate: 44100
+    temperature: 0.7
+    top_p: 0.7
+    repetition_penalty: 1.2
+    chunk_length: 200
+    min_chunk_length: 50
+    max_new_tokens: 1024
+    speed: 1.0
+    volume: 0.0
 
-  # Text filters
+  # --- Фильтры текста --------------------------------------------------------
+
+  # Очистка текста перед TTS (убирает артефакты генерации)
   - role: filter_text
     id: filter_clean
 
-  # Local audio output is disabled: Discord bridge receives TTS from WebSocket.
+  # --- Фильтры аудио (не активны в конфиге, доступны через API) --------------
+  # - role: filter_audio
+  #   id: speaker
+  #   device_name: "VoiceMeeter"    # Устройство вывода (виртуальный кабель)
 
-# Microphone & VAD Settings
+# -----------------------------------------------------------------------------
+# 4. ПУТИ К ИСПОЛНЯЕМЫМ ФАЙЛАМ
+# -----------------------------------------------------------------------------
+
+# LlamaCPP (локальный сервер, RTX 5070 12GB)
+llamacpp_filepath: "C:\\Nirmita\\bin\\llamacpp\\llama-server.exe"
+llamacpp_model_filepath: "C:\\Nirmita\\models\\saiga_gemma2_10b.i1-Q5_K_M.gguf"
+llamacpp_ctx: 8192
+llamacpp_ngl: 40
+llamacpp_cache_type_k: "q8_0"   # Квантование K-cache контекста
+llamacpp_cache_type_v: "q8_0"   # Квантование V-cache контекста
+llamacpp_gpu_id: 0              # RTX 5070 = 0
+llamacpp_extra_args: "--flash-attn on"
+
+# FFmpeg (настроен в системе, переопределять только при нестандартной установке)
+# ffmpeg_filepath: "C:\\Nirmita\\bin\\ffmpeg.exe"
+
+# -----------------------------------------------------------------------------
+# 5. МИКРОФОН И VAD
+# -----------------------------------------------------------------------------
 microphone:
-  enabled: true  # Discord-only mode: do not start the local Fifine client.
-  source_id: "mic"             # Сквозной идентификатор источника аудио
-  device_name: "Fifine"         # Основной выбор по имени устройства (устойчив к смене ID)
-  device_hostapi: "WASAPI"    # Опционально: фильтр по hostapi для точного совпадения
-  device_index: 7               # Fallback, если по имени устройство не найдено
-  vad_threshold: 0.06           # Ниже порог: тише речь детектится заметно лучше
-  vad_start_rms: 0.0075         # Баланс: не ловить фоновый шум как начало речи
-  vad_hold_rms: 0.0052          # Не держать фразу на комнатном шуме
-  vad_floor_rms: 0.0012         # Отсечка совсем тихого фона для вызова VAD
-  rms_bridge_ms: 96             # Короткий мост между слогами, без заметного роста TTFT
-  min_silence_ms: 500           # Увеличено для комфортных пауз и вздохов без разрыва фразы
-  min_speech_ms: 220            # Немного мягче минималка для тихой речи
-  pre_roll_ms: 300              # ПАМЯТЬ: сколько мс тишины хранить перед фразой
-  resample_mode: "polyphase"    # Качественный ресемпл 48k->16k (лучше для VAD/STT)
-  mic_gain_db: 10.0             # Чуть мягче усиление: меньше подъёма фонового шума
-  agc_enable: true              # Простая AGC под тихую речь
-  agc_target_rms: 0.032         # Более консервативный AGC (меньше «накачки» шума)
-  agc_max_gain_db: 9.0          # Жёстче ограничиваем AGC для стабильной сегментации
-  soft_limit: 0.97              # Лимитер от клиппинга
-  voice_merge_window_ms: 2200   # Окно склейки соседних STT-сегментов в один пользовательский ход
-  response_debounce_ms: 500     # Отложено автозапуск RESPONSE, чтобы дать тебе время продолжить мысль после короткой паузы
-  response_min_quiet_ms_after_speech_start: 350  # Не запускать response, пока не прошло короткое "окно тишины" после speech_start
-  speech_start_min_interval_ms: 900  # Анти-спам для /speech_start
-  speech_start_confirm_ms: 140  # Раньше подтверждаем старт речи на тихом голосе
-  min_speech_ms_interrupt: 100  # Короткие команды перебивания не отбрасывать
-  speech_start_interrupt_mode: "soft"  # soft|hard: мягкий режим не прерывает активный response только по старту голоса
-  turn_merge_window_ms: 2200    # Окно повторного использования turn_id на стороне микрофонного клиента
-  stt_immediate_max_active: 2   # Максимум параллельных immediate STT-воркеров
-  stt_immediate_max_pending: 8  # Максимум ожидающих audio-сегментов
-  stt_backpressure_policy: "drop_oldest" # drop_oldest | drop_latest | merge_latest
-  stt_status_cooldown_ms: 750   # Анти-флуд для STT системных WS-событий
+  enabled: true
+  source_id: "mic"
+  device_name: "Fifine"          # Основной выбор по имени (устойчив к смене ID)
+  device_hostapi: "WASAPI"
+  device_index: 7                # Fallback если устройство не найдено по имени
+
+  # VAD (Voice Activity Detection)
+  vad_threshold: 0.06
+  vad_start_rms: 0.0075
+  vad_hold_rms: 0.0052
+  vad_floor_rms: 0.0012
+  rms_bridge_ms: 96
+  min_silence_ms: 500
+  min_speech_ms: 220
+  pre_roll_ms: 300
+  resample_mode: "polyphase"     # Качественный ресемпл 48k→16k
+
+  # AGC (Automatic Gain Control)
+  mic_gain_db: 10.0
+  agc_enable: true
+  agc_target_rms: 0.032
+  agc_max_gain_db: 9.0
+  soft_limit: 0.97               # Лимитер от клиппинга
+
+  # Слияние и debounce
+  voice_merge_window_ms: 2200    # Окно склейки STT-сегментов в один ход
+  response_debounce_ms: 500      # Задержка перед запуском RESPONSE
+  response_min_quiet_ms_after_speech_start: 350
+  turn_merge_window_ms: 2200
+
+  # Barge-in и прерывание
+  speech_start_min_interval_ms: 900
+  speech_start_confirm_ms: 140
+  min_speech_ms_interrupt: 100
+  speech_start_interrupt_mode: "soft"  # soft | hard
   interrupt_speaker_policy: "same_or_unknown"  # any | same_only | same_or_unknown
-  # Wake-word tuning for common STT misses. One-word utterances from these lists
-  # trigger a response and are normalized to character_name in context.
+
+  # Backpressure STT-воркеров
+  stt_immediate_max_active: 2
+  stt_immediate_max_pending: 8
+  stt_backpressure_policy: "drop_oldest"  # drop_oldest | drop_latest | merge_latest
+  stt_status_cooldown_ms: 750
+
+  # Wake-words (слова-триггеры, при которых Нира отвечает даже на короткую фразу)
   wake_words: ["нира", "нера", "nira"]
   wake_word_aliases: ["мира", "миру", "миром", "ниру", "нире", "нирой", "ниры", "нерра"]
-  # Allow short emotional cues (laughs/hum) to still produce a response.
+
+  # Эмоциональные реакции (смех, хмыканье)
   respond_to_short_emotes: true
   short_emote_words: ["ха-ха", "хаха", "ахах", "ахаха", "хм", "гм", "лол", "ржу"]
 
-# Discord voice bridge. Kept disabled until its bot token and voice dependencies are installed.
-# The token belongs only in .env as DISCORD_BOT_TOKEN.
+# -----------------------------------------------------------------------------
+# 6. DISCORD BRIDGE
+# -----------------------------------------------------------------------------
 discord:
   enabled: true
   auto_join: true
@@ -164,9 +208,9 @@ discord:
   silence_ms: 500
   min_speech_ms: 220
 
-  # TTS (Text-to-Speech) пока не подключен
-
-# Prompter settings
+# -----------------------------------------------------------------------------
+# 7. ПРОМПТЕР И ПЕРСОНАЖ
+# -----------------------------------------------------------------------------
 prompter:
   instruction_prompt_filename: 'instruction.md'
   character_prompt_filename: 'nira.md'
@@ -174,18 +218,9 @@ prompter:
   character_name: "Нира"
   history_length: 50
 
-# Llama.cpp Settings (RTX 5070 12GB)
-llamacpp_filepath: "C:\\Nirmita\\bin\\llamacpp\\llama-server.exe"
-llamacpp_model_filepath: "C:\\Nirmita\\models\\saiga_gemma2_10b.i1-Q5_K_M.gguf"
-llamacpp_ctx: 8192
-llamacpp_ngl: 40
-llamacpp_cache_type_k: "q8_0" # Конфигурация 8-битного квантования контекста (K-cache)
-llamacpp_cache_type_v: "q8_0" # Конфигурация 8-битного квантования контекста (V-cache)
-llamacpp_gpu_id: 0 # Жесткая привязка к RTX 5070
-llamacpp_extra_args: "--flash-attn on"
+# -----------------------------------------------------------------------------
+# 8. СИСТЕМНЫЕ НАСТРОЙКИ
+# -----------------------------------------------------------------------------
 
-# FFmpeg (настроен в системе)
-# ffmpeg_filepath: "C:\\Nirmita\\bin\\ffmpeg.exe"
-
-# Spacy NLP
+# SpaCy NLP (используется для обработки текста если подключить chunker)
 spacy_model: en_core_web_sm

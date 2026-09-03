@@ -1206,15 +1206,6 @@ class JAIson(metaclass=Singleton):
         except Exception:
             ch = 1
 
-        import wave
-        try:
-            with wave.open('c:\\Nirmita\\scratch\\test_server_dump.wav', 'wb') as wf:
-                wf.setnchannels(ch)
-                wf.setsampwidth(sw)
-                wf.setframerate(sr)
-                wf.writeframes(audio_bytes)
-        except Exception as e:
-            logging.warning(f"Failed to dump test WAV: {e}")
         user = request_data.get("user", "user")
         try:
             timestamp = float(request_data.get("timestamp", time.time()))
