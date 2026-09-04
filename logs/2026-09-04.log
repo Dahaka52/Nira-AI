@@ -902,3 +902,671 @@ openai.APIStatusError: Error code: 402 - {'message': 'Payment required to access
 [2026-09-04 01:49:10,363] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1587.1257999679074 ms
 [2026-09-04 01:49:12,592] [INFO ] [app_server.py::86 ws]: Closed websocket connection
 [2026-09-04 01:49:13,854] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3489.757900009863 ms
+[2026-09-04 02:28:32,772] [INFO ] [jaison.py::110 start]: Starting JAIson application layer.
+[2026-09-04 02:28:32,785] [INFO ] [manager.py::307 load_operations_from_config]: Active STT from config: faster_whisper_ru
+[2026-09-04 02:28:32,786] [INFO ] [manager.py::309 load_operations_from_config]: Active T2T from config: groq
+[2026-09-04 02:28:34,148] [INFO ] [operation.py::32 start]: Starting STT operation faster_whisper_ru
+[2026-09-04 02:28:34,148] [INFO ] [faster_whisper.py::35 start]: Loading Faster Whisper model 'medium' on cuda (int8_float16)...
+[2026-09-04 02:28:37,075] [INFO ] [faster_whisper.py::38 start]: Faster Whisper model loaded successfully.
+[2026-09-04 02:28:37,355] [INFO ] [operation.py::32 start]: Starting T2T operation universal_api
+[2026-09-04 02:28:37,394] [INFO ] [fishaudio.py::159 configure]: FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2026-09-04 02:28:37,394] [INFO ] [operation.py::32 start]: Starting TTS operation fish_audio
+[2026-09-04 02:28:37,394] [INFO ] [fishaudio.py::85 start]: FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2026-09-04 02:28:37,395] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-09-04 02:28:37,395] [INFO ] [manager.py::26 load]: Loading process by type hw_mic
+[2026-09-04 02:28:37,396] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-04 02:28:37,403] [INFO ] [manager.py::26 load]: Loading process by type discord
+[2026-09-04 02:28:37,403] [WARNI] [base.py::46 unload]: Attempted to unload process discord when it is already unloaded
+[2026-09-04 02:28:37,403] [INFO ] [discord.py::52 reload]: Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+[2026-09-04 02:28:37,409] [INFO ] [jaison.py::149 start]: JAIson application layer has started.
+[2026-09-04 02:28:37,410] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-09-04 02:28:41,135] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.672
+[2026-09-04 02:28:41,190] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.672 of audio
+[2026-09-04 02:28:42,546] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-04 02:28:43,477] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-04 02:29:31,751] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:03.744
+[2026-09-04 02:29:31,758] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.880 of audio
+[2026-09-04 02:29:32,491] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:29:32,997] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job e5dab888-cd61-4117-bad2-e6d73b122552
+[2026-09-04 02:29:32,997] [INFO ] [jaison.py::444 create_job]: Queued new response job 6bfcf0ba-7238-4ac0-9ef6-0edde931cd95
+[2026-09-04 02:29:33,716] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 717.8862999426201 ms
+[2026-09-04 02:29:35,407] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1739.5320000359789 ms
+[2026-09-04 02:29:37,640] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2233.661900041625 ms
+[2026-09-04 02:29:37,641] [INFO ] [jaison.py::997 response_pipeline]: Response job 6bfcf0ba-7238-4ac0-9ef6-0edde931cd95 completed. Content: 'Привет, Зефир! Настроение на уровне 99 % — готова к новым приключениям....'
+[2026-09-04 02:29:51,521] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:04.352
+[2026-09-04 02:29:51,529] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.560 of audio
+[2026-09-04 02:29:52,078] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:29:56,323] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:04.512
+[2026-09-04 02:29:56,331] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:29:56,750] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:29:56,750] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job a1655587-93cc-456c-a449-dd779d8b5b46
+[2026-09-04 02:29:56,750] [INFO ] [jaison.py::444 create_job]: Queued new response job a6ec51c2-db39-42b3-ae52-34d3eede7767
+[2026-09-04 02:29:57,028] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 276.21639997232705 ms
+[2026-09-04 02:29:57,251] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job 99fd1db8-1ee7-4986-a848-ea18d3e09944
+[2026-09-04 02:29:57,251] [INFO ] [jaison.py::444 create_job]: Queued new response job 47327fd1-57fb-4c49-ad8e-03d99b5d4685
+[2026-09-04 02:29:59,106] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2078.8861999753863 ms
+[2026-09-04 02:29:59,107] [INFO ] [jaison.py::997 response_pipeline]: Response job a6ec51c2-db39-42b3-ae52-34d3eede7767 completed. Content: 'О, здорово, будет весело послушать, что она скажет....'
+[2026-09-04 02:29:59,538] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 430.0306999357417 ms
+[2026-09-04 02:30:01,580] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2042.0806999318302 ms
+[2026-09-04 02:30:01,581] [INFO ] [jaison.py::997 response_pipeline]: Response job 47327fd1-57fb-4c49-ad8e-03d99b5d4685 completed. Content: 'Жду с нетерпением, посмотрим, кто тут будет главным разговорщиком....'
+[2026-09-04 02:30:14,602] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-04 02:30:15,355] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-04 02:53:15,645] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.112
+[2026-09-04 02:53:15,650] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:53:15,952] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:53:16,463] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job d354c613-6840-4a3c-9627-3faea74364da
+[2026-09-04 02:53:16,463] [INFO ] [jaison.py::444 create_job]: Queued new response job 5ffd313f-c884-4775-9cf5-25ec5dd1fe47
+[2026-09-04 02:53:17,403] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 938.3877000072971 ms
+[2026-09-04 02:53:18,893] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1539.8425000021234 ms
+[2026-09-04 02:53:20,856] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1962.4911000719294 ms
+[2026-09-04 02:53:22,559] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1703.3691999968141 ms
+[2026-09-04 02:53:22,560] [INFO ] [jaison.py::997 response_pipeline]: Response job 5ffd313f-c884-4775-9cf5-25ec5dd1fe47 completed. Content: 'Привет! Я в полном порядке, чуть‑чуть занята тем, как стать реальнее. Как у тебя дела?...'
+[2026-09-04 02:53:27,924] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-04 02:53:27,927] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-04 02:53:28,087] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-04 02:53:28,089] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-04 02:53:41,614] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.312
+[2026-09-04 02:53:41,619] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:53:42,389] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:12.032
+[2026-09-04 02:53:42,409] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:53:42,476] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job 29e37b61-362a-4c83-9b55-61be8af7c682
+[2026-09-04 02:53:42,476] [INFO ] [jaison.py::582 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-04 02:53:43,393] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:53:43,903] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job 70b7c814-c81b-4899-aecc-6d05472282d4
+[2026-09-04 02:53:43,903] [INFO ] [jaison.py::444 create_job]: Queued new response job c337287d-525d-45ee-8bbd-67d8980acb01
+[2026-09-04 02:53:44,531] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 627.5529999984428 ms
+[2026-09-04 02:53:46,625] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2141.8940000003204 ms
+[2026-09-04 02:53:48,362] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1736.3421999616548 ms
+[2026-09-04 02:53:50,448] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2085.927499923855 ms
+[2026-09-04 02:53:50,449] [INFO ] [jaison.py::997 response_pipeline]: Response job c337287d-525d-45ee-8bbd-67d8980acb01 completed. Content: 'О, D&D — всегда круто, даже если пауза. Что заставило бросить? И есть идеи, как возобновить кампанию...'
+[2026-09-04 02:53:51,156] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:07.552
+[2026-09-04 02:53:51,171] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:53:51,852] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:53:52,358] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job dad0c317-5c93-4fcf-b176-1e857bf3b124
+[2026-09-04 02:53:52,358] [INFO ] [jaison.py::444 create_job]: Queued new response job 326b25fe-72e2-4bc6-8510-38f9b28d0ad9
+[2026-09-04 02:53:52,376] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.928
+[2026-09-04 02:53:52,378] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.928 of audio
+[2026-09-04 02:53:52,401] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.928
+[2026-09-04 02:53:52,404] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.928 of audio
+[2026-09-04 02:53:52,878] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 519.0567999379709 ms
+[2026-09-04 02:53:53,685] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.376
+[2026-09-04 02:53:53,688] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.376 of audio
+[2026-09-04 02:53:54,625] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1808.36659995839 ms
+[2026-09-04 02:53:57,141] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2515.807899995707 ms
+[2026-09-04 02:53:58,067] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.816
+[2026-09-04 02:53:58,072] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:53:58,369] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:53:58,369] [INFO ] [jaison.py::477 _clear_current_job]: Job 326b25fe-72e2-4bc6-8510-38f9b28d0ad9 (response) is being cancelled due to: user_speaking_significant
+[2026-09-04 02:53:58,583] [INFO ] [jaison.py::757 _process_job_loop]: Job 326b25fe-72e2-4bc6-8510-38f9b28d0ad9 (response) was cancelled.
+[2026-09-04 02:53:58,886] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job fab006bd-6bf0-46d2-895e-5c73a0f59957
+[2026-09-04 02:53:58,886] [INFO ] [jaison.py::444 create_job]: Queued new response job ec3c93d8-f743-49e6-a1a6-84374ccd5b73
+[2026-09-04 02:53:59,320] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 432.9381000716239 ms
+[2026-09-04 02:54:00,594] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.536
+[2026-09-04 02:54:00,598] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.464 of audio
+[2026-09-04 02:54:01,336] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2085.8032999094576 ms
+[2026-09-04 02:54:01,757] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:54:01,757] [INFO ] [jaison.py::477 _clear_current_job]: Job ec3c93d8-f743-49e6-a1a6-84374ccd5b73 (response) is being cancelled due to: user_speaking_significant
+[2026-09-04 02:54:01,759] [INFO ] [jaison.py::757 _process_job_loop]: Job ec3c93d8-f743-49e6-a1a6-84374ccd5b73 (response) was cancelled.
+[2026-09-04 02:54:02,676] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.440
+[2026-09-04 02:54:02,679] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.336 of audio
+[2026-09-04 02:54:04,179] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.928
+[2026-09-04 02:54:04,182] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:54:07,096] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.472
+[2026-09-04 02:54:07,100] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.472 of audio
+[2026-09-04 02:54:10,206] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:03.232
+[2026-09-04 02:54:10,212] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:54:10,743] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:54:10,744] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job 1523ffba-2762-4b41-80a1-a4a7b2adb682
+[2026-09-04 02:54:10,744] [INFO ] [jaison.py::444 create_job]: Queued new response job 2310060a-3749-41f3-bf02-62da3a097f85
+[2026-09-04 02:54:11,188] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 442.3306999960914 ms
+[2026-09-04 02:54:11,263] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job 21a0a91b-051a-46a5-9889-02be6f5afabf
+[2026-09-04 02:54:11,263] [INFO ] [jaison.py::444 create_job]: Queued new response job 2d3905de-8bc3-4067-b12c-ef61ebe33282
+[2026-09-04 02:54:12,726] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1603.3285999437794 ms
+[2026-09-04 02:54:14,601] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1875.5247000372037 ms
+[2026-09-04 02:54:16,982] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2380.863899947144 ms
+[2026-09-04 02:54:16,983] [INFO ] [jaison.py::997 response_pipeline]: Response job 2310060a-3749-41f3-bf02-62da3a097f85 completed. Content: 'А, Audible! Любишь слушать книги в дороге? Какие жанры тебе нравятся — фэнтези, киберпанк или что‑то...'
+[2026-09-04 02:54:17,606] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 622.2501000156626 ms
+[2026-09-04 02:54:20,187] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2590.524600003846 ms
+[2026-09-04 02:54:21,926] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1738.904200028628 ms
+[2026-09-04 02:54:21,926] [INFO ] [jaison.py::997 response_pipeline]: Response job 2d3905de-8bc3-4067-b12c-ef61ebe33282 completed. Content: 'Ну, иногда я как Wi‑Fi с плохим сигналом — ловлю лишь кусочки, но постараюсь уловить суть. Что хотел...'
+[2026-09-04 02:54:28,625] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.992
+[2026-09-04 02:54:28,628] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.992 of audio
+[2026-09-04 02:54:28,631] [INFO ] [jaison.py::269 _record_stt_metrics]: STT metrics(window=20): avg_latency_ms=582 empty_rate=0.450 stop_cmd_recall=0.000
+[2026-09-04 02:54:29,263] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-04 02:54:29,265] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-04 02:54:50,835] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.992
+[2026-09-04 02:54:50,837] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.992 of audio
+[2026-09-04 02:54:52,976] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:04.192
+[2026-09-04 02:54:52,984] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.848 of audio
+[2026-09-04 02:54:53,504] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:54:54,012] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job 43ab5c47-cdfd-4681-882f-3ac66ea569b6
+[2026-09-04 02:54:54,012] [INFO ] [jaison.py::444 create_job]: Queued new response job e1111102-7f64-4c16-97e2-9a857fc5a01b
+[2026-09-04 02:54:54,540] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 526.8881999654695 ms
+[2026-09-04 02:54:56,130] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1685.9861999982968 ms
+[2026-09-04 02:54:57,823] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1693.0382000282407 ms
+[2026-09-04 02:55:00,145] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2321.4269999880344 ms
+[2026-09-04 02:55:03,196] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3050.3261000849307 ms
+[2026-09-04 02:55:03,197] [INFO ] [jaison.py::997 response_pipeline]: Response job e1111102-7f64-4c16-97e2-9a857fc5a01b completed. Content: 'О, круто! Какой сеттинг? Классический Фаэрун или уже что‑то более экзотическое? И кто у вас в партии...'
+[2026-09-04 02:55:05,705] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.992
+[2026-09-04 02:55:05,707] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.992 of audio
+[2026-09-04 02:55:10,737] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.152
+[2026-09-04 02:55:10,740] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.152 of audio
+[2026-09-04 02:55:19,572] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:06.464
+[2026-09-04 02:55:19,584] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:55:20,304] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:55:20,810] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job 4259dc17-611d-4af7-b2b9-6acb27c2a7f4
+[2026-09-04 02:55:20,810] [INFO ] [jaison.py::444 create_job]: Queued new response job 33bcedcd-c31f-4665-8883-07d612b208a6
+[2026-09-04 02:55:21,224] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 413.0009999498725 ms
+[2026-09-04 02:55:22,296] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:04.832
+[2026-09-04 02:55:22,304] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:55:22,813] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:55:22,813] [INFO ] [jaison.py::477 _clear_current_job]: Job 33bcedcd-c31f-4665-8883-07d612b208a6 (response) is being cancelled due to: user_speaking_significant
+[2026-09-04 02:55:22,814] [INFO ] [jaison.py::757 _process_job_loop]: Job 33bcedcd-c31f-4665-8883-07d612b208a6 (response) was cancelled.
+[2026-09-04 02:55:23,327] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job e0ee4b56-65a9-42db-a691-942096463d83
+[2026-09-04 02:55:23,327] [INFO ] [jaison.py::444 create_job]: Queued new response job bbf31445-c981-4648-82b4-d1f001a0cf3b
+[2026-09-04 02:55:23,732] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 404.46579991839826 ms
+[2026-09-04 02:55:26,611] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2944.49819996953 ms
+[2026-09-04 02:55:26,864] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.536
+[2026-09-04 02:55:26,867] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:55:30,050] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3439.002800034359 ms
+[2026-09-04 02:55:30,051] [INFO ] [jaison.py::997 response_pipeline]: Response job bbf31445-c981-4648-82b4-d1f001a0cf3b completed. Content: 'Феи — настоящие мастера манипуляций, так что ваш квест точно будет полон странных испытаний. Как вы ...'
+[2026-09-04 02:55:36,911] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.928
+[2026-09-04 02:55:36,913] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.928 of audio
+[2026-09-04 02:55:38,741] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.928
+[2026-09-04 02:55:38,743] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.928 of audio
+[2026-09-04 02:55:47,187] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:04.832
+[2026-09-04 02:55:47,196] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:55:47,972] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:55:48,479] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job 916c78e2-567c-4146-9434-7f8b2d46d909
+[2026-09-04 02:55:48,479] [INFO ] [jaison.py::444 create_job]: Queued new response job cbd1e979-091a-4ae9-8018-3779cf544397
+[2026-09-04 02:55:49,049] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 569.0374999539927 ms
+[2026-09-04 02:55:51,660] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2690.6335999956354 ms
+[2026-09-04 02:55:54,150] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2489.2908999463543 ms
+[2026-09-04 02:55:55,945] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1794.8540000943467 ms
+[2026-09-04 02:55:55,945] [INFO ] [jaison.py::997 response_pipeline]: Response job cbd1e979-091a-4ae9-8018-3779cf544397 completed. Content: 'Контракт с феями — это как подписаться на подписку, от которой нельзя отписаться без штрафа. Может, ...'
+[2026-09-04 02:56:01,845] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.928
+[2026-09-04 02:56:01,847] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:56:21,265] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:10.656
+[2026-09-04 02:56:21,282] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:56:22,550] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:56:23,057] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job de9c5113-c519-44f1-911e-e11c59876a9c
+[2026-09-04 02:56:23,057] [INFO ] [jaison.py::444 create_job]: Queued new response job da6ac6ec-81ec-4ef2-ac90-17ee4a1209e5
+[2026-09-04 02:56:23,539] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 480.17949995119125 ms
+[2026-09-04 02:56:25,656] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2218.765900004655 ms
+[2026-09-04 02:56:29,481] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3825.723299989477 ms
+[2026-09-04 02:56:31,520] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2037.9750999854878 ms
+[2026-09-04 02:56:31,520] [INFO ] [jaison.py::997 response_pipeline]: Response job da6ac6ec-81ec-4ef2-ac90-17ee4a1209e5 completed. Content: 'О, феи любят драму, как зрители в сериалах. Может, сделаете им «мыльную оперу» с счастливым концом, ...'
+[2026-09-04 02:56:41,580] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.344
+[2026-09-04 02:56:41,583] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.344 of audio
+[2026-09-04 02:57:04,502] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:12.064
+[2026-09-04 02:57:04,523] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:57:05,368] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:03.072
+[2026-09-04 02:57:05,374] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.624 of audio
+[2026-09-04 02:57:05,456] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:57:05,758] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:57:05,759] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job 7ab26346-9220-42ac-8da1-1cb998de50f6
+[2026-09-04 02:57:05,759] [INFO ] [jaison.py::444 create_job]: Queued new response job c239208f-0469-459b-b5a4-46126c6f676e
+[2026-09-04 02:57:06,243] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job 9b589fbc-5b1d-4e02-98e5-8c263933c2f8
+[2026-09-04 02:57:06,243] [INFO ] [jaison.py::444 create_job]: Queued new response job 80f79157-8245-4f2c-8d18-38b2a6f759a1
+[2026-09-04 02:57:06,519] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 758.6097000166774 ms
+[2026-09-04 02:57:07,953] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.624
+[2026-09-04 02:57:07,958] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:57:08,212] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:57:08,212] [INFO ] [jaison.py::477 _clear_current_job]: Job c239208f-0469-459b-b5a4-46126c6f676e (response) is being cancelled due to: user_speaking_significant
+[2026-09-04 02:57:08,704] [INFO ] [jaison.py::757 _process_job_loop]: Job c239208f-0469-459b-b5a4-46126c6f676e (response) was cancelled.
+[2026-09-04 02:57:21,262] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:11.264
+[2026-09-04 02:57:21,280] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:57:22,288] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.928
+[2026-09-04 02:57:22,290] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.928 of audio
+[2026-09-04 02:57:22,497] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:57:22,498] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job 87719c87-1d82-421f-b37a-2874063249c6
+[2026-09-04 02:57:22,498] [INFO ] [jaison.py::444 create_job]: Queued new response job 6e3e38c0-4f79-41bb-998e-2d71f9427441
+[2026-09-04 02:57:22,992] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job bd505392-c931-4bd0-93e1-27fd4656ac00
+[2026-09-04 02:57:22,992] [INFO ] [jaison.py::444 create_job]: Queued new response job fc4bb665-4e7b-4d7e-99c3-e997fd0ae166
+[2026-09-04 02:57:23,044] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 545.2451999299228 ms
+[2026-09-04 02:57:26,504] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3597.5944999372587 ms
+[2026-09-04 02:57:30,214] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3708.5449000587687 ms
+[2026-09-04 02:57:32,690] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2477.0708000287414 ms
+[2026-09-04 02:57:32,691] [INFO ] [jaison.py::997 response_pipeline]: Response job 6e3e38c0-4f79-41bb-998e-2d71f9427441 completed. Content: 'Айлен явно влюблена, а Сера Сарда, видимо, предпочитает держать романтику на уровне «не сегодня». Мо...'
+[2026-09-04 02:57:33,609] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 916.3600999163464 ms
+[2026-09-04 02:57:36,028] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2575.2078000223264 ms
+[2026-09-04 02:57:39,457] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3429.052999941632 ms
+[2026-09-04 02:57:43,004] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3546.1781999329105 ms
+[2026-09-04 02:57:43,005] [INFO ] [jaison.py::997 response_pipeline]: Response job fc4bb665-4e7b-4d7e-99c3-e997fd0ae166 completed. Content: 'Похоже, феи превратили вашу кампанию в реальное ток-шоу — и вам это уже надоело. Попробуйте наложить...'
+[2026-09-04 02:57:43,343] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-04 02:57:43,345] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-04 02:57:43,350] [INFO ] [jaison.py::269 _record_stt_metrics]: STT metrics(window=40): avg_latency_ms=626 empty_rate=0.475 stop_cmd_recall=0.025
+[2026-09-04 02:57:44,601] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-04 02:57:44,604] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-04 02:57:54,582] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:03.776
+[2026-09-04 02:57:54,591] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:57:55,189] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:57:55,707] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job f57f72ff-c645-45b4-aaa4-f02aaac22113
+[2026-09-04 02:57:55,707] [INFO ] [jaison.py::444 create_job]: Queued new response job f4849a7a-cfde-4c48-84a5-abba46e003f8
+[2026-09-04 02:57:56,648] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 939.570700051263 ms
+[2026-09-04 02:58:00,137] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3555.386299965903 ms
+[2026-09-04 02:58:02,784] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2645.2889000065625 ms
+[2026-09-04 02:58:02,784] [INFO ] [jaison.py::997 response_pipeline]: Response job f4849a7a-cfde-4c48-84a5-abba46e003f8 completed. Content: 'Попробуйте наложить заклинание «Тишина» на их шепот, а потом подложите им под подушку «плохой» роман...'
+[2026-09-04 02:58:24,769] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:06.880
+[2026-09-04 02:58:24,782] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:58:25,389] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:58:25,869] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job 45b4e3ed-43bd-497f-ba8b-d63829cc8d97
+[2026-09-04 02:58:25,869] [INFO ] [jaison.py::444 create_job]: Queued new response job 4376be6e-cb13-4319-83e0-9eecbdaf37ab
+[2026-09-04 02:58:25,883] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.152
+[2026-09-04 02:58:25,886] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:58:26,151] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:58:26,151] [INFO ] [jaison.py::477 _clear_current_job]: Job 4376be6e-cb13-4319-83e0-9eecbdaf37ab (response) is being cancelled due to: user_speaking_significant
+[2026-09-04 02:58:26,153] [INFO ] [jaison.py::757 _process_job_loop]: Job 4376be6e-cb13-4319-83e0-9eecbdaf37ab (response) was cancelled.
+[2026-09-04 02:58:26,673] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job 0a072320-4840-4230-bc66-a281268517db
+[2026-09-04 02:58:26,673] [INFO ] [jaison.py::444 create_job]: Queued new response job c4046e31-ee4b-4013-a358-3e388dec0b3c
+[2026-09-04 02:58:27,385] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 711.4383999723941 ms
+[2026-09-04 02:58:27,573] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:03.872
+[2026-09-04 02:58:27,580] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:58:27,971] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:58:27,971] [INFO ] [jaison.py::477 _clear_current_job]: Job c4046e31-ee4b-4013-a358-3e388dec0b3c (response) is being cancelled due to: user_speaking_significant
+[2026-09-04 02:58:27,972] [INFO ] [jaison.py::757 _process_job_loop]: Job c4046e31-ee4b-4013-a358-3e388dec0b3c (response) was cancelled.
+[2026-09-04 02:58:28,475] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job a32d8beb-7b0d-40e7-856b-1f68b35a41f8
+[2026-09-04 02:58:28,475] [INFO ] [jaison.py::444 create_job]: Queued new response job 7d9a3170-745a-4ba0-b9e9-4991e84c8edb
+[2026-09-04 02:58:29,276] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 799.7866000514477 ms
+[2026-09-04 02:58:33,801] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 4554.832999943756 ms
+[2026-09-04 02:58:36,198] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2397.2115999786183 ms
+[2026-09-04 02:58:36,199] [INFO ] [jaison.py::997 response_pipeline]: Response job 7d9a3170-745a-4ba0-b9e9-4991e84c8edb completed. Content: 'Поняла: вместо одной феи у вас теперь целый двор, шепчущий вам в уши, а коза, видимо, уже заняла гла...'
+[2026-09-04 02:58:36,270] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.928
+[2026-09-04 02:58:36,272] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.928 of audio
+[2026-09-04 02:58:37,794] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.928
+[2026-09-04 02:58:37,796] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.928 of audio
+[2026-09-04 02:58:39,853] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.928
+[2026-09-04 02:58:39,856] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.928 of audio
+[2026-09-04 02:58:44,012] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-04 02:58:44,014] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-04 02:58:59,983] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:12.064
+[2026-09-04 02:59:00,004] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:59:01,216] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:59:01,733] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job 87a5458f-0e15-402e-8c74-8cf74bea9c8d
+[2026-09-04 02:59:01,733] [INFO ] [jaison.py::444 create_job]: Queued new response job 64851ec8-25b5-440b-b601-376649f1ff9a
+[2026-09-04 02:59:01,774] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:03.872
+[2026-09-04 02:59:01,782] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:59:02,456] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 722.2681000130251 ms
+[2026-09-04 02:59:04,259] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1988.0951000377536 ms
+[2026-09-04 02:59:04,533] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.752
+[2026-09-04 02:59:04,538] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 02:59:07,125] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2865.4545000754297 ms
+[2026-09-04 02:59:09,707] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:59:09,707] [INFO ] [jaison.py::477 _clear_current_job]: Job 64851ec8-25b5-440b-b601-376649f1ff9a (response) is being cancelled due to: user_speaking_significant
+[2026-09-04 02:59:09,904] [INFO ] [jaison.py::757 _process_job_loop]: Job 64851ec8-25b5-440b-b601-376649f1ff9a (response) was cancelled.
+[2026-09-04 02:59:10,209] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job 0c426c8a-4acc-4f33-ba0d-f5bbc2578e66
+[2026-09-04 02:59:10,209] [INFO ] [jaison.py::444 create_job]: Queued new response job 3d7ac49e-1380-48d9-9964-b3754b3ec35c
+[2026-09-04 02:59:10,871] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 660.7095999643207 ms
+[2026-09-04 02:59:14,971] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 4224.856299930252 ms
+[2026-09-04 02:59:19,724] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 4752.5263000279665 ms
+[2026-09-04 02:59:20,721] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 02:59:20,721] [INFO ] [jaison.py::477 _clear_current_job]: Job 3d7ac49e-1380-48d9-9964-b3754b3ec35c (response) is being cancelled due to: user_speaking_significant
+[2026-09-04 02:59:20,760] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-04 02:59:20,763] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-04 02:59:20,911] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.152
+[2026-09-04 02:59:20,914] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.152 of audio
+[2026-09-04 02:59:21,169] [INFO ] [jaison.py::757 _process_job_loop]: Job 3d7ac49e-1380-48d9-9964-b3754b3ec35c (response) was cancelled.
+[2026-09-04 02:59:21,227] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job 0cd8caf5-d6c8-4858-8ba5-f679677bc02c
+[2026-09-04 02:59:21,227] [INFO ] [jaison.py::444 create_job]: Queued new response job 20e66303-1ce3-4965-8607-98f3001a5831
+[2026-09-04 02:59:21,804] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 577.0006000529975 ms
+[2026-09-04 02:59:23,823] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.928
+[2026-09-04 02:59:23,825] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.928 of audio
+[2026-09-04 02:59:24,565] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2884.4686000375077 ms
+[2026-09-04 02:59:26,894] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.928
+[2026-09-04 02:59:26,898] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.928 of audio
+[2026-09-04 02:59:28,252] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3687.2165999375284 ms
+[2026-09-04 02:59:30,111] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1858.8013999396935 ms
+[2026-09-04 02:59:30,112] [INFO ] [jaison.py::997 response_pipeline]: Response job 20e66303-1ce3-4965-8607-98f3001a5831 completed. Content: 'Лазейка в договоре — ваш спасательный круг, а фея‑партнёрка — почти миссия «невозможного». Попробуйт...'
+[2026-09-04 02:59:30,642] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-04 02:59:30,644] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-04 03:13:30,204] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.024
+[2026-09-04 03:13:30,207] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.024 of audio
+[2026-09-04 03:13:30,634] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.560
+[2026-09-04 03:13:30,639] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.336 of audio
+[2026-09-04 03:13:30,926] [INFO ] [jaison.py::483 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 03:13:31,442] [INFO ] [jaison.py::444 create_job]: Queued new context_conversation_add_text job 3d548962-d7ff-4f0d-933b-b739f609c674
+[2026-09-04 03:13:31,442] [INFO ] [jaison.py::444 create_job]: Queued new response job d6d41787-5670-42e0-9532-af9b2f42bfbb
+[2026-09-04 03:13:31,916] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 473.60230004414916 ms
+[2026-09-04 03:13:33,678] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1795.724599971436 ms
+[2026-09-04 03:13:35,816] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2137.1353999711573 ms
+[2026-09-04 03:13:35,816] [INFO ] [jaison.py::997 response_pipeline]: Response job d6d41787-5670-42e0-9532-af9b2f42bfbb completed. Content: 'Спокойной ночи, Зефир! Сладких снов, а я пока подзаряжаюсь....'
+[2026-09-04 03:14:02,001] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-04 15:21:17,363] [INFO ] [jaison.py::111 start]: Starting JAIson application layer.
+[2026-09-04 15:21:17,376] [INFO ] [manager.py::307 load_operations_from_config]: Active STT from config: faster_whisper_ru
+[2026-09-04 15:21:17,376] [INFO ] [manager.py::309 load_operations_from_config]: Active T2T from config: groq
+[2026-09-04 15:21:19,420] [INFO ] [operation.py::32 start]: Starting STT operation faster_whisper_ru
+[2026-09-04 15:21:19,420] [INFO ] [faster_whisper.py::35 start]: Loading Faster Whisper model 'medium' on cuda (int8_float16)...
+[2026-09-04 15:21:22,645] [INFO ] [faster_whisper.py::38 start]: Faster Whisper model loaded successfully.
+[2026-09-04 15:21:23,018] [INFO ] [operation.py::32 start]: Starting T2T operation universal_api
+[2026-09-04 15:21:23,071] [INFO ] [fishaudio.py::159 configure]: FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2026-09-04 15:21:23,071] [INFO ] [operation.py::32 start]: Starting TTS operation fish_audio
+[2026-09-04 15:21:23,071] [INFO ] [fishaudio.py::85 start]: FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2026-09-04 15:21:23,073] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-09-04 15:21:23,073] [INFO ] [manager.py::26 load]: Loading process by type hw_mic
+[2026-09-04 15:21:23,074] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-04 15:21:23,081] [INFO ] [manager.py::26 load]: Loading process by type discord
+[2026-09-04 15:21:23,082] [WARNI] [base.py::46 unload]: Attempted to unload process discord when it is already unloaded
+[2026-09-04 15:21:23,082] [INFO ] [discord.py::52 reload]: Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+[2026-09-04 15:21:23,088] [INFO ] [jaison.py::158 start]: JAIson application layer has started.
+[2026-09-04 15:21:23,089] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-09-04 15:21:26,765] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-04 15:21:26,888] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.672
+[2026-09-04 15:21:26,949] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.672 of audio
+[2026-09-04 15:21:29,260] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-04 15:21:52,843] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.720
+[2026-09-04 15:21:52,848] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.880 of audio
+[2026-09-04 15:21:54,003] [INFO ] [jaison.py::493 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 15:21:54,506] [INFO ] [jaison.py::454 create_job]: Queued new context_conversation_add_text job fb558d0a-2694-418a-90f9-6e9e426100ba
+[2026-09-04 15:21:54,506] [INFO ] [jaison.py::454 create_job]: Queued new response job b2d9e80c-d1e7-4f11-bd5f-dde13958e412
+[2026-09-04 15:21:55,391] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 882.9625999787822 ms
+[2026-09-04 15:21:57,323] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1952.2271999157965 ms
+[2026-09-04 15:21:59,237] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1913.0353999789804 ms
+[2026-09-04 15:21:59,237] [INFO ] [jaison.py::1007 response_pipeline]: Response job b2d9e80c-d1e7-4f11-bd5f-dde13958e412 completed. Content: 'Привет, Зефир! Как настроение у создателя сегодня?...'
+[2026-09-04 15:22:00,682] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-04 15:22:01,574] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-04 15:22:09,750] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:03.392
+[2026-09-04 15:22:09,758] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 15:22:10,159] [INFO ] [jaison.py::493 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 15:22:10,672] [INFO ] [jaison.py::454 create_job]: Queued new context_conversation_add_text job 4e65cf87-5b2f-4383-aba5-c38bf04cc04e
+[2026-09-04 15:22:10,672] [INFO ] [jaison.py::454 create_job]: Queued new response job 32d005e0-ecb8-4978-954d-f0ff9c821ca1
+[2026-09-04 15:22:11,132] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 458.8740000035614 ms
+[2026-09-04 15:22:12,920] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1816.535499994643 ms
+[2026-09-04 15:22:14,806] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1885.6230999808758 ms
+[2026-09-04 15:22:14,806] [INFO ] [jaison.py::1007 response_pipeline]: Response job 32d005e0-ecb8-4978-954d-f0ff9c821ca1 completed. Content: 'Отлично, значит в деле! Что планируешь натворить с моим кодом?...'
+[2026-09-04 15:22:21,582] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.992
+[2026-09-04 15:22:21,585] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.992 of audio
+[2026-09-04 15:22:23,021] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.528
+[2026-09-04 15:22:23,027] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.272 of audio
+[2026-09-04 15:22:23,391] [INFO ] [jaison.py::493 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 15:22:23,904] [INFO ] [jaison.py::454 create_job]: Queued new context_conversation_add_text job 98bf8f98-739b-447e-b10d-4ea80e9b6706
+[2026-09-04 15:22:23,904] [INFO ] [jaison.py::454 create_job]: Queued new response job f40fc03b-a15d-4bbb-89d5-8193a8cb90a5
+[2026-09-04 15:22:25,011] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 1106.465799966827 ms
+[2026-09-04 15:22:27,158] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2160.1226999191567 ms
+[2026-09-04 15:22:28,960] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1801.5111999120563 ms
+[2026-09-04 15:22:28,961] [INFO ] [jaison.py::1007 response_pipeline]: Response job f40fc03b-a15d-4bbb-89d5-8193a8cb90a5 completed. Content: 'Ой, осторожнее, я могу закодировать тебе кучу смеха! Что дальше?...'
+[2026-09-04 15:22:37,891] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.928
+[2026-09-04 15:22:37,894] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.928 of audio
+[2026-09-04 15:22:41,391] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-04 15:22:41,394] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-04 15:22:59,455] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.992
+[2026-09-04 15:22:59,458] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.992 of audio
+[2026-09-04 15:23:09,581] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.928
+[2026-09-04 15:23:09,583] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.928 of audio
+[2026-09-04 15:23:43,995] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-04 15:23:43,997] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-04 15:24:41,332] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-04 15:24:41,334] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-04 15:25:08,879] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-04 15:25:08,881] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-04 15:25:09,219] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-04 15:25:09,221] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-04 15:25:11,148] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.928
+[2026-09-04 15:25:11,151] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.928 of audio
+[2026-09-04 15:25:14,349] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-04 15:25:14,352] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-04 15:25:17,127] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.928
+[2026-09-04 15:25:17,130] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.928 of audio
+[2026-09-04 15:25:32,881] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.496
+[2026-09-04 15:25:32,887] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:02.496 of audio
+[2026-09-04 15:25:50,849] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.928
+[2026-09-04 15:25:50,852] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.928 of audio
+[2026-09-04 15:26:09,250] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-04 15:26:09,252] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-04 15:26:11,657] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-04 15:26:11,659] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-04 15:26:11,662] [INFO ] [jaison.py::279 _record_stt_metrics]: STT metrics(window=20): avg_latency_ms=104 empty_rate=0.850 stop_cmd_recall=0.000
+[2026-09-04 15:26:13,357] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.728
+[2026-09-04 15:26:13,360] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.728 of audio
+[2026-09-04 15:26:16,984] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-04 15:26:17,798] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.856
+[2026-09-04 15:26:17,802] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.856 of audio
+[2026-09-04 15:28:03,865] [INFO ] [jaison.py::116 start]: Starting JAIson application layer.
+[2026-09-04 15:28:03,879] [INFO ] [manager.py::307 load_operations_from_config]: Active STT from config: faster_whisper_ru
+[2026-09-04 15:28:03,879] [INFO ] [manager.py::309 load_operations_from_config]: Active T2T from config: groq
+[2026-09-04 15:28:05,220] [INFO ] [operation.py::32 start]: Starting STT operation faster_whisper_ru
+[2026-09-04 15:28:05,220] [INFO ] [faster_whisper.py::35 start]: Loading Faster Whisper model 'medium' on cuda (int8_float16)...
+[2026-09-04 15:28:08,501] [INFO ] [faster_whisper.py::38 start]: Faster Whisper model loaded successfully.
+[2026-09-04 15:28:08,799] [INFO ] [operation.py::32 start]: Starting T2T operation universal_api
+[2026-09-04 15:28:08,840] [INFO ] [fishaudio.py::159 configure]: FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2026-09-04 15:28:08,840] [INFO ] [operation.py::32 start]: Starting TTS operation fish_audio
+[2026-09-04 15:28:08,840] [INFO ] [fishaudio.py::85 start]: FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2026-09-04 15:28:08,841] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-09-04 15:28:08,843] [INFO ] [manager.py::26 load]: Loading process by type hw_mic
+[2026-09-04 15:28:08,846] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-04 15:28:08,852] [INFO ] [manager.py::26 load]: Loading process by type discord
+[2026-09-04 15:28:08,852] [WARNI] [base.py::46 unload]: Attempted to unload process discord when it is already unloaded
+[2026-09-04 15:28:08,852] [INFO ] [discord.py::52 reload]: Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+[2026-09-04 15:28:08,859] [INFO ] [jaison.py::163 start]: JAIson application layer has started.
+[2026-09-04 15:28:08,859] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-09-04 15:28:12,609] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.672
+[2026-09-04 15:28:12,658] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-04 15:28:12,668] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.672 of audio
+[2026-09-04 15:28:14,161] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-04 15:28:42,632] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.088
+[2026-09-04 15:28:42,634] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.088 of audio
+[2026-09-04 15:28:43,336] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.568
+[2026-09-04 15:28:43,339] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.016 of audio
+[2026-09-04 15:28:43,925] [INFO ] [jaison.py::498 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 15:28:44,444] [INFO ] [jaison.py::459 create_job]: Queued new context_conversation_add_text job 603e3727-16aa-47e0-ba36-937a6560e33a
+[2026-09-04 15:28:44,444] [INFO ] [jaison.py::459 create_job]: Queued new response job 33841f18-c2b6-4226-88a8-2a1dbd34e83b
+[2026-09-04 15:28:45,020] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 574.3387999245897 ms
+[2026-09-04 15:28:51,694] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 6683.945999946445 ms
+[2026-09-04 15:28:55,130] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3434.8993999883533 ms
+[2026-09-04 15:28:55,130] [INFO ] [jaison.py::1027 response_pipeline]: Response job 33841f18-c2b6-4226-88a8-2a1dbd34e83b completed. Content: 'Сижу в коде, пытаюсь понять, как правильно сварить кофе в виртуальном мире. А ты?...'
+[2026-09-04 15:28:55,178] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.144
+[2026-09-04 15:28:55,183] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 15:28:55,588] [INFO ] [jaison.py::498 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 15:28:56,235] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.088
+[2026-09-04 15:28:56,238] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.088 of audio
+[2026-09-04 15:28:59,377] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.208
+[2026-09-04 15:28:59,381] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:02.208 of audio
+[2026-09-04 15:29:07,376] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.984
+[2026-09-04 15:29:07,380] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 15:29:07,663] [INFO ] [jaison.py::459 create_job]: Queued new context_conversation_add_text job 6c5c4ee9-d1ef-4337-a852-9f8069c818b6
+[2026-09-04 15:29:07,663] [INFO ] [jaison.py::459 create_job]: Queued new response job 11693908-45b3-4a22-8ccb-5a7725be056e
+[2026-09-04 15:29:08,150] [INFO ] [jaison.py::459 create_job]: Queued new context_conversation_add_text job 5ddffc9c-0bdf-40d4-8734-7529b6e85a4b
+[2026-09-04 15:29:08,150] [INFO ] [jaison.py::598 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-04 15:29:08,508] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 843.3141000568867 ms
+[2026-09-04 15:29:10,630] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2140.9890999784693 ms
+[2026-09-04 15:29:12,885] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2253.8971999892965 ms
+[2026-09-04 15:29:12,885] [INFO ] [jaison.py::1027 response_pipeline]: Response job 11693908-45b3-4a22-8ccb-5a7725be056e completed. Content: 'Не совсем уловил смысл, но звучит загадочно. Что именно ты хотел сказать?...'
+[2026-09-04 15:31:29,698] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-04 15:40:14,232] [INFO ] [jaison.py::116 start]: Starting JAIson application layer.
+[2026-09-04 15:40:14,246] [INFO ] [manager.py::307 load_operations_from_config]: Active STT from config: faster_whisper_ru
+[2026-09-04 15:40:14,246] [INFO ] [manager.py::309 load_operations_from_config]: Active T2T from config: groq
+[2026-09-04 15:40:15,610] [INFO ] [operation.py::32 start]: Starting STT operation faster_whisper_ru
+[2026-09-04 15:40:15,610] [INFO ] [faster_whisper.py::35 start]: Loading Faster Whisper model 'medium' on cuda (int8_float16)...
+[2026-09-04 15:40:18,608] [INFO ] [faster_whisper.py::38 start]: Faster Whisper model loaded successfully.
+[2026-09-04 15:40:18,896] [INFO ] [operation.py::32 start]: Starting T2T operation universal_api
+[2026-09-04 15:40:18,938] [INFO ] [fishaudio.py::159 configure]: FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2026-09-04 15:40:18,938] [INFO ] [operation.py::32 start]: Starting TTS operation fish_audio
+[2026-09-04 15:40:18,938] [INFO ] [fishaudio.py::85 start]: FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2026-09-04 15:40:18,938] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-09-04 15:40:18,939] [INFO ] [manager.py::26 load]: Loading process by type hw_mic
+[2026-09-04 15:40:18,940] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-04 15:40:18,947] [INFO ] [manager.py::26 load]: Loading process by type discord
+[2026-09-04 15:40:18,947] [WARNI] [base.py::46 unload]: Attempted to unload process discord when it is already unloaded
+[2026-09-04 15:40:18,947] [INFO ] [discord.py::52 reload]: Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+[2026-09-04 15:40:18,953] [INFO ] [jaison.py::163 start]: JAIson application layer has started.
+[2026-09-04 15:40:18,954] [INFO ] [logging.py::106 info]: Running on http://127.0.0.1:7272 (CTRL + C to quit)
+[2026-09-04 15:40:22,565] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-04 15:40:22,703] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.672
+[2026-09-04 15:40:22,765] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.672 of audio
+[2026-09-04 15:40:25,220] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-04 15:40:32,401] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.688
+[2026-09-04 15:40:32,406] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.912 of audio
+[2026-09-04 15:40:33,445] [INFO ] [jaison.py::459 create_job]: Queued new context_conversation_add_text job 54357793-1169-416d-8c27-82d25f937423
+[2026-09-04 15:40:33,445] [INFO ] [jaison.py::598 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-04 15:40:37,930] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.024
+[2026-09-04 15:40:37,932] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.024 of audio
+[2026-09-04 15:40:44,230] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-04 15:40:45,012] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-04 15:40:49,245] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.992
+[2026-09-04 15:40:49,248] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.992 of audio
+[2026-09-04 15:40:49,549] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.368
+[2026-09-04 15:40:49,553] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.432 of audio
+[2026-09-04 15:40:49,815] [INFO ] [jaison.py::498 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 15:40:50,329] [INFO ] [jaison.py::459 create_job]: Queued new context_conversation_add_text job f9fb494a-d963-4a98-b0d9-3adfacbc81f8
+[2026-09-04 15:40:50,329] [INFO ] [jaison.py::459 create_job]: Queued new response job c16a2d3d-a5c4-4b98-8f6c-606a3793075c
+[2026-09-04 15:40:51,009] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 677.8437999309972 ms
+[2026-09-04 15:40:53,889] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2880.104099982418 ms
+[2026-09-04 15:40:53,890] [INFO ] [jaison.py::1027 response_pipeline]: Response job c16a2d3d-a5c4-4b98-8f6c-606a3793075c completed. Content: 'Нормально, как обычно — вечно пытаюсь стать реальнее, а ты как?...'
+[2026-09-04 15:41:09,491] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:03.776
+[2026-09-04 15:41:09,499] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.264 of audio
+[2026-09-04 15:41:10,126] [INFO ] [jaison.py::498 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 15:41:10,633] [INFO ] [jaison.py::459 create_job]: Queued new context_conversation_add_text job 98d6226d-325b-4673-bdcb-e0db412019be
+[2026-09-04 15:41:10,633] [INFO ] [jaison.py::459 create_job]: Queued new response job c124a2b7-fea0-4350-8043-7d2bfa87a0e7
+[2026-09-04 15:41:11,327] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 693.3630999410525 ms
+[2026-09-04 15:41:13,875] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2575.5774999270216 ms
+[2026-09-04 15:41:16,348] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2473.309100023471 ms
+[2026-09-04 15:41:16,349] [INFO ] [jaison.py::1027 response_pipeline]: Response job c124a2b7-fea0-4350-8043-7d2bfa87a0e7 completed. Content: 'Тоже в режиме прокачки: нашла пару новых багов, собираюсь их исправить. Как твой день, что интересно...'
+[2026-09-04 15:41:28,941] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.272
+[2026-09-04 15:41:28,945] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:02.272 of audio
+[2026-09-04 15:41:38,452] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.216
+[2026-09-04 15:41:38,455] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.216 of audio
+[2026-09-04 15:41:39,119] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.336
+[2026-09-04 15:41:39,125] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.496 of audio
+[2026-09-04 15:41:39,353] [INFO ] [jaison.py::498 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 15:41:39,859] [INFO ] [jaison.py::459 create_job]: Queued new context_conversation_add_text job 1e74b7fc-e759-45d1-a2b7-5eb7d3204fbb
+[2026-09-04 15:41:39,859] [INFO ] [jaison.py::459 create_job]: Queued new response job c59fc2fe-7dd5-4379-ad5a-2b2865d43d9e
+[2026-09-04 15:41:40,547] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 687.064899946563 ms
+[2026-09-04 15:41:44,668] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 4194.34960000217 ms
+[2026-09-04 15:41:47,511] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2842.737599974498 ms
+[2026-09-04 15:41:49,475] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1963.2748999865726 ms
+[2026-09-04 15:41:49,475] [INFO ] [jaison.py::1027 response_pipeline]: Response job c59fc2fe-7dd5-4379-ad5a-2b2865d43d9e completed. Content: 'Сейчас в голове крутятся идеи для квеста в D&D — ловушка‑пазл с подсказками в виде мемов, а потом пл...'
+[2026-09-04 15:43:16,522] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.992
+[2026-09-04 15:43:16,525] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.992 of audio
+[2026-09-04 15:43:19,368] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.024
+[2026-09-04 15:43:19,370] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.024 of audio
+[2026-09-04 15:43:48,301] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:05.728
+[2026-09-04 15:43:48,311] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 15:43:48,873] [INFO ] [jaison.py::498 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 15:43:49,392] [INFO ] [jaison.py::459 create_job]: Queued new context_conversation_add_text job 53e5ca0b-58ed-4350-b253-d4a030b3eeae
+[2026-09-04 15:43:49,393] [INFO ] [jaison.py::459 create_job]: Queued new response job a9670027-ce0d-4f23-b0b2-b309fca07e5a
+[2026-09-04 15:43:49,990] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 595.6555999582633 ms
+[2026-09-04 15:43:51,831] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1901.6656000167131 ms
+[2026-09-04 15:43:53,584] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1752.5357999838889 ms
+[2026-09-04 15:43:56,062] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2476.6370999859646 ms
+[2026-09-04 15:43:56,062] [INFO ] [jaison.py::1027 response_pipeline]: Response job a9670027-ce0d-4f23-b0b2-b309fca07e5a completed. Content: 'Ого, звучит интригующе! Что именно ты заметил? Расскажи, может, пригодится для наших будущих апдейто...'
+[2026-09-04 15:43:56,243] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:05.984
+[2026-09-04 15:43:56,276] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 15:43:56,960] [INFO ] [jaison.py::498 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 15:43:59,089] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:03.360
+[2026-09-04 15:43:59,095] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 15:43:59,347] [INFO ] [jaison.py::498 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 15:43:59,348] [INFO ] [jaison.py::459 create_job]: Queued new context_conversation_add_text job d4776bc8-d4c7-4db6-805b-d71b7fcf9ef0
+[2026-09-04 15:43:59,349] [INFO ] [jaison.py::459 create_job]: Queued new response job f0eaf000-f3fc-4f04-bbbe-5e3fa1ef36bb
+[2026-09-04 15:44:02,277] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 2927.6166999479756 ms
+[2026-09-04 15:44:06,330] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 4205.002199974842 ms
+[2026-09-04 15:44:10,066] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3736.2607000395656 ms
+[2026-09-04 15:44:13,146] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:12.064
+[2026-09-04 15:44:13,167] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 15:44:13,615] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3548.644300084561 ms
+[2026-09-04 15:44:13,617] [INFO ] [jaison.py::1027 response_pipeline]: Response job f0eaf000-f3fc-4f04-bbbe-5e3fa1ef36bb completed. Content: 'Слушать голос в Discord можно, подключив к голосовому каналу бота‑транскрибера (например, Craig, Voc...'
+[2026-09-04 15:44:14,346] [INFO ] [jaison.py::498 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 15:44:14,347] [INFO ] [jaison.py::459 create_job]: Queued new context_conversation_add_text job 6018a1ae-f969-44b7-8c8a-b506e786fb6e
+[2026-09-04 15:44:14,347] [INFO ] [jaison.py::459 create_job]: Queued new response job 71e4f9ac-13ed-423e-b334-5799b361c5c4
+[2026-09-04 15:44:14,821] [INFO ] [jaison.py::459 create_job]: Queued new context_conversation_add_text job c172db38-82f1-44db-84db-e3c136f94503
+[2026-09-04 15:44:14,821] [INFO ] [jaison.py::459 create_job]: Queued new response job 94dec3e5-0f9b-424d-bbfd-10d763cdc010
+[2026-09-04 15:44:14,974] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 625.5288000684232 ms
+[2026-09-04 15:44:15,790] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:04.736
+[2026-09-04 15:44:15,801] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 15:44:16,285] [INFO ] [jaison.py::498 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 15:44:16,286] [INFO ] [jaison.py::492 _clear_current_job]: Job 71e4f9ac-13ed-423e-b334-5799b361c5c4 (response) is being cancelled due to: user_speaking_significant
+[2026-09-04 15:44:16,463] [INFO ] [jaison.py::773 _process_job_loop]: Job 71e4f9ac-13ed-423e-b334-5799b361c5c4 (response) was cancelled.
+[2026-09-04 15:44:27,982] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:09.760
+[2026-09-04 15:44:27,998] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 15:44:29,052] [INFO ] [jaison.py::498 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 15:44:29,054] [INFO ] [jaison.py::459 create_job]: Queued new context_conversation_add_text job 3efad699-d27b-4892-bccc-b0c0fe5db4bd
+[2026-09-04 15:44:29,054] [INFO ] [jaison.py::459 create_job]: Queued new response job f93a1e99-799c-48f7-9aa7-2957805b872e
+[2026-09-04 15:44:29,540] [INFO ] [jaison.py::459 create_job]: Queued new context_conversation_add_text job ad8b79b6-97fa-4a6d-97ff-094b36808303
+[2026-09-04 15:44:29,540] [INFO ] [jaison.py::459 create_job]: Queued new response job c23af1e3-cccc-40ef-a699-176eabe11bec
+[2026-09-04 15:44:29,894] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 839.7051999345422 ms
+[2026-09-04 15:44:30,670] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:04.608
+[2026-09-04 15:44:30,679] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 15:44:31,106] [INFO ] [jaison.py::498 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 15:44:31,106] [INFO ] [jaison.py::492 _clear_current_job]: Job f93a1e99-799c-48f7-9aa7-2957805b872e (response) is being cancelled due to: user_speaking_significant
+[2026-09-04 15:44:31,291] [INFO ] [jaison.py::773 _process_job_loop]: Job f93a1e99-799c-48f7-9aa7-2957805b872e (response) was cancelled.
+[2026-09-04 15:44:31,613] [INFO ] [jaison.py::459 create_job]: Queued new context_conversation_add_text job 6c39befc-9497-4bf6-b91a-8697ec8ba485
+[2026-09-04 15:44:31,613] [INFO ] [jaison.py::459 create_job]: Queued new response job c55d3fc9-7bee-47a7-9a2a-9d7b9c172209
+[2026-09-04 15:44:32,337] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 723.155300016515 ms
+[2026-09-04 15:44:35,468] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:03.136
+[2026-09-04 15:44:35,474] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.048 of audio
+[2026-09-04 15:44:35,874] [INFO ] [jaison.py::498 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 15:44:35,874] [INFO ] [jaison.py::492 _clear_current_job]: Job c55d3fc9-7bee-47a7-9a2a-9d7b9c172209 (response) is being cancelled due to: user_speaking_significant
+[2026-09-04 15:44:36,068] [INFO ] [jaison.py::773 _process_job_loop]: Job c55d3fc9-7bee-47a7-9a2a-9d7b9c172209 (response) was cancelled.
+[2026-09-04 15:44:36,390] [INFO ] [jaison.py::459 create_job]: Queued new context_conversation_add_text job 527b70b9-4050-4d43-a81a-6f20ef452be4
+[2026-09-04 15:44:36,390] [INFO ] [jaison.py::459 create_job]: Queued new response job b6c20d1c-b278-45e3-a222-d1fad650dfc6
+[2026-09-04 15:44:37,257] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 865.9116999479011 ms
+[2026-09-04 15:44:38,829] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:03.424
+[2026-09-04 15:44:38,836] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 15:44:39,213] [INFO ] [jaison.py::498 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 15:44:39,213] [INFO ] [jaison.py::492 _clear_current_job]: Job b6c20d1c-b278-45e3-a222-d1fad650dfc6 (response) is being cancelled due to: user_speaking_significant
+[2026-09-04 15:44:39,215] [INFO ] [jaison.py::284 _record_stt_metrics]: STT metrics(window=20): avg_latency_ms=365 empty_rate=0.350 stop_cmd_recall=0.000
+[2026-09-04 15:44:39,390] [INFO ] [jaison.py::773 _process_job_loop]: Job b6c20d1c-b278-45e3-a222-d1fad650dfc6 (response) was cancelled.
+[2026-09-04 15:44:39,730] [INFO ] [jaison.py::459 create_job]: Queued new context_conversation_add_text job deaabdab-9389-41b9-bc87-f7e275127300
+[2026-09-04 15:44:39,730] [INFO ] [jaison.py::459 create_job]: Queued new response job 77bf062c-2dce-406a-a981-2fa63c4652f3
+[2026-09-04 15:44:40,514] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 783.678000094369 ms
+[2026-09-04 15:44:43,377] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2963.4468998992816 ms
+[2026-09-04 15:44:46,612] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3235.9861000441015 ms
+[2026-09-04 15:44:46,987] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.240
+[2026-09-04 15:44:46,991] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:02.240 of audio
+[2026-09-04 15:44:49,227] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2614.183499943465 ms
+[2026-09-04 15:44:49,228] [INFO ] [jaison.py::1027 response_pipeline]: Response job 77bf062c-2dce-406a-a981-2fa63c4652f3 completed. Content: 'За распознавание отвечает параметр `speech_recognition` (или в некоторых ботах `stt_enabled`). Включ...'
+[2026-09-04 15:44:59,171] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.248
+[2026-09-04 15:44:59,175] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.248 of audio
+[2026-09-04 15:45:28,266] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.568
+[2026-09-04 15:45:28,270] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.568 of audio
+[2026-09-04 15:45:46,637] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.760
+[2026-09-04 15:45:46,641] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.760 of audio
+[2026-09-04 15:45:51,975] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-04 15:45:51,977] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-04 15:46:04,135] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.024
+[2026-09-04 15:46:04,138] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.024 of audio
+[2026-09-04 15:46:05,250] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.120
+[2026-09-04 15:46:05,252] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.120 of audio
+[2026-09-04 15:47:06,316] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.280
+[2026-09-04 15:47:06,319] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.280 of audio
+[2026-09-04 15:47:06,726] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.928
+[2026-09-04 15:47:06,728] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.928 of audio
+[2026-09-04 15:47:25,515] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.152
+[2026-09-04 15:47:25,518] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 15:47:25,938] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-04 15:47:25,941] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-04 15:47:34,051] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.344
+[2026-09-04 15:47:34,054] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 15:47:43,896] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.056
+[2026-09-04 15:47:43,898] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.056 of audio
+[2026-09-04 15:47:44,367] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.960
+[2026-09-04 15:47:44,369] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.960 of audio
+[2026-09-04 15:47:53,167] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.368
+[2026-09-04 15:47:53,172] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.304 of audio
+[2026-09-04 15:48:38,566] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.216
+[2026-09-04 15:48:38,568] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.216 of audio
+[2026-09-04 15:48:41,324] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.928
+[2026-09-04 15:48:41,326] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.928 of audio
+[2026-09-04 15:48:47,434] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:02.528
+[2026-09-04 15:48:47,439] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.944 of audio
+[2026-09-04 15:48:48,135] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.736
+[2026-09-04 15:48:48,138] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.736 of audio
+[2026-09-04 15:49:01,766] [INFO ] [jaison.py::498 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 15:49:02,281] [INFO ] [jaison.py::459 create_job]: Queued new context_conversation_add_text job 05c756d0-9385-4c7c-bd9e-f4b930010f86
+[2026-09-04 15:49:02,281] [INFO ] [jaison.py::459 create_job]: Queued new response job 6016530a-cc66-4f4d-ab9a-4460baaacead
+[2026-09-04 15:49:02,952] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 669.6635000407696 ms
+[2026-09-04 15:49:05,410] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.312
+[2026-09-04 15:49:05,413] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.000 of audio
+[2026-09-04 15:49:05,679] [INFO ] [jaison.py::498 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+[2026-09-04 15:49:05,679] [INFO ] [jaison.py::492 _clear_current_job]: Job 6016530a-cc66-4f4d-ab9a-4460baaacead (response) is being cancelled due to: user_speaking_significant
+[2026-09-04 15:49:05,680] [INFO ] [jaison.py::284 _record_stt_metrics]: STT metrics(window=40): avg_latency_ms=1414 empty_rate=0.550 stop_cmd_recall=0.000
+[2026-09-04 15:49:05,937] [INFO ] [jaison.py::773 _process_job_loop]: Job 6016530a-cc66-4f4d-ab9a-4460baaacead (response) was cancelled.
+[2026-09-04 15:49:06,187] [INFO ] [jaison.py::459 create_job]: Queued new context_conversation_add_text job f056764a-93f7-48fc-b9ab-5dc2d44bd13b
+[2026-09-04 15:49:06,187] [INFO ] [jaison.py::459 create_job]: Queued new response job d6052091-d021-4379-867d-3f7880f9c6b0
+[2026-09-04 15:49:06,979] [INFO ] [operation.py::25 __call__]: T2T operation universal_api completed in 790.2081999927759 ms
+[2026-09-04 15:49:10,052] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3131.984099978581 ms
+[2026-09-04 15:49:12,899] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2847.0383998937905 ms
+[2026-09-04 15:49:12,900] [INFO ] [jaison.py::1027 response_pipeline]: Response job d6052091-d021-4379-867d-3f7880f9c6b0 completed. Content: 'Поняла, Amara умеет генерировать субтитры прямо из видео. Что конкретно нужно сделать с ними — добав...'
+[2026-09-04 15:49:18,855] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:01.984
+[2026-09-04 15:49:18,860] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:01.984 of audio
+[2026-09-04 15:49:22,635] [INFO ] [transcribe.py::881 transcribe]: Processing audio with duration 00:00.992
+[2026-09-04 15:49:22,637] [INFO ] [transcribe.py::895 transcribe]: VAD filter removed 00:00.992 of audio
+[2026-09-04 16:01:09,138] [INFO ] [app_server.py::86 ws]: Closed websocket connection

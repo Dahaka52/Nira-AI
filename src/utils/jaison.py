@@ -11,6 +11,12 @@ from collections import deque
 from typing import Dict, Coroutine, List, Any, Tuple
 from enum import Enum
 from utils.args import args
+from utils.console import (
+    print_stt, print_stt_done, print_stage,
+    print_llm_start, print_llm_done,
+    print_tts_phrase, print_tts_done,
+    print_interrupt,
+)
 
 from utils.helpers.singleton import Singleton
 from utils.helpers.iterable import chunk_buffer
@@ -108,6 +114,7 @@ class JAIson(metaclass=Singleton):
     
     async def start(self):
         logging.info("Starting JAIson application layer.")
+        print_stage("CORE", "Инициализация JAIson (очереди, события)…", "boot")
         self.job_queue = asyncio.Queue()
         self.job_map = dict()
         self.job_skips = dict()
@@ -118,13 +125,16 @@ class JAIson(metaclass=Singleton):
         
         self.prompter = Prompter()
         await self.prompter.configure(Config().prompter)
+        print_stage("PROMPT", f"Промпт загружен: {getattr(Config().prompter, 'character_name', '?') if hasattr(Config().prompter, 'character_name') else Config().prompter.get('character_name', '?') if isinstance(Config().prompter, dict) else '?'}", "ok")
         
         self.process_manager = ProcessManager()
         self.op_manager = OperationManager()
         self.mcp_manager = MCPManager()
         await self.mcp_manager.start()
         self.prompter.add_mcp_usage_prompt(self.mcp_manager.get_tooling_prompt(), self.mcp_manager.get_response_prompt())
+        print_stage("OPS", "Загрузка операций из конфига…", "boot")
         await self.op_manager.load_operations_from_config()
+        print_stage("OPS", "Операции загружены (STT/T2T/TTS)", "ok")
         await self.process_manager.reload()
         self._immediate_audio_lock = asyncio.Lock()
         
@@ -132,8 +142,10 @@ class JAIson(metaclass=Singleton):
         from utils.processes.manager import ProcessType
         try:
             await self.process_manager.link("core_hw_mic", ProcessType.HW_MIC)
+            print_stage("MIC", "Микрофон подключён", "ok")
         except Exception as e:
             logging.error(f"Could not start HW_MIC process: {e}")
+            print_stage("MIC", f"Ошибка микрофона: {e}", "error")
 
         discord_cfg = Config().discord or {}
         if isinstance(discord_cfg, dict) and discord_cfg.get("enabled", False):
@@ -143,10 +155,13 @@ class JAIson(metaclass=Singleton):
                     ProcessType.DISCORD,
                     process_config=discord_cfg,
                 )
+                print_stage("DISCORD", "Discord Bridge запущен", "ok")
             except Exception as e:
                 logging.error(f"Could not start Discord bridge: {e}")
+                print_stage("DISCORD", f"Ошибка Discord Bridge: {e}", "error")
 
         logging.info("JAIson application layer has started.")
+        print_stage("READY", "✨ Нира готова к работе!", "ok")
         
     async def stop(self):
         logging.info("Shutting down JAIson application layer")
@@ -481,6 +496,7 @@ class JAIson(metaclass=Singleton):
     def _interrupt_jobs(self, reason: str = "user_interruption"):
         """Экстренное прерывание: очистка очереди и текущей задачи"""
         logging.info(f"Smart Barge-in: Interrupting and clearing queue due to: {reason}")
+        print_interrupt(reason=reason)
         self._cancel_pending_voice_response()
         
         # 1. Очищаем очередь и связанные coroutine в job_map
@@ -825,6 +841,8 @@ class JAIson(metaclass=Singleton):
         first_audio_sent = False
         self._assistant_live_job_id = job_id
         self._assistant_live_reply = ""
+        # ── Цветная метка: начало генерации LLM ──
+        print_llm_start(source_id=source_id, mode=input_mode or "text")
         await self._handle_broadcast_start(job_id, job_type, {
             "include_audio": include_audio,
             "input_mode": input_mode,
@@ -883,6 +901,9 @@ class JAIson(metaclass=Singleton):
                 full_filtered_text += phrase
                 
                 if include_audio:
+                    # ── Цветная метка: фраза передана на TTS ──
+                    print_tts_phrase(phrase)
+                    tts_t0 = time.time()
                     try:
                         async for audio_chunk_out in self.op_manager.use_operation(OpRoles.TTS, {"content": phrase}):
                             async for final_audio_chunk_out in self.op_manager.use_operation(OpRoles.FILTER_AUDIO, audio_chunk_out):
@@ -902,6 +923,8 @@ class JAIson(metaclass=Singleton):
                                                 audio_event["e2e_tts_start_ms"] = int((time.time() - float(input_timestamp)) * 1000)
                                             except Exception: pass
                                     await self._handle_broadcast_event(job_id, job_type, audio_event)
+                        # ── TTS фраза готова ──
+                        print_tts_done(latency_ms=int((time.time() - tts_t0) * 1000))
                     except Exception as e:
                         logging.error(f"TTS Worker error: {e}", exc_info=True)
                 
@@ -991,10 +1014,17 @@ class JAIson(metaclass=Singleton):
         if self._assistant_live_job_id == job_id:
             self._assistant_live_job_id = None
             self._assistant_live_reply = ""
-                        
+
+        # ── Цветная метка: LLM завершён ──
+        print_llm_done(
+            chars=len(full_filtered_text),
+            latency_ms=latency if latency else None,
+            tps=tps if 'tps' in dir() else None,
+        )
+
         # Broadcast completion
         await self._handle_broadcast_success(job_id, job_type)
-        logging.info(f"Response job {job_id} completed. Content: '{full_filtered_text[:100]}...'")
+        logging.info(f"Response job {job_id} completed. Content: '{full_filtered_text[:100]}...'") 
 
 
     # Context modification
@@ -1282,6 +1312,12 @@ class JAIson(metaclass=Singleton):
                 utterance_id=utterance_id,
                 provider=stt_provider,
             )
+
+        # ── Цветная метка: STT результат ──
+        if content and content.strip():
+            print_stt_done(content, source=source_id, latency_ms=stt_latency_ms)
+        else:
+            print_stt("", source=source_id)  # тихо пропускаем пустые
 
         if not content or len(content.strip()) == 0:
             await self._record_stt_metrics(

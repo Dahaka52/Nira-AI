@@ -2,6 +2,7 @@ import os
 import subprocess
 from utils.config import Config
 from utils.processes.base import BaseProcess
+from utils.console import print_stage, print_vad_event, C_YELLOW, C_BLACK, RESET, DIM
 
 class HwMicProcess(BaseProcess):
     def __init__(self):
@@ -17,7 +18,7 @@ class HwMicProcess(BaseProcess):
         if not mic_conf.get("enabled", False):
             return
             
-        print("[ProcessManager] Starting Hardware Microphone (hw-mic-client)...")
+        print_stage("MIC", "Запуск Hardware Microphone (hw-mic-client)...", "boot")
         
         # Получаем параметры
         dev_idx = mic_conf.get("device_index", None)
@@ -88,12 +89,28 @@ class HwMicProcess(BaseProcess):
             bufsize=1  # [OPTIMIZE] Line-buffered for real-time console logs
         )
         
-        # Чтение вывода в фоне (просто печатаем в консоль JAIson)
         import threading
         def stream_logs(pipe):
             if pipe:
                 for line in iter(pipe.readline, ''):
-                    print(line, end='', flush=True)
+                    stripped = line.strip()
+                    if not stripped:
+                        continue
+                    low = stripped.lower()
+                    # ── VAD события от hw-mic-client ──
+                    if "speech_start" in low or "voice start" in low or "speech start" in low:
+                        print_vad_event("speech_start", source="hw-mic", detail=stripped)
+                    elif "speech_end" in low or "voice end" in low or "speech end" in low:
+                        print_vad_event("speech_end", source="hw-mic", detail=stripped)
+                    elif "silence" in low:
+                        print_vad_event("silence", source="hw-mic", detail=stripped)
+                    elif "error" in low or "exception" in low or "fail" in low:
+                        print_stage("MIC", stripped, "error")
+                    elif "warn" in low:
+                        print_stage("MIC", stripped, "warn")
+                    else:
+                        # Обычный вывод — с дим prefix
+                        print(f"  {DIM}{C_BLACK}[mic]{RESET} {DIM}{stripped}{RESET}")
                 pipe.close()
 
         threading.Thread(target=stream_logs, args=(self.process.stdout,), daemon=True).start()
