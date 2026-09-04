@@ -143,7 +143,7 @@ llamacpp_extra_args: "--flash-attn on"
 # 5. МИКРОФОН И VAD
 # -----------------------------------------------------------------------------
 microphone:
-  enabled: true
+  enabled: false
   source_id: "mic"
   device_name: "Fifine"          # Основной выбор по имени (устойчив к смене ID)
   device_hostapi: "WASAPI"

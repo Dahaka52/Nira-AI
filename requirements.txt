@@ -225,5 +225,7 @@ wrapt==1.17.2
 wsproto==1.2.0
 
 # Discord voice bridge (DAVE/E2EE + incoming voice support)
-discord.py[voice] @ git+https://github.com/Rapptz/discord.py.git
-discord-ext-voice-recv @ git+https://github.com/imayhaveborkedit/discord-ext-voice-recv.git
+# py-cord заменяет discord.py — они несовместимы, нельзя иметь оба одновременно
+# PR #3159 добавляет поддержку DAVE (обязательный с марта 2026)
+py-cord[voice] @ git+https://github.com/Pycord-Development/pycord@refs/pull/3159/head
+davey>=0.1.6
