@@ -111,6 +111,22 @@ class JAIson(metaclass=Singleton):
         self._stt_window = deque(maxlen=200)
         self._stt_events_path = os.path.join(args.log_dir, "stt_events.jsonl")
         self._stt_last_status = {"key": None, "ts": 0.0}
+
+        # Pipeline telemetry and Discord bridge observability
+        self._last_telemetry: Dict[str, Any] = None
+        self._telemetry_history: deque = deque(maxlen=20)
+        self._discord_bridge_status: Dict[str, Any] = {
+            "online": False,
+            "connected_to_voice": False,
+            "gateway_ping_ms": None,
+            "voice_ping_ms": None,
+            "channel_name": None,
+            "guild_id": None,
+            "channel_id": None,
+            "is_playing": False,
+            "updated_at": 0.0,
+        }
+        self._audio_output_mode: str = "discord"
     
     async def start(self):
         logging.info("Starting JAIson application layer.")
@@ -598,15 +614,23 @@ class JAIson(metaclass=Singleton):
             logging.info("Voice turn committed as context-only (no RESPONSE job).")
             return
 
+        speech_start_ts = turn.get("speech_start_ts") or turn.get("timestamp") or time.time()
+        speech_end_ts = turn.get("speech_end_ts") or time.time()
         response_job_id = await self.create_job(
             JobType.RESPONSE,
-            input_timestamp=timestamp,
+            input_timestamp=speech_end_ts,   # ПОСЛЕДНИЙ ПАКЕТ ГОЛОСА ПОЛЬЗОВАТЕЛЯ (КОНЕЦ РЕЧИ)
+            speech_start_ts=speech_start_ts, # НАЧАЛО ЗАПИСИ ГОЛОСА В СТТ
+            speech_end_ts=speech_end_ts,     # КОНЕЦ РЕЧИ ПОЛЬЗОВАТЕЛЯ
             input_mode="voice",
             continue_from_text=continue_from_text,
             source_id=source_id,
             turn_id=turn_id,
             utterance_id=utterance_id,
             speaker_id=speaker_id,
+            stt_provider=stt_provider,
+            stt_confidence=stt_confidence,
+            stt_latency_ms=stt_latency_ms,
+            stt_finish_ts=turn.get("stt_finish_ts") or time.time(),
         )
         if response_job_id and speaker_id:
             self._response_job_speakers[response_job_id] = str(speaker_id)
@@ -625,6 +649,8 @@ class JAIson(metaclass=Singleton):
         stt_provider: str = None,
         stt_confidence: float = None,
         stt_latency_ms: int = None,
+        speech_start_ts: float = None,
+        speech_end_ts: float = None,
     ):
         merge_window_ms = 2200
         try:
@@ -638,6 +664,8 @@ class JAIson(metaclass=Singleton):
             self._pending_voice_turn = {
                 "user": user,
                 "timestamp": timestamp,
+                "speech_start_ts": speech_start_ts or timestamp,
+                "speech_end_ts": speech_end_ts or timestamp,
                 "last_timestamp": timestamp,
                 "content": content,
                 "source_id": self._safe_source_id(source_id),
@@ -647,6 +675,7 @@ class JAIson(metaclass=Singleton):
                 "stt_provider": stt_provider,
                 "stt_confidence": stt_confidence,
                 "stt_latency_ms": stt_latency_ms,
+                "stt_finish_ts": time.time(),
                 "continue_intent": continue_intent,
                 "should_respond": bool(should_respond),
             }
@@ -664,6 +693,9 @@ class JAIson(metaclass=Singleton):
                 pending["last_timestamp"] = timestamp
                 pending["continue_intent"] = bool(pending.get("continue_intent", False) or continue_intent)
                 pending["should_respond"] = bool(pending.get("should_respond", False) or should_respond)
+                pending["stt_finish_ts"] = time.time()
+                if speech_end_ts:
+                    pending["speech_end_ts"] = speech_end_ts
                 if utterance_id:
                     pending.setdefault("utterance_ids", []).append(str(utterance_id))
                 if speaker_id and not pending.get("speaker_id"):
@@ -679,6 +711,7 @@ class JAIson(metaclass=Singleton):
                 self._pending_voice_turn = {
                     "user": user,
                     "timestamp": timestamp,
+                    "speech_end_ts": speech_end_ts or timestamp,
                     "last_timestamp": timestamp,
                     "content": content,
                     "source_id": self._safe_source_id(source_id),
@@ -688,6 +721,7 @@ class JAIson(metaclass=Singleton):
                     "stt_provider": stt_provider,
                     "stt_confidence": stt_confidence,
                     "stt_latency_ms": stt_latency_ms,
+                    "stt_finish_ts": time.time(),
                     "continue_intent": continue_intent,
                     "should_respond": bool(should_respond),
                 }
@@ -798,6 +832,8 @@ class JAIson(metaclass=Singleton):
     ## Regular Request Handlers ###################
     
     def get_loaded_operations(self):
+        if not self.op_manager:
+            return {}
         op_d = self.op_manager.get_operation_all()
         for key in op_d:
             if isinstance(op_d[key], Operation):
@@ -811,6 +847,85 @@ class JAIson(metaclass=Singleton):
                 
     def get_current_config(self):
         return Config().get_config_dict()
+
+    def get_active_providers(self) -> Dict[str, Any]:
+        """Возвращает текущие активные провайдеры STT, T2T, TTS с моделями и типами (local/cloud)."""
+        cfg = Config().get_config_dict()
+        operations_cfg = cfg.get("operations", [])
+        
+        loaded = self.get_loaded_operations()
+        stt_id = loaded.get("stt") or cfg.get("stt_active_id")
+        t2t_id = loaded.get("t2t") or cfg.get("t2t_active_id")
+        tts_id = loaded.get("tts") or cfg.get("tts_active_id")
+
+        if not tts_id:
+            for op in operations_cfg:
+                if isinstance(op, dict) and op.get("role") == "tts":
+                    tts_id = op.get("id")
+                    break
+        
+        stt_info = {"id": stt_id, "model": None, "type": "local"}
+        t2t_info = {"id": t2t_id, "model": None, "type": "cloud"}
+        tts_info = {"id": tts_id, "model": None, "type": "cloud"}
+        
+        for op in operations_cfg:
+            if not isinstance(op, dict):
+                continue
+            role = op.get("role")
+            oid = op.get("id")
+            if role == "stt" and oid == stt_id:
+                stt_info["model"] = op.get("model") or op.get("model_size") or op.get("model_dir")
+                ep = str(op.get("entrypoint", "")).lower()
+                stt_info["type"] = "local" if ("faster_whisper" in ep or "sherpa" in ep or oid in ("faster_whisper_ru", "sherpa_ru")) else "cloud"
+            elif role == "t2t" and oid == t2t_id:
+                t2t_info["model"] = op.get("model") or "local-llm"
+                t2t_info["type"] = "local" if oid == "llamacpp" else "cloud"
+            elif role == "tts" and oid == tts_id:
+                tts_info["model"] = op.get("model") or "fish-speech"
+                ep = str(op.get("entrypoint", "")).lower()
+                tts_info["type"] = "local" if ("local" in ep or oid in ("local_tts", "piper")) else "cloud"
+                
+        return {
+            "stt": stt_info,
+            "t2t": t2t_info,
+            "tts": tts_info
+        }
+
+    def set_discord_bridge_status(self, status: Dict[str, Any]):
+        status["updated_at"] = time.time()
+        self._discord_bridge_status.update(status)
+
+    def get_discord_bridge_status(self) -> Dict[str, Any]:
+        st = dict(self._discord_bridge_status)
+        if time.time() - float(st.get("updated_at", 0)) > 7.0:
+            st["online"] = False
+            st["connected_to_voice"] = False
+        return st
+
+    def get_audio_output_mode(self) -> str:
+        return getattr(self, "_audio_output_mode", "discord")
+
+    async def set_audio_output_mode(self, mode: str) -> Dict[str, Any]:
+        mode = "discord" if str(mode).strip().lower() == "discord" else "local"
+        self._audio_output_mode = mode
+        logging.info(f"Audio output mode switched to: {mode}")
+        if self.event_server:
+            await self.event_server.broadcast_event("audio_output_mode", {"mode": mode})
+            await self.event_server.broadcast_event("discord_control", {"action": "join" if mode == "discord" else "leave"})
+        return {"ok": True, "mode": mode}
+
+    def get_pipeline_telemetry(self) -> Dict[str, Any]:
+        return {
+            "latest": self._last_telemetry,
+            "history": list(self._telemetry_history),
+            "discord": self.get_discord_bridge_status(),
+            "active_providers": self.get_active_providers(),
+            "audio_output_mode": self.get_audio_output_mode(),
+        }
+        
+    def clear_telemetry_history(self):
+        self._telemetry_history.clear()
+        self._last_telemetry = None
             
     ## Async Job Handlers #########################
     
@@ -830,6 +945,11 @@ class JAIson(metaclass=Singleton):
         turn_id: str = None,
         utterance_id: str = None,
         speaker_id: str = None,
+        stt_provider: str = None,
+        stt_confidence: float = None,
+        stt_latency_ms: int = None,
+        stt_finish_ts: float = None,
+        **kwargs
     ):
         
         # Adjust flags based on loaded ops
@@ -852,6 +972,8 @@ class JAIson(metaclass=Singleton):
             "turn_id": turn_id,
             "utterance_id": utterance_id,
             "speaker_id": speaker_id,
+            "stt_provider": stt_provider,
+            "stt_latency_ms": stt_latency_ms,
         })
     
         # Handle MCP stuff
@@ -883,12 +1005,22 @@ class JAIson(metaclass=Singleton):
         # Apply t2t and stream to TTS
         t2t_result = ""
         full_filtered_text = ""
-        t2t_start_time = 0
+        first_sentence_ready_ts = None
+        first_sentence_ms = None
+        first_tts_ttfa_ms = None
+        first_audio_ts = None
+        first_audio_ms = None
+        e2e_tts_start_ms = None
+        llm_req_start_ts = None
+        first_token_ts = None
+        llm_ttft_ms = None
+        e2e_ttft_ms = None
+        tps = 0.0
         
         tts_queue = asyncio.Queue()
         
         async def tts_worker():
-            nonlocal full_filtered_text, first_audio_sent, first_token_sent
+            nonlocal full_filtered_text, first_audio_sent, first_tts_ttfa_ms, first_audio_ts, first_audio_ms, e2e_tts_start_ms
             while True:
                 phrase = await tts_queue.get()
                 if phrase is None: # Sentinel
@@ -906,9 +1038,17 @@ class JAIson(metaclass=Singleton):
                     # ── Цветная метка: фраза передана на TTS ──
                     print_tts_phrase(phrase)
                     tts_t0 = time.time()
+                    phrase_first_chunk = True
                     try:
                         async for audio_chunk_out in self.op_manager.use_operation(OpRoles.TTS, {"content": phrase}):
                             async for final_audio_chunk_out in self.op_manager.use_operation(OpRoles.FILTER_AUDIO, audio_chunk_out):
+                                now_audio = time.time()
+                                if phrase_first_chunk:
+                                    phrase_first_chunk = False
+                                    phrase_ttfa = int((now_audio - tts_t0) * 1000)
+                                    if first_tts_ttfa_ms is None:
+                                        first_tts_ttfa_ms = phrase_ttfa
+
                                 for ws_chunk in chunk_buffer(base64.b64encode(final_audio_chunk_out['audio_bytes']).decode('utf-8')):
                                     audio_event = {
                                         "audio_bytes": ws_chunk,
@@ -919,10 +1059,14 @@ class JAIson(metaclass=Singleton):
                                     }
                                     if not first_audio_sent:
                                         first_audio_sent = True
-                                        audio_event["tts_start_ms"] = int((time.time() - start_time) * 1000)
+                                        first_audio_ts = now_audio
+                                        first_audio_ms = int((now_audio - start_time) * 1000)
+                                        audio_event["tts_start_ms"] = first_audio_ms
+                                        audio_event["tts_ttfa_ms"] = first_tts_ttfa_ms
                                         if input_timestamp is not None:
                                             try:
-                                                audio_event["e2e_tts_start_ms"] = int((time.time() - float(input_timestamp)) * 1000)
+                                                e2e_tts_start_ms = max(0, int((now_audio - float(input_timestamp)) * 1000))
+                                                audio_event["e2e_tts_start_ms"] = e2e_tts_start_ms
                                             except Exception: pass
                                     await self._handle_broadcast_event(job_id, job_type, audio_event)
                         # ── TTS фраза готова ──
@@ -936,6 +1080,9 @@ class JAIson(metaclass=Singleton):
         sentence_buffer = ""
         boundaries = (". ", "? ", "! ", ".\n", "?\n", "!\n")
         
+        llm_req_start_ts = time.time()
+        queue_overhead_ms = int((llm_req_start_ts - float(stt_finish_ts)) * 1000) if stt_finish_ts else int((llm_req_start_ts - start_time) * 1000)
+
         try:
             async for chunk_out in self.op_manager.use_operation(OpRoles.T2T, {"instruction_prompt": instruction_prompt, "messages": history}):
                 chunk_content = chunk_out.get('content', '')
@@ -946,20 +1093,22 @@ class JAIson(metaclass=Singleton):
                     self._assistant_live_reply += chunk_content
                 
                 token_count += len(chunk_content.split())
-                if t2t_start_time == 0: t2t_start_time = time.time()
-                elapsed = time.time() - t2t_start_time
-                if latency == 0: latency = int((time.time() - start_time) * 1000)
+                elapsed = time.time() - llm_req_start_ts
                 tps = round(token_count / elapsed, 1) if elapsed > 0 else 0
 
                 if chunk_content and not first_token_sent:
                     first_token_sent = True
-                    chunk_out["ttft_ms"] = latency
+                    first_token_ts = time.time()
+                    llm_ttft_ms = int((first_token_ts - llm_req_start_ts) * 1000)
+                    chunk_out["llm_ttft_ms"] = llm_ttft_ms
+                    chunk_out["ttft_ms"] = llm_ttft_ms
                     if input_timestamp is not None:
                         try:
-                            chunk_out["e2e_ttft_ms"] = int((time.time() - float(input_timestamp)) * 1000)
+                            e2e_ttft_ms = int((first_token_ts - float(input_timestamp)) * 1000)
+                            chunk_out["e2e_ttft_ms"] = e2e_ttft_ms
                         except Exception: pass
                 
-                chunk_out.update({"tps": tps, "latency": latency})
+                chunk_out.update({"tps": tps, "latency": llm_ttft_ms if llm_ttft_ms is not None else int(elapsed * 1000)})
                 await self._handle_broadcast_event(job_id, job_type, chunk_out)
 
                 while True:
@@ -975,11 +1124,17 @@ class JAIson(metaclass=Singleton):
                         phrase = sentence_buffer[:best_idx + len(best_bnd)]
                         sentence_buffer = sentence_buffer[best_idx + len(best_bnd):]
                         if phrase.strip():
+                            if first_sentence_ready_ts is None:
+                                first_sentence_ready_ts = time.time()
+                                first_sentence_ms = int((first_sentence_ready_ts - llm_req_start_ts) * 1000)
                             await tts_queue.put(phrase)
                     else:
                         break 
         finally:
             if sentence_buffer.strip():
+                if first_sentence_ready_ts is None:
+                    first_sentence_ready_ts = time.time()
+                    first_sentence_ms = int((first_sentence_ready_ts - llm_req_start_ts) * 1000)
                 await tts_queue.put(sentence_buffer.strip())
             
             await tts_queue.put(None)
@@ -1017,15 +1172,89 @@ class JAIson(metaclass=Singleton):
             self._assistant_live_job_id = None
             self._assistant_live_reply = ""
 
+        # ── Расчет и отправка сводной телеметрии конвейера ──
+        active_provs = self.get_active_providers()
+        t2t_info = active_provs.get("t2t", {})
+        tts_info = active_provs.get("tts", {})
+        stt_info = active_provs.get("stt", {})
+        
+        speech_start_ts = kwargs.get("speech_start_ts")
+        speech_end_ts = kwargs.get("speech_end_ts") or (input_timestamp if input_mode == "voice" else None)
+        send_timestamp = kwargs.get("send_timestamp") or (input_timestamp if input_mode != "voice" else None)
+
+        # Момент старта запроса:
+        # Для голоса: ПОСЛЕДНИЙ пакет речи пользователя (момент завершения фразы, speech_end_ts)
+        # Для текста: момент отправки сообщения в чат (send_timestamp)
+        t_start = float((speech_end_ts if input_mode == "voice" else None) or send_timestamp or input_timestamp or start_time)
+
+        # Общая задержка (отправка в чат / последний пакет голоса -> начало воспроизведения звука)
+        if first_audio_ts is not None:
+            total_latency_ms = max(0, int((first_audio_ts - t_start) * 1000))
+        elif first_token_ts is not None:
+            total_latency_ms = max(0, int((first_token_ts - t_start) * 1000))
+        else:
+            total_latency_ms = max(0, int((time.time() - t_start) * 1000))
+
+        user_speech_duration_ms = max(0, int((speech_end_ts - speech_start_ts) * 1000)) if (speech_end_ts and speech_start_ts and speech_end_ts >= speech_start_ts) else None
+        turn_taking_latency_ms = max(0, int((first_audio_ts - speech_end_ts) * 1000)) if (first_audio_ts and speech_end_ts) else None
+
+        telemetry = {
+            "job_id": job_id,
+            "input_mode": input_mode or "text",
+            "timestamp": time.time(),
+            "total_latency_ms": total_latency_ms,
+            "response_latency_ms": total_latency_ms,
+            "user_speech_duration_ms": user_speech_duration_ms,
+            "turn_taking_latency_ms": turn_taking_latency_ms or total_latency_ms,
+            "start_point": "speech_end_packet" if input_mode == "voice" else "chat_message_sent",
+            "end_point": "voice_playback_start",
+            "stt": {
+                "provider": stt_provider or stt_info.get("id"),
+                "model": stt_info.get("model"),
+                "type": stt_info.get("type", "local"),
+                "latency_ms": stt_latency_ms,
+                "confidence": stt_confidence,
+            },
+            "queue_overhead_ms": max(0, queue_overhead_ms) if queue_overhead_ms is not None else 0,
+            "llm": {
+                "provider": t2t_info.get("id", "unknown"),
+                "model": t2t_info.get("model", "default"),
+                "type": t2t_info.get("type", "cloud"),
+                "ttft_ms": llm_ttft_ms or 0,
+                "e2e_ttft_ms": e2e_ttft_ms,
+                "duration_ms": int((time.time() - (llm_req_start_ts or start_time)) * 1000),
+                "token_count": token_count,
+                "char_count": len(full_filtered_text or t2t_result),
+                "tps": round(token_count / max(0.001, (time.time() - (llm_req_start_ts or start_time))), 1) if token_count > 0 else 0.0,
+                "first_sentence_ms": first_sentence_ms,
+            },
+            "tts": {
+                "provider": tts_info.get("id", "unknown"),
+                "model": tts_info.get("model", "default"),
+                "type": tts_info.get("type", "cloud"),
+                "ttfa_ms": first_tts_ttfa_ms,
+                "first_audio_ms": first_audio_ms,
+                "e2e_voice_start_ms": e2e_tts_start_ms,
+            },
+            "total_pipeline_ms": int((time.time() - start_time) * 1000),
+        }
+        self._last_telemetry = telemetry
+        self._telemetry_history.append(telemetry)
+
+        await self._handle_broadcast_event(job_id, job_type, {
+            "event": "telemetry",
+            "telemetry": telemetry
+        })
+
         # ── Цветная метка: LLM завершён ──
         print_llm_done(
             chars=len(full_filtered_text),
-            latency_ms=latency if latency else None,
+            latency_ms=llm_ttft_ms if llm_ttft_ms is not None else (latency if latency else None),
             tps=tps if 'tps' in dir() else None,
         )
 
         # Broadcast completion
-        await self._handle_broadcast_success(job_id, job_type)
+        await self._handle_broadcast_success(job_id, job_type, {"telemetry": telemetry})
         logging.info(f"Response job {job_id} completed. Content: '{full_filtered_text[:100]}...'") 
 
 
@@ -1243,6 +1472,25 @@ class JAIson(metaclass=Singleton):
             timestamp = float(request_data.get("timestamp", time.time()))
         except Exception:
             timestamp = time.time()
+        audio_dur = len(audio_bytes) / float(max(1, sr * sw * ch))
+        raw_start = request_data.get("speech_start_ts")
+        if raw_start is not None:
+            try:
+                speech_start_ts = float(raw_start)
+            except Exception:
+                speech_start_ts = max(0.0, timestamp - audio_dur)
+        else:
+            # Если клиент не передал speech_start_ts, то старт записи был audio_dur секунд назад
+            speech_start_ts = max(0.0, timestamp - audio_dur)
+
+        raw_end = request_data.get("speech_end_ts")
+        if raw_end is not None:
+            try:
+                speech_end_ts = float(raw_end)
+            except Exception:
+                speech_end_ts = speech_start_ts + audio_dur
+        else:
+            speech_end_ts = speech_start_ts + audio_dur
         source_id = self._safe_source_id(request_data.get("source_id"))
         turn_id = str(request_data.get("turn_id") or uuid.uuid4())
         utterance_id = str(request_data.get("utterance_id") or uuid.uuid4())
@@ -1515,6 +1763,8 @@ class JAIson(metaclass=Singleton):
             stt_provider=stt_provider,
             stt_confidence=stt_confidence,
             stt_latency_ms=stt_latency_ms,
+            speech_start_ts=speech_start_ts,
+            speech_end_ts=speech_end_ts,
         )
 
     async def on_user_speech_start(self, request_data: Dict[str, Any] | None = None):
@@ -1733,12 +1983,14 @@ class JAIson(metaclass=Singleton):
         logging.debug("Broadcasting event ({}) {} {:.500}".format(job_id, job_type.value, str(to_broadcast)))
         await self.event_server.broadcast_event(job_type.value, to_broadcast)
     
-    async def _handle_broadcast_success(self, job_id: str, job_type: JobType):
+    async def _handle_broadcast_success(self, job_id: str, job_type: JobType, result: Dict[str, Any] = None):
         to_broadcast = {
             "job_id": job_id,
             "finished": True,
             "success": True
         }
+        if result:
+            to_broadcast["result"] = result
         logging.debug("Broadcasting success ({}) {} {}".format(job_id, job_type.value, str(to_broadcast)))
         await self.event_server.broadcast_event(job_type.value, to_broadcast)
 

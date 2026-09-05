@@ -125,12 +125,19 @@ async def get_pipeline_stats():
         except Exception:
             pass
 
+    telemetry_data = j.get_pipeline_telemetry()
+
     return create_response(200, "Pipeline stats retrieved", {
         "current_job_id": j.job_current_id,
         "queue_size": queue_size,
         "status": "active" if j.job_current_id else "idle",
         "stt": j.get_stt_runtime_stats(),
         "loaded_operations": j.get_loaded_operations(),
+        "active_providers": telemetry_data.get("active_providers"),
+        "audio_output_mode": telemetry_data.get("audio_output_mode", "discord"),
+        "telemetry": telemetry_data.get("latest"),
+        "telemetry_history": telemetry_data.get("history", []),
+        "discord_bridge": telemetry_data.get("discord"),
         "system": {
             "cpu": cpu,
             "ram": ram,
@@ -141,6 +148,50 @@ async def get_pipeline_stats():
 @app.route('/api/pipeline', methods=['OPTIONS'])
 async def preflight_pipeline():
     return create_preflight('GET')
+
+@app.route('/api/pipeline/telemetry', methods=['DELETE'])
+async def clear_pipeline_telemetry():
+    JAIson().clear_telemetry_history()
+    return create_response(200, "Telemetry history cleared", {"ok": True}, cors_header)
+
+@app.route('/api/pipeline/telemetry', methods=['OPTIONS'])
+async def preflight_clear_pipeline_telemetry():
+    return create_preflight('DELETE')
+
+@app.route('/api/output/mode', methods=['GET'])
+async def get_output_mode():
+    return create_response(200, "Output mode retrieved", {"mode": JAIson().get_audio_output_mode()}, cors_header)
+
+@app.route('/api/output/mode', methods=['POST', 'PUT'])
+async def set_output_mode():
+    try:
+        data = (await request.get_json(silent=True)) or {}
+        mode = data.get("mode", "discord")
+        res = await JAIson().set_audio_output_mode(mode)
+        return create_response(200, "Output mode updated", res, cors_header)
+    except Exception as err:
+        return create_response(500, str(err), {}, cors_header)
+
+@app.route('/api/output/mode', methods=['OPTIONS'])
+async def preflight_output_mode():
+    return create_preflight('GET, POST, PUT')
+
+@app.route('/api/bridge/discord/status', methods=['POST'])
+async def set_discord_bridge_status():
+    try:
+        data = (await request.get_json()) or {}
+        JAIson().set_discord_bridge_status(data)
+        return create_response(200, "Discord bridge status updated", {"ok": True}, cors_header)
+    except Exception as err:
+        return create_response(500, str(err), {}, cors_header)
+
+@app.route('/api/bridge/discord/status', methods=['GET'])
+async def get_discord_bridge_status():
+    return create_response(200, "Discord bridge status retrieved", JAIson().get_discord_bridge_status(), cors_header)
+
+@app.route('/api/bridge/discord/status', methods=['OPTIONS'])
+async def preflight_discord_bridge_status():
+    return create_preflight('POST, GET')
 
 @app.route('/api/health', methods=['GET'])
 async def health_check():
@@ -351,7 +402,14 @@ async def start_web_server(): # TODO launch application plugins here as well
         global app
         await JAIson().start()
         SocketServerObserver()
-        await app.run_task(host=args.host, port=args.port)
+        from hypercorn.config import Config as HyperConfig
+        from hypercorn.asyncio import serve
+
+        hyper_cfg = HyperConfig()
+        hyper_cfg.bind = [f"{args.host}:{args.port}"]
+        hyper_cfg.accesslog = None  # Скрываем регулярный access-лог (GET /api/pipeline, POST /api/bridge/discord/status)
+        hyper_cfg.errorlog = logging.getLogger("hypercorn.error")
+        await serve(app, hyper_cfg)
     except Exception as err:
         logging.error("Stopping server due to exception", exc_info=True)
     finally:    

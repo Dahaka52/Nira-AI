@@ -287,22 +287,29 @@ def complete_turn_id(turn_id: str, now_s: float):
         _last_turn_ts = float(now_s)
 
 
-def send_to_jaison(audio_buffer: list, turn_id: Optional[str] = None):
+def send_to_jaison(audio_buffer: list, turn_id: Optional[str] = None, speech_start_ts: Optional[float] = None, speech_end_ts: Optional[float] = None):
     """Отправка на сервер (асинхронно из потока)"""
     # [OPTIMIZE] Move concatenation to thread to not block audio_callback
     audio_data = np.concatenate(audio_buffer)
+    audio_dur = len(audio_data) / TARGET_SR
+    now_s = time.time()
+    if speech_end_ts is None:
+        speech_end_ts = now_s
+    if speech_start_ts is None:
+        speech_start_ts = max(0.0, speech_end_ts - audio_dur)
     
     # Конвертируем обратно в int16 bytes
     audio_data = np.clip(audio_data, -1.0, 1.0)
-    audio_int16 = (audio_data * 32767).astype('''<i2''').tobytes()
+    audio_int16 = (audio_data * 32767).astype('<i2').tobytes()
     
     base64_audio = base64.b64encode(audio_int16).decode('utf-8')
     utterance_id = str(uuid.uuid4())
-    now_s = time.time()
     turn_id = str(turn_id) if turn_id else begin_turn_id(now_s)
     payload = {
         "user": "Creator", 
-        "timestamp": now_s,
+        "timestamp": speech_start_ts,
+        "speech_start_ts": speech_start_ts,
+        "speech_end_ts": speech_end_ts,
         "audio_bytes": base64_audio,
         "sr": TARGET_SR,  # ИСПРАВЛЕНО: Шлем 16000, так как данные ресемплированы
         "sw": 2, 
@@ -470,10 +477,12 @@ def audio_callback(indata, frames, time_info, status):
                 # позволяем отправку даже если speech_start еще не ушел, но только при признаках реального голоса.
                 meets_short_interrupt_min = state["speech_ms"] >= args.min_speech_ms_interrupt and likely_voice
                 if meets_regular_min or meets_short_interrupt_min:
+                    speech_end_time = time.time() - (state["silence_counter_ms"] / 1000.0)
+                    speech_start_time = max(0.0, speech_end_time - (state["duration_ms"] / 1000.0))
                     # [OPTIMIZE] Pass buffer to thread, concatenation happens there
                     threading.Thread(
                         target=send_to_jaison,
-                        args=(list(state["buffer"]), state.get("active_turn_id")),
+                        args=(list(state["buffer"]), state.get("active_turn_id"), speech_start_time, speech_end_time),
                         daemon=True,
                     ).start()
                 else:

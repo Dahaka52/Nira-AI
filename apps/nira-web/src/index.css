@@ -70,7 +70,7 @@ body {
 
 .layout-main {
     display: grid;
-    grid-template-columns: 360px 1fr;
+    grid-template-columns: 390px 1fr;
     overflow: hidden;
     height: calc(100vh - 80px);
 }
@@ -387,4 +387,343 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--text-dim);
+}
+
+/* ==========================================================================
+   Telemetry & Latency Waterfall Styling
+   ========================================================================== */
+
+.pane-scrollable {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 1.2px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2px;
+}
+
+.metric-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.metric-badge.local {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.metric-badge.cloud {
+    background: rgba(14, 165, 233, 0.15);
+    color: #0ea5e9;
+    border: 1px solid rgba(14, 165, 233, 0.3);
+}
+
+.metric-badge.accent {
+    background: var(--accent-glow);
+    color: var(--accent);
+    border: 1px solid var(--border-nira);
+}
+
+.metric-badge.warning {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.metric-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.metric-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+}
+
+/* Waterfall Stages */
+.waterfall-track {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: var(--panel-muted);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px;
+}
+
+.waterfall-step {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.76rem;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
+}
+
+.waterfall-step.active {
+    border-color: var(--neon);
+    background: rgba(56, 189, 248, 0.08);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+}
+
+.waterfall-step.done {
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.waterfall-label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.waterfall-time {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--neon);
+}
+
+/* Discord Status Card */
+.discord-status-card {
+    background: linear-gradient(135deg, rgba(88, 101, 242, 0.08) 0%, rgba(30, 41, 59, 0.4) 100%);
+    border: 1px solid rgba(88, 101, 242, 0.3);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.discord-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.discord-pings {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.ping-pill {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ping-pill-title {
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.ping-pill-val {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+/* Runs Comparison Log */
+.runs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 220px;
+    overflow-y: auto;
+    padding-right: 2px;
+}
+
+.run-row {
+    background: var(--panel-muted);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 0.73rem;
+    transition: all 0.2s;
+}
+
+.run-row:hover {
+    border-color: var(--accent);
+    background: var(--panel);
+}
+
+.run-row-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.run-row-stats {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text-dim);
+    font-family: 'Outfit', sans-serif;
+}
+
+/* GPU Hardware Card */
+.hw-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.hw-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.hw-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+}
+
+.hw-bar-wrapper {
+    height: 5px;
+    background: var(--panel-muted);
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+
+.hw-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+/* Audio Output Mode Switcher */
+.output-mode-switch {
+    display: flex;
+    align-items: center;
+    background: var(--panel-muted);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3px;
+    gap: 3px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.mode-pill-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 16px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-dim);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+}
+
+.mode-pill-btn:hover:not(:disabled) {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.mode-pill-btn.active {
+    color: #fff;
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    box-shadow: 0 2px 8px rgba(2, 132, 199, 0.35);
+}
+
+.mode-pill-btn.active.discord {
+    background: linear-gradient(135deg, #5865f2 0%, #4752c4 100%);
+    box-shadow: 0 2px 8px rgba(88, 101, 242, 0.4);
+}
+
+.mode-pill-btn:disabled {
+    opacity: 0.5;
+    cursor: wait;
+}
+
+.discord-quick-toggle {
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    width: 100%;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+}
+
+.discord-quick-toggle.join {
+    background: rgba(88, 101, 242, 0.15);
+    border-color: rgba(88, 101, 242, 0.4);
+    color: #818cf8;
+}
+
+.discord-quick-toggle.join:hover:not(:disabled) {
+    background: rgba(88, 101, 242, 0.25);
+    color: #a5b4fc;
+}
+
+.discord-quick-toggle.leave {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #f87171;
+}
+
+.discord-quick-toggle.leave:hover:not(:disabled) {
+    background: rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+}
+
+.discord-quick-toggle:disabled {
+    opacity: 0.5;
+    cursor: wait;
 }
