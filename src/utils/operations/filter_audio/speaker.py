@@ -10,17 +10,30 @@ from .base import FilterAudioOperation
 class SpeakerOutputFilter(FilterAudioOperation):
     """
     Фильтр аудио, который воспроизводит проходящий через него звук на выбранное устройство 
-    (например, на виртуальный кабель для Discord), при этом пропуская чанки дальше без изменений.
+    (например, стандартное аудиоустройство Windows или виртуальный кабель), при этом пропуская чанки дальше без изменений.
     """
     def __init__(self):
         super().__init__("speaker")
         self.device_name = None
         self.device_index = None
+        self.enabled = False
+        self.vol = 1.0
         
         self.q = queue.Queue()
         self._playback_thread = None
         self._stop_event = threading.Event()
         self._stream = None
+
+    def set_enabled(self, enabled: bool) -> None:
+        self.enabled = bool(enabled)
+        if not self.enabled:
+            # Очищаем очередь, чтобы не доигрывать старый звук
+            while not self.q.empty():
+                try:
+                    self.q.get_nowait()
+                except queue.Empty:
+                    break
+        logging.info(f"SpeakerOutputFilter: enabled set to {self.enabled}")
 
     async def start(self) -> None:
         await super().start()
@@ -53,12 +66,17 @@ class SpeakerOutputFilter(FilterAudioOperation):
     async def configure(self, config_d: Dict[str, Any]) -> None:
         self.device_name = config_d.get("device_name")
         self.device_index = config_d.get("device_index")
-        logging.info(f"SpeakerOutputFilter: настроен на устройство name={self.device_name}, index={self.device_index}")
+        if "enabled" in config_d:
+            self.enabled = bool(config_d["enabled"])
+        self.vol = float(config_d.get("vol", config_d.get("volume", 1.0)))
+        logging.info(f"SpeakerOutputFilter: настроен name={self.device_name}, index={self.device_index}, enabled={self.enabled}, vol={self.vol}")
 
     async def get_configuration(self) -> Dict[str, Any]:
         return {
             "device_name": self.device_name,
-            "device_index": self.device_index
+            "device_index": self.device_index,
+            "enabled": self.enabled,
+            "vol": self.vol
         }
 
     def _resolve_device(self):
@@ -71,7 +89,7 @@ class SpeakerOutputFilter(FilterAudioOperation):
                 if self.device_name.lower() in dev['name'].lower() and dev['max_output_channels'] > 0:
                     return i
                     
-        return None # Default device
+        return None # Default Windows sound device
 
     def _playback_worker(self):
         """Фоновый поток для воспроизведения аудио через sounddevice."""
@@ -106,10 +124,11 @@ class SpeakerOutputFilter(FilterAudioOperation):
                         continue
 
                 # Пишем float32 PCM фреймы в стрим
-                if self._stream:
+                if self._stream and self.enabled:
                     try:
-                        # Конвертируем как в test_tts.py
                         pcm_array = np.frombuffer(audio_bytes, dtype=np.int16).astype(np.float32) / 32768.0
+                        if self.vol != 1.0:
+                            pcm_array = pcm_array * self.vol
                         pcm_array = pcm_array.reshape(-1, ch) # OutputStream требует 2D массив
                         self._stream.write(pcm_array)
                     except sd.PortAudioError as e:
@@ -128,7 +147,7 @@ class SpeakerOutputFilter(FilterAudioOperation):
         sw = kwargs.get('sw')
         ch = kwargs.get('ch')
 
-        if audio_bytes is not None:
+        if self.enabled and audio_bytes is not None:
             # Кладем чанк в очередь на воспроизведение в фоновом потоке
             try:
                 self.q.put_nowait((audio_bytes, sr, sw, ch))

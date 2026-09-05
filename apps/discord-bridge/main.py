@@ -265,9 +265,11 @@ class NiraDiscordBot(discord.Bot):
         self.vc: Optional[discord.VoiceClient] = None
         self.sink: Optional[NiraRawSink] = None
         self.ws_task: Optional[asyncio.Task] = None
+        self.status_heartbeat_task: Optional[asyncio.Task] = None
         self.audio_source: Optional[StreamingPCMSource] = None
         self.audio_job_id: Optional[str] = None
         self.ready_once = False
+        self._voice_lock = asyncio.Lock()
 
     async def on_ready(self) -> None:
         if self.ready_once:
@@ -276,6 +278,7 @@ class NiraDiscordBot(discord.Bot):
         logging.info("Authenticated as %s (Pycord %s)", self.user, discord.__version__)
         self.ws_task = asyncio.create_task(self.event_listener())
         self.watchdog_task = asyncio.create_task(self._recording_watchdog())
+        self.status_heartbeat_task = asyncio.create_task(self._status_heartbeat())
         if self.auto_join:
             await self.join_configured_channel()
 
@@ -283,39 +286,87 @@ class NiraDiscordBot(discord.Bot):
         """Отключено: вызывало баги со спамом пакетов из-за ложных срабатываний в моменты долгой тишины."""
         pass
 
-    async def join_configured_channel(self) -> None:
-        channel = self.get_channel(self.channel_id) or await self.fetch_channel(self.channel_id)
-        if not isinstance(channel, discord.VoiceChannel):
-            raise RuntimeError(f"Channel {self.channel_id} is not a voice channel")
-        if channel.guild.id != self.guild_id:
-            raise RuntimeError("Configured channel belongs to another server")
+    async def _status_heartbeat(self) -> None:
+        """Регулярная отправка телеметрии моста в JAIson."""
+        while not self.is_closed():
+            try:
+                await self._send_status_update()
+            except Exception:
+                pass
+            await asyncio.sleep(3.0)
 
-        # Отключаемся если уже в другом канале
-        if self.vc and self.vc.is_connected():
-            if self.vc.channel.id != channel.id:
-                await self.vc.move_to(channel)
-            else:
+    async def _send_status_update(self) -> None:
+        connected = bool(self.vc and self.vc.is_connected())
+        ch = getattr(self.vc, "channel", None) if self.vc else None
+        status = {
+            "online": True,
+            "connected_to_voice": connected,
+            "channel_name": getattr(ch, "name", None),
+            "channel_id": getattr(ch, "id", None),
+            "guild_id": self.guild_id,
+            "is_playing": bool(self.vc and self.vc.is_playing()),
+            "voice_ping_ms": round(self.vc.latency * 1000, 1) if self.vc and hasattr(self.vc, "latency") else None,
+            "gateway_ping_ms": round(self.latency * 1000, 1) if hasattr(self, "latency") else None,
+        }
+        base_api = self.api_url.rsplit("/api", 1)[0]
+        status_url = f"{base_api}/api/bridge/discord/status"
+        try:
+            async with httpx.AsyncClient(timeout=2.0) as client:
+                await client.post(status_url, json=status)
+        except Exception:
+            pass
+
+    async def join_configured_channel(self) -> None:
+        async with self._voice_lock:
+            channel = self.get_channel(self.channel_id) or await self.fetch_channel(self.channel_id)
+            if not isinstance(channel, discord.VoiceChannel):
+                raise RuntimeError(f"Channel {self.channel_id} is not a voice channel")
+            if channel.guild.id != self.guild_id:
+                raise RuntimeError("Configured channel belongs to another server")
+
+            # Если уже подключены к нужному каналу — ничего не делаем
+            if self.vc and self.vc.is_connected():
+                if self.vc.channel.id != channel.id:
+                    await self.vc.move_to(channel)
+                await self._send_status_update()
                 return
 
-        # Pycord не принимает self_deaf/self_mute в connect() —
-        # устанавливаем голосовое состояние отдельно после подключения
-        self.vc = await channel.connect()
-        # Явно снимаем self_deaf (перечёркнутые наушники) и self_mute
-        guild = self.get_guild(self.guild_id)
-        if guild:
-            await guild.change_voice_state(channel=channel, self_deaf=False, self_mute=False)
-        logging.info(
-            "Joined voice channel %s (%s) with DAVE support",
-            channel.name, channel.id,
-        )
+            self.vc = await channel.connect()
+            guild = self.get_guild(self.guild_id)
+            if guild:
+                await guild.change_voice_state(channel=channel, self_deaf=False, self_mute=False)
+            logging.info(
+                "Joined voice channel %s (%s) with DAVE support",
+                channel.name, channel.id,
+            )
 
-        # Запускаем запись с NiraRawSink — Pycord + DAVE расшифровывает пакеты
-        self.sink = NiraRawSink(self)
-        self.vc.start_recording(
-            self.sink,
-            self._on_recording_finished,
-        )
-        logging.info("[SINK] Recording started — Нира слушает голосовой канал")
+            # Запускаем запись с NiraRawSink
+            self.sink = NiraRawSink(self)
+            self.vc.start_recording(
+                self.sink,
+                self._on_recording_finished,
+            )
+            logging.info("[SINK] Recording started — Нира слушает голосовой канал")
+            await self._send_status_update()
+
+    async def leave_channel(self) -> None:
+        async with self._voice_lock:
+            self.stop_audio()
+            if self.vc and self.vc.is_connected():
+                try:
+                    self.vc.stop_recording()
+                except Exception:
+                    pass
+                if self.sink:
+                    self.sink.cleanup()
+                    self.sink = None
+                try:
+                    await self.vc.disconnect(force=True)
+                except Exception:
+                    pass
+                self.vc = None
+                logging.info("Disconnected from Discord voice channel (Local mode active)")
+            await self._send_status_update()
 
     def _on_recording_finished(self, sink: NiraRawSink, *args) -> None:
         """Вызывается когда stop_recording() завершён (не используем активно)."""
@@ -329,6 +380,9 @@ class NiraDiscordBot(discord.Bot):
         asyncio.create_task(self.submit_speech(member, audio, timestamp))
 
     async def submit_speech(self, member, audio: bytes, timestamp: float) -> None:
+        if not self.vc or not self.vc.is_connected():
+            return
+
         # Диагностика: сохраняем WAV
         try:
             import wave
@@ -389,7 +443,7 @@ class NiraDiscordBot(discord.Bot):
         self.audio_job_id = None
 
     # ------------------------------------------------------------------
-    # JAIson WebSocket listener (TTS events)
+    # JAIson WebSocket listener (TTS events & Control)
     # ------------------------------------------------------------------
 
     async def event_listener(self) -> None:
@@ -410,8 +464,33 @@ class NiraDiscordBot(discord.Bot):
             event, _status = json.loads(raw_event)
         except (TypeError, ValueError):
             return
-        if event.get("message") != "response":
+
+        msg = event.get("message")
+        if msg == "discord_control":
+            payload = event.get("response") or {}
+            action = payload.get("action")
+            if action == "leave":
+                await self.leave_channel()
+            elif action == "join":
+                await self.join_configured_channel()
             return
+
+        if msg == "audio_output_mode":
+            payload = event.get("response") or {}
+            mode = payload.get("mode")
+            if mode == "local":
+                await self.leave_channel()
+            elif mode == "discord":
+                await self.join_configured_channel()
+            return
+
+        if msg != "response":
+            return
+
+        # Воспроизводим звук только если подключены к голосовому каналу
+        if not self.vc or not self.vc.is_connected():
+            return
+
         payload = event.get("response") or {}
         result = payload.get("result") or {}
         job_id = payload.get("job_id")
@@ -449,6 +528,8 @@ class NiraDiscordBot(discord.Bot):
 
     async def close(self) -> None:
         self.stop_audio()
+        if self.status_heartbeat_task:
+            self.status_heartbeat_task.cancel()
         if self.vc and self.vc.is_connected():
             try:
                 self.vc.stop_recording()

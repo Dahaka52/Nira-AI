@@ -151,17 +151,20 @@ class JAIson(metaclass=Singleton):
         print_stage("OPS", "Загрузка операций из конфига…", "boot")
         await self.op_manager.load_operations_from_config()
         print_stage("OPS", "Операции загружены (STT/T2T/TTS)", "ok")
+        self._set_speaker_filter_enabled(self.get_audio_output_mode() == "local")
         await self.process_manager.reload()
         self._immediate_audio_lock = asyncio.Lock()
         
         # Start microphone if enabled
-        from utils.processes.manager import ProcessType
-        try:
-            await self.process_manager.link("core_hw_mic", ProcessType.HW_MIC)
-            print_stage("MIC", "Микрофон подключён", "ok")
-        except Exception as e:
-            logging.error(f"Could not start HW_MIC process: {e}")
-            print_stage("MIC", f"Ошибка микрофона: {e}", "error")
+        mic_cfg = Config().microphone or {}
+        if isinstance(mic_cfg, dict) and mic_cfg.get("enabled", False):
+            from utils.processes.manager import ProcessType
+            try:
+                await self.process_manager.link("core_hw_mic", ProcessType.HW_MIC)
+                print_stage("MIC", "Микрофон подключён", "ok")
+            except Exception as e:
+                logging.error(f"Could not start HW_MIC process: {e}")
+                print_stage("MIC", f"Ошибка микрофона: {e}", "error")
 
         discord_cfg = Config().discord or {}
         if isinstance(discord_cfg, dict) and discord_cfg.get("enabled", False):
@@ -905,10 +908,24 @@ class JAIson(metaclass=Singleton):
     def get_audio_output_mode(self) -> str:
         return getattr(self, "_audio_output_mode", "discord")
 
+    def _set_speaker_filter_enabled(self, enabled: bool) -> None:
+        if getattr(self, "op_manager", None):
+            try:
+                ops = self.op_manager.get_operation(OpRoles.FILTER_AUDIO) or []
+                for op in ops:
+                    if getattr(op, "op_id", "") == "speaker" and hasattr(op, "set_enabled"):
+                        op.set_enabled(enabled)
+            except Exception as e:
+                logging.warning(f"Could not toggle speaker filter: {e}")
+
     async def set_audio_output_mode(self, mode: str) -> Dict[str, Any]:
         mode = "discord" if str(mode).strip().lower() == "discord" else "local"
         self._audio_output_mode = mode
         logging.info(f"Audio output mode switched to: {mode}")
+        
+        # Локальный динамик: активен только в режиме local
+        self._set_speaker_filter_enabled(mode == "local")
+
         if self.event_server:
             await self.event_server.broadcast_event("audio_output_mode", {"mode": mode})
             await self.event_server.broadcast_event("discord_control", {"action": "join" if mode == "discord" else "leave"})
@@ -1492,6 +1509,16 @@ class JAIson(metaclass=Singleton):
         else:
             speech_end_ts = speech_start_ts + audio_dur
         source_id = self._safe_source_id(request_data.get("source_id"))
+        
+        # Фильтрация аудио-потоков по активному режиму (Discord vs Local)
+        current_mode = self.get_audio_output_mode()
+        if current_mode == "discord" and source_id == "mic":
+            logging.debug("Drop mic audio: Discord mode is active")
+            return
+        if current_mode == "local" and source_id == "discord":
+            logging.debug("Drop Discord audio: Local mode is active")
+            return
+
         turn_id = str(request_data.get("turn_id") or uuid.uuid4())
         utterance_id = str(request_data.get("utterance_id") or uuid.uuid4())
         expected_stop_cmd = request_data.get("expected_stop_cmd")
@@ -1773,6 +1800,11 @@ class JAIson(metaclass=Singleton):
         self._last_speech_start_ts = time.time()
         self._cancel_pending_voice_response()
         source_id = self._safe_source_id(request_data.get("source_id"))
+        current_mode = self.get_audio_output_mode()
+        if current_mode == "discord" and source_id == "mic":
+            return
+        if current_mode == "local" and source_id == "discord":
+            return
         turn_id = request_data.get("turn_id")
         speaker_id = request_data.get("speaker_id")
 

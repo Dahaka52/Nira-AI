@@ -139,10 +139,10 @@ operations:
   - role: filter_text
     id: filter_clean
 
-  # --- Фильтры аудио (не активны в конфиге, доступны через API) --------------
-  # - role: filter_audio
-  #   id: speaker
-  #   device_name: "VoiceMeeter"    # Устройство вывода (виртуальный кабель)
+  # --- Фильтры аудио (локальный вывод на стандартное устройство Windows) -----
+  - role: filter_audio
+    id: speaker
+    device_name: null          # null = Стандартное устройство вывода Windows
 
 # -----------------------------------------------------------------------------
 # 4. ПУТИ К ИСПОЛНЯЕМЫМ ФАЙЛАМ
@@ -165,7 +165,7 @@ llamacpp_extra_args: "--flash-attn on"
 # 5. МИКРОФОН И VAD
 # -----------------------------------------------------------------------------
 microphone:
-  enabled: false
+  enabled: true
   source_id: "mic"
   device_name: "Fifine"          # Основной выбор по имени (устойчив к смене ID)
   device_hostapi: "WASAPI"
