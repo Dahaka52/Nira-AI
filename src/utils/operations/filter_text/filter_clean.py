@@ -9,7 +9,13 @@ class ResponseCleaningFilter(FilterTextOperation):
         
     async def start(self):
         await super().start()
-        self.pattern = re.compile(r"\[[^\[\]]+\]:\s*")
+        # Компилируем регулярки для фильтрации
+        self.patterns = [
+            re.compile(r"\[[^\[\]]+\]:\s*"),  # Старый паттерн (убирает только лейблы спикеров типа [Dahaka]:)
+            re.compile(r'\(.*?\)'),           # Круглые скобки (например, (Смех от души...))
+            re.compile(r'\*.*?\*'),           # Звездочки (действия, например *улыбается*)
+            re.compile(r'[\U00010000-\U0010ffff]') # Базовые эмодзи
+        ]
         
     async def close(self):
         await super().close()
@@ -24,14 +30,13 @@ class ResponseCleaningFilter(FilterTextOperation):
 
     async def _generate(self, content: str = None, **kwargs):
         '''Generate a output stream'''
-        while True:
-            match = self.pattern.search(content)
-            if match:
-                tmp = content[:match.span()[0]]
-                tmp += content[match.span()[1]:]
-                content = tmp
-            else:
-                break
+        if content:
+            # Применяем все фильтры
+            for pattern in self.patterns:
+                content = pattern.sub('', content)
+            
+            # Убираем двойные пробелы, которые могли остаться после удаления скобок
+            content = re.sub(r'\s+', ' ', content).strip()
             
         yield {
             "content": content

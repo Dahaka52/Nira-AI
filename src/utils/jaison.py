@@ -768,6 +768,8 @@ class JAIson(metaclass=Singleton):
                             partial = self._assistant_live_reply.strip()
                             if partial:
                                 self._assistant_last_partial_reply = partial[-2000:]
+                                partial_clean = partial.replace("\n", " ") + " [прервано на полуслове]"
+                                self.prompter.add_chat(self.prompter.character_name, partial_clean)
                             self._assistant_live_job_id = None
                             self._assistant_live_reply = ""
                         logging.info(f"Job {current_job_id} ({job_type.value}) was cancelled.")
@@ -1379,6 +1381,24 @@ class JAIson(metaclass=Singleton):
         except Exception:
             pass
         continue_intent = self._is_continue_intent(content)
+
+        # --- Whisper Hallucination Filter ---
+        hallucination_markers = [
+            "jurisprudence", "kanami", "rison", "nood", "compon", "oard", "irmi", "о чём ты",
+            "ᵉ", "ᵒ", "убтрайт", "субтитры", "amara.org", "спасибо за просмотр", "сказать?"
+        ]
+        is_hallucination = any(marker in content.lower() for marker in hallucination_markers)
+        if not is_hallucination and len(words) <= 4:
+            # Если в короткой фразе от русской модели больше английских букв, чем русских - это мусор
+            en_chars = len(re.findall(r'[a-zA-Z]', content))
+            ru_chars = len(re.findall(r'[а-яА-Я]', content))
+            if en_chars > ru_chars and en_chars > 0:
+                is_hallucination = True
+
+        if is_hallucination:
+            logging.info("Whisper hallucination filtered: '%s'", content)
+            return
+        # ------------------------------------
 
         if not words:
             await self._record_stt_metrics(

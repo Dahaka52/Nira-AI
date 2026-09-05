@@ -206,8 +206,15 @@ class SherpaSTT(STTOperation):
         if ch > 1:
             audio_float32 = audio_float32.reshape(-1, ch).mean(axis=1)
 
+        # Resample to 16kHz if needed (Sherpa ONNX models strictly expect 16000 Hz)
+        input_sr = sr or 16000
+        if input_sr != 16000:
+            import librosa
+            audio_float32 = librosa.resample(audio_float32, orig_sr=input_sr, target_sr=16000)
+            input_sr = 16000
+
         # Keep transport chunk length aligned with incoming audio sample rate.
-        chunk_samples = max(1, int((sr or 16000) * (self.stream_chunk_ms / 1000.0)))
+        chunk_samples = max(1, int(input_sr * (self.stream_chunk_ms / 1000.0)))
 
         transcription = ""
         timed_out = False

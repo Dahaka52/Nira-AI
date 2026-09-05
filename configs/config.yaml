@@ -5,9 +5,9 @@
 # -----------------------------------------------------------------------------
 # 1. АКТИВНЫЕ ОПЕРАЦИИ (быстрое переключение без правки остального конфига)
 # -----------------------------------------------------------------------------
-stt_active_id: "faster_whisper_ru"   # Выбери id из секции operations.stt
-stt_strict_active_id: true           # Падать при старте если id не найден
-t2t_active_id: "groq"               # Выбери id из секции operations.t2t
+stt_active_id: "groq_stt"           # Выбери id из секции operations.stt
+stt_strict_active_id: true          # Падать при старте если id не найден
+t2t_active_id: "llamacpp"           # Выбери id из секции operations.t2t
 t2t_strict_active_id: true          # Падать при старте если id не найден
 
 # -----------------------------------------------------------------------------
@@ -34,10 +34,32 @@ operations:
   - role: stt
     id: faster_whisper_ru
     entrypoint: "utils.operations.stt.faster_whisper:FasterWhisperSTT"
-    model_size: "medium"
+    model_size: "large-v3-turbo"
     device: "cuda"
     compute_type: "int8_float16"
     language: "ru"
+    vad_filter: true
+    vad_parameters:
+      min_silence_duration_ms: 1000
+      speech_pad_ms: 400
+    process_autostart: true
+
+  # Groq API — облачный STT через OpenAI-совместимый эндпоинт
+  - role: stt
+    id: groq_stt
+    entrypoint: "utils.operations.stt.openai_api:OpenAISTT"
+    base_url: "https://api.groq.com/openai/v1"
+    api_key: ""
+    model: "whisper-large-v3-turbo"
+    language: "ru"
+    process_autostart: true
+
+  # Google Gemini Live — потоковый STT через WebSocket
+  - role: stt
+    id: google_stt
+    entrypoint: "utils.operations.stt.google_live:GoogleLiveSTT"
+    api_key: ""
+    model: "gemini-3.5-transcribe-live"
     process_autostart: true
 
   # Sherpa ONNX — резервный потоковый STT (низкая задержка, работает offline)
@@ -128,7 +150,7 @@ operations:
 
 # LlamaCPP (локальный сервер, RTX 5070 12GB)
 llamacpp_filepath: "C:\\Nirmita\\bin\\llamacpp\\llama-server.exe"
-llamacpp_model_filepath: "C:\\Nirmita\\models\\saiga_gemma2_10b.i1-Q5_K_M.gguf"
+llamacpp_model_filepath: "C:\\Nirmita\\models\\Mistral-Nemo-2407-12B-Thinking-Claude-Gemini-GPT5.2-Uncensored-HERETIC.Q4_K_M.gguf"
 llamacpp_ctx: 8192
 llamacpp_ngl: 40
 llamacpp_cache_type_k: "q8_0"   # Квантование K-cache контекста
@@ -206,7 +228,7 @@ discord:
   api_url: "http://127.0.0.1:7272/api/context/conversation/audio"
   ws_url: "ws://127.0.0.1:7272/"
   silence_ms: 500
-  min_speech_ms: 220
+  min_speech_ms: 350
 
 # -----------------------------------------------------------------------------
 # 7. ПРОМПТЕР И ПЕРСОНАЖ

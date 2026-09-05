@@ -171,8 +171,10 @@ class NiraRawSink(discord.sinks.Sink):
         self.buffers: dict[int, SpeakerBuffer] = {}
         self.lock = threading.Lock()
         self._write_call_count = 0
+        self._last_write_time = time.time()
 
     def write(self, data, user) -> None:  # type: ignore[override]
+        self._last_write_time = time.time()
         self._write_call_count += 1
 
         # Извлекаем PCM из VoiceData или bytes
@@ -273,8 +275,13 @@ class NiraDiscordBot(discord.Bot):
         self.ready_once = True
         logging.info("Authenticated as %s (Pycord %s)", self.user, discord.__version__)
         self.ws_task = asyncio.create_task(self.event_listener())
+        self.watchdog_task = asyncio.create_task(self._recording_watchdog())
         if self.auto_join:
             await self.join_configured_channel()
+
+    async def _recording_watchdog(self) -> None:
+        """Отключено: вызывало баги со спамом пакетов из-за ложных срабатываний в моменты долгой тишины."""
+        pass
 
     async def join_configured_channel(self) -> None:
         channel = self.get_channel(self.channel_id) or await self.fetch_channel(self.channel_id)
@@ -479,6 +486,15 @@ def main() -> None:
         level=logging.INFO,
         format="%(asctime)s [%(levelname)s] %(message)s",
     )
+    
+    # Фильтруем спам от Pycord про неизвестные RTCP пакеты
+    class NoRTCPSpamFilter(logging.Filter):
+        def filter(self, record):
+            return "unexpected rtcp packet type=200" not in record.getMessage()
+            
+    for handler in logging.root.handlers:
+        handler.addFilter(NoRTCPSpamFilter())
+        
     # Глушим спам от низкоуровневых модулей
     logging.getLogger("discord.gateway").setLevel(logging.WARNING)
     logging.getLogger("discord.voice_client").setLevel(logging.INFO)

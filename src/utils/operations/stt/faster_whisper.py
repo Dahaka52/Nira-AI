@@ -20,6 +20,7 @@ class FasterWhisperSTT(STTOperation):
         self.compute_type = config_d.get("compute_type", "float16")
         self.language = config_d.get("language", "ru")
         self.vad_filter = config_d.get("vad_filter", True)
+        self.vad_parameters = config_d.get("vad_parameters", None)
 
     async def get_configuration(self) -> Dict[str, Any]:
         return {
@@ -28,6 +29,7 @@ class FasterWhisperSTT(STTOperation):
             "compute_type": self.compute_type,
             "language": self.language,
             "vad_filter": self.vad_filter,
+            "vad_parameters": self.vad_parameters,
         }
 
     async def start(self) -> None:
@@ -88,6 +90,7 @@ class FasterWhisperSTT(STTOperation):
                 audio_float32, 
                 language=self.language, 
                 vad_filter=self.vad_filter,
+                vad_parameters=self.vad_parameters if self.vad_parameters else None,
                 condition_on_previous_text=False,
                 initial_prompt=prompt if prompt else None
             )
