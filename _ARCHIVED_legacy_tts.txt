@@ -1,5 +1,0 @@
-# Optional legacy voice stack.
-# Not recommended for the main py312+cu130 environment due dependency conflicts.
-# Keep this in a separate legacy env (e.g. py310/cu128) if you still need it.
-rvc==0.3.5
-melotts @ git+https://github.com/myshell-ai/MeloTTS@209145371cff8fc3bd60d7be902ea69cbdb7965a

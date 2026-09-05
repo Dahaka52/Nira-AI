@@ -164,149 +164,13 @@ operations:
 
 Run everything on your own hardware without external API calls.
 
-#### KoboldCPP Setup
+#### LlamaCPP Setup (Local)
 
-**Compatibility:** Limited (depends on model)  
-**Cost:** Free (local)  
-**Supports:** STT, T2T, TTS
-
-**Installation:**
-
-1. **Download KoboldCPP** from [releases](https://github.com/LostRuins/koboldcpp/releases):
-   - **NVIDIA GPU (e.g. RTX series):** `koboldcpp.exe` for Windows or `koboldcpp-linux-x64` for Linux
-   - **Older NVIDIA GPU (CUDA 11):** `koboldcpp-oldpc.exe` for Windows or `koboldcpp-linux-x64-oldpc` for Linux
-   - **Non-NVIDIA (No CUDA):** `koboldcpp-nocuda.exe` for Windows or `koboldcpp-linux-x64-nocuda` for Linux
-
-    Place the KoboldCPP executable in the `models/kobold/` directory.
-
-2. **Download models:**
-   - **For T2T (LLM):** Download GGUF models as described [here](https://github.com/LostRuins/koboldcpp?tab=readme-ov-file#Obtaining-a-GGUF-model). Generally, any text-generation GGUF model from HuggingFace will work as long as your hardware meets its requirements. 
-   - **For STT (Whisper):** Download the desired `.bin` file from [koboldcpp/whisper](https://huggingface.co/koboldcpp/whisper/tree/main)
-     - Recommended: `base.en` or `tiny.en` for balanced performance (English only), or `small` for multilingual support.
-   
-   Place all models in `models/kobold/`
-
-3. **Configure KoboldCPP:**
-   - Run the KoboldCPP executable to open the configuration interface
-   - **Under Quick Launch:**
-     - Select the correct GPU ID from the dropdown
-     - Disable "Launch Browser"
-     - Enable "Quiet Mode" (optional, reduces console spam)
-     - Enable "Use FlashAttention" (improves performance)
-     - Set Context Size based on your available VRAM (2048-8192+ tokens)
-     - Click "Browse" and load your GGUF LLM model
-   - **Under Context (optional):**
-     - Enable "Quantize KV Cache" and set to 8-bit or 4-bit to reduce VRAM usage with minimal quality impact
-   - **Under Audio (for STT):**
-     - Click "Browse" and load your Whisper model (`.bin` file)
-   - **IMPORTANT:** Click "Save" and save the configuration as a `.kcpps` file in `models/kobold/`
-
-4. **Update JAIson configuration:**
-   ```yaml
-   kobold_filepath: "C:\\path\\to\\models\\kobold\\koboldcpp.exe"
-   kcpps_filepath: "C:\\path\\to\\models\\kobold\\myconfig.kcpps"
-   ```
-   **Note:** On Windows, use double backslashes (`\\`) in file paths
-
-#### MeloTTS Setup
-
-**Compatibility:** All platforms  
-**Cost:** Free (local)  
-**Supports:** TTS
-
-[MeloTTS](https://github.com/myshell-ai/MeloTTS) provides fast, high-quality local text-to-speech with full control over voice characteristics.
-
-**Recommended for:** Users who want consistent latency and are comfortable with model configuration.
-
-**Installation**
-1. MeloTTS is now treated as an optional legacy stack. Install it manually via `pip install -r requirements.legacy-tts.txt` (preferably in a separate legacy environment).
-2. Browse the [MeloTTS](https://github.com/myshell-ai/MeloTTS) repo to see available languages and accents. Then, update the `speaker_id` in the JAIson config file. The available speakers are: `EN-Default`, `EN-US`, `EN-BR`, `EN_INDIA`, `EN-AU`. Here is an example config for English (Australian accent):
-    ```
-    - role: tts
-    id: melo
-    config_filepath: null
-    model_filepath: null
-    speaker_id: EN-AU
-    device: cuda
-    language: EN
-    sdp_ratio: 0.7
-    noise_scale: 0.6
-    noise_scale_w: 0.8
-    speed: 1.05
-    ```
-
-#### RVC (Voice Conversion)
-
-**Compatibility:** Limited (requires GPU with 8GB+ VRAM for training)  
-**Cost:** Free (local)  
-**Supports:** Audio filtering (voice conversion)
-
-**Installation:**
-
-1. **Ensure prerequisites:**
-   - Git and Git LFS installed on your system
-
-2. **Clone RVC Project:**
-   ```bash
-   git clone https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI.git
-   ```
-
-3. **Download model assets:**
-   ```bash
-   cd Retrieval-based-Voice-Conversion-WebUI
-   python tools/download_models.py
-   ```
-
-4. **Verify download:**
-   - Check `assets/hubert/` for `hubert_base.pt` (NOT `hubert_inputs.pth`)
-
-5. **Copy assets to JAIson:**
-   - Copy entire `assets/` folder contents to `assets/rvc/` in this project
-
-6. **Train or acquire voice model:**
-   - **Training:** Requires NVIDIA GPU with 8GB+ VRAM. See [RVC documentation](https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI/blob/main/docs/en/README.en.md)
-   - **Pre-trained:** Find community models online
-
-7. **Install voice model:**
-   - Copy `.pth` file to `assets/rvc/weights/`
-   - Copy `.index` file (or folder containing it) to `models/rvc/`
-     - If you only have the `.index` file, create a folder named after your `.pth` file
-
-8. **Environment setup:**
-   - Copy `.env-template` if not already done
-   - Ensure RVC section exists (DO NOT MODIFY)
-
----
+See configs/config.yaml for setup instructions.
 
 ### Cloud Services
 
 Use third-party APIs for high-quality results without local hardware requirements.
-
-#### Azure Speech Services
-
-**Compatibility:** All platforms  
-**Cost:** Free tier available  
-**Supports:** STT, TTS
-
-**Setup:**
-
-1. Go to [Azure Portal](https://azure.microsoft.com/en-ca) and sign in
-2. Navigate to [Resource groups](https://portal.azure.com/#browse/resourcegroups)
-3. Click "Create" and configure:
-   - Use default subscription (free tier for new accounts)
-   - Select a region close to your location
-4. Open your new resource group and click "Create"
-5. Search for "SpeechServices" and create a [Speech service](https://portal.azure.com/#view/Microsoft_Azure_ProjectOxford/CognitiveServicesHub/~/SpeechServices):
-   - Select your resource group
-   - Choose a nearby region
-   - Select "Standard S0" (free tier)
-6. Open the Speech service and scroll to the bottom
-7. Copy one of the `KEY` values and the `Location/Region`
-8. Update your `.env` file:
-   ```
-   AZURE_API_KEY=your_key_here
-   AZURE_REGION=your_region_here
-   ```
 
 #### Fish Audio
 
@@ -327,29 +191,8 @@ Use third-party APIs for high-quality results without local hardware requirement
    FISH_API_KEY=your_key_here
    ```
 
-#### OpenAI
-
-**Compatibility:** All platforms (or OpenAI-compatible APIs)  
-**Cost:** Pay-per-use  
-**Supports:** STT, T2T, TTS
-
-**Setup:**
-
-1. Go to [OpenAI Platform](https://platform.openai.com/) and sign in
-2. Navigate to "Profile" → "Secrets"
-3. Create and copy a new API key
-4. Update your `.env` file:
-   ```
-   OPENAI_API_KEY=your_key_here
-   ```
-
-**For OpenAI-Compatible APIs:**
-Many services (like Ollama, LocalAI) offer OpenAI-compatible endpoints. Configure the base URL in your YAML:
-```yaml
-base_url: "http://localhost:11434/v1"  # Example for Ollama
-```
-
 ---
+
 
 ## Operations Reference
 
@@ -358,16 +201,6 @@ base_url: "http://localhost:11434/v1"  # Example for Ollama
 ### Speech-to-Text (STT)
 
 Convert spoken audio into text.
-
-#### Azure
-- **Service:** Azure Speech Services (Cloud)
-- **Cost:** Free tier available
-- **Config:**
-  ```yaml
-  - role: stt
-    id: azure
-    language: "en-US"  # See Azure language codes
-  ```
 
 #### Fish
 - **Service:** Fish Audio (Cloud)
@@ -389,19 +222,8 @@ Convert spoken audio into text.
     langcode: "en"
   ```
 
-#### OpenAI
-- **Service:** OpenAI or compatible (Cloud/Local)
-- **Cost:** Varies
-- **Config:**
-  ```yaml
-  - role: stt
-    id: openai
-    base_url: "https://api.openai.com/v1"  # Optional, for custom endpoints
-    model: "whisper-1"
-    language: "en"  # See Whisper language codes
-  ```
-
 ---
+
 
 ### Text-to-Text (T2T)
 
@@ -426,143 +248,19 @@ Process and generate conversational responses using LLMs.
     typical: 1                  # Typical sampling threshold; 1 = disabled
   ```
 
-#### OpenAI
-- **Service:** OpenAI or compatible (Cloud/Local)
-- **Cost:** Varies
-- **Config:**
-  ```yaml
-  - role: t2t
-    id: openai
-    base_url: "https://api.openai.com/v1"
-    model: "gpt-4"
-    temperature: 0.7
-    top_p: 1.0
-    presence_penalty: 0.0
-    frequency_penalty: 0.0
-  ```
-
 ---
+
 
 ### Text-to-Speech (TTS)
 
 Convert text responses into spoken audio.
 
-#### MeloTTS (Recommended)
-- **Service:** MeloTTS (Local)
-- **Cost:** Free
-- **Quality:** Fast, consistent, highly configurable
-- **Config:**
-  ```yaml
-  - role: tts
-    id: melo
-    config_filepath: null
-    model_filepath: null
-    speaker_id: "EN-US"     # Or whichever voice you prefer
-    device: "cuda"          # or "cpu"
-    language: "EN"
-    sdp_ratio: 0.5          # Expressiveness and rhythmic variation
-    noise_scale: 0.6        # Energy and emotional variance 
-    noise_scale_w: 0.8      # Cadence and smoothness; "breathiness"
-    speed: 1.0
-  ```
-
-#### Azure
-- **Service:** Azure Speech Services (Cloud)
-- **Cost:** Free tier available
-- **Quality:** Natural, professional voices
-- **Config:**
-  ```yaml
-  - role: tts
-    id: azure
-    voice: "en-US-AshleyNeural"  # See Azure voice gallery
-  ```
-
-#### Fish
+#### Fish Audio
 - **Service:** Fish Audio (Cloud)
 - **Cost:** Pay-per-use
-- **Quality:** Voice cloning capability
-- **Config:**
-  ```yaml
-  - role: tts
-    id: fish
-    model_id: "your_model_id"
-    backend: "default"
-    normalize: true
-    latency: "normal"  # "normal" or "balanced"
-  ```
-
-#### Kobold
-- **Service:** KoboldCPP (Local)
-- **Cost:** Free
-- **Note:** Basic quality, included for completeness
-- **Config:**
-  ```yaml
-  - role: tts
-    id: kobold
-    voice: "default"
-  ```
-
-#### OpenAI
-- **Service:** OpenAI or compatible (Cloud/Local)
-- **Cost:** Varies
-- **Config:**
-  ```yaml
-  - role: tts
-    id: openai
-    base_url: "https://api.openai.com/v1"
-    model: "tts-1"
-    voice: "alloy"
-  ```
-
-#### pytts
-- **Service:** System TTS (Local)
-- **Cost:** Free
-- **Note:** Uses OS speech synthesizer (SAPI/ESpeak)
-- **Config:**
-  ```yaml
-  - role: tts
-    id: pytts
-    voice: "voice_id"  # List printed on startup
-    gender: "female"
-  ```
+- **Quality:** High quality emotional TTS
 
 ---
-
-### Audio Filters
-
-Post-process generated audio.
-
-#### pitch
-- **Service:** Local processing
-- **Cost:** Free
-- **Purpose:** Adjust voice pitch
-- **Config:**
-  ```yaml
-  - role: filter_audio
-    id: pitch
-    pitch_amount: 2  # Semitones (+/-)
-  ```
-
-#### rvc
-- **Service:** RVC (Local)
-- **Cost:** Free
-- **Purpose:** Voice conversion/transformation
-- **Config:**
-  ```yaml
-  - role: filter_audio
-    id: rvc
-    voice: "model_name"
-    f0_up_key: 0
-    f0_method: "rmvpe"
-    index_rate: 0.75
-    filter_radius: 3
-    resample_sr: 0
-    rms_mix_rate: 0.25
-    protect: 0.33
-  ```
-
----
-
 ### Text Filters
 
 Process text before speech synthesis.
@@ -577,27 +275,15 @@ Process text before speech synthesis.
     id: filter_clean
   ```
 
-#### emotion_roberta
+#### emotion_ru (Planned)
 - **Service:** Local ML model
-- **Cost:** Free
-- **Purpose:** Detect emotion in responses
-- **Model:** [SamLowe/roberta-base-go_emotions](https://huggingface.co/SamLowe/roberta-base-go_emotions)
-- **Config:**
-  ```yaml
-  - role: filter_text
-    id: emotion_roberta
-  ```
+- **Purpose:** Detect emotion in responses (Russian)
+- **Model:** cointegrated/rubert-tiny2-cedr-emotion-rubert-base
 
-#### mod_koala
+#### mod_ru (Planned)
 - **Service:** Local ML model
-- **Cost:** Free
-- **Purpose:** Content moderation and filtering (remove for uncensored output)
-- **Model:** [Koala/Text-Moderation](https://huggingface.co/KoalaAI/Text-Moderation)
-- **Config:**
-  ```yaml
-  - role: filter_text
-    id: mod_koala
-  ```
+- **Purpose:** Content moderation (Russian)
+- **Model:** SkolkovoInstitute/ru-toxicity-classifier
 
 #### chunker_sentence
 - **Service:** Local processing
@@ -607,23 +293,6 @@ Process text before speech synthesis.
   ```yaml
   - role: filter_text
     id: chunker_sentence
-  ```
-
----
-
-### Embeddings
-
-Generate text embeddings for semantic operations.
-
-#### OpenAI
-- **Service:** OpenAI or compatible (Cloud/Local)
-- **Cost:** Varies
-- **Config:**
-  ```yaml
-  - role: embedding
-    id: openai
-    base_url: "https://api.openai.com/v1"
-    model: "text-embedding-3-small"
   ```
 
 ---

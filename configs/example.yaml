@@ -14,36 +14,10 @@
 #   use_endpoint: 0
   
   # T2T
-# - role: t2t
-#   id: kobold
-#   max_context_length: 2048
-#   max_length: 100
-#   quiet: true
-#   rep_pen: 1.1
-#   rep_pen_range: 256
-#   rep_pen_slope: 1
-#   temperature: 0.5
-#   tfs: 1
-#   top_a: 0
-#   top_k: 100
-#   top_p: 0.9
-#   typical: 1
-# - role: t2t
-#   id: openai
-#   base_url: https://api.openai.com/v1/
-#   model: gpt-4o
-#   temperature: 1
-#   top_p: 0.9
-#   presence_penalty: 1
-#   frequency_penalty: 1
 
   # Text filters
 # - role: filter_text
 #   id: filter_clean
-# - role: filter_text
-#   id: emotion_roberta
-# - role: filter_text
-#   id: mod_koala
 # - role: filter_text
 #   id: chunker_sentence
 
@@ -101,9 +75,6 @@
 #     "old name": "new name"
 #   history_length: 20
 
-# Kobold
-# kobold_filepath: E:\\jaison-core\\models\\kobold\\koboldcpp_cu12.exe # must be absolute
-# kcpps_filepath: E:\\jaison-core\\models\\kobold\\save.kcpps # must be absolute
 
 # Spacy NLP
 # spacy_model: en_core_web_sm

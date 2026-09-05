@@ -11,7 +11,7 @@ This software uses libraries from the FFmpeg project under the LGPLv2.1.
 - **Real-time AI Personality** - Text and speech input with customizable character prompts
 - **MCP Support** - Integrate Model Context Protocol servers for extended capabilities
 - **REST API & WebSocket Server** - Build custom applications on top of the core server
-- **Flexible Deployment** - Run fully local or use cloud services (Azure, OpenAI, Fish Audio, etc.)
+- **Flexible Deployment** - Run fully local or use cloud services (Groq, LlamaCPP, Fish Audio, etc.)
 - **Modular Pipeline** - Mix and match STT, TTS, LLM, and filter operations
 
 ---
@@ -69,15 +69,6 @@ python -m unidic download
 
 > Current STT track in this branch is CPU-only. No GPU STT setup is required.
 
-**5. (Optional) Install legacy RVC/MeloTTS stack in a separate env:**
-
-```bash
-pip install -r requirements.legacy-tts.txt
-```
-
-> Recommended: keep legacy voice stack out of the main `py312+cu130` env.
-> It is preserved as optional because it has known dependency conflicts.
-
 **6. Install FFmpeg:**
 
 > **Note:** If you encounter `libiomp5md.dll` duplicate errors on Windows:
@@ -107,11 +98,8 @@ pip install -r requirements.legacy-tts.txt
 
     If running everything locally, you may leave the keys blank:
     ```yaml
-    OPENAI_API_KEY=
-    FISH_API_KEY=
-    AZURE_REGION=
-    AZURE_API_KEY=
-    ```
+        FISH_API_KEY=
+            ```
 
 2. Create new text files under `prompts\characters`, `prompts\instructions`, and `prompts\scenes`, as required. Describe the character/instruction/scene as you'd like. Remember that you can create as many as you'd like and easily switch between them. An example for each is provided.
 
@@ -125,8 +113,8 @@ Select the desired operations (refer to **[Development Guide](DEVELOPER.md)**) a
     ```
 
 See the **[Development Guide](DEVELOPER.md)** for detailed configuration instructions, including:
-- Setting up local services (KoboldCPP, MeloTTS, RVC)
-- Configuring cloud providers (Azure, OpenAI, Fish Audio)
+- Setting up local services (LlamaCPP, Fish Audio)
+- Configuring cloud providers (Groq, LlamaCPP, Fish Audio)
 - Customizing prompts and operations
 - Choosing the right services for your use case
 

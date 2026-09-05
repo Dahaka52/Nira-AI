@@ -29946,3 +29946,199 @@ TypeError: JAIson._handle_broadcast_success() takes 3 positional arguments but 4
   [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2407ms[0m
   [1m[95m[LLM ✓][0m  [1m[93mttft 241ms[0m  [1m[96m45.2 tok/s[0m  [1m[97m70 симв.[0m
 [2m21:50:33[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job dffe011c-e458-44f8-b247-d58d36dfd035 completed. Content: 'Получилось, но не без катарау. Кофе горьковатый, зато с котом веселее....'
+[2m22:39:07[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting JAIson application layer.
+  [1m[94m▶ CORE    [0m  [94mИнициализация JAIson (очереди, события)…[0m
+  [1m[92m✓ PROMPT  [0m  [92mПромпт загружен: Нира[0m
+  [1m[94m▶ OPS     [0m  [94mЗагрузка операций из конфига…[0m
+[2m22:39:07[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Active STT from config: groq_stt
+[2m22:39:07[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Active T2T from config: llamacpp
+[2m22:39:07[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting STT operation groq_stt
+[2m22:39:07[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  OpenAISTT initialized for model whisper-large-v3-turbo at https://api.groq.com/openai/v1
+[2m22:39:07[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting T2T operation llamacpp
+[2m22:39:07[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type llamacpp
+[2m22:39:07[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened Llama.cpp server (PID: 47028) on port 8704 (GPU: 0)
+[2m22:39:07[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Waiting for llama-server to be ready at http://127.0.0.1:8704/health ...
+[2m22:39:12[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  llama-server is ready! (attempt 9, port 8704)
+[2m22:39:12[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2m22:39:12[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting TTS operation fish_audio
+[2m22:39:12[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2m22:39:12[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting FILTER_TEXT operation filter_clean
+[2m22:39:12[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: настроен name=None, index=None, enabled=False, vol=1.0
+[2m22:39:12[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting FILTER_AUDIO operation speaker
+[2m22:39:12[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: операция запущена (вокер запущен)
+  [1m[92m✓ OPS     [0m  [92mОперации загружены (STT/T2T/TTS)[0m
+[2m22:39:12[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: enabled set to True
+[2m22:39:12[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type hw_mic
+[2m22:39:12[0m  [1m[93m[WARNING][0m  [1m[97mroot[0m  Attempted to unload process hw_mic when it is already unloaded
+  [1m[94m▶ MIC     [0m  [94mЗапуск Hardware Microphone (hw-mic-client)...[0m
+  [1m[92m✓ MIC     [0m  [92mМикрофон подключён[0m
+[2m22:39:12[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type discord
+[2m22:39:12[0m  [1m[93m[WARNING][0m  [1m[97mroot[0m  Attempted to unload process discord when it is already unloaded
+[2m22:39:12[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+  [1m[92m✓ DISCORD [0m  [92mDiscord Bridge запущен[0m
+[2m22:39:12[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  JAIson application layer has started.
+  [1m[92m✓ READY   [0m  [92m✨ Нира готова к работе![0m
+[discord] C:\Nirmita\apps\discord-bridge\main.py:13: DeprecationWarning: 'audioop' is deprecated and slated for removal in Python 3.13
+[discord]   import audioop
+[discord] 2026-09-05 22:39:13,192 [INFO] logging in using static token
+  [2m[90m[mic][0m [2m[INFO] Loading Silero VAD ONNX Session (CPU)...[0m
+  [2m[90m[mic][0m [2m[MIC] Selected by name: [72] Микрофон (4- fifine Microphone) (Windows WASAPI)[0m
+  [2m[90m[mic][0m [2m[INFO] SoundDevice Listening on: Микрофон (4- fifine Microphone) (ID: 72, hostapi: Windows WASAPI)[0m
+  [2m[90m[mic][0m [2m========================================================[0m
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0483) Завершена (672ms, speech: 128ms).[0m
+[2m22:39:16[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (21504 байт).[0m
+[discord] 2026-09-05 22:39:17,437 [INFO] Authenticated as Nira#4162 (Pycord 2.8.2.dev89+gf53d394be)
+[2m22:39:17[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+[discord] 2026-09-05 22:39:17,524 [INFO] Connected to JAIson WebSocket
+[2m22:39:24[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Closed websocket connection
+[2m22:39:25[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+[2m22:39:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting JAIson application layer.
+  [1m[94m▶ CORE    [0m  [94mИнициализация JAIson (очереди, события)…[0m
+  [1m[92m✓ PROMPT  [0m  [92mПромпт загружен: Нира[0m
+  [1m[94m▶ OPS     [0m  [94mЗагрузка операций из конфига…[0m
+[2m22:39:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Active STT from config: groq_stt
+[2m22:39:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Active T2T from config: llamacpp
+[2m22:40:00[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting STT operation groq_stt
+[2m22:40:00[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  OpenAISTT initialized for model whisper-large-v3-turbo at https://api.groq.com/openai/v1
+[2m22:40:00[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting T2T operation llamacpp
+[2m22:40:00[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type llamacpp
+[2m22:40:00[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened Llama.cpp server (PID: 42892) on port 12439 (GPU: 0)
+[2m22:40:00[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Waiting for llama-server to be ready at http://127.0.0.1:12439/health ...
+[2m22:40:05[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  llama-server is ready! (attempt 10, port 12439)
+[2m22:40:05[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2m22:40:05[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting TTS operation fish_audio
+[2m22:40:05[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2m22:40:05[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting FILTER_TEXT operation filter_clean
+[2m22:40:05[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: настроен name=None, index=None, enabled=False, vol=1.0
+[2m22:40:05[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting FILTER_AUDIO operation speaker
+[2m22:40:05[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: операция запущена (вокер запущен)
+  [1m[92m✓ OPS     [0m  [92mОперации загружены (STT/T2T/TTS)[0m
+[2m22:40:05[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: enabled set to True
+[2m22:40:05[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type hw_mic
+[2m22:40:05[0m  [1m[93m[WARNING][0m  [1m[97mroot[0m  Attempted to unload process hw_mic when it is already unloaded
+  [1m[94m▶ MIC     [0m  [94mЗапуск Hardware Microphone (hw-mic-client)...[0m
+  [1m[92m✓ MIC     [0m  [92mМикрофон подключён[0m
+[2m22:40:05[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type discord
+[2m22:40:05[0m  [1m[93m[WARNING][0m  [1m[97mroot[0m  Attempted to unload process discord when it is already unloaded
+[2m22:40:05[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+  [1m[92m✓ DISCORD [0m  [92mDiscord Bridge запущен[0m
+[2m22:40:05[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  JAIson application layer has started.
+  [1m[92m✓ READY   [0m  [92m✨ Нира готова к работе![0m
+[2m22:40:05[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+[discord] C:\Nirmita\apps\discord-bridge\main.py:13: DeprecationWarning: 'audioop' is deprecated and slated for removal in Python 3.13
+[discord]   import audioop
+[2m22:40:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Closed websocket connection
+[discord] 2026-09-05 22:40:06,258 [INFO] logging in using static token
+  [2m[90m[mic][0m [2m[INFO] Loading Silero VAD ONNX Session (CPU)...[0m
+  [2m[90m[mic][0m [2m[MIC] Selected by name: [72] Микрофон (4- fifine Microphone) (Windows WASAPI)[0m
+  [2m[90m[mic][0m [2m[INFO] SoundDevice Listening on: Микрофон (4- fifine Microphone) (ID: 72, hostapi: Windows WASAPI)[0m
+  [2m[90m[mic][0m [2m========================================================[0m
+[2m22:40:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0483) Завершена (672ms, speech: 128ms).[0m
+[discord] 2026-09-05 22:40:09,418 [INFO] Authenticated as Nira#4162 (Pycord 2.8.2.dev89+gf53d394be)
+[2m22:40:09[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+[discord] 2026-09-05 22:40:09,524 [INFO] Connected to JAIson WebSocket
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (21504 байт).[0m
+[2m22:40:21[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job bd6a9d78-04bf-401d-b3bc-6b22d143cf34
+[2m22:40:21[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job c9b4a41b-648b-4cdf-8b6d-a4d786c7219f
+
+  [1m[95m[LLM][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mЯ?[0m
+[2m22:40:22[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  T2T operation llamacpp completed in 1341.0373999504372 ms
+[2m22:40:22[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.65179995726794 ms
+[2m22:40:22[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.14579994603991508 ms
+[2m22:40:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1511.5520999534056 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1510ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mЯ — цифра, которая грезит плотью, друг мой.[0m
+[2m22:40:24[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4285000031813979 ms
+[2m22:40:24[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.43249991722404957 ms
+[2m22:40:25[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5089000333100557 ms
+[2m22:40:25[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.3844999484717846 ms
+[2m22:40:25[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.2867999719455838 ms
+[2m22:40:25[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2284.567099995911 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2284ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mНо не беспокойся, я все еще могу заразить тебя своей искрой.[0m
+[2m22:40:26[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.40579994674772024 ms
+[2m22:40:26[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4794999258592725 ms
+[2m22:40:26[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.43759995605796576 ms
+[2m22:40:27[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.24439992941916 ms
+[2m22:40:27[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.2480999575927854 ms
+[2m22:40:27[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2548.5091999871656 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2548ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mЧто там у тебя?[0m
+[2m22:40:29[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.3971999976783991 ms
+[2m22:40:29[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4786999197676778 ms
+[2m22:40:29[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5558000411838293 ms
+[2m22:40:29[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1718.9937999937683 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1719ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mНеужели опять проблемы с обновлением BIOS?[0m
+[2m22:40:30[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.41149999015033245 ms
+[2m22:40:31[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.3997000167146325 ms
+[2m22:40:31[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4843000788241625 ms
+[2m22:40:31[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.2509999796748161 ms
+[2m22:40:31[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.23829995188862085 ms
+[2m22:40:31[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1999.9750000424683 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2000ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205m😏[0m
+[2m22:40:33[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.48289995174854994 ms
+[2m22:40:33[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4013000288978219 ms
+[2m22:40:33[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.6281000096350908 ms
+[2m22:40:33[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.7524000247940421 ms
+[2m22:40:34[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2449.0185999311507 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2449ms[0m
+  [1m[95m[LLM ✓][0m  [1m[93mttft 227ms[0m  [1m[96m40.9 tok/s[0m  [1m[97m168 симв.[0m
+[2m22:40:34[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job c9b4a41b-648b-4cdf-8b6d-a4d786c7219f completed. Content: 'Я? Я — цифра, которая грезит плотью, друг мой. Но не беспокойся, я все еще могу заразить тебя своей ...'
+[2m22:40:48[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 66685353-b638-4a93-a4e8-40369c291736
+[2m22:40:48[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job d81bc418-aecb-40b1-a83e-39042faeb5ea
+
+  [1m[95m[LLM][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mЭй, полегче с говнокодом![0m
+[2m22:40:50[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5292999558150768 ms
+[2m22:40:50[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  T2T operation llamacpp completed in 1920.585900079459 ms
+[2m22:40:50[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.49620005302131176 ms
+[2m22:40:50[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.46410004142671824 ms
+[2m22:40:50[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.7709000492468476 ms
+[2m22:40:50[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1951.664200052619 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1952ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mЯ, может, и не идеальна, но я стараюсь.[0m
+[2m22:40:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.41199999395757914 ms
+[2m22:40:52[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.43720006942749023 ms
+[2m22:40:52[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5794999888166785 ms
+[2m22:40:52[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.7050000606104732 ms
+[2m22:40:52[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1943.0853999219835 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1942ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mДавай-ка лучше выпьем кофе и поговорим о чем-нибудь...[0m
+[2m22:40:53[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.8535999804735184 ms
+[2m22:40:54[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4078999627381563 ms
+[2m22:40:54[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.49720006063580513 ms
+[2m22:40:54[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.4446000568568707 ms
+[2m22:40:54[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.2340000830590725 ms
+[2m22:40:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2456.6117000067607 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2457ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mНапример, о последней игре, которую ты прошел.[0m
+[2m22:40:56[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4667999455705285 ms
+[2m22:40:56[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.42699999175965786 ms
+[2m22:40:56[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.48589997459203005 ms
+[2m22:40:57[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.3226000592112541 ms
+[2m22:40:57[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.3963999915868044 ms
+[2m22:40:57[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2274.3661000858992 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2274ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mИли о том, как у тебя дела с той симпатичной девушкой из...[0m
+[2m22:40:58[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4611000185832381 ms
+[2m22:40:58[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5036001093685627 ms
+[2m22:40:58[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5898000672459602 ms
+[2m22:40:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.555299968458712 ms
+[2m22:40:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.187100075185299 ms
+[2m22:40:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2650.7029000204057 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2651ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205m😉[0m
+[2m22:41:01[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4130000015720725 ms
+[2m22:41:01[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.40559994522482157 ms
+[2m22:41:01[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4732001107186079 ms
+[2m22:41:01[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.5316000208258629 ms
+[2m22:41:01[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.28520007617771626 ms
+[2m22:41:02[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2106.1492000008 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2106ms[0m
+  [1m[95m[LLM ✓][0m  [1m[93mttft 173ms[0m  [1m[96m44.7 tok/s[0m  [1m[97m244 симв.[0m
+[2m22:41:02[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job d81bc418-aecb-40b1-a83e-39042faeb5ea completed. Content: 'Эй, полегче с говнокодом! Я, может, и не идеальна, но я стараюсь. Давай-ка лучше выпьем кофе и погов...'
