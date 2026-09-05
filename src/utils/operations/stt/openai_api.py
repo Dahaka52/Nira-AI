@@ -116,14 +116,14 @@ class OpenAISTT(STTOperation):
                 model=self.model,
                 language=self.language,
                 temperature=0.0,
-                prompt="Нира, Дахака, Астрал",
+                prompt="Нира",
                 response_format="json"
             )
             
             text = response.text.strip()
             
             # Жесткий фильтр галлюцинаций (Whisper часто придумывает это в тишине)
-            hallucinations = ["продолжение следует", "спасибо за просмотр", "спасибо.", "полплеер", "привет, тут", "субтитры", "amara", "подписывайтесь"]
+            hallucinations = ["продолжение следует", "спасибо за просмотр", "спасибо.", "полплеер", "привет, тут", "субтитры", "amara", "подписывайтесь", "субтитры от"]
             for h in hallucinations:
                 if h in text.lower():
                     text = ""

@@ -617,7 +617,7 @@ class JAIson(metaclass=Singleton):
             if filter_mode == "llm" and content and not is_backchannel:
                 logging.info(f"Running LLM STT filter on: '{content}'")
                 prompt = (
-                    f"Исправь опечатки STT, убери мусорные слова (кашель, шум) и верни ТОЛЬКО чистый текст. "
+                    f"Исправь опечатки STT, убери мусорные слова (кашель, шум, субтитры) и верни ТОЛЬКО чистый текст. "
                     f"Если текст - бессмысленный шум, верни слово 'DROP'. Текст: {content}"
                 )
                 from .messages import RawMessage
@@ -1810,12 +1810,17 @@ class JAIson(metaclass=Singleton):
         if getattr(self, "is_listening", False) and is_release:
             self.is_listening = False
             logging.info("Nira exited listening mode.")
+            content += " [System: Пользователь завершил длинный рассказ. Сделай краткий и естественный вывод из услышанного, не отвечай на каждый пункт по порядку.]"
 
         # В режиме слушателя мы собираем контекст, но не отвечаем, пока нас не попросят (или не скажут СТОП).
         should_respond = not getattr(self, "is_listening", False)
         
         # Хард-прерывание (barge-in) срабатывает ТОЛЬКО на стоп-слова
         is_significant = contains_stop_word
+        
+        # Если фраза содержит стоп-слово - мы прерываем Ниру, но генерировать на этот стоп ответ не нужно.
+        if contains_stop_word:
+            should_respond = False
 
         if is_wake_word_only:
             content = canonical_wake_word

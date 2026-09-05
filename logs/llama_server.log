@@ -18,7 +18,7 @@ common_init_result: fitting params to device memory, for bugs during this step t
 llama_params_fit_impl: projected to use 7526 MiB of device memory vs. 11036 MiB of free device memory
 llama_params_fit_impl: will leave 3509 >= 1024 MiB of free device memory, no changes needed
 llama_params_fit: successfully fit params to free device memory
-llama_params_fit: fitting params to free memory took 0.34 seconds
+llama_params_fit: fitting params to free memory took 0.36 seconds
 llama_model_load_from_file_impl: using device CUDA0 (NVIDIA GeForce RTX 5070) (0000:0a:00.0) - 11036 MiB free
 llama_model_loader: loaded meta data with 58 key-value pairs and 363 tensors from C:\Nirmita\models\MN-12B-Runeweaver-RP-RU.i1-Q4_K_M.gguf (version GGUF V3 (latest))
 llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
@@ -174,7 +174,7 @@ sched_reserve:      CUDA0 compute buffer size =   266.00 MiB
 sched_reserve:  CUDA_Host compute buffer size =    36.01 MiB
 sched_reserve: graph nodes  = 1247
 sched_reserve: graph splits = 13 (with bs=512), 2 (with bs=1)
-sched_reserve: reserve took 5.37 ms, sched copies = 1
+sched_reserve: reserve took 5.36 ms, sched copies = 1
 common_init_from_params: warming up the model with an empty run - please wait ... (--no-warmup to disable)
 srv    load_model: initializing slots, n_slots = 4
 no implementations specified for speculative decoding
@@ -204,6 +204,22 @@ How are you?<|im_end|>
 '
 srv          init: init: chat template, thinking = 0
 main: model loaded
-main: server is listening on http://127.0.0.1:7686
+main: server is listening on http://127.0.0.1:6806
 main: starting the main loop...
 srv  update_slots: all slots are idle
+srv  params_from_: Chat format: Content-only
+slot get_availabl: id  3 | task -1 | selected slot by LRU, t_last = -1
+slot launch_slot_: id  3 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  3 | task 0 | processing task, is_child = 0
+slot update_slots: id  3 | task 0 | new prompt, n_ctx_slot = 8192, n_keep = 0, task.n_tokens = 380
+slot update_slots: id  3 | task 0 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  3 | task 0 | prompt processing progress, n_tokens = 380, batch.n_tokens = 380, progress = 1.000000
+slot update_slots: id  3 | task 0 | prompt done, n_tokens = 380, batch.n_tokens = 380
+slot init_sampler: id  3 | task 0 | init sampler, took 0.04 ms, tokens: text = 380, total = 380
+slot print_timing: id  3 | task 0 | 
+prompt eval time =     174.14 ms /   380 tokens (    0.46 ms per token,  2182.19 tokens per second)
+       eval time =     453.15 ms /    23 tokens (   19.70 ms per token,    50.76 tokens per second)
+      total time =     627.29 ms /   403 tokens
+slot      release: id  3 | task 0 | stop processing: n_tokens = 402, truncated = 0
+srv  update_slots: all slots are idle
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
