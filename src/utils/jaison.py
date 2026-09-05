@@ -592,12 +592,56 @@ class JAIson(metaclass=Singleton):
         stt_confidence = turn.get("stt_confidence")
         stt_latency_ms = turn.get("stt_latency_ms")
         continue_intent = bool(turn.get("continue_intent", False))
+        
+        # Проверяем, не состоит ли весь собранный буфер из одного "ага"
+        import re
+        words = re.findall(r"[0-9a-zA-Zа-яА-ЯёЁ-]+", content.lower().strip())
+        fillers = {"угу", "ага", "понятно", "ясно", "да", "так", "хорошо", "ок", "слышу", "мгм", "ладно", "понял", "ого", "ммм", "эмм", "хмм", "интересно"}
+        non_filler_words = [w for w in words if w not in fillers]
+        is_backchannel = len(words) <= 2 and len(non_filler_words) == 0
+
         should_respond = bool(turn.get("should_respond", True))
+        if is_backchannel:
+            should_respond = False
+            logging.info("Entire buffer was just a backchannel. Disabling response.")
+
         continue_from_text = None
         if continue_intent:
             continue_from_text = (self._assistant_last_partial_reply or self._assistant_last_full_reply or "").strip()
             if continue_from_text:
                 logging.info("Continue-intent detected: next response will continue previous thought.")
+
+        # [Barge-in Rework] LLM Filter
+        try:
+            filter_mode = str(getattr(Config(), "stt_filter_mode", "algorithm")).strip().lower()
+            if filter_mode == "llm" and content and not is_backchannel:
+                logging.info(f"Running LLM STT filter on: '{content}'")
+                prompt = (
+                    f"Исправь опечатки STT, убери мусорные слова (кашель, шум) и верни ТОЛЬКО чистый текст. "
+                    f"Если текст - бессмысленный шум, верни слово 'DROP'. Текст: {content}"
+                )
+                from .messages import RawMessage
+                clean_text = ""
+                async for chunk in self.op_manager.use_operation(
+                    OpRoles.T2T, 
+                    {
+                        "messages": [RawMessage(prompt)], 
+                        "instruction_prompt": "Ты - системный корректор распознавания речи. Отвечай только текстом без пояснений.",
+                        "temperature": 0.1,
+                        "max_length": 200
+                    }
+                ):
+                    clean_text += chunk.get("content", "")
+                
+                clean_text = clean_text.strip()
+                if "DROP" in clean_text.upper():
+                    logging.info("LLM Filter dropped the phrase as garbage.")
+                    return  # Полностью отбрасываем
+                elif clean_text:
+                    logging.info(f"LLM Filter cleaned phrase to: '{clean_text}'")
+                    content = clean_text
+        except Exception as e:
+            logging.error(f"LLM STT filter failed (falling back to raw text): {e}")
 
         await self.create_job(
             JobType.CONTEXT_CONVERSATION_ADD_TEXT,
@@ -736,14 +780,15 @@ class JAIson(metaclass=Singleton):
         seq = self._pending_voice_response_seq
         self._cancel_pending_voice_response()
 
-        debounce_ms = 300
-        min_quiet_ms_after_speech_start = 350
         try:
-            mic_cfg = Config().microphone or {}
-            debounce_ms = int(mic_cfg.get("response_debounce_ms", 300))
+            cfg = Config()
+            mic_cfg = cfg.microphone or {}
+            # Читаем новый параметр stt_buffer_timeout_ms (по умолчанию 800мс)
+            debounce_ms = int(getattr(cfg, "stt_buffer_timeout_ms", 800))
             min_quiet_ms_after_speech_start = int(mic_cfg.get("response_min_quiet_ms_after_speech_start", 350))
         except Exception:
-            pass
+            debounce_ms = 800
+            min_quiet_ms_after_speech_start = 350
 
         async def _delayed_response():
             try:
@@ -921,7 +966,15 @@ class JAIson(metaclass=Singleton):
     async def set_audio_output_mode(self, mode: str) -> Dict[str, Any]:
         mode = "discord" if str(mode).strip().lower() == "discord" else "local"
         self._audio_output_mode = mode
-        logging.info(f"Audio output mode switched to: {mode}")
+        
+        # Автоматическое переключение сцены
+        try:
+            cfg = Config()
+            cfg.active_scene = mode
+        except Exception:
+            pass
+            
+        logging.info(f"Audio output mode & active_scene switched to: {mode}")
         
         # Локальный динамик: активен только в режиме local
         self._set_speaker_filter_enabled(mode == "local")
@@ -1361,8 +1414,35 @@ class JAIson(metaclass=Singleton):
             "stt_confidence": stt_confidence,
             "stt_latency_ms": stt_latency_ms,
         })
+        cfg = Config()
+        try:
+            active_scene = getattr(cfg, "active_scene", "local")
+            known_users = getattr(cfg, "known_users", {})
+            # Читаем динамический файл, чтобы можно было редактировать на лету без перезапуска
+            import os
+            import json
+            dynamic_users_path = os.path.join(cfg.CONFIG_DIR, "known_users.json")
+            if os.path.isfile(dynamic_users_path):
+                try:
+                    with open(dynamic_users_path, "r", encoding="utf-8") as f:
+                        dynamic_users = json.load(f)
+                        if isinstance(dynamic_users, dict):
+                            known_users.update(dynamic_users)
+                except Exception as e:
+                    logging.warning(f"Error reading dynamic known_users.json: {e}")
+        except Exception:
+            active_scene = "local"
+            known_users = {}
+
+        if active_scene == "discord":
+            # Если имя не задано, используем speaker_id (который в дискорде является ником пользователя)
+            resolved_name = known_users.get(str(speaker_id), str(speaker_id) if speaker_id else "Незнакомец")
+            final_user = f"[Discord] {resolved_name}"
+        else:
+            final_user = f"[Local] {known_users.get('mic', 'Creator')}"
+
         self.prompter.add_chat(
-            user,
+            final_user,
             content,
             time=(
                 datetime.datetime.fromtimestamp(timestamp) \
@@ -1612,7 +1692,10 @@ class JAIson(metaclass=Singleton):
         # 2. Barge-in / intent classification.
         words = re.findall(r"[0-9a-zA-Zа-яА-ЯёЁ-]+", content.lower().strip())
         fillers = {"угу", "ага", "понятно", "ясно", "да", "так", "хорошо", "ок", "слышу", "мгм", "ладно", "понял", "ого", "ммм", "эмм", "хмм", "интересно"}
-        stop_words = {"стой", "стоп", "хватит", "замолчи", "подожди", "тихо", "молчи", "выключи"}
+        cfg_globals = getattr(Config(), "_config", {})
+        
+        stop_words = set(cfg_globals.get("stt_stop_words", ["стой", "стоп", "хватит", "замолчи", "подожди", "тихо", "молчи", "выключи"]))
+        # Оставим базовые основы на случай опечаток, но если заданы кастомные, пользователь может добавить их целиком
         stop_stems = ("стоп", "стой", "подож", "хват", "замолч", "тихо", "молч", "выключ")
         wake_words = {
             "нира", "нера", "nira",
@@ -1715,31 +1798,24 @@ class JAIson(metaclass=Singleton):
             (_is_laughter_like(w) or (w in short_emote_words)) for w in words
         )
 
-        is_backchannel = len(words) <= 2 and len(non_filler_words) == 0
-        is_stop_command_only = contains_stop_word and (
-            len(non_stop_words) == 0 or stop_like_count >= max(1, len(words) - 1)
-        )
-        is_significant = contains_stop_word or continue_intent or len(non_filler_words) >= 2
-        should_respond = (
-            continue_intent
-            or len(non_filler_words) >= 2
-            or is_wake_word_only
-            or short_emote_hit
-        ) and not is_stop_command_only
+        # [Barge-in Rework] Мягкие прерывания и Режим слушателя
+        listen_triggers = set(cfg_globals.get("stt_listen_triggers", ["послушай", "послушай меня", "дай я расскажу", "хочу рассказать", "сейчас расскажу"]))
+        is_listen_trigger = any(t in content.lower() for t in listen_triggers)
+        if is_listen_trigger:
+            self.is_listening = True
+            logging.info("Nira entered listening mode.")
+        
+        release_triggers = set(cfg_globals.get("stt_release_triggers", ["что думаешь", "как тебе", "что скажешь", "отвечай", "твое мнение", "я все", "все"]))
+        is_release = any(t in content.lower() for t in release_triggers)
+        if getattr(self, "is_listening", False) and is_release:
+            self.is_listening = False
+            logging.info("Nira exited listening mode.")
 
-        if is_backchannel and not continue_intent and not short_emote_hit:
-            logging.info("Backchannel detected (no response): '%s'", content)
-            await self._record_stt_metrics(
-                source_id=source_id,
-                turn_id=turn_id,
-                utterance_id=utterance_id,
-                provider=stt_provider,
-                latency_ms=stt_latency_ms,
-                text=content,
-                detected_stop_cmd=contains_stop_word,
-                expected_stop_cmd=bool(expected_stop_cmd) if isinstance(expected_stop_cmd, bool) else None,
-            )
-            return
+        # В режиме слушателя мы собираем контекст, но не отвечаем, пока нас не попросят (или не скажут СТОП).
+        should_respond = not getattr(self, "is_listening", False)
+        
+        # Хард-прерывание (barge-in) срабатывает ТОЛЬКО на стоп-слова
+        is_significant = contains_stop_word
 
         if is_wake_word_only:
             content = canonical_wake_word

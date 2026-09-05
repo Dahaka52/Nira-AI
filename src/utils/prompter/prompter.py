@@ -179,6 +179,15 @@ class Prompter(metaclass=Singleton):
         )
         
     def get_scene_prompt(self):
+        try:
+            active_scene = getattr(Config(), "active_scene", "local")
+            filename = f"scene_{active_scene}.md"
+            file_path = portable_path(os.path.join(Config().PROMPT_DIR, Config().PROMPT_SCENE_SUBDIR, filename))
+            if os.path.isfile(file_path):
+                return self._get_cached_prompt("scene_" + active_scene, Config().PROMPT_SCENE_SUBDIR, filename)
+        except Exception:
+            pass
+
         return self._get_cached_prompt(
             "scene", 
             Config().PROMPT_SCENE_SUBDIR, 

@@ -1,0 +1,23 @@
+﻿[2m01:29:29[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting JAIson application layer.
+  [1m[94m▶ CORE    [0m  [94mИнициализация JAIson (очереди, события)…[0m
+[2m01:29:29[0m  [1m[91m[ERROR][0m  [1m[97mroot[0m  Stopping server due to exception
+[2mTraceback (most recent call last):
+  File "C:\Nirmita\src\utils\server\app_server.py", line 403, in start_web_server
+    await JAIson().start()
+  File "C:\Nirmita\src\utils\jaison.py", line 143, in start
+    await self.prompter.configure(Config().prompter)
+                                  ^^^^^^^^
+  File "C:\Nirmita\src\utils\helpers\singleton.py", line 8, in __call__
+    cls.instance = super(Singleton, cls).__call__(*args, **kw)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\config.py", line 64, in __init__
+    if args.config is not None: self.load_from_name(args.config)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\config.py", line 76, in load_from_name
+    self.load_from_dict(**conf_d)
+  File "C:\Nirmita\src\utils\config.py", line 86, in load_from_dict
+    raise UnknownField(field)
+utils.config.UnknownField: Config field active_scene does not exist[0m
+[2m01:29:29[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Shutting down JAIson application layer
+[2m01:29:29[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  JAIson application layer has been shut down
+[2m01:29:29[0m  [1m[91m[ERROR][0m  [1m[97mroot[0m  Error in process manager loop: 'NoneType' object has no attribute 'reload'

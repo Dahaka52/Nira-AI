@@ -1,3 +1,16 @@
+# [Multi-user] Системные настройки Сцен и Мультиплеера
+# active_scene: "local"
+# known_users:
+#   "mic": "Creator"
+#   "default": "Незнакомец"
+
+# [Barge-in Rework] Умный Буфер STT и Режим Слушателя
+# stt_buffer_timeout_ms: 800
+# stt_filter_mode: "algorithm"
+# stt_stop_words: ["стоп", "подожди", "хватит", "замолчи", "тихо", "молчи", "выключи"]
+# stt_listen_triggers: ["послушай", "послушай меня", "дай я расскажу", "хочу рассказать", "сейчас расскажу"]
+# stt_release_triggers: ["что думаешь", "как тебе", "что скажешь", "отвечай", "твое мнение", "я все", "все"]
+
 # Enabled operations
 # Uncomment the ones you want to use by default
 # operations:
