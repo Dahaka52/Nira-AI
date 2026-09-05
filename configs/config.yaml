@@ -221,7 +221,7 @@ microphone:
 # -----------------------------------------------------------------------------
 discord:
   enabled: true
-  auto_join: true
+  auto_join: false
   guild_id: "390301473210236928"
   voice_channel_id: "390301473210236932"
   source_id: "discord"

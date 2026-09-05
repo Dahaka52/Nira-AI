@@ -126,7 +126,7 @@ class JAIson(metaclass=Singleton):
             "is_playing": False,
             "updated_at": 0.0,
         }
-        self._audio_output_mode: str = "discord"
+        self._audio_output_mode: str = "local"
     
     async def start(self):
         logging.info("Starting JAIson application layer.")
@@ -906,7 +906,7 @@ class JAIson(metaclass=Singleton):
         return st
 
     def get_audio_output_mode(self) -> str:
-        return getattr(self, "_audio_output_mode", "discord")
+        return getattr(self, "_audio_output_mode", "local")
 
     def _set_speaker_filter_enabled(self, enabled: bool) -> None:
         if getattr(self, "op_manager", None):

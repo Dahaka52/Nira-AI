@@ -79,7 +79,7 @@ function App() {
     const [systemStats, setSystemStats] = useState<SystemStats | null>(null);
     const [pipelineStage, setPipelineStage] = useState<'idle' | 'stt' | 'queue' | 'llm' | 'tts' | 'speaking'>('idle');
     const [selectedRunId, setSelectedRunId] = useState<string | null>(null);
-    const [outputMode, setOutputMode] = useState<'discord' | 'local'>('discord');
+    const [outputMode, setOutputMode] = useState<'discord' | 'local'>('local');
     const [isSwitchingOutput, setIsSwitchingOutput] = useState(false);
 
     const [metrics, setMetrics] = useState({

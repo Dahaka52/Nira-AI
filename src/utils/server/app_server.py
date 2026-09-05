@@ -134,7 +134,7 @@ async def get_pipeline_stats():
         "stt": j.get_stt_runtime_stats(),
         "loaded_operations": j.get_loaded_operations(),
         "active_providers": telemetry_data.get("active_providers"),
-        "audio_output_mode": telemetry_data.get("audio_output_mode", "discord"),
+        "audio_output_mode": telemetry_data.get("audio_output_mode", "local"),
         "telemetry": telemetry_data.get("latest"),
         "telemetry_history": telemetry_data.get("history", []),
         "discord_bridge": telemetry_data.get("discord"),
@@ -166,7 +166,7 @@ async def get_output_mode():
 async def set_output_mode():
     try:
         data = (await request.get_json(silent=True)) or {}
-        mode = data.get("mode", "discord")
+        mode = data.get("mode", "local")
         res = await JAIson().set_audio_output_mode(mode)
         return create_response(200, "Output mode updated", res, cors_header)
     except Exception as err:

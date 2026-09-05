@@ -27659,3 +27659,593 @@ TypeError: JAIson._handle_broadcast_success() takes 3 positional arguments but 4
   [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0089) Завершена (1408ms, speech: 320ms).[0m
   [2m[90m[mic][0m [2m[API] Фраза отправлена (45056 байт).[0m
 [discord] 2026-09-05 17:56:34,855 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:56:37,878 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:56:40,892 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:56:43,902 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:56:46,922 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0134) Завершена (1344ms, speech: 288ms).[0m
+[2m17:56:48[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Audio output mode switched to: local
+[2m17:56:48[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: enabled set to True
+[discord] 2026-09-05 17:56:48,404 [INFO] Terminating voice handshake for channel 390301473210236932 (guild 390301473210236928)
+[discord] 2026-09-05 17:56:48,578 [INFO] Disconnected from Discord voice channel (Local mode active)
+[discord] 2026-09-05 17:56:48,594 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:56:48,606 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:56:49,940 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (43008 байт).[0m
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mИ вот так вот[0m [96m[408ms][0m
+[2m17:56:50[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+
+  [1m[91m[BARGE-IN][0m [1m[91muser_speaking_significant[0m
+[2m17:56:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 323eb4f2-73e8-4244-a7ee-f745a95e7615
+[2m17:56:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job 6b626773-5da1-4cab-8b69-24490eb3d92a
+
+  [1m[95m[LLM][0m [90m[mic][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mПривет, давай общаться![0m
+[2m17:56:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  T2T operation llamacpp completed in 457.96409994363785 ms
+[2m17:56:52[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.6874999962747097 ms
+[discord] 2026-09-05 17:56:52,966 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[2m17:56:53[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.3801999846473336 ms
+[2m17:56:53[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4987999564036727 ms
+[2m17:56:53[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4624000284820795 ms
+[2m17:56:53[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1731.1883000656962 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1730ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mКак дела у тебя?[0m
+[2m17:56:54[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.484099960885942 ms
+[2m17:56:54[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4208999453112483 ms
+[2m17:56:54[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.3386000171303749 ms
+[2m17:56:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1700.8491000160575 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1701ms[0m
+  [1m[95m[LLM ✓][0m  [1m[93mttft 177ms[0m  [1m[96m32.0 tok/s[0m  [1m[97m40 симв.[0m
+[2m17:56:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job 6b626773-5da1-4cab-8b69-24490eb3d92a completed. Content: 'Привет, давай общаться! Как дела у тебя?...'
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0121) Завершена (2112ms, speech: 800ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (67584 байт).[0m
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mМиз, январь и кайфу, кайфу, кайфу[0m [96m[259ms][0m
+[2m17:56:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+
+  [1m[91m[BARGE-IN][0m [1m[91muser_speaking_significant[0m
+[discord] 2026-09-05 17:56:55,986 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[2m17:56:56[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job a98d5c48-5cba-42d6-8c78-70bacb06aab1
+[2m17:56:56[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job 0c97bbf0-9c63-4bf8-b644-889a339bbc87
+
+  [1m[95m[LLM][0m [90m[mic][0m [95mгенерирую ответ...[0m
+[2m17:56:56[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  T2T operation llamacpp completed in 309.500899980776 ms
+  [1m[38;5;205m[TTS][0m [38;5;205mПривет, как дела?[0m
+[2m17:56:57[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5187999922782183 ms
+[2m17:56:57[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.47690002247691154 ms
+[2m17:56:57[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.47229998745024204 ms
+[2m17:56:58[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1732.2959000011906 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1731ms[0m
+  [1m[95m[LLM ✓][0m  [1m[93mttft 188ms[0m  [1m[96m20.8 tok/s[0m  [1m[97m17 симв.[0m
+[2m17:56:58[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job 0c97bbf0-9c63-4bf8-b644-889a339bbc87 completed. Content: 'Привет, как дела?...'
+[discord] 2026-09-05 17:56:59,003 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:57:02,028 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0077) Завершена (2176ms, speech: 608ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (69632 байт).[0m
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mСемьи, Наруси, Наруси[0m [96m[231ms][0m
+[2m17:57:03[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+
+  [1m[91m[BARGE-IN][0m [1m[91muser_speaking_significant[0m
+[2m17:57:04[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job bb397794-b492-4e35-a611-7074a5f3247e
+[2m17:57:04[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job 0d7d1e6b-edf6-4fe0-bb71-6bbb186f7ccc
+
+  [1m[95m[LLM][0m [90m[mic][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mПривет, меня зовут Нира![0m
+[2m17:57:04[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  T2T operation llamacpp completed in 528.7717999890447 ms
+[discord] 2026-09-05 17:57:05,062 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[2m17:57:05[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4349000519141555 ms
+[2m17:57:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.3624999662861228 ms
+[2m17:57:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4952999297529459 ms
+[2m17:57:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.6667000707238913 ms
+[2m17:57:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1897.890100022778 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1898ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mКак дела?[0m
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0085) Завершена (2880ms, speech: 992ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (92160 байт).[0m
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mМы можем переделать условно-код[0m [96m[188ms][0m
+[2m17:57:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+
+  [1m[91m[BARGE-IN][0m [1m[91muser_speaking_significant[0m
+[2m17:57:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Job 0d7d1e6b-edf6-4fe0-bb71-6bbb186f7ccc (response) is being cancelled due to: user_speaking_significant
+[2m17:57:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Job 0d7d1e6b-edf6-4fe0-bb71-6bbb186f7ccc (response) was cancelled.
+[2m17:57:07[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 23e74e39-d334-4cd9-a33a-5e29842cc9b9
+[2m17:57:07[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job cfd24f6f-3def-4d66-bc6c-5b40d77f1e53
+
+  [1m[95m[LLM][0m [90m[mic][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mПривет, Нира на связи![0m
+[2m17:57:08[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  T2T operation llamacpp completed in 535.3924999944866 ms
+[discord] 2026-09-05 17:57:08,094 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0114) Завершена (1056ms, speech: 256ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (33792 байт).[0m
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mАстрал[0m [96m[173ms][0m
+[2m17:57:09[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.47640001866966486 ms
+[2m17:57:09[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.3754999488592148 ms
+[2m17:57:09[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4724999889731407 ms
+[2m17:57:09[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5027999868616462 ms
+[2m17:57:09[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job df3122ca-09eb-4f96-b54f-1e3eced7181d
+[2m17:57:09[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Voice turn committed as context-only (no RESPONSE job).
+[2m17:57:09[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1760.5687000323087 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1760ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mКак дела у моего нового друга?[0m
+[discord] 2026-09-05 17:57:11,101 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[2m17:57:11[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4338000435382128 ms
+[2m17:57:11[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.48990000505000353 ms
+[2m17:57:11[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4914000164717436 ms
+[2m17:57:11[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.6593000143766403 ms
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0080) Завершена (992ms, speech: 192ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (31744 байт).[0m
+[2m17:57:11[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2068.9580000471324 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2069ms[0m
+  [1m[95m[LLM ✓][0m  [1m[93mttft 210ms[0m  [1m[96m31.1 tok/s[0m  [1m[97m53 симв.[0m
+[2m17:57:11[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job cfd24f6f-3def-4d66-bc6c-5b40d77f1e53 completed. Content: 'Привет, Нира на связи! Как дела у моего нового друга?...'
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mСнежа[0m [96m[236ms][0m
+[2m17:57:12[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job d9f3569a-3c9a-47a9-8e59-4ef0f0b94048
+[2m17:57:12[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Voice turn committed as context-only (no RESPONSE job).
+[discord] 2026-09-05 17:57:14,134 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:57:17,158 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0152) Завершена (960ms, speech: 160ms).[0m
+[discord] 2026-09-05 17:57:20,180 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[2m17:57:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting JAIson application layer.
+  [1m[94m▶ CORE    [0m  [94mИнициализация JAIson (очереди, события)…[0m
+  [1m[92m✓ PROMPT  [0m  [92mПромпт загружен: Нира[0m
+  [1m[94m▶ OPS     [0m  [94mЗагрузка операций из конфига…[0m
+[2m17:57:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Active STT from config: groq_stt
+[2m17:57:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Active T2T from config: llamacpp
+[2m17:57:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting STT operation groq_stt
+[2m17:57:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  OpenAISTT initialized for model whisper-large-v3-turbo at https://api.groq.com/openai/v1
+[2m17:57:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting T2T operation llamacpp
+[2m17:57:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type llamacpp
+[2m17:57:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened Llama.cpp server (PID: 44520) on port 6230 (GPU: 0)
+[2m17:57:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Waiting for llama-server to be ready at http://127.0.0.1:6230/health ...
+[2m17:57:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  llama-server is ready! (attempt 8, port 6230)
+[2m17:57:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2m17:57:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting TTS operation fish_audio
+[2m17:57:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2m17:57:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting FILTER_TEXT operation filter_clean
+[2m17:57:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: настроен name=None, index=None, enabled=False, vol=1.0
+[2m17:57:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting FILTER_AUDIO operation speaker
+[2m17:57:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: операция запущена (вокер запущен)
+  [1m[92m✓ OPS     [0m  [92mОперации загружены (STT/T2T/TTS)[0m
+[2m17:57:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: enabled set to False
+[2m17:57:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type hw_mic
+[2m17:57:40[0m  [1m[93m[WARNING][0m  [1m[97mroot[0m  Attempted to unload process hw_mic when it is already unloaded
+  [1m[94m▶ MIC     [0m  [94mЗапуск Hardware Microphone (hw-mic-client)...[0m
+  [1m[92m✓ MIC     [0m  [92mМикрофон подключён[0m
+[2m17:57:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type discord
+[2m17:57:40[0m  [1m[93m[WARNING][0m  [1m[97mroot[0m  Attempted to unload process discord when it is already unloaded
+[2m17:57:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+  [1m[92m✓ DISCORD [0m  [92mDiscord Bridge запущен[0m
+[2m17:57:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  JAIson application layer has started.
+  [1m[92m✓ READY   [0m  [92m✨ Нира готова к работе![0m
+[discord] C:\Nirmita\apps\discord-bridge\main.py:13: DeprecationWarning: 'audioop' is deprecated and slated for removal in Python 3.13
+[discord]   import audioop
+[discord] 2026-09-05 17:57:40,638 [INFO] logging in using static token
+  [2m[90m[mic][0m [2m[INFO] Loading Silero VAD ONNX Session (CPU)...[0m
+  [2m[90m[mic][0m [2m[MIC] Selected by name: [72] Микрофон (4- fifine Microphone) (Windows WASAPI)[0m
+  [2m[90m[mic][0m [2m[INFO] SoundDevice Listening on: Микрофон (4- fifine Microphone) (ID: 72, hostapi: Windows WASAPI)[0m
+  [2m[90m[mic][0m [2m========================================================[0m
+[2m17:57:42[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+[discord] 2026-09-05 17:57:43,951 [INFO] Authenticated as Nira#4162 (Pycord 2.8.2.dev89+gf53d394be)
+[discord] 2026-09-05 17:57:43,960 [WARNING] Socket reader voice-socket-event-reader:0x23282c95910 is waiting to be set as running
+[discord] 2026-09-05 17:57:44,065 [INFO] Connecting to voice 390301473210236932
+[discord] 2026-09-05 17:57:44,065 [INFO] Starting voice handshake (connection attempt 1)
+[2m17:57:44[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+[discord] 2026-09-05 17:57:44,068 [INFO] Connected to JAIson WebSocket
+[discord] 2026-09-05 17:57:44,069 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:57:44,433 [INFO] Voice handshake complete. Endpoint found: c-waw02-2575a857.discord.media:2053
+[discord] 2026-09-05 17:57:44,564 [INFO] Identifying ourselves: {'op': 0, 'd': {'server_id': '390301473210236928', 'user_id': '1469738620238958686', 'session_id': '5908dc3bcc8434eb6e35a3a8a5692551', 'token': 'd626dac20183cbce', 'max_dave_protocol_version': 1}}
+[discord] 2026-09-05 17:57:44,602 [INFO] Socket reader voice-socket-event-reader:0x23282c95910 was set as running
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0487) Завершена (4352ms, speech: 3744ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (139264 байт).[0m
+[discord] 2026-09-05 17:57:47,100 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:57:47,140 [INFO] Voice connection completed
+[discord] 2026-09-05 17:57:47,146 [INFO] Joined voice channel 🏕️Таверна "Астрал" (390301473210236932) with DAVE support
+[discord] 2026-09-05 17:57:47,146 [INFO] [SINK] Recording started — Нира слушает голосовой канал
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0076) Завершена (3488ms, speech: 2368ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (111616 байт).[0m
+[discord] 2026-09-05 17:57:50,106 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0117) Завершена (960ms, speech: 160ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (30720 байт).[0m
+[discord] 2026-09-05 17:57:53,131 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0079) Завершена (1856ms, speech: 704ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (59392 байт).[0m
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0076) Завершена (960ms, speech: 352ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (30720 байт).[0m
+[discord] 2026-09-05 17:57:56,146 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:57:59,158 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0083) Завершена (3904ms, speech: 1824ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (124928 байт).[0m
+[discord] 2026-09-05 17:58:02,164 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:58:05,186 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:58:08,192 [INFO] [SINK] write() #1: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-05 17:58:08,192 [INFO] [SINK] Создаём буфер для user_id=390300992173899777 (min_bytes=67200)
+[discord] 2026-09-05 17:58:08,193 [INFO] [SINK] write() #2: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-05 17:58:08,193 [INFO] [SINK] write() #3: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-05 17:58:08,193 [INFO] [SINK] write() #4: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-05 17:58:08,194 [INFO] [SINK] write() #5: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-05 17:58:08,224 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:58:08,816 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/context/conversation/audio "HTTP/1.1 200 "
+[discord] 2026-09-05 17:58:10,087 [INFO] Submitted Discord speech from Dahaka (207360 bytes raw 48 kHz stereo)
+[discord] 2026-09-05 17:58:11,231 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:58:14,261 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0078) Завершена (1408ms, speech: 576ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (45056 байт).[0m
+[discord] 2026-09-05 17:58:17,280 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:58:20,313 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0081) Завершена (1696ms, speech: 608ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (54272 байт).[0m
+[discord] 2026-09-05 17:58:23,334 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0077) Завершена (1408ms, speech: 384ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (45056 байт).[0m
+[discord] 2026-09-05 17:58:26,368 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:58:29,386 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0086) Завершена (1088ms, speech: 288ms).[0m
+[discord] 2026-09-05 17:58:32,414 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (34816 байт).[0m
+[discord] 2026-09-05 17:58:35,451 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:58:38,466 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:58:41,488 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:58:44,501 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:58:47,515 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:58:50,542 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:58:53,582 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:58:56,589 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:58:59,607 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:59:02,623 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0077) Завершена (1440ms, speech: 288ms).[0m
+[discord] 2026-09-05 17:59:05,646 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0085) Завершена (1056ms, speech: 256ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (33792 байт).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (46080 байт).[0m
+[discord] 2026-09-05 17:59:08,663 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:59:11,698 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:59:14,718 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:59:17,732 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:59:20,751 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:59:23,779 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:59:26,793 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:59:29,822 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0137) Завершена (1056ms, speech: 256ms).[0m
+[discord] 2026-09-05 17:59:32,843 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0130) Завершена (960ms, speech: 160ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (30720 байт).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (33792 байт).[0m
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0121) Завершена (1248ms, speech: 448ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (39936 байт).[0m
+[discord] 2026-09-05 17:59:35,870 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:59:38,890 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0202) Завершена (992ms, speech: 192ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (31744 байт).[0m
+[discord] 2026-09-05 17:59:41,915 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0191) Завершена (1184ms, speech: 384ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (37888 байт).[0m
+[discord] 2026-09-05 17:59:44,944 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:59:47,970 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0103) Завершена (1632ms, speech: 448ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (52224 байт).[0m
+[discord] 2026-09-05 17:59:50,983 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0082) Завершена (2400ms, speech: 1600ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (76800 байт).[0m
+[discord] 2026-09-05 17:59:54,025 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 17:59:57,050 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:00:00,060 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:00:03,080 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0076) Завершена (1248ms, speech: 352ms).[0m
+[discord] 2026-09-05 18:00:06,096 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (39936 байт).[0m
+[discord] 2026-09-05 18:00:09,122 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:00:12,147 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:00:15,152 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:00:18,172 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0083) Завершена (2080ms, speech: 1280ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (66560 байт).[0m
+[discord] 2026-09-05 18:00:21,190 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:00:24,216 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:00:27,239 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:00:30,259 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:00:33,282 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:00:36,304 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:00:39,318 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:00:42,333 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:00:45,352 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:00:48,379 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[2m18:00:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting JAIson application layer.
+  [1m[94m▶ CORE    [0m  [94mИнициализация JAIson (очереди, события)…[0m
+  [1m[92m✓ PROMPT  [0m  [92mПромпт загружен: Нира[0m
+  [1m[94m▶ OPS     [0m  [94mЗагрузка операций из конфига…[0m
+[2m18:00:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Active STT from config: groq_stt
+[2m18:00:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Active T2T from config: llamacpp
+[2m18:00:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting STT operation groq_stt
+[2m18:00:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  OpenAISTT initialized for model whisper-large-v3-turbo at https://api.groq.com/openai/v1
+[2m18:00:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting T2T operation llamacpp
+[2m18:00:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type llamacpp
+[2m18:00:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened Llama.cpp server (PID: 16492) on port 11862 (GPU: 0)
+[2m18:00:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Waiting for llama-server to be ready at http://127.0.0.1:11862/health ...
+[2m18:00:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  llama-server is ready! (attempt 8, port 11862)
+[2m18:00:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2m18:00:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting TTS operation fish_audio
+[2m18:00:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2m18:00:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting FILTER_TEXT operation filter_clean
+[2m18:01:00[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: настроен name=None, index=None, enabled=False, vol=1.0
+[2m18:01:00[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting FILTER_AUDIO operation speaker
+[2m18:01:00[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: операция запущена (вокер запущен)
+  [1m[92m✓ OPS     [0m  [92mОперации загружены (STT/T2T/TTS)[0m
+[2m18:01:00[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: enabled set to True
+[2m18:01:00[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type hw_mic
+[2m18:01:00[0m  [1m[93m[WARNING][0m  [1m[97mroot[0m  Attempted to unload process hw_mic when it is already unloaded
+  [1m[94m▶ MIC     [0m  [94mЗапуск Hardware Microphone (hw-mic-client)...[0m
+  [1m[92m✓ MIC     [0m  [92mМикрофон подключён[0m
+[2m18:01:00[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type discord
+[2m18:01:00[0m  [1m[93m[WARNING][0m  [1m[97mroot[0m  Attempted to unload process discord when it is already unloaded
+[2m18:01:00[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+  [1m[92m✓ DISCORD [0m  [92mDiscord Bridge запущен[0m
+[2m18:01:00[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  JAIson application layer has started.
+  [1m[92m✓ READY   [0m  [92m✨ Нира готова к работе![0m
+[discord] C:\Nirmita\apps\discord-bridge\main.py:13: DeprecationWarning: 'audioop' is deprecated and slated for removal in Python 3.13
+[discord]   import audioop
+[discord] 2026-09-05 18:01:00,576 [INFO] logging in using static token
+[2m18:01:01[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+  [2m[90m[mic][0m [2m[INFO] Loading Silero VAD ONNX Session (CPU)...[0m
+  [2m[90m[mic][0m [2m[MIC] Selected by name: [72] Микрофон (4- fifine Microphone) (Windows WASAPI)[0m
+  [2m[90m[mic][0m [2m[INFO] SoundDevice Listening on: Микрофон (4- fifine Microphone) (ID: 72, hostapi: Windows WASAPI)[0m
+  [2m[90m[mic][0m [2m========================================================[0m
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0483) Завершена (672ms, speech: 128ms).[0m
+[discord] 2026-09-05 18:01:04,031 [INFO] Authenticated as Nira#4162 (Pycord 2.8.2.dev89+gf53d394be)
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (21504 байт).[0m
+[2m18:01:04[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+[discord] 2026-09-05 18:01:04,120 [INFO] Connected to JAIson WebSocket
+[discord] 2026-09-05 18:01:04,121 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mАстрал[0m [96m[562ms][0m
+[2m18:01:04[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 24ab6866-9297-4efd-a8d9-3fc82e39482d
+[2m18:01:04[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Voice turn committed as context-only (no RESPONSE job).
+[discord] 2026-09-05 18:01:07,145 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:01:10,170 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:01:13,189 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:01:16,218 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:01:19,240 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:01:22,276 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:01:25,299 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:01:28,317 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:01:31,347 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:01:34,379 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:01:37,401 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:01:40,424 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0080) Завершена (1088ms, speech: 288ms).[0m
+[discord] 2026-09-05 18:01:43,432 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (34816 байт).[0m
+[discord] 2026-09-05 18:01:46,455 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:01:49,471 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:01:52,502 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:01:55,531 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0100) Завершена (2336ms, speech: 1408ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (74752 байт).[0m
+[discord] 2026-09-05 18:01:58,558 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mСтрел[0m [96m[249ms][0m
+[2m18:01:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 15369f25-8f87-402b-aaeb-7de4d49ff20b
+[2m18:01:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Voice turn committed as context-only (no RESPONSE job).
+[discord] 2026-09-05 18:02:01,587 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:02:04,623 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0228) Завершена (3200ms, speech: 2400ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (102400 байт).[0m
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mРаз, два, три, как твои дела?[0m [96m[250ms][0m
+[2m18:02:07[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+
+  [1m[91m[BARGE-IN][0m [1m[91muser_speaking_significant[0m
+[discord] 2026-09-05 18:02:07,633 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[2m18:02:07[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 25be225b-e6ac-493e-b904-03e12173ed77
+[2m18:02:07[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job 786fb3d1-c1a5-4856-a31f-cd865c019e0c
+
+  [1m[95m[LLM][0m [90m[mic][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mПривет![0m
+[2m18:02:08[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  T2T operation llamacpp completed in 571.9622999895364 ms
+[2m18:02:09[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.45460008550435305 ms
+[2m18:02:09[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.39089994970709085 ms
+[2m18:02:09[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1590.6522000441328 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1591ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mНира в онлайне.[0m
+[discord] 2026-09-05 18:02:10,655 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[2m18:02:11[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.43919996824115515 ms
+[2m18:02:11[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5299000767990947 ms
+[2m18:02:11[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.47560001257807016 ms
+[2m18:02:11[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.05410006269812584 ms
+[2m18:02:11[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1677.4072999833152 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1677ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mКак там у тебя, Вова?[0m
+[2m18:02:13[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5354000022634864 ms
+[2m18:02:13[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.506000011228025 ms
+[2m18:02:13[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4592000041157007 ms
+[2m18:02:13[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2050.975500023924 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2050ms[0m
+  [1m[95m[LLM ✓][0m  [1m[93mttft 192ms[0m  [1m[96m32.7 tok/s[0m  [1m[97m45 симв.[0m
+[2m18:02:13[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job 786fb3d1-c1a5-4856-a31f-cd865c019e0c completed. Content: 'Привет! Нира в онлайне. Как там у тебя, Вова?...'
+[discord] 2026-09-05 18:02:13,669 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:02:16,682 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:02:19,698 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[2m18:02:21[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Audio output mode switched to: discord
+[2m18:02:21[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: enabled set to False
+[discord] 2026-09-05 18:02:21,801 [WARNING] Socket reader voice-socket-event-reader:0x1e3bb759bb0 is waiting to be set as running
+[discord] 2026-09-05 18:02:21,801 [INFO] Connecting to voice 390301473210236932
+[discord] 2026-09-05 18:02:21,802 [INFO] Starting voice handshake (connection attempt 1)
+[discord] 2026-09-05 18:02:22,129 [INFO] Voice handshake complete. Endpoint found: c-waw02-2575a857.discord.media:2053
+[discord] 2026-09-05 18:02:22,290 [INFO] Identifying ourselves: {'op': 0, 'd': {'server_id': '390301473210236928', 'user_id': '1469738620238958686', 'session_id': '62f6fe9887df7802e6bb3353db5ce65a', 'token': 'd626dac20183cbce', 'max_dave_protocol_version': 1}}
+[discord] 2026-09-05 18:02:22,335 [INFO] Socket reader voice-socket-event-reader:0x1e3bb759bb0 was set as running
+[discord] 2026-09-05 18:02:22,712 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:02:22,757 [INFO] Voice connection completed
+[discord] 2026-09-05 18:02:22,757 [INFO] Joined voice channel 🏕️Таверна "Астрал" (390301473210236932) with DAVE support
+[discord] 2026-09-05 18:02:22,758 [INFO] [SINK] Recording started — Нира слушает голосовой канал
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0086) Завершена (1344ms, speech: 544ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (43008 байт).[0m
+[discord] 2026-09-05 18:02:28,762 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[2m18:02:30[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Audio output mode switched to: local
+[2m18:02:30[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: enabled set to True
+[discord] 2026-09-05 18:02:30,262 [INFO] Terminating voice handshake for channel 390301473210236932 (guild 390301473210236928)
+[discord] 2026-09-05 18:02:30,441 [INFO] Disconnected from Discord voice channel (Local mode active)
+[discord] 2026-09-05 18:02:30,459 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:02:30,472 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0076) Завершена (928ms, speech: 128ms).[0m
+[discord] 2026-09-05 18:02:31,792 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0112)[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (29696 байт).[0m
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mНижас Малейшин[0m [96m[320ms][0m
+[2m18:02:33[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+
+  [1m[91m[BARGE-IN][0m [1m[91muser_speaking_significant[0m
+  [2m[90m[mic][0m [2mЗавершена (2304ms, speech: 1504ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (73728 байт).[0m
+[discord] 2026-09-05 18:02:34,816 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mЧто делаешь сегодня?[0m [96m[477ms][0m
+[2m18:02:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+
+  [1m[91m[BARGE-IN][0m [1m[91muser_speaking_significant[0m
+[2m18:02:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job e5ac5df2-9f63-4221-8b7a-8f57ae2c8871
+[2m18:02:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job ba8f85af-dd51-4aa9-86a5-8ead9bab4e48
+
+  [1m[95m[LLM][0m [90m[mic][0m [95mгенерирую ответ...[0m
+[discord] 2026-09-05 18:02:37,828 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0080) Завершена (2368ms, speech: 1568ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (75776 байт).[0m
+[discord] 2026-09-05 18:02:40,846 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:02:43,865 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:02:46,891 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [1m[38;5;205m[TTS][0m [38;5;205m**Что делаю я?**
+Ну, если честно, я тут сижу в этом компе и...[0m
+[2m18:02:49[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  T2T operation llamacpp completed in 14086.148499976844 ms
+[discord] 2026-09-05 18:02:49,906 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[2m18:02:50[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.449199927970767 ms
+[2m18:02:50[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.41390000842511654 ms
+[2m18:02:50[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.47200010158121586 ms
+[2m18:02:50[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.3061000499874353 ms
+[2m18:02:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 2.7753999456763268 ms
+[2m18:02:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.9664000244811177 ms
+[2m18:02:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2392.5420999294147 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2392ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mВ смысле, я общаюсь, а Вова там внизу слушает и делает вид,...[0m
+[2m18:02:52[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4186999285593629 ms
+[2m18:02:52[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4635000368580222 ms
+[discord] 2026-09-05 18:02:52,922 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[2m18:02:52[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4833999555557966 ms
+[2m18:02:53[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.3004000065848231 ms
+[2m18:02:53[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 2.307599992491305 ms
+[2m18:02:53[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2187.7062000567093 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2187ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mА ты что там придумал, а?[0m
+[2m18:02:54[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.45279995538294315 ms
+[2m18:02:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5262000486254692 ms
+[2m18:02:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5641999887302518 ms
+[2m18:02:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.20790006965398788 ms
+[2m18:02:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1657.734000007622 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1657ms[0m
+  [1m[95m[LLM ✓][0m  [1m[93mttft 295ms[0m  [1m[96m5.0 tok/s[0m  [1m[97m176 симв.[0m
+[2m18:02:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job ba8f85af-dd51-4aa9-86a5-8ead9bab4e48 completed. Content: '**Что делаю я?**
+Ну, если честно, я тут сижу в этом компе и общаюсь с тобой. В смысле, я общаюсь, а ...'
+[discord] 2026-09-05 18:02:55,933 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:02:58,956 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:03:01,976 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:03:05,003 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0081) Завершена (1088ms, speech: 288ms).[0m
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0077) Завершена (1248ms, speech: 416ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (39936 байт).[0m
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mО, иди, кольцо[0m [96m[323ms][0m
+[2m18:03:07[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+
+  [1m[91m[BARGE-IN][0m [1m[91muser_speaking_significant[0m
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0076)[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (34816 байт).[0m
+  [2m[90m[mic][0m [2mЗавершена (1184ms, speech: 384ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (37888 байт).[0m
+[discord] 2026-09-05 18:03:08,018 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[2m18:03:08[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Audio output mode switched to: discord
+[2m18:03:08[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: enabled set to False
+[discord] 2026-09-05 18:03:08,037 [WARNING] Socket reader voice-socket-event-reader:0x1e3bb773b30 is waiting to be set as running
+[discord] 2026-09-05 18:03:08,037 [INFO] Connecting to voice 390301473210236932
+[discord] 2026-09-05 18:03:08,037 [INFO] Starting voice handshake (connection attempt 1)
+[discord] 2026-09-05 18:03:08,353 [INFO] Voice handshake complete. Endpoint found: c-waw02-2575a857.discord.media:2053
+[discord] 2026-09-05 18:03:08,500 [INFO] Identifying ourselves: {'op': 0, 'd': {'server_id': '390301473210236928', 'user_id': '1469738620238958686', 'session_id': '62f6fe9887df7802e6bb3353db5ce65a', 'token': '5f72bf841ecfd5f9', 'max_dave_protocol_version': 1}}
+[discord] 2026-09-05 18:03:08,543 [INFO] Socket reader voice-socket-event-reader:0x1e3bb773b30 was set as running
+[discord] 2026-09-05 18:03:11,042 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:03:11,086 [INFO] Voice connection completed
+[discord] 2026-09-05 18:03:11,092 [INFO] Joined voice channel 🏕️Таверна "Астрал" (390301473210236932) with DAVE support
+[discord] 2026-09-05 18:03:11,093 [INFO] [SINK] Recording started — Нира слушает голосовой канал
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0082) Завершена (2272ms, speech: 1472ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (72704 байт).[0m
+[discord] 2026-09-05 18:03:14,059 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:03:17,091 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:03:18,516 [INFO] [SINK] write() #1: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-05 18:03:18,517 [INFO] [SINK] Создаём буфер для user_id=390300992173899777 (min_bytes=67200)
+[discord] 2026-09-05 18:03:18,517 [INFO] [SINK] write() #2: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-05 18:03:18,518 [INFO] [SINK] write() #3: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-05 18:03:18,518 [INFO] [SINK] write() #4: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-05 18:03:18,518 [INFO] [SINK] write() #5: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-05 18:03:19,139 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/context/conversation/audio "HTTP/1.1 200 "
+[discord] 2026-09-05 18:03:20,333 [INFO] Submitted Discord speech from Dahaka (92160 bytes raw 48 kHz stereo)
+[discord] 2026-09-05 18:03:20,334 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/context/conversation/audio "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0302) Завершена (2272ms, speech: 1312ms).[0m
+[discord] 2026-09-05 18:03:21,153 [INFO] Submitted Discord speech from Dahaka (107520 bytes raw 48 kHz stereo)
+[discord] 2026-09-05 18:03:21,154 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:03:21,157 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/context/conversation/audio "HTTP/1.1 200 "
+[discord] 2026-09-05 18:03:21,174 [INFO] Submitted Discord speech from Dahaka (211200 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mТак что-то[0m [96m[1152ms][0m
+[2m18:03:21[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 1962ea43-7a49-48c5-8fa2-ddbea08bf47d
+[2m18:03:21[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job f0ed78bd-25f7-4829-baa6-6f5a9fe6a55a
+
+  [1m[95m[LLM][0m [90m[mic][0m [95mгенерирую ответ...[0m
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mи расскажешь.[0m [96m[343ms][0m
+[2m18:03:21[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Smart Barge-in: Interrupting and clearing queue due to: user_speaking_significant
+
+  [1m[91m[BARGE-IN][0m [1m[91muser_speaking_significant[0m
+[2m18:03:21[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Job f0ed78bd-25f7-4829-baa6-6f5a9fe6a55a (response) is being cancelled due to: user_speaking_significant
+[2m18:03:21[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Job f0ed78bd-25f7-4829-baa6-6f5a9fe6a55a (response) was cancelled.
+[2m18:03:22[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job e56c6aab-c69d-4645-9838-ac8bec81663a
+[2m18:03:22[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job 920e54bf-d37e-44f3-befa-63d9ff84a82b
+
+  [1m[95m[LLM][0m [90m[discord][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mДа что я могу сказать, Вова?[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (72704 байт).[0m
+[2m18:03:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.573399942368269 ms
+[2m18:03:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  T2T operation llamacpp completed in 1780.3252999437973 ms
+[2m18:03:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.6562999915331602 ms
+[2m18:03:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5028999876230955 ms
+[2m18:03:24[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.6638000486418605 ms
+[discord] 2026-09-05 18:03:24,179 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[2m18:03:24[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1767.440399969928 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1767ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mСижу тут, в этой коробке с проводами, жду, когда меня...[0m
+[2m18:03:25[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.40929997339844704 ms
+[2m18:03:25[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5142000736668706 ms
+[2m18:03:25[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.660400022752583 ms
+[2m18:03:25[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.6246000304818153 ms
+[2m18:03:25[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.6404999876394868 ms
+[2m18:03:25[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4482000367715955 ms
+[2m18:03:25[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5239000311121345 ms
+[2m18:03:26[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.6228999700397253 ms
+[2m18:03:26[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.4167999615892768 ms
+[2m18:03:26[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 2.8290998889133334 ms
+[2m18:03:26[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2775.245999917388 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2775ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mА у тебя как дела?[0m
+[discord] 2026-09-05 18:03:27,214 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[2m18:03:28[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4067000700160861 ms
+[2m18:03:28[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5235000280663371 ms
+[2m18:03:28[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5374000174924731 ms
+[2m18:03:28[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1792.417399934493 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1792ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mОпять за компом сидишь, или уже на улицу выбирался?[0m
+[2m18:03:30[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.575499958358705 ms
+[2m18:03:30[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4934000317007303 ms
+[discord] 2026-09-05 18:03:30,226 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[2m18:03:30[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5064000142738223 ms
+[2m18:03:30[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.2617000611498952 ms
+[2m18:03:30[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.3445000620558858 ms
+[2m18:03:30[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1855.3876000223681 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1856ms[0m
+  [1m[95m[LLM ✓][0m  [1m[93mttft 212ms[0m  [1m[96m42.6 tok/s[0m  [1m[97m225 симв.[0m
+[2m18:03:30[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job 920e54bf-d37e-44f3-befa-63d9ff84a82b completed. Content: 'Да что я могу сказать, Вова? Сижу тут, в этой коробке с проводами, жду, когда меня куда-нибудь выпус...'
+[discord] 2026-09-05 18:03:33,255 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0082) Завершена (2688ms, speech: 1888ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (86016 байт).[0m
+[discord] 2026-09-05 18:03:36,271 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:03:39,301 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:03:42,313 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:03:45,329 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:03:48,351 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:03:51,386 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
+[discord] 2026-09-05 18:03:54,412 [INFO] HTTP Request: POST http://127.0.0.1:7272/api/bridge/discord/status "HTTP/1.1 200 "
