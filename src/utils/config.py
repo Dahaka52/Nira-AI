@@ -20,6 +20,13 @@ class Config(metaclass=Singleton):
     current_config: str = "Unsaved"
     
     # Defaults
+    active_scene: str = "local"
+    known_users: dict = dict()
+    stt_buffer_timeout_ms: int = 800
+    stt_filter_mode: str = "algorithm"
+    stt_stop_words: list = list()
+    stt_listen_triggers: list = list()
+    stt_release_triggers: list = list()
     operations: list = list()
     stt_active_id: str = None
     stt_strict_active_id: bool = False
