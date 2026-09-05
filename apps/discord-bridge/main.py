@@ -579,6 +579,8 @@ def main() -> None:
     # Глушим спам от низкоуровневых модулей
     logging.getLogger("discord.gateway").setLevel(logging.WARNING)
     logging.getLogger("discord.voice_client").setLevel(logging.INFO)
+    logging.getLogger("httpx").setLevel(logging.WARNING)
+    logging.getLogger("httpcore").setLevel(logging.WARNING)
 
     token = os.getenv("DISCORD_BOT_TOKEN")
     if not token:

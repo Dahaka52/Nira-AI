@@ -150,7 +150,7 @@ operations:
 
 # LlamaCPP (локальный сервер, RTX 5070 12GB)
 llamacpp_filepath: "C:\\Nirmita\\bin\\llamacpp\\llama-server.exe"
-llamacpp_model_filepath: "C:\\Nirmita\\models\\Mistral-Nemo-2407-12B-Thinking-Claude-Gemini-GPT5.2-Uncensored-HERETIC.Q4_K_M.gguf"
+llamacpp_model_filepath: "C:\\Nirmita\\models\\Katarau-9B-ru-RP-nsfw.i1-Q4_K_M.gguf"
 llamacpp_ctx: 8192
 llamacpp_ngl: 40
 llamacpp_cache_type_k: "q8_0"   # Квантование K-cache контекста

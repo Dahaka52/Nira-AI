@@ -62,6 +62,8 @@ class DiscordProcess(BaseProcess):
         def stream_logs(pipe):
             if pipe:
                 for line in iter(pipe.readline, ""):
+                    if "/api/bridge/discord/status" in line:
+                        continue
                     print(f"[discord] {line}", end="", flush=True)
                 pipe.close()
 
