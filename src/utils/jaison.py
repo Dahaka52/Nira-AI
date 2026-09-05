@@ -125,7 +125,11 @@ class JAIson(metaclass=Singleton):
             "channel_id": None,
             "is_playing": False,
             "updated_at": 0.0,
+            "members": [],
         }
+        self._discord_channel_members: Dict[str, str] = {}
+        self._prev_discord_channel_id: Optional[int] = None
+        self._prev_discord_connected: bool = False
         self._audio_output_mode: str = "local"
     
     async def start(self):
@@ -963,8 +967,145 @@ class JAIson(metaclass=Singleton):
             "tts": tts_info
         }
 
+    def _format_discord_member_label(self, uid: str, raw_name: str) -> str:
+        """Форматирует имя участника Discord с учетом его семейной роли и статуса Создателя."""
+        resolved_name = self.resolve_speaker_name(speaker_id=str(uid), raw_user=raw_name, source_id="discord")
+        cfg = Config()
+        known = dict(getattr(cfg, "known_users", {}))
+        dynamic_path = os.path.join(cfg.CONFIG_DIR, "known_users.json")
+        role = ""
+        user_info = {}
+        if os.path.isfile(dynamic_path):
+            try:
+                with open(dynamic_path, "r", encoding="utf-8") as f:
+                    d = json.load(f)
+                    if isinstance(d, dict) and str(uid) in d and isinstance(d[str(uid)], dict):
+                        user_info = d[str(uid)]
+            except Exception:
+                pass
+        if not user_info and str(uid) in known and isinstance(known[str(uid)], dict):
+            user_info = known[str(uid)]
+
+        role = user_info.get("role", "")
+        if not role:
+            aliases = user_info.get("aliases", [])
+            if "Папа" in aliases or resolved_name == "Вова":
+                role = "Папа"
+            elif "Мама" in aliases or resolved_name == "Настя":
+                role = "Мама"
+
+        if role == "Папа":
+            return f"{resolved_name} (Папа, Создатель)"
+        elif role == "Мама":
+            return f"{resolved_name} (Мама)"
+        elif role:
+            return f"{resolved_name} ({role})"
+        return resolved_name
+
+    def emit_environment_notice(self, notice: str):
+        """Вкидывает системное событие окружения в контекст диалога Ниры и на дашборд."""
+        if not notice:
+            return
+        logging.info(f"[DISCORD ENV] {notice}")
+        if self.prompter:
+            self.prompter.add_chat("Окружение", notice)
+        if self.event_server:
+            try:
+                loop = asyncio.get_running_loop()
+                loop.create_task(self.event_server.broadcast_event(
+                    "context_conversation_add_text",
+                    {
+                        "finished": False,
+                        "job_id": f"env_{int(time.time() * 1000)}",
+                        "result": {
+                            "user": "Окружение",
+                            "content": notice,
+                            "source_id": "discord",
+                            "timestamp": time.time(),
+                            "type": "environment",
+                        }
+                    }
+                ))
+            except RuntimeError:
+                pass
+
+    def get_discord_presence_prompt(self) -> str:
+        """Динамический блок присутствия участников Discord канала для промпта сцены."""
+        bridge = self.get_discord_bridge_status()
+        if not bridge.get("connected_to_voice"):
+            return ""
+
+        channel_name = bridge.get("channel_name") or "голосовой канал"
+        members = getattr(self, "_discord_channel_members", {})
+        if not members:
+            return (
+                f"### Текущее окружение в Discord ###\n"
+                f"Ты находишься в голосовом канале \"{channel_name}\".\n"
+                f"Сейчас в канале никого нет, кроме тебя.\n"
+            )
+
+        lines = [f"- {self._format_discord_member_label(uid, name)}" for uid, name in members.items()]
+        members_list_str = "\n".join(lines)
+        return (
+            f"### Текущее окружение в Discord ###\n"
+            f"Ты находишься в голосовом канале Discord: \"{channel_name}\".\n"
+            f"Прямо сейчас в канале присутствуют:\n"
+            f"{members_list_str}\n"
+            f"Все находящиеся в канале люди слышат каждое твоё произнесённое слово. "
+            f"Помни, кто находится рядом, учитывай их присутствие, обращайся к ним по именам/ролям (Папа, Мама и др.).\n"
+        )
+
     def set_discord_bridge_status(self, status: Dict[str, Any]):
         status["updated_at"] = time.time()
+
+        now_connected = bool(status.get("connected_to_voice", False))
+        now_channel_id = status.get("channel_id")
+        channel_name = status.get("channel_name") or "голосовой канал"
+        members_raw = status.get("members", [])
+        new_members: Dict[str, str] = {
+            str(m["id"]): str(m.get("name", f"user_{m['id']}"))
+            for m in members_raw
+            if isinstance(m, dict) and "id" in m
+        }
+
+        prev_connected = getattr(self, "_prev_discord_connected", False)
+        prev_channel_id = getattr(self, "_prev_discord_channel_id", None)
+        prev_members = getattr(self, "_discord_channel_members", {})
+
+        # Случай 1: Подключение к каналу или переход в другой канал
+        if now_connected and (not prev_connected or (prev_channel_id is not None and prev_channel_id != now_channel_id)):
+            self._prev_discord_connected = True
+            self._prev_discord_channel_id = now_channel_id
+            self._discord_channel_members = dict(new_members)
+
+            if new_members:
+                labels = [self._format_discord_member_label(uid, name) for uid, name in new_members.items()]
+                notice = f'Подключилась к голосовому каналу "{channel_name}". В канале находятся: {", ".join(labels)}. Все они тебя слышат.'
+            else:
+                notice = f'Подключилась к голосовому каналу "{channel_name}". Сейчас в канале никого нет, кроме тебя.'
+            self.emit_environment_notice(notice)
+
+        # Случай 2: Уже в канале — отслеживаем вход и выход участников
+        elif now_connected and prev_connected and prev_channel_id == now_channel_id:
+            joined_ids = set(new_members.keys()) - set(prev_members.keys())
+            left_ids = set(prev_members.keys()) - set(new_members.keys())
+
+            for j_id in joined_ids:
+                label = self._format_discord_member_label(j_id, new_members[j_id])
+                self.emit_environment_notice(f'В голосовой канал зашёл(ла) {label}. Теперь он(а) с вами и слышит тебя.')
+
+            for l_id in left_ids:
+                label = self._format_discord_member_label(l_id, prev_members.get(l_id, "Пользователь"))
+                self.emit_environment_notice(f'{label} покинул(а) голосовой канал.')
+
+            self._discord_channel_members = dict(new_members)
+
+        # Случай 3: Отключились от канала
+        elif not now_connected and prev_connected:
+            self._prev_discord_connected = False
+            self._prev_discord_channel_id = None
+            self._discord_channel_members = {}
+
         self._discord_bridge_status.update(status)
 
     def get_discord_bridge_status(self) -> Dict[str, Any]:

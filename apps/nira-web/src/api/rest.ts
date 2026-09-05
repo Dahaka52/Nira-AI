@@ -58,6 +58,7 @@ export interface DiscordBridgeTelemetry {
     is_playing?: boolean;
     voice_ping_ms?: number | null;
     gateway_ping_ms?: number | null;
+    members?: Array<{ id: string; name: string }>;
     updated_at?: number;
     [key: string]: any;
 }

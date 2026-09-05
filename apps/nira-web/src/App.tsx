@@ -134,10 +134,11 @@ function App() {
 
                 const charName = fullConfig?.prompter?.character_name || 'Нира';
                 const isNira = result.user === charName || result.user === 'Нира' || result.user === 'Nira';
-                const sender: Msg['sender'] = isNira ? 'Nira' : 'Creator';
+                const isSystemEnv = result.user === 'Окружение' || result.type === 'environment' || content.startsWith('[Окружение]');
+                const sender: Msg['sender'] = isNira ? 'Nira' : (isSystemEnv ? 'System' : 'Creator');
 
-                // В этом блоке интересуют именно реплики пользователя
-                if (sender !== 'Creator') return;
+                // В этом блоке интересуют реплики пользователя и события окружения
+                if (sender !== 'Creator' && sender !== 'System') return;
 
                 const tsMs = result.timestamp ? Math.round(Number(result.timestamp) * 1000) : Date.now();
                 const incomingJobId = String(payload?.job_id || Date.now());
@@ -145,7 +146,7 @@ function App() {
                 setMessages(prev => {
                     // Дедуп: typed-сообщение уже добавляется optimistic в handleSend
                     const duplicate = prev.some(m =>
-                        m.sender === 'Creator' &&
+                        m.sender === sender &&
                         m.text === content &&
                         m.tsMs !== undefined &&
                         Math.abs(m.tsMs - tsMs) <= 1500
@@ -154,10 +155,10 @@ function App() {
 
                     return [...prev, {
                         id: `ctx-${incomingJobId}-${tsMs}`,
-                        sender: 'Creator',
-                        userName: result.user || 'CREATOR',
+                        sender,
+                        userName: isSystemEnv ? 'Окружение' : (result.user || 'CREATOR'),
                         text: content,
-                        type: 'context_user',
+                        type: isSystemEnv ? 'environment' : 'context_user',
                         tsMs,
                         sourceId: result.source_id,
                         turnId: result.turn_id,
@@ -752,6 +753,26 @@ function App() {
                                 </div>
                             )}
 
+                            {discordBridge?.connected_to_voice && discordBridge.members && discordBridge.members.length > 0 && (
+                                <div style={{ fontSize: '0.68rem', color: 'var(--text-dim)', display: 'flex', flexDirection: 'column', gap: '3px', marginTop: '2px' }}>
+                                    <span style={{ opacity: 0.8 }}>👥 В канале ({discordBridge.members.length}):</span>
+                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                                        {discordBridge.members.map(m => (
+                                            <span key={m.id} style={{
+                                                background: 'rgba(88, 101, 242, 0.18)',
+                                                color: '#c7d5e0',
+                                                padding: '1px 6px',
+                                                borderRadius: '4px',
+                                                fontSize: '0.66rem',
+                                                border: '1px solid rgba(88, 101, 242, 0.35)'
+                                            }}>
+                                                {m.name}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
                             <div className="discord-pings">
                                 <div className="ping-pill">
                                     <span className="ping-pill-title">Gateway WS</span>
@@ -959,25 +980,49 @@ function App() {
                         <>
                             <div className="chat-container" ref={scrollRef}>
                                 {messages.map(m => (
-                                    m.sender === 'System' || m.type === 'stt_status' ? (
-                                        <div key={m.id} className="msg system-status" style={{
-                                            margin: '4px 0',
-                                            padding: '4px 10px',
-                                            borderRadius: '4px',
-                                            borderLeft: '3px solid #f59e0b',
-                                            background: 'rgba(245, 158, 11, 0.08)',
-                                            color: '#fbbf24',
-                                            fontFamily: 'monospace',
-                                            fontSize: '0.72rem',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'space-between'
-                                        }}>
-                                            <span>⚠️ {m.text}</span>
-                                            <span style={{ opacity: 0.6, fontSize: '0.62rem' }}>
-                                                {m.tsMs ? new Date(m.tsMs).toLocaleTimeString() : ''}
-                                            </span>
-                                        </div>
+                                    m.sender === 'System' || m.type === 'stt_status' || m.type === 'environment' || m.userName === 'Окружение' ? (
+                                        m.type === 'environment' || m.userName === 'Окружение' ? (
+                                            <div key={m.id} className="msg system-environment" style={{
+                                                margin: '6px 0',
+                                                padding: '6px 12px',
+                                                borderRadius: '6px',
+                                                borderLeft: '3px solid #5865f2',
+                                                background: 'rgba(88, 101, 242, 0.12)',
+                                                color: '#d1d7fe',
+                                                fontSize: '0.78rem',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'space-between',
+                                                boxShadow: '0 2px 6px rgba(0,0,0,0.15)'
+                                            }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                    <Radio size={14} color="#5865f2" />
+                                                    <span style={{ fontWeight: 500 }}>{m.text}</span>
+                                                </div>
+                                                <span style={{ opacity: 0.6, fontSize: '0.62rem' }}>
+                                                    {m.tsMs ? new Date(m.tsMs).toLocaleTimeString() : ''}
+                                                </span>
+                                            </div>
+                                        ) : (
+                                            <div key={m.id} className="msg system-status" style={{
+                                                margin: '4px 0',
+                                                padding: '4px 10px',
+                                                borderRadius: '4px',
+                                                borderLeft: '3px solid #f59e0b',
+                                                background: 'rgba(245, 158, 11, 0.08)',
+                                                color: '#fbbf24',
+                                                fontFamily: 'monospace',
+                                                fontSize: '0.72rem',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'space-between'
+                                            }}>
+                                                <span>⚠️ {m.text}</span>
+                                                <span style={{ opacity: 0.6, fontSize: '0.62rem' }}>
+                                                    {m.tsMs ? new Date(m.tsMs).toLocaleTimeString() : ''}
+                                                </span>
+                                            </div>
+                                        )
                                     ) : (
                                         <div key={m.id} className={`msg ${m.sender.toLowerCase()}`}>
                                             <div className="msg-info" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>

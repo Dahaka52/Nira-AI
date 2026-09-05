@@ -179,20 +179,32 @@ class Prompter(metaclass=Singleton):
         )
         
     def get_scene_prompt(self):
+        base_prompt = ""
         try:
             active_scene = getattr(Config(), "active_scene", "local")
             filename = f"scene_{active_scene}.md"
             file_path = portable_path(os.path.join(Config().PROMPT_DIR, Config().PROMPT_SCENE_SUBDIR, filename))
             if os.path.isfile(file_path):
-                return self._get_cached_prompt("scene_" + active_scene, Config().PROMPT_SCENE_SUBDIR, filename)
+                base_prompt = self._get_cached_prompt("scene_" + active_scene, Config().PROMPT_SCENE_SUBDIR, filename)
         except Exception:
             pass
 
-        return self._get_cached_prompt(
-            "scene", 
-            Config().PROMPT_SCENE_SUBDIR, 
-            self.scene_prompt_filename
-        )
+        if not base_prompt:
+            base_prompt = self._get_cached_prompt(
+                "scene", 
+                Config().PROMPT_SCENE_SUBDIR, 
+                self.scene_prompt_filename
+            )
+
+        try:
+            from utils.jaison import JAIson
+            presence = JAIson().get_discord_presence_prompt()
+            if presence:
+                return f"{base_prompt}\n\n{presence}"
+        except Exception:
+            pass
+
+        return base_prompt
     
     def get_sys_prompt(self):
         return "{instructions}\n{mcp_usage}\n{contexts}\n### Character ###\n{character}\n### Scene ###\n{scene}".format(

@@ -18,7 +18,7 @@ common_init_result: fitting params to device memory, for bugs during this step t
 llama_params_fit_impl: projected to use 7526 MiB of device memory vs. 11036 MiB of free device memory
 llama_params_fit_impl: will leave 3509 >= 1024 MiB of free device memory, no changes needed
 llama_params_fit: successfully fit params to free device memory
-llama_params_fit: fitting params to free memory took 0.39 seconds
+llama_params_fit: fitting params to free memory took 0.34 seconds
 llama_model_load_from_file_impl: using device CUDA0 (NVIDIA GeForce RTX 5070) (0000:0a:00.0) - 11036 MiB free
 llama_model_loader: loaded meta data with 58 key-value pairs and 363 tensors from C:\Nirmita\models\MN-12B-Runeweaver-RP-RU.i1-Q4_K_M.gguf (version GGUF V3 (latest))
 llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
@@ -174,7 +174,7 @@ sched_reserve:      CUDA0 compute buffer size =   266.00 MiB
 sched_reserve:  CUDA_Host compute buffer size =    36.01 MiB
 sched_reserve: graph nodes  = 1247
 sched_reserve: graph splits = 13 (with bs=512), 2 (with bs=1)
-sched_reserve: reserve took 5.59 ms, sched copies = 1
+sched_reserve: reserve took 5.43 ms, sched copies = 1
 common_init_from_params: warming up the model with an empty run - please wait ... (--no-warmup to disable)
 srv    load_model: initializing slots, n_slots = 4
 no implementations specified for speculative decoding
@@ -204,6 +204,6 @@ How are you?<|im_end|>
 '
 srv          init: init: chat template, thinking = 0
 main: model loaded
-main: server is listening on http://127.0.0.1:12272
+main: server is listening on http://127.0.0.1:10937
 main: starting the main loop...
 srv  update_slots: all slots are idle

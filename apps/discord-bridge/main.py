@@ -298,6 +298,18 @@ class NiraDiscordBot(discord.Bot):
     async def _send_status_update(self) -> None:
         connected = bool(self.vc and self.vc.is_connected())
         ch = getattr(self.vc, "channel", None) if self.vc else None
+        members_data = []
+        if ch and hasattr(ch, "members"):
+            for m in ch.members:
+                if self.user and m.id == self.user.id:
+                    continue
+                if getattr(m, "bot", False):
+                    continue
+                members_data.append({
+                    "id": str(m.id),
+                    "name": getattr(m, "display_name", None) or getattr(m, "name", f"user_{m.id}"),
+                })
+
         status = {
             "online": True,
             "connected_to_voice": connected,
@@ -307,6 +319,7 @@ class NiraDiscordBot(discord.Bot):
             "is_playing": bool(self.vc and self.vc.is_playing()),
             "voice_ping_ms": round(self.vc.latency * 1000, 1) if self.vc and hasattr(self.vc, "latency") else None,
             "gateway_ping_ms": round(self.latency * 1000, 1) if hasattr(self, "latency") else None,
+            "members": members_data,
         }
         base_api = self.api_url.rsplit("/api", 1)[0]
         status_url = f"{base_api}/api/bridge/discord/status"
@@ -315,6 +328,20 @@ class NiraDiscordBot(discord.Bot):
                 await client.post(status_url, json=status)
         except Exception:
             pass
+
+    async def on_voice_state_update(self, member: discord.Member, before: discord.VoiceState, after: discord.VoiceState) -> None:
+        if not self.vc or not self.vc.is_connected() or not self.vc.channel:
+            return
+        if self.user and member.id == self.user.id:
+            return
+        my_channel = self.vc.channel
+        if before.channel == my_channel or after.channel == my_channel:
+            logging.info(
+                "[PRESENCE] Участник %s изменил статус в канале %s",
+                getattr(member, "display_name", member.name),
+                my_channel.name
+            )
+            await self._send_status_update()
 
     async def join_configured_channel(self) -> None:
         async with self._voice_lock:

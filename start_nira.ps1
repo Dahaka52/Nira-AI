@@ -130,8 +130,13 @@ $frontendAction = {
 # Запускаем backend первым (Set-Location внутри ScriptBlock — совместимо с PS5+)
 $jobBackend = Start-Job -ScriptBlock $backendAction -ArgumentList $config, $rootDir, $envPath, $dotenvPath
 
-Write-Host "[*] Ожидаем старт backend (5 сек)..." -ForegroundColor DarkGray
-Start-Sleep -Seconds 5
+Write-Host "[*] Ожидаем готовности backend..." -ForegroundColor DarkGray
+for ($i = 0; $i -lt 30; $i++) {
+    if (Get-NetTCPConnection -LocalPort 7272 -State Listen -ErrorAction SilentlyContinue) {
+        break
+    }
+    Start-Sleep -Milliseconds 500
+}
 
 # Запускаем frontend
 $jobFrontend = Start-Job -ScriptBlock $frontendAction -ArgumentList $nodePath, $rootDir
