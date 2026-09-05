@@ -349,6 +349,30 @@ class JAIson(metaclass=Singleton):
 
         config = self._get_audio_backpressure_config()
         source_id = self._safe_source_id(request_data.get("source_id"))
+        
+        # Изоляция аудиопотоков: отбрасываем неактивный источник до очереди STT
+        current_mode = self.get_audio_output_mode()
+        if current_mode == "discord" and source_id == "mic":
+            return {
+                "accepted": False,
+                "queued": False,
+                "dropped": True,
+                "drop_reason": "mic_ignored_in_discord_mode",
+                "active": self._immediate_audio_active,
+                "pending": len(self._immediate_audio_pending),
+                "policy": config["policy"],
+            }
+        if current_mode == "local" and source_id == "discord":
+            return {
+                "accepted": False,
+                "queued": False,
+                "dropped": True,
+                "drop_reason": "discord_ignored_in_local_mode",
+                "active": self._immediate_audio_active,
+                "pending": len(self._immediate_audio_pending),
+                "policy": config["policy"],
+            }
+
         to_emit = None
 
         if self._immediate_audio_lock is None:
@@ -1385,6 +1409,81 @@ class JAIson(metaclass=Singleton):
         })
         await self._handle_broadcast_success(job_id, job_type)
         
+    def resolve_speaker_name(
+        self,
+        speaker_id: str | None = None,
+        raw_user: str | None = None,
+        source_id: str | None = None,
+    ) -> str:
+        """
+        Умное разрешение имени пользователя:
+        - Ищет в configs/known_users.json и Config().known_users
+        - Поддерживает как простые строки ("id": "Имя"), так и структуры ("id": {"name": "Имя", "discord_nick": "Nick", "aliases": [...]})
+        - При появлении нового пользователя в Discord автоматически регистрирует его в known_users.json
+        """
+        cfg = Config()
+        active_scene = getattr(cfg, "active_scene", "local")
+        known_users = dict(getattr(cfg, "known_users", {}))
+
+        dynamic_users_path = os.path.join(cfg.CONFIG_DIR, "known_users.json")
+        file_users = {}
+        if os.path.isfile(dynamic_users_path):
+            try:
+                with open(dynamic_users_path, "r", encoding="utf-8") as f:
+                    file_users = json.load(f)
+                    if isinstance(file_users, dict):
+                        known_users.update(file_users)
+            except Exception as e:
+                logging.warning(f"Error reading dynamic known_users.json: {e}")
+
+        def _extract_name(val: Any) -> str | None:
+            if isinstance(val, dict):
+                return val.get("name") or val.get("discord_nick")
+            if isinstance(val, str) and val.strip():
+                return val.strip()
+            return None
+
+        # 1. Сцена Discord или аудио из Discord
+        if active_scene == "discord" or source_id == "discord":
+            spk_str = str(speaker_id).strip() if speaker_id else ""
+            raw_str = str(raw_user).strip() if raw_user else ""
+
+            # Ищем по Discord snowflake ID
+            if spk_str and spk_str in known_users:
+                resolved = _extract_name(known_users[spk_str])
+                if resolved:
+                    return resolved
+
+            # Ищем по никнейму
+            if raw_str and raw_str in known_users:
+                resolved = _extract_name(known_users[raw_str])
+                if resolved:
+                    return resolved
+
+            # Новый пользователь Discord — используем его текущий никнейм
+            fallback_name = raw_str if raw_str and raw_str.lower() not in ("user", "unknown", "none") else "Незнакомец"
+            if spk_str and spk_str not in known_users:
+                try:
+                    new_entry = {
+                        "name": fallback_name,
+                        "discord_nick": fallback_name,
+                        "aliases": [fallback_name],
+                    }
+                    known_users[spk_str] = new_entry
+                    file_users[spk_str] = new_entry
+                    with open(dynamic_users_path, "w", encoding="utf-8") as f:
+                        json.dump(file_users, f, ensure_ascii=False, indent=2)
+                    logging.info(f"Auto-registered new Discord user in known_users.json: id={spk_str}, nick={fallback_name}")
+                except Exception as e:
+                    logging.warning(f"Could not auto-register new Discord user: {e}")
+
+            return fallback_name
+
+        # 2. Локальный микрофон / веб-чат
+        mic_val = known_users.get("mic")
+        resolved = _extract_name(mic_val)
+        return resolved or "Вова"
+
     async def append_conversation_context_text(
         self, 
         job_id: str, 
@@ -1414,32 +1513,8 @@ class JAIson(metaclass=Singleton):
             "stt_confidence": stt_confidence,
             "stt_latency_ms": stt_latency_ms,
         })
-        cfg = Config()
-        try:
-            active_scene = getattr(cfg, "active_scene", "local")
-            known_users = getattr(cfg, "known_users", {})
-            # Читаем динамический файл, чтобы можно было редактировать на лету без перезапуска
-            import os
-            import json
-            dynamic_users_path = os.path.join(cfg.CONFIG_DIR, "known_users.json")
-            if os.path.isfile(dynamic_users_path):
-                try:
-                    with open(dynamic_users_path, "r", encoding="utf-8") as f:
-                        dynamic_users = json.load(f)
-                        if isinstance(dynamic_users, dict):
-                            known_users.update(dynamic_users)
-                except Exception as e:
-                    logging.warning(f"Error reading dynamic known_users.json: {e}")
-        except Exception:
-            active_scene = "local"
-            known_users = {}
-
-        if active_scene == "discord":
-            # Если имя не задано, используем speaker_id (который в дискорде является ником пользователя)
-            resolved_name = known_users.get(str(speaker_id), str(speaker_id) if speaker_id else "Незнакомец")
-            final_user = f"[Discord] {resolved_name}"
-        else:
-            final_user = f"[Local] {known_users.get('mic', 'Creator')}"
+        
+        final_user = self.resolve_speaker_name(speaker_id=speaker_id, raw_user=user, source_id=source_id)
 
         self.prompter.add_chat(
             final_user,
@@ -1772,12 +1847,13 @@ class JAIson(metaclass=Singleton):
             return
 
         def _is_stop_like(word: str) -> bool:
-            w = word.strip().lower()
+            w = word.strip().lower().replace("ё", "е")
             if not w:
                 return False
-            if w in stop_words:
+            norm_stop_words = {s.lower().replace("ё", "е") for s in stop_words}
+            if w in norm_stop_words:
                 return True
-            if w == "сто":
+            if w in ("сто", "стой", "остановись"):
                 return True
             return any(w.startswith(stem) for stem in stop_stems)
 
@@ -1799,28 +1875,63 @@ class JAIson(metaclass=Singleton):
         )
 
         # [Barge-in Rework] Мягкие прерывания и Режим слушателя
-        listen_triggers = set(cfg_globals.get("stt_listen_triggers", ["послушай", "послушай меня", "дай я расскажу", "хочу рассказать", "сейчас расскажу"]))
-        is_listen_trigger = any(t in content.lower() for t in listen_triggers)
+        now = time.time()
+        timeout_s = float(getattr(Config(), "stt_listening_timeout_s", 15) or 15)
+        
+        # Проверяем авто-сброс режима слушателя по долгому таймауту тишины
+        if getattr(self, "is_listening", False):
+            last_activity = getattr(self, "_listening_mode_last_activity", 0.0)
+            if last_activity and (now - last_activity) > timeout_s:
+                self.is_listening = False
+                logging.info("Nira exited listening mode due to silence timeout (%.1fs).", timeout_s)
+
+        content_norm = content.lower().replace("ё", "е")
+        listen_triggers = set(cfg_globals.get("stt_listen_triggers", ["послушай", "послушай меня", "дай я расскажу", "хочу рассказать", "сейчас расскажу", "слушай"]))
+        is_listen_trigger = any(t.lower().replace("ё", "е") in content_norm for t in listen_triggers)
+        
         if is_listen_trigger:
             self.is_listening = True
-            logging.info("Nira entered listening mode.")
-        
-        release_triggers = set(cfg_globals.get("stt_release_triggers", ["что думаешь", "как тебе", "что скажешь", "отвечай", "твое мнение", "я все", "все"]))
-        is_release = any(t in content.lower() for t in release_triggers)
-        if getattr(self, "is_listening", False) and is_release:
-            self.is_listening = False
-            logging.info("Nira exited listening mode.")
-            content += " [System: Пользователь завершил длинный рассказ. Сделай краткий и естественный вывод из услышанного, не отвечай на каждый пункт по порядку.]"
+            self._listening_mode_last_activity = now
+            logging.info("Nira entered listening mode (via listen trigger).")
 
-        # В режиме слушателя мы собираем контекст, но не отвечаем, пока нас не попросят (или не скажут СТОП).
+        release_triggers = set(cfg_globals.get("stt_release_triggers", ["что думаешь", "как тебе", "что скажешь", "отвечай", "твое мнение", "я все", "я всё", "все", "всё", "конец", "готово"]))
+        is_release = any(t.lower().replace("ё", "е") in content_norm for t in release_triggers)
+        
+        # Прямой вопрос к Нире (например, "Нира, сколько сейчас времени?") также снимает режим слушателя
+        question_words = ("скажи", "расскажи", "какой", "какая", "почему", "зачем", "где", "когда", "кто", "сколько", "что", "как")
+        is_direct_question = wake_word_hit and ("?" in content or any(w in words for w in question_words))
+
+        if getattr(self, "is_listening", False):
+            if is_release:
+                self.is_listening = False
+                logging.info("Nira exited listening mode (via release trigger).")
+                resolved_speaker = self.resolve_speaker_name(speaker_id=speaker_id, raw_user=user, source_id=source_id)
+                content += f" [System: {resolved_speaker} закончил(а) рассказ. Дай краткий, естественный комментарий по услышанному, обратившись к {resolved_speaker} по имени.]"
+            elif continue_intent:
+                self.is_listening = False
+                logging.info("Nira exited listening mode (via continue-intent).")
+            elif is_direct_question:
+                self.is_listening = False
+                logging.info("Nira exited listening mode (via direct question to Nira).")
+            else:
+                # Обновляем таймер активности, чтобы тишина считалась от последней фразы
+                self._listening_mode_last_activity = now
+
+        # В режиме слушателя мы собираем контекст, но не отвечаем, пока нас не попросят
         should_respond = not getattr(self, "is_listening", False)
         
         # Хард-прерывание (barge-in) срабатывает ТОЛЬКО на стоп-слова
         is_significant = contains_stop_word
         
-        # Если фраза содержит стоп-слово - мы прерываем Ниру, но генерировать на этот стоп ответ не нужно.
+        # При команде "Стоп / Подожди / Помолчи":
+        # 1) Обрываем текущую речь Ниры
+        # 2) Переводим её в режим слушателя
+        # 3) Не генерируем ответ на само стоп-слово
         if contains_stop_word:
             should_respond = False
+            self.is_listening = True
+            self._listening_mode_last_activity = now
+            logging.info("Nira interrupted by stop word and entered listening mode.")
 
         if is_wake_word_only:
             content = canonical_wake_word

@@ -1,5 +1,28 @@
 {
-  "mic": "Creator",
+  "mic": {
+    "name": "Вова",
+    "aliases": [
+      "Вова",
+      "Папа"
+    ]
+  },
   "default": "Незнакомец",
-  "example_discord_id_or_nick": "Alex"
+  "390300992173899777": {
+    "name": "Вова",
+    "discord_nick": "Dahaka",
+    "aliases": [
+      "Вова",
+      "Дахака",
+      "Папа"
+    ]
+  },
+  "814062399610028063": {
+    "name": "Настя",
+    "discord_nick": "Ласка",
+    "aliases": [
+      "Ласка",
+      "Настя",
+      "Мама"
+    ]
+  }
 }

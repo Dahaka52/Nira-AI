@@ -1698,3 +1698,51 @@ utils.config.UnknownField: Config field active_scene does not exist[0m
 [2m01:59:32[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job e08879f9-3bfa-4fde-afe0-f77646a32868
 [2m01:59:32[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Voice turn committed as context-only (no RESPONSE job).
 [discord] 2026-09-06 01:59:53,527 [INFO] Submitted Discord speech from Dahaka (122880 bytes raw 48 kHz stereo)
+[2m02:39:29[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting JAIson application layer.
+  [1m[94m▶ CORE    [0m  [94mИнициализация JAIson (очереди, события)…[0m
+  [1m[92m✓ PROMPT  [0m  [92mПромпт загружен: Нира[0m
+  [1m[94m▶ OPS     [0m  [94mЗагрузка операций из конфига…[0m
+[2m02:39:29[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Active STT from config: faster_whisper_ru
+[2m02:39:29[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Active T2T from config: llamacpp
+[2m02:39:30[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting STT operation faster_whisper_ru
+[2m02:39:30[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading Faster Whisper model 'large-v3-turbo' on cuda (int8_float16)...
+[2m02:39:34[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Faster Whisper model loaded successfully.
+[2m02:39:34[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting T2T operation llamacpp
+[2m02:39:34[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type llamacpp
+[2m02:39:34[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened Llama.cpp server (PID: 44964) on port 12272 (GPU: 0)
+[2m02:39:34[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Waiting for llama-server to be ready at http://127.0.0.1:12272/health ...
+[2m02:39:38[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  llama-server is ready! (attempt 8, port 12272)
+[2m02:39:38[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2m02:39:38[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting TTS operation fish_audio
+[2m02:39:38[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2m02:39:38[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting FILTER_TEXT operation filter_clean
+[2m02:39:38[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: настроен name=None, index=None, enabled=False, vol=1.0
+[2m02:39:38[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting FILTER_AUDIO operation speaker
+[2m02:39:38[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: операция запущена (вокер запущен)
+  [1m[92m✓ OPS     [0m  [92mОперации загружены (STT/T2T/TTS)[0m
+[2m02:39:38[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: enabled set to True
+[2m02:39:38[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type hw_mic
+[2m02:39:38[0m  [1m[93m[WARNING][0m  [1m[97mroot[0m  Attempted to unload process hw_mic when it is already unloaded
+  [1m[94m▶ MIC     [0m  [94mЗапуск Hardware Microphone (hw-mic-client)...[0m
+  [1m[92m✓ MIC     [0m  [92mМикрофон подключён[0m
+[2m02:39:38[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type discord
+[2m02:39:38[0m  [1m[93m[WARNING][0m  [1m[97mroot[0m  Attempted to unload process discord when it is already unloaded
+[2m02:39:38[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+  [1m[92m✓ DISCORD [0m  [92mDiscord Bridge запущен[0m
+[2m02:39:38[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  JAIson application layer has started.
+  [1m[92m✓ READY   [0m  [92m✨ Нира готова к работе![0m
+[discord] C:\Nirmita\apps\discord-bridge\main.py:13: DeprecationWarning: 'audioop' is deprecated and slated for removal in Python 3.13
+[discord]   import audioop
+[discord] 2026-09-06 02:39:39,106 [INFO] logging in using static token
+  [2m[90m[mic][0m [2m[INFO] Loading Silero VAD ONNX Session (CPU)...[0m
+  [2m[90m[mic][0m [2m[MIC] Selected by name: [72] Микрофон (4- fifine Microphone) (Windows WASAPI)[0m
+  [2m[90m[mic][0m [2m[INFO] SoundDevice Listening on: Микрофон (4- fifine Microphone) (ID: 72, hostapi: Windows WASAPI)[0m
+  [2m[90m[mic][0m [2m========================================================[0m
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0483) Завершена (672ms, speech: 128ms).[0m
+[2m02:39:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+[discord] 2026-09-06 02:39:42,298 [INFO] Authenticated as Nira#4162 (Pycord 2.8.2.dev89+gf53d394be)
+[2m02:39:42[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+[discord] 2026-09-06 02:39:42,387 [INFO] Connected to JAIson WebSocket
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (21504 байт).[0m
+[2m02:39:42[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  Processing audio with duration 00:00.672
+[2m02:39:42[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  VAD filter removed 00:00.672 of audio

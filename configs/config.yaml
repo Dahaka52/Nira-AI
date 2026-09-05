@@ -8,18 +8,19 @@
 # [Multi-user] Сцены и Мультиплеер
 active_scene: "local"               # "local" (только Создатель) или "discord" (Многопользовательский режим)
 known_users:
-  "mic": "Creator"
+  "mic": "Вова"
   "default": "Незнакомец"
   # "discord_user_id": "Alex"
 
 # [Barge-in Rework] Буферизация и фильтрация STT
 stt_buffer_timeout_ms: 800          # Ждать 800мс тишины перед отправкой реплики в LLM
 stt_filter_mode: "algorithm"        # "algorithm" или "llm" (если "llm", потребуется модуль stt_summarizer)
-stt_stop_words: ["стоп", "подожди", "хватит", "замолчи", "тихо", "молчи", "выключи", "помолчи"]
-stt_listen_triggers: ["послушай", "послушай меня", "дай я расскажу", "хочу рассказать", "сейчас расскажу"]
-stt_release_triggers: ["что думаешь", "как тебе", "что скажешь", "отвечай", "твое мнение", "я все", "все"]
+stt_stop_words: ["стоп", "подожди", "хватит", "замолчи", "тихо", "молчи", "выключи", "помолчи", "остановись", "стой"]
+stt_listen_triggers: ["послушай", "послушай меня", "дай я расскажу", "хочу рассказать", "сейчас расскажу", "слушай"]
+stt_release_triggers: ["что думаешь", "как тебе", "что скажешь", "отвечай", "твое мнение", "я все", "я всё", "все", "всё", "конец", "готово"]
+stt_listening_timeout_s: 15          # Сбрасывать режим слушателя в обычный диалог через 15 сек тишины
 
-stt_active_id: "groq_stt"           # Выбери id из секции operations.stt
+stt_active_id: "faster_whisper_ru"   # Выбери id из секции operations.stt
 stt_strict_active_id: true          # Падать при старте если id не найден
 t2t_active_id: "llamacpp"           # Выбери id из секции operations.t2t
 t2t_strict_active_id: true          # Падать при старте если id не найден
@@ -213,7 +214,7 @@ microphone:
 
   # Backpressure STT-воркеров
   stt_immediate_max_active: 2
-  stt_immediate_max_pending: 8
+  stt_immediate_max_pending: 16
   stt_backpressure_policy: "drop_oldest"  # drop_oldest | drop_latest | merge_latest
   stt_status_cooldown_ms: 750
 
@@ -236,7 +237,7 @@ discord:
   source_id: "discord"
   api_url: "http://127.0.0.1:7272/api/context/conversation/audio"
   ws_url: "ws://127.0.0.1:7272/"
-  silence_ms: 500
+  silence_ms: 800
   min_speech_ms: 350
 
 # -----------------------------------------------------------------------------

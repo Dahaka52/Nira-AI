@@ -62,13 +62,6 @@ class FasterWhisperSTT(STTOperation):
             yield {"text": "", "is_final": True}
             return
 
-        import wave
-        with wave.open("C:\\Nirmita\\scratch\\test_discord.wav", "wb") as wf:
-            wf.setnchannels(ch if ch else 1)
-            wf.setsampwidth(sw if sw else 2)
-            wf.setframerate(sr if sr else 16000)
-            wf.writeframes(audio_bytes)
-
         # 1. Читаем сырые байты PCM 16-bit
         audio_np = np.frombuffer(audio_bytes, dtype=np.int16)
         
@@ -92,7 +85,7 @@ class FasterWhisperSTT(STTOperation):
                 vad_filter=self.vad_filter,
                 vad_parameters=self.vad_parameters if self.vad_parameters else None,
                 condition_on_previous_text=False,
-                initial_prompt=prompt if prompt else None
+                initial_prompt="Нира, Вова"
             )
             # Собираем все кусочки текста в одну строку
             text = " ".join([segment.text for segment in segments]).strip()

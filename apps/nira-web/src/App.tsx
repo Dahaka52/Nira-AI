@@ -17,7 +17,8 @@ import { PCMPlayer } from './api/pcmPlayer'
 
 interface Msg {
     id: string;
-    sender: 'Creator' | 'Nira';
+    sender: 'Creator' | 'Nira' | 'System';
+    userName?: string;
     text: string;
     type?: string;
     tsMs?: number;
@@ -132,7 +133,8 @@ function App() {
                 if (!content) return;
 
                 const charName = fullConfig?.prompter?.character_name || 'Нира';
-                const sender: Msg['sender'] = result.user === charName ? 'Nira' : 'Creator';
+                const isNira = result.user === charName || result.user === 'Нира' || result.user === 'Nira';
+                const sender: Msg['sender'] = isNira ? 'Nira' : 'Creator';
 
                 // В этом блоке интересуют именно реплики пользователя
                 if (sender !== 'Creator') return;
@@ -153,6 +155,7 @@ function App() {
                     return [...prev, {
                         id: `ctx-${incomingJobId}-${tsMs}`,
                         sender: 'Creator',
+                        userName: result.user || 'CREATOR',
                         text: content,
                         type: 'context_user',
                         tsMs,
@@ -174,12 +177,13 @@ function App() {
                 const important = new Set(['timeout', 'unavailable', 'restarting', 'backpressure_drop']);
                 if (!important.has(state)) return;
 
-                const source = result.source_id ? ` source=${result.source_id}` : '';
-                const reason = result.reason ? ` reason=${result.reason}` : '';
+                const source = result.source_id ? ` [${result.source_id}]` : '';
+                const reason = result.reason ? ` (${result.reason})` : '';
                 setMessages(prev => [...prev, {
                     id: `stt-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-                    sender: 'Nira',
-                    text: `[STT ${state.toUpperCase()}]${source}${reason}`,
+                    sender: 'System',
+                    userName: 'СИСТЕМА STT',
+                    text: `STT ${state.toUpperCase()}${source}${reason}`,
                     type: 'stt_status',
                     tsMs: Date.now()
                 }]);
@@ -408,12 +412,16 @@ function App() {
 
             const chatMessages: Msg[] = fullHistory
                 .filter((h: any) => h.type === 'chat')
-                .map((h: any, idx: number) => ({
-                    id: `hist-${h.time}-${idx}`,
-                    sender: h.user === charName ? 'Nira' : 'Creator',
-                    text: h.message,
-                    tsMs: h.time ? Math.round(Number(h.time) * 1000) : Date.now()
-                }));
+                .map((h: any, idx: number) => {
+                    const isNira = h.user === charName || h.user === 'Нира' || h.user === 'Nira';
+                    return {
+                        id: `hist-${h.time}-${idx}`,
+                        sender: isNira ? 'Nira' : 'Creator',
+                        userName: isNira ? 'NIRA_AI' : (h.user || 'CREATOR'),
+                        text: h.message,
+                        tsMs: h.time ? Math.round(Number(h.time) * 1000) : Date.now()
+                    };
+                });
             setMessages(prev => mergeMessages(prev, chatMessages));
         } catch (e) { }
     };
@@ -425,6 +433,8 @@ function App() {
         setMessages(prev => [...prev, {
             id: 'user-' + Date.now(),
             sender: 'Creator',
+            userName: fullConfig?.known_users?.mic || 'Вова',
+            sourceId: 'web',
             text,
             tsMs: Date.now()
         }]);
@@ -949,17 +959,38 @@ function App() {
                         <>
                             <div className="chat-container" ref={scrollRef}>
                                 {messages.map(m => (
-                                    <div key={m.id} className={`msg ${m.sender.toLowerCase()}`}>
-                                        <div className="msg-info" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                                            <span>{m.sender === 'Creator' ? 'CREATOR' : 'NIRA_AI'}</span>
-                                            {m.sourceId && (
-                                                <span style={{ opacity: 0.6, fontSize: '0.62rem', fontWeight: 'normal' }}>
-                                                    {m.sourceId === 'discord' ? '🎧 Discord Voice' : m.sourceId === 'mic' ? '🎤 Mic' : '💬 Web'}
-                                                </span>
-                                            )}
+                                    m.sender === 'System' || m.type === 'stt_status' ? (
+                                        <div key={m.id} className="msg system-status" style={{
+                                            margin: '4px 0',
+                                            padding: '4px 10px',
+                                            borderRadius: '4px',
+                                            borderLeft: '3px solid #f59e0b',
+                                            background: 'rgba(245, 158, 11, 0.08)',
+                                            color: '#fbbf24',
+                                            fontFamily: 'monospace',
+                                            fontSize: '0.72rem',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between'
+                                        }}>
+                                            <span>⚠️ {m.text}</span>
+                                            <span style={{ opacity: 0.6, fontSize: '0.62rem' }}>
+                                                {m.tsMs ? new Date(m.tsMs).toLocaleTimeString() : ''}
+                                            </span>
                                         </div>
-                                        <div>{m.text}</div>
-                                    </div>
+                                    ) : (
+                                        <div key={m.id} className={`msg ${m.sender.toLowerCase()}`}>
+                                            <div className="msg-info" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                                <span>{m.sender === 'Nira' ? 'NIRA_AI' : (m.userName || 'CREATOR')}</span>
+                                                {m.sourceId && (
+                                                    <span style={{ opacity: 0.6, fontSize: '0.62rem', fontWeight: 'normal' }}>
+                                                        {m.sourceId === 'discord' ? '🎧 Discord Voice' : m.sourceId === 'mic' ? '🎤 Mic' : '💬 Web'}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <div>{m.text}</div>
+                                        </div>
+                                    )
                                 ))}
                                 {isThinking && (
                                     <div className="msg nira" style={{ opacity: 0.6 }}>

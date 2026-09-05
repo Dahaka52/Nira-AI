@@ -27,6 +27,7 @@ class Config(metaclass=Singleton):
     stt_stop_words: list = list()
     stt_listen_triggers: list = list()
     stt_release_triggers: list = list()
+    stt_listening_timeout_s: int = 15
     operations: list = list()
     stt_active_id: str = None
     stt_strict_active_id: bool = False
