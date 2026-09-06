@@ -10,7 +10,7 @@ import time
 from datetime import datetime
 from utils.args import args
 from utils.helpers.singleton import Singleton
-from utils.jaison import JAIson, JobType, NonexistantJobException
+from utils.nira import Nira, JobType, NonexistantJobException
 from utils.config import Config
 from utils.helpers.observer import BaseObserverClient
 from .common import create_response, create_preflight
@@ -48,7 +48,7 @@ def _read_gpus_sync():
 
 class SocketServerObserver(BaseObserverClient, metaclass=Singleton):
     def __init__(self):
-        super().__init__(server=JAIson().event_server)
+        super().__init__(server=Nira().event_server)
         self.connections = set()
         self.shutdown_signal = asyncio.Future()
 
@@ -90,7 +90,7 @@ async def ws():
 
 @app.route('/api/operations', methods=['GET'])
 async def get_loaded_operations():
-    return create_response(200, f"Loaded operations gotten", JAIson().get_loaded_operations(), cors_header)
+    return create_response(200, f"Loaded operations gotten", Nira().get_loaded_operations(), cors_header)
   
 @app.route('/api/context/history', methods=['GET'])
 async def get_history():
@@ -104,12 +104,12 @@ async def preflight_history():
 
 @app.route('/api/config', methods=['GET'])
 async def get_current_config():
-    return create_response(200, f"Current config gotten", JAIson().get_current_config(), cors_header)
+    return create_response(200, f"Current config gotten", Nira().get_current_config(), cors_header)
 
 @app.route('/api/pipeline', methods=['GET'])
 async def get_pipeline_stats():
-    j = JAIson()
-    queue_size = j.job_queue.qsize() if j.job_queue else 0
+    nira = Nira()
+    queue_size = nira.job_queue.qsize() if nira.job_queue else 0
     
     # System stats
     cpu = psutil.cpu_percent()
@@ -125,14 +125,14 @@ async def get_pipeline_stats():
         except Exception:
             pass
 
-    telemetry_data = j.get_pipeline_telemetry()
+    telemetry_data = nira.get_pipeline_telemetry()
 
     return create_response(200, "Pipeline stats retrieved", {
-        "current_job_id": j.job_current_id,
+        "current_job_id": nira.job_current_id,
         "queue_size": queue_size,
-        "status": "active" if j.job_current_id else "idle",
-        "stt": j.get_stt_runtime_stats(),
-        "loaded_operations": j.get_loaded_operations(),
+        "status": "active" if nira.job_current_id else "idle",
+        "stt": nira.get_stt_runtime_stats(),
+        "loaded_operations": nira.get_loaded_operations(),
         "active_providers": telemetry_data.get("active_providers"),
         "audio_output_mode": telemetry_data.get("audio_output_mode", "local"),
         "telemetry": telemetry_data.get("latest"),
@@ -151,7 +151,7 @@ async def preflight_pipeline():
 
 @app.route('/api/pipeline/telemetry', methods=['DELETE'])
 async def clear_pipeline_telemetry():
-    JAIson().clear_telemetry_history()
+    Nira().clear_telemetry_history()
     return create_response(200, "Telemetry history cleared", {"ok": True}, cors_header)
 
 @app.route('/api/pipeline/telemetry', methods=['OPTIONS'])
@@ -160,14 +160,14 @@ async def preflight_clear_pipeline_telemetry():
 
 @app.route('/api/output/mode', methods=['GET'])
 async def get_output_mode():
-    return create_response(200, "Output mode retrieved", {"mode": JAIson().get_audio_output_mode()}, cors_header)
+    return create_response(200, "Output mode retrieved", {"mode": Nira().get_audio_output_mode()}, cors_header)
 
 @app.route('/api/output/mode', methods=['POST', 'PUT'])
 async def set_output_mode():
     try:
         data = (await request.get_json(silent=True)) or {}
         mode = data.get("mode", "local")
-        res = await JAIson().set_audio_output_mode(mode)
+        res = await Nira().set_audio_output_mode(mode)
         return create_response(200, "Output mode updated", res, cors_header)
     except Exception as err:
         return create_response(500, str(err), {}, cors_header)
@@ -180,14 +180,14 @@ async def preflight_output_mode():
 async def set_discord_bridge_status():
     try:
         data = (await request.get_json()) or {}
-        JAIson().set_discord_bridge_status(data)
+        Nira().set_discord_bridge_status(data)
         return create_response(200, "Discord bridge status updated", {"ok": True}, cors_header)
     except Exception as err:
         return create_response(500, str(err), {}, cors_header)
 
 @app.route('/api/bridge/discord/status', methods=['GET'])
 async def get_discord_bridge_status():
-    return create_response(200, "Discord bridge status retrieved", JAIson().get_discord_bridge_status(), cors_header)
+    return create_response(200, "Discord bridge status retrieved", Nira().get_discord_bridge_status(), cors_header)
 
 @app.route('/api/bridge/discord/status', methods=['OPTIONS'])
 async def preflight_discord_bridge_status():
@@ -207,7 +207,7 @@ async def cancel_job():
     try:
         request_data = await request.get_json()
         assert 'job_id' in request_data
-        return create_response(200, f"Job flagged for cancellation", await JAIson().cancel_job(request_data['job_id'], request_data.get('reason')), cors_header)
+        return create_response(200, f"Job flagged for cancellation", await Nira().cancel_job(request_data['job_id'], request_data.get('reason')), cors_header)
     except NonexistantJobException as err:
         return create_response(400, f"Job ID does not exist or already finished", {}, cors_header)
     except AssertionError as err:
@@ -220,7 +220,7 @@ async def cancel_job():
 async def _request_job(job_type: JobType):
     try:
         request_data = (await request.get_json()) or dict()
-        job_id = await JAIson().create_job(job_type, **request_data)
+        job_id = await Nira().create_job(job_type, **request_data)
         return create_response(200, f"{job_type} job created", {"job_id": job_id}, cors_header)
     except Exception as err:
         logging.error(f"Error occured for {job_type} API request", stack_info=True, exc_info=True)
@@ -255,7 +255,7 @@ async def context_conversation_add_text():
 async def context_conversation_add_audio():
     try:
         request_data = (await request.get_json(silent=True)) or dict()
-        result = await JAIson().submit_audio_immediate(request_data)
+        result = await Nira().submit_audio_immediate(request_data)
         if not result.get("accepted", False):
             return create_response(200, "Audio dropped due to STT backpressure", result, cors_header)
         return create_response(200, "Audio processing started", result, cors_header)
@@ -268,7 +268,7 @@ async def context_conversation_speech_start():
     try:
         request_data = (await request.get_json(silent=True)) or dict()
         # lightweight path: handle immediately to avoid piling background tasks
-        await JAIson().on_user_speech_start(request_data)
+        await Nira().on_user_speech_start(request_data)
         return create_response(200, "Speech start signal processed", {}, cors_header)
     except Exception as err:
         logging.error(f"Error occured for speech_start API request", stack_info=True, exc_info=True)
@@ -400,7 +400,7 @@ async def preflight_config_save():
 async def start_web_server(): # TODO launch application plugins here as well
     try:
         global app
-        await JAIson().start()
+        await Nira().start()
         SocketServerObserver()
         from hypercorn.config import Config as HyperConfig
         from hypercorn.asyncio import serve
@@ -413,4 +413,4 @@ async def start_web_server(): # TODO launch application plugins here as well
     except Exception as err:
         logging.error("Stopping server due to exception", exc_info=True)
     finally:    
-        await JAIson().stop()
+        await Nira().stop()

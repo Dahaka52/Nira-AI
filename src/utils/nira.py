@@ -107,7 +107,7 @@ class JobType(Enum):
     CONFIG_UPDATE = 'config_update'
     CONFIG_SAVE = 'config_save'
     
-class JAIson(metaclass=Singleton):
+class Nira(metaclass=Singleton):
     def __init__(self): # attribute stubs
         self.job_loop: asyncio.Task = None
         self.job_queue: asyncio.Queue = None
@@ -167,8 +167,8 @@ class JAIson(metaclass=Singleton):
         self._audio_output_mode: str = "local"
     
     async def start(self):
-        logging.info("Starting JAIson application layer.")
-        print_stage("CORE", "Инициализация JAIson (очереди, события)…", "boot")
+        logging.info("Starting Nira application layer.")
+        print_stage("CORE", "Инициализация Nira (очереди, события)…", "boot")
         self.job_queue = asyncio.Queue()
         self.job_map = dict()
         self.job_skips = dict()
@@ -217,11 +217,11 @@ class JAIson(metaclass=Singleton):
                 logging.error(f"Could not start Discord bridge: {e}")
                 print_stage("DISCORD", f"Ошибка Discord Bridge: {e}", "error")
 
-        logging.info("JAIson application layer has started.")
+        logging.info("Nira application layer has started.")
         print_stage("READY", "✨ Нира готова к работе!", "ok")
         
     async def stop(self):
-        logging.info("Shutting down JAIson application layer")
+        logging.info("Shutting down Nira application layer")
         for task in list(self._immediate_audio_tasks):
             task.cancel("shutdown")
         self._immediate_audio_tasks.clear()
@@ -233,7 +233,7 @@ class JAIson(metaclass=Singleton):
             await self.mcp_manager.close()
         if getattr(self, "process_manager", None):
             await self.process_manager.unload()
-        logging.info("JAIson application layer has been shut down")
+        logging.info("Nira application layer has been shut down")
 
     def _get_microphone_config(self) -> Dict[str, Any]:
         try:
@@ -2681,3 +2681,9 @@ class JAIson(metaclass=Singleton):
         
         logging.debug("Broadcasting error ({}) {} {}".format(job_id, job_type.value, str(to_broadcast)))
         await self.event_server.broadcast_event(job_type.value, to_broadcast)
+
+
+# Псевдонимы для совместимости
+NIRA = Nira
+JAIson = Nira
+

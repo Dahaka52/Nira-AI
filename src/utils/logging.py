@@ -20,7 +20,7 @@ class CustomFormatter(logging.Formatter):
     Читаемый форматтер для консоли Нира.
 
     Дизайн строки лога:
-      12:34:56  [INFO ]  utils.jaison  Сообщение...
+      12:34:56  [INFO ]  utils.nira  Сообщение...
        dim        bold     bright         normal
 
     Уровни — без заливки фона, только жирный цветной [LEVEL].
@@ -46,7 +46,7 @@ class CustomFormatter(logging.Formatter):
         ("tts",       "\x1b[38;5;205m"),  # розовый
         ("fish",      "\x1b[38;5;205m"),  # розовый
         ("groq",      "\x1b[95m"),   # пурпурный
-        ("jaison",    "\x1b[95m"),   # пурпурный
+        ("nira",      "\x1b[95m"),   # пурпурный
         ("t2t",       "\x1b[95m"),   # пурпурный
         ("llm",       "\x1b[95m"),   # пурпурный
         ("speaker",   "\x1b[38;5;205m"),  # розовый (аудио-вывод)

@@ -3,7 +3,7 @@ import logging
 import sys
 import time
 from utils.config import Config
-from utils.jaison import JAIson, JobType
+from utils.nira import Nira, JobType
 from utils.helpers.observer import BaseObserverClient
 from utils.console import (
     print_welcome, print_divider, print_stage,
@@ -16,10 +16,10 @@ logging.getLogger().setLevel(logging.WARNING)
 
 
 class ConsoleChatObserver(BaseObserverClient):
-    """Слушатель событий JAIson для цветного вывода ответов Нира."""
+    """Слушатель событий Nira для цветного вывода ответов Нира."""
 
     def __init__(self):
-        super().__init__(server=JAIson().event_server)
+        super().__init__(server=Nira().event_server)
         self.done = asyncio.Event()
         self._nira_started = False
 
@@ -48,8 +48,8 @@ async def main():
     # ── Инициализация ─────────────────────────────────────────────────────────
     print_stage("INIT", "Загрузка конфига и инициализация Nira…", "boot")
     Config().load_from_name('config')
-    j = JAIson()
-    await j.start()
+    nira = Nira()
+    await nira.start()
 
     observer = ConsoleChatObserver()
 
@@ -75,7 +75,7 @@ async def main():
             print_user_text(text, name="Вы")
 
             # 1. Добавляем сообщение пользователя в контекст
-            await j.append_conversation_context_text(
+            await nira.append_conversation_context_text(
                 "chat_ctx",
                 JobType.CONTEXT_CONVERSATION_ADD_TEXT,
                 user="Creator",
@@ -86,7 +86,7 @@ async def main():
             observer.reset()
 
             # 2. Запускаем генерацию ответа
-            await j.create_job(JobType.RESPONSE, include_audio=False)
+            await nira.create_job(JobType.RESPONSE, include_audio=False)
 
             # Ждём окончания генерации
             await observer.done.wait()
@@ -95,7 +95,7 @@ async def main():
     except KeyboardInterrupt:
         print(f"\n  {BOLD}{C_YELLOW}[Ctrl+C]{RESET} Завершение…")
     finally:
-        await j.stop()
+        await nira.stop()
 
 
 if __name__ == "__main__":

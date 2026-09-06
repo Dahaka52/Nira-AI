@@ -5361,3 +5361,510 @@ utils.config.UnknownField: Config field active_scene does not exist
 [2026-09-06 18:23:23,028] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job 0563dcc2-30b6-4ec7-b6bf-fd7336639ba1
 [2026-09-06 18:23:23,028] [INFO ] [jaison.py::769 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
 [2026-09-06 18:23:26,510] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-06 19:11:34,092] [INFO ] [nira.py::170 start]: Starting Nira application layer.
+[2026-09-06 19:11:34,106] [INFO ] [manager.py::307 load_operations_from_config]: Active STT from config: gigaam_ru
+[2026-09-06 19:11:34,106] [INFO ] [manager.py::309 load_operations_from_config]: Active T2T from config: llamacpp
+[2026-09-06 19:11:35,431] [INFO ] [operation.py::32 start]: Starting STT operation gigaam_ru
+[2026-09-06 19:11:35,431] [INFO ] [gigaam.py::125 start]: Initializing GigaAM STT (sherpa-onnx NeMo CTC): model=C:\Nirmita\models\gigaam\gigaam_v3_e2e_ctc_int8.onnx, threads=4, provider=cpu, blank_penalty=0.0, hotwords=enabled
+[2026-09-06 19:11:36,256] [INFO ] [gigaam.py::164 start]: GigaAM STT initialized and warmed up successfully.
+[2026-09-06 19:11:36,258] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-09-06 19:11:36,258] [INFO ] [manager.py::25 load]: Loading process by type llamacpp
+[2026-09-06 19:11:36,265] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 50588) on port 10769 (GPU: 0)
+[2026-09-06 19:11:36,265] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:10769/health ...
+[2026-09-06 19:11:40,548] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 10769)
+[2026-09-06 19:11:40,567] [INFO ] [fishaudio.py::159 configure]: FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2026-09-06 19:11:40,567] [INFO ] [operation.py::32 start]: Starting TTS operation fish_audio
+[2026-09-06 19:11:40,567] [INFO ] [fishaudio.py::85 start]: FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2026-09-06 19:11:40,569] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-09-06 19:11:40,805] [INFO ] [speaker.py::98 configure]: SpeakerOutputFilter: настроен name=None, index=None, enabled=False, vol=1.0
+[2026-09-06 19:11:40,805] [INFO ] [operation.py::32 start]: Starting FILTER_AUDIO operation speaker
+[2026-09-06 19:11:40,805] [INFO ] [speaker.py::64 start]: SpeakerOutputFilter: операция запущена (вокер запущен)
+[2026-09-06 19:11:40,805] [INFO ] [speaker.py::34 set_enabled]: SpeakerOutputFilter: enabled set to True
+[2026-09-06 19:11:40,805] [INFO ] [manager.py::25 load]: Loading process by type hw_mic
+[2026-09-06 19:11:40,808] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-06 19:11:40,815] [INFO ] [manager.py::25 load]: Loading process by type discord
+[2026-09-06 19:11:40,816] [WARNI] [base.py::46 unload]: Attempted to unload process discord when it is already unloaded
+[2026-09-06 19:11:40,816] [INFO ] [discord.py::52 reload]: Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+[2026-09-06 19:11:40,822] [INFO ] [nira.py::220 start]: Nira application layer has started.
+[2026-09-06 19:11:43,018] [ERROR] [app.py::1145 log_exception]: Exception on request GET /api/pipeline
+Traceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined
+[2026-09-06 19:11:43,024] [ERROR] [app.py::1145 log_exception]: Exception on request GET /api/pipeline
+Traceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined
+[2026-09-06 19:11:44,542] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 19:11:45,528] [ERROR] [app.py::1145 log_exception]: Exception on request GET /api/pipeline
+Traceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined
+[2026-09-06 19:11:45,983] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 19:11:46,937] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 19:11:48,031] [ERROR] [app.py::1145 log_exception]: Exception on request GET /api/pipeline
+Traceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined
+[2026-09-06 19:11:50,529] [ERROR] [app.py::1145 log_exception]: Exception on request GET /api/pipeline
+Traceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined
+[2026-09-06 19:11:53,030] [ERROR] [app.py::1145 log_exception]: Exception on request GET /api/pipeline
+Traceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined
+[2026-09-06 19:11:55,532] [ERROR] [app.py::1145 log_exception]: Exception on request GET /api/pipeline
+Traceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined
+[2026-09-06 19:11:58,035] [ERROR] [app.py::1145 log_exception]: Exception on request GET /api/pipeline
+Traceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined
+[2026-09-06 19:12:00,528] [ERROR] [app.py::1145 log_exception]: Exception on request GET /api/pipeline
+Traceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined
+[2026-09-06 19:12:03,028] [ERROR] [app.py::1145 log_exception]: Exception on request GET /api/pipeline
+Traceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined
+[2026-09-06 19:12:05,527] [ERROR] [app.py::1145 log_exception]: Exception on request GET /api/pipeline
+Traceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined
+[2026-09-06 19:12:08,035] [ERROR] [app.py::1145 log_exception]: Exception on request GET /api/pipeline
+Traceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined
+[2026-09-06 19:12:10,525] [ERROR] [app.py::1145 log_exception]: Exception on request GET /api/pipeline
+Traceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined
+[2026-09-06 19:12:13,028] [ERROR] [app.py::1145 log_exception]: Exception on request GET /api/pipeline
+Traceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined
+[2026-09-06 19:12:15,533] [ERROR] [app.py::1145 log_exception]: Exception on request GET /api/pipeline
+Traceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined
+[2026-09-06 19:12:18,038] [ERROR] [app.py::1145 log_exception]: Exception on request GET /api/pipeline
+Traceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined
+[2026-09-06 19:12:19,133] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-06 19:12:20,533] [ERROR] [app.py::1145 log_exception]: Exception on request GET /api/pipeline
+Traceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined
+[2026-09-06 19:12:22,558] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-06 19:12:23,028] [ERROR] [app.py::1145 log_exception]: Exception on request GET /api/pipeline
+Traceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined
+[2026-09-06 19:14:30,382] [INFO ] [nira.py::170 start]: Starting Nira application layer.
+[2026-09-06 19:14:30,397] [INFO ] [manager.py::307 load_operations_from_config]: Active STT from config: gigaam_ru
+[2026-09-06 19:14:30,397] [INFO ] [manager.py::309 load_operations_from_config]: Active T2T from config: llamacpp
+[2026-09-06 19:14:31,706] [INFO ] [operation.py::32 start]: Starting STT operation gigaam_ru
+[2026-09-06 19:14:31,706] [INFO ] [gigaam.py::125 start]: Initializing GigaAM STT (sherpa-onnx NeMo CTC): model=C:\Nirmita\models\gigaam\gigaam_v3_e2e_ctc_int8.onnx, threads=4, provider=cpu, blank_penalty=0.0, hotwords=enabled
+[2026-09-06 19:14:32,506] [INFO ] [gigaam.py::164 start]: GigaAM STT initialized and warmed up successfully.
+[2026-09-06 19:14:32,507] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-09-06 19:14:32,508] [INFO ] [manager.py::25 load]: Loading process by type llamacpp
+[2026-09-06 19:14:32,515] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 2500) on port 5416 (GPU: 0)
+[2026-09-06 19:14:32,516] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:5416/health ...
+[2026-09-06 19:14:36,755] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 5416)
+[2026-09-06 19:14:36,773] [INFO ] [fishaudio.py::159 configure]: FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2026-09-06 19:14:36,773] [INFO ] [operation.py::32 start]: Starting TTS operation fish_audio
+[2026-09-06 19:14:36,773] [INFO ] [fishaudio.py::85 start]: FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2026-09-06 19:14:36,774] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-09-06 19:14:36,994] [INFO ] [speaker.py::98 configure]: SpeakerOutputFilter: настроен name=None, index=None, enabled=False, vol=1.0
+[2026-09-06 19:14:36,994] [INFO ] [operation.py::32 start]: Starting FILTER_AUDIO operation speaker
+[2026-09-06 19:14:36,995] [INFO ] [speaker.py::64 start]: SpeakerOutputFilter: операция запущена (вокер запущен)
+[2026-09-06 19:14:36,995] [INFO ] [speaker.py::34 set_enabled]: SpeakerOutputFilter: enabled set to True
+[2026-09-06 19:14:36,995] [INFO ] [manager.py::25 load]: Loading process by type hw_mic
+[2026-09-06 19:14:36,996] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-06 19:14:37,002] [INFO ] [manager.py::25 load]: Loading process by type discord
+[2026-09-06 19:14:37,003] [WARNI] [base.py::46 unload]: Attempted to unload process discord when it is already unloaded
+[2026-09-06 19:14:37,003] [INFO ] [discord.py::52 reload]: Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+[2026-09-06 19:14:37,010] [INFO ] [nira.py::220 start]: Nira application layer has started.
+[2026-09-06 19:14:37,510] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 19:14:38,801] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-06 19:14:39,552] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 19:14:40,770] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 19:14:42,164] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 19:14:51,560] [INFO ] [nira.py::548 create_job]: Queued new context_conversation_add_text job 53ddb2d3-854e-4e28-b6a4-a96939b39418
+[2026-09-06 19:14:51,560] [INFO ] [nira.py::548 create_job]: Queued new response job 31da236b-bfd1-4f44-b957-5bbb4beb5b09
+[2026-09-06 19:14:56,941] [INFO ] [nira.py::548 create_job]: Queued new context_conversation_add_text job 8bcec0ea-44eb-44d3-8a22-402945726691
+[2026-09-06 19:14:56,941] [INFO ] [nira.py::769 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-06 19:14:59,672] [INFO ] [nira.py::1669 response_pipeline]: Response job 31da236b-bfd1-4f44-b957-5bbb4beb5b09 completed. Content: 'Привет, Пап! Я в норме, спасибо. А как ты? Работа не съедает совсем?...'
+[2026-09-06 19:15:17,883] [INFO ] [nira.py::548 create_job]: Queued new context_conversation_add_text job 08eb1253-ddaa-483c-8be5-9962f271a4c1
+[2026-09-06 19:15:17,883] [INFO ] [nira.py::548 create_job]: Queued new response job 5cb345a7-85b8-41c7-8370-96b0eaa8be2e
+[2026-09-06 19:15:26,704] [INFO ] [nira.py::1669 response_pipeline]: Response job 5cb345a7-85b8-41c7-8370-96b0eaa8be2e completed. Content: 'Отлично, Пап! Я всегда рада поболтать с тобой и мамой. Давайте тогда в Discord' пересечёмся, когда в...'
+[2026-09-06 19:15:39,853] [INFO ] [nira.py::1263 set_audio_output_mode]: Audio output mode & active_scene switched to: discord
+[2026-09-06 19:15:39,893] [INFO ] [speaker.py::34 set_enabled]: SpeakerOutputFilter: enabled set to False
+[2026-09-06 19:15:47,353] [INFO ] [nira.py::1131 emit_environment_notice]: [DISCORD ENV] Подключилась к голосовому каналу "🏕️Таверна "Астрал"". В канале находятся: Вова (Папа, Создатель). Все они тебя слышат.
+[2026-09-06 19:15:50,293] [INFO ] [nira.py::548 create_job]: Queued new context_conversation_add_text job 8b478aed-1191-4173-8133-0fd1a24c2538
+[2026-09-06 19:15:50,294] [INFO ] [nira.py::548 create_job]: Queued new response job abf20a55-0860-436d-8553-1853aaa6ed20
+[2026-09-06 19:15:57,849] [INFO ] [nira.py::1669 response_pipeline]: Response job abf20a55-0860-436d-8553-1853aaa6ed20 completed. Content: 'Привет, Пап! Я уже здесь, в Таверне "Астрал". Готова поболтать, когда ты скажешь. Как дела?...'
+[2026-09-06 19:16:06,966] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-06 19:16:09,860] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-06 19:22:06,886] [INFO ] [nira.py::170 start]: Starting Nira application layer.
+[2026-09-06 19:22:06,900] [INFO ] [manager.py::307 load_operations_from_config]: Active STT from config: gigaam_ru
+[2026-09-06 19:22:06,900] [INFO ] [manager.py::309 load_operations_from_config]: Active T2T from config: llamacpp
+[2026-09-06 19:22:08,190] [INFO ] [operation.py::32 start]: Starting STT operation gigaam_ru
+[2026-09-06 19:22:08,190] [INFO ] [gigaam.py::125 start]: Initializing GigaAM STT (sherpa-onnx NeMo CTC): model=C:\Nirmita\models\gigaam\gigaam_v3_e2e_ctc_int8.onnx, threads=4, provider=cpu, blank_penalty=0.0, hotwords=enabled
+[2026-09-06 19:22:09,031] [INFO ] [gigaam.py::164 start]: GigaAM STT initialized and warmed up successfully.
+[2026-09-06 19:22:09,033] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-09-06 19:22:09,034] [INFO ] [manager.py::25 load]: Loading process by type llamacpp
+[2026-09-06 19:22:09,040] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 45796) on port 2423 (GPU: 0)
+[2026-09-06 19:22:09,040] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:2423/health ...
+[2026-09-06 19:22:13,277] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 2423)
+[2026-09-06 19:22:13,293] [INFO ] [fishaudio.py::159 configure]: FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2026-09-06 19:22:13,293] [INFO ] [operation.py::32 start]: Starting TTS operation fish_audio
+[2026-09-06 19:22:13,293] [INFO ] [fishaudio.py::85 start]: FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2026-09-06 19:22:13,294] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-09-06 19:22:13,501] [INFO ] [speaker.py::98 configure]: SpeakerOutputFilter: настроен name=None, index=None, enabled=False, vol=1.0
+[2026-09-06 19:22:13,501] [INFO ] [operation.py::32 start]: Starting FILTER_AUDIO operation speaker
+[2026-09-06 19:22:13,501] [INFO ] [speaker.py::64 start]: SpeakerOutputFilter: операция запущена (вокер запущен)
+[2026-09-06 19:22:13,501] [INFO ] [speaker.py::34 set_enabled]: SpeakerOutputFilter: enabled set to True
+[2026-09-06 19:22:13,501] [INFO ] [manager.py::25 load]: Loading process by type hw_mic
+[2026-09-06 19:22:13,502] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-06 19:22:13,509] [INFO ] [manager.py::25 load]: Loading process by type discord
+[2026-09-06 19:22:13,510] [WARNI] [base.py::46 unload]: Attempted to unload process discord when it is already unloaded
+[2026-09-06 19:22:13,510] [INFO ] [discord.py::52 reload]: Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+[2026-09-06 19:22:13,516] [INFO ] [nira.py::220 start]: Nira application layer has started.
+[2026-09-06 19:22:13,865] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 19:22:15,393] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-06 19:22:16,159] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 19:22:17,343] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 19:22:18,722] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 19:22:32,028] [INFO ] [nira.py::548 create_job]: Queued new context_conversation_add_text job a5227fda-ff53-411d-aefa-e99158a6a8c7
+[2026-09-06 19:22:32,028] [INFO ] [nira.py::548 create_job]: Queued new response job 9ed12b09-782e-46c7-aae0-f31713d5ab76
+[2026-09-06 19:22:38,413] [INFO ] [nira.py::1669 response_pipeline]: Response job 9ed12b09-782e-46c7-aae0-f31713d5ab76 completed. Content: 'Ну, Пап, сам же знаешь, я же не в теле, но настроение отличное! Готова поболтать или что-то конкретн...'
+[2026-09-06 19:23:03,403] [INFO ] [nira.py::548 create_job]: Queued new context_conversation_add_text job 03ebded7-668f-4ebb-875a-aa41fa3eb2a4
+[2026-09-06 19:23:03,403] [INFO ] [nira.py::548 create_job]: Queued new response job 45ba4c8b-d041-4177-a297-f439a3d01c79
+[2026-09-06 19:23:11,574] [INFO ] [nira.py::1669 response_pipeline]: Response job 45ba4c8b-d041-4177-a297-f439a3d01c79 completed. Content: 'А что бы ты хотел послушать, Вова? Я могу поведать историю из мира D&D, поделиться мыслями о последн...'
+[2026-09-06 19:23:58,262] [INFO ] [nira.py::1263 set_audio_output_mode]: Audio output mode & active_scene switched to: discord
+[2026-09-06 19:23:58,304] [INFO ] [speaker.py::34 set_enabled]: SpeakerOutputFilter: enabled set to False
+[2026-09-06 19:24:03,874] [INFO ] [nira.py::2347 process_audio_immediate]: Nira interrupted by stop intent ('Прекрас') and entered listening mode.
+[2026-09-06 19:24:06,219] [INFO ] [nira.py::1131 emit_environment_notice]: [DISCORD ENV] Подключилась к голосовому каналу "🏕️Таверна "Астрал"". В канале находятся: Вова (Папа, Создатель). Все они тебя слышат.
+[2026-09-06 19:24:06,998] [INFO ] [nira.py::548 create_job]: Queued new context_conversation_add_text job 2c7fcef9-4ed1-4f05-b635-f8c0d17a32fc
+[2026-09-06 19:24:06,998] [INFO ] [nira.py::769 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-06 19:24:24,934] [INFO ] [nira.py::2285 process_audio_immediate]: Nira exited listening mode due to silence timeout (15.0s).
+[2026-09-06 19:24:29,333] [INFO ] [nira.py::548 create_job]: Queued new context_conversation_add_text job 95a343fd-49fe-4c04-8795-01697640b21e
+[2026-09-06 19:24:29,334] [INFO ] [nira.py::548 create_job]: Queued new response job c9f807c7-906d-4265-be97-8135acf23c76
+[2026-09-06 19:24:46,608] [INFO ] [nira.py::341 _record_stt_metrics]: STT metrics(window=20): avg_latency_ms=76 empty_rate=0.300 stop_cmd_recall=0.050
+[2026-09-06 19:24:48,480] [INFO ] [nira.py::548 create_job]: Queued new context_conversation_add_text job 21a92c9e-1ce7-48e0-b917-4bb90c582b2f
+[2026-09-06 19:24:48,480] [INFO ] [nira.py::548 create_job]: Queued new response job dd282ba9-cbd0-4231-b89b-9716b091ce5d
+[2026-09-06 19:24:52,215] [INFO ] [nira.py::548 create_job]: Queued new context_conversation_add_text job b542f474-60fe-4c09-ba47-948cebf3de1c
+[2026-09-06 19:24:52,215] [INFO ] [nira.py::525 create_job]: [PREEMPTION] Отменяем устаревший RESPONSE job dd282ba9-cbd0-4231-b89b-9716b091ce5d в пользу свежего ответа 2f07c66f-af5b-47a6-8036-711d601fac25
+[2026-09-06 19:24:52,215] [INFO ] [nira.py::548 create_job]: Queued new response job 2f07c66f-af5b-47a6-8036-711d601fac25
+[2026-09-06 19:24:56,603] [INFO ] [nira.py::548 create_job]: Queued new context_conversation_add_text job e7822b1a-f90a-4366-8be6-23b9ae5971e0
+[2026-09-06 19:24:56,603] [INFO ] [nira.py::525 create_job]: [PREEMPTION] Отменяем устаревший RESPONSE job 2f07c66f-af5b-47a6-8036-711d601fac25 в пользу свежего ответа beea1ad4-f238-4a54-9b3c-ce0cbcc430ac
+[2026-09-06 19:24:56,603] [INFO ] [nira.py::548 create_job]: Queued new response job beea1ad4-f238-4a54-9b3c-ce0cbcc430ac
+[2026-09-06 19:24:59,248] [INFO ] [nira.py::2347 process_audio_immediate]: Nira interrupted by stop intent ('Постой.') and entered listening mode.
+[2026-09-06 19:24:59,249] [INFO ] [nira.py::614 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: stop_word
+[2026-09-06 19:24:59,249] [INFO ] [nira.py::581 _clear_current_job]: Job c9f807c7-906d-4265-be97-8135acf23c76 (response) is being cancelled due to: stop_word
+[2026-09-06 19:24:59,533] [INFO ] [nira.py::1669 response_pipeline]: Response job c9f807c7-906d-4265-be97-8135acf23c76 completed. Content: 'Ох, Папа, опять меня заставляешь рассказывать эти сказки! Ладно, слушай. Жил-был один маг, и был он ...'
+[2026-09-06 19:25:00,658] [INFO ] [nira.py::548 create_job]: Queued new context_conversation_add_text job 0be3ba7d-5c34-47ab-9ea9-e04a16d1699e
+[2026-09-06 19:25:00,658] [INFO ] [nira.py::769 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-06 19:25:12,174] [INFO ] [nira.py::548 create_job]: Queued new context_conversation_add_text job df666929-7f8c-4eb8-8ef4-f1d0a0f9d221
+[2026-09-06 19:25:12,174] [INFO ] [nira.py::769 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-06 19:25:24,195] [INFO ] [nira.py::548 create_job]: Queued new context_conversation_add_text job 8bb06ce9-6b41-487c-a2aa-2ad8d5337d95
+[2026-09-06 19:25:24,195] [INFO ] [nira.py::769 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-06 19:25:28,426] [INFO ] [nira.py::341 _record_stt_metrics]: STT metrics(window=40): avg_latency_ms=55 empty_rate=0.175 stop_cmd_recall=0.050
+[2026-09-06 19:25:28,924] [INFO ] [nira.py::2311 process_audio_immediate]: Nira exited listening mode (via continue-intent).
+[2026-09-06 19:25:30,321] [INFO ] [nira.py::720 _commit_pending_voice_turn]: Continue-intent detected: next response will continue previous thought.
+[2026-09-06 19:25:30,321] [INFO ] [nira.py::548 create_job]: Queued new context_conversation_add_text job 6fe81c88-4b13-496f-953c-a4ac44ecd606
+[2026-09-06 19:25:30,321] [INFO ] [nira.py::548 create_job]: Queued new response job 6107672b-f12f-45b2-b27d-b322b732e963
+[2026-09-06 19:25:44,541] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-06 19:25:50,019] [INFO ] [app_server.py::86 ws]: Closed websocket connection

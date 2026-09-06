@@ -23,8 +23,8 @@ parser.add_argument("--device_index", type=int, default=None, help="Audio device
 parser.add_argument("--device_name", type=str, default=None, help="Input device name substring (preferred over index)")
 parser.add_argument("--device_hostapi", type=str, default=None, help="Optional host API filter (e.g. WASAPI)")
 parser.add_argument("--list_devices", action="store_true", help="List input devices and exit")
-parser.add_argument("--jaison_api", type=str, default="http://localhost:7272/api/context/conversation/audio", help="JAIson API URL")
-parser.add_argument("--speech_start_api", type=str, default=None, help="Optional early-barge-in URL (default: derived from jaison_api)")
+parser.add_argument("--nira_api", "--jaison_api", dest="nira_api", type=str, default="http://localhost:7272/api/context/conversation/audio", help="Nira API URL")
+parser.add_argument("--speech_start_api", type=str, default=None, help="Optional early-barge-in URL (default: derived from nira_api)")
 parser.add_argument("--speech_start_min_interval_ms", type=int, default=350, help="Minimum interval between speech_start signals")
 parser.add_argument("--speech_start_confirm_ms", type=int, default=100, help="Require this much active speech before sending speech_start")
 parser.add_argument("--min_speech_ms_interrupt", type=int, default=80, help="Minimum ms for short interrupt commands to still be sent")
@@ -46,7 +46,7 @@ parser.add_argument("--min_silence_ms", type=int, default=500, help="Millisecond
 parser.add_argument("--min_speech_ms", type=int, default=200, help="Minimum ms of speech to send")
 parser.add_argument("--pre_roll_ms", type=int, default=300, help="Milliseconds of audio to keep before speech")
 parser.add_argument("--energy_threshold", type=float, default=0.01, help="RMS threshold (gate)")
-parser.add_argument("--ws_url", type=str, default="ws://localhost:7272/", help="JAIson WebSocket URL for dynamic control")
+parser.add_argument("--ws_url", type=str, default="ws://localhost:7272/", help="Nira WebSocket URL for dynamic control")
 args = parser.parse_args()
 
 
@@ -58,7 +58,7 @@ def resolve_speech_start_url(audio_url: str, explicit_url: Optional[str]) -> str
     return audio_url.rstrip("/") + "/speech_start"
 
 
-SPEECH_START_API = resolve_speech_start_url(args.jaison_api, args.speech_start_api)
+SPEECH_START_API = resolve_speech_start_url(args.nira_api, args.speech_start_api)
 _last_speech_start_ts_ms = 0.0
 _last_turn_id: Optional[str] = None
 _last_turn_ts: float = 0.0
@@ -189,9 +189,10 @@ vad_session = onnxruntime.InferenceSession(VAD_MODEL_PATH, providers=["CPUExecut
 # Модель Silero VAD ожидает state (2, 1, 128)
 vad_state = np.zeros((2, 1, 128), dtype=np.float32)
 last_vad_prob = 0.0
+_last_vad_err_time: float = 0.0
 
 def is_speech(audio_float32: np.ndarray, threshold: float = 0.05) -> bool:
-    global vad_state, last_vad_prob
+    global vad_state, last_vad_prob, _last_vad_err_time
     
     # 1. Removal of DC offset or normalization (already done by / 32768)
     # But Silero VAD prefers centered audio
@@ -214,15 +215,15 @@ def is_speech(audio_float32: np.ndarray, threshold: float = 0.05) -> bool:
     
     try:
         out, new_state = vad_session.run(None, ort_inputs)
-        last_vad_prob = float(out[0][0])
+        last_vad_prob = float(out[0][0])  # type: ignore[index]
         vad_state = new_state
         return last_vad_prob > threshold
     except Exception as e:
         # Сбрасываем стейт при ошибке
         vad_state = np.zeros((2, 1, 128), dtype=np.float32)
-        if not hasattr(is_speech, 'last_err_time') or time.time() - is_speech.last_err_time > 10:
+        if time.time() - _last_vad_err_time > 10:
             print(f"\r[VAD DEBUG] {e}")
-            is_speech.last_err_time = time.time()
+            _last_vad_err_time = time.time()
         return False
 
 # ==============================================================
@@ -230,7 +231,8 @@ def is_speech(audio_float32: np.ndarray, threshold: float = 0.05) -> bool:
 # ==============================================================
 
 # Streaming anti-aliasing filter for 48k -> 16k decimation
-_b, _a = signal.butter(4, 1.0 / 3.0)
+_butter_res = signal.butter(4, 1.0 / 3.0)
+_b, _a = _butter_res[0], _butter_res[1]  # type: ignore[assignment]
 _zi_init = signal.lfilter_zi(_b, _a)
 
 state = {
@@ -253,13 +255,13 @@ state = {
 }
 
 def _ws_mode_listener():
-    """Слушает события изменения режима вывода из JAIson и глушит микрофон в режиме Discord."""
+    """Слушает события изменения режима вывода из Nira и глушит микрофон в режиме Discord."""
     import websockets.sync.client as ws_sync
     import json
     
     # 1. Начальная синхронизация режима через HTTP API
     try:
-        base_api = args.jaison_api.rsplit("/api", 1)[0]
+        base_api = args.nira_api.rsplit("/api", 1)[0]
         telemetry_url = f"{base_api}/api/pipeline/telemetry"
         r = session.get(telemetry_url, timeout=2)
         if r.status_code == 200:
@@ -336,7 +338,7 @@ def complete_turn_id(turn_id: str, now_s: float):
         _last_turn_ts = float(now_s)
 
 
-def send_to_jaison(audio_buffer: list, turn_id: Optional[str] = None, speech_start_ts: Optional[float] = None, speech_end_ts: Optional[float] = None):
+def send_to_nira(audio_buffer: list, turn_id: Optional[str] = None, speech_start_ts: Optional[float] = None, speech_end_ts: Optional[float] = None):
     """Отправка на сервер (асинхронно из потока)"""
     # [OPTIMIZE] Move concatenation to thread to not block audio_callback
     audio_data = np.concatenate(audio_buffer)
@@ -369,7 +371,7 @@ def send_to_jaison(audio_buffer: list, turn_id: Optional[str] = None, speech_sta
     }
     
     try:
-        response = session.post(args.jaison_api, json=payload, timeout=5)
+        response = session.post(args.nira_api, json=payload, timeout=5)
         if response.status_code == 200:
              accepted = True
              try:
@@ -530,7 +532,7 @@ def audio_callback(indata, frames, time_info, status):
                     speech_start_time = max(0.0, speech_end_time - (state["duration_ms"] / 1000.0))
                     # [OPTIMIZE] Pass buffer to thread, concatenation happens there
                     threading.Thread(
-                        target=send_to_jaison,
+                        target=send_to_nira,
                         args=(list(state["buffer"]), state.get("active_turn_id"), speech_start_time, speech_end_time),
                         daemon=True,
                     ).start()
@@ -544,7 +546,7 @@ def audio_callback(indata, frames, time_info, status):
                 state["active_turn_id"] = None
                 state["no_vad_counter_ms"] = 0
                 # Сброс состояния VAD после фразы
-                vad_state[:] = 0.0
+                vad_state = np.zeros((2, 1, 128), dtype=np.float32)
         else:
             # Копим пре-ролл
             if "pre_roll" in state:

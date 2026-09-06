@@ -10041,3 +10041,706 @@ utils.config.UnknownField: Config field active_scene does not exist[0m
   [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1842ms[0m
   [1m[95m[LLM ✓][0m  [1m[93mttft 97ms[0m  [1m[96m40.4 tok/s[0m  [1m[97m53 симв.[0m
 [2m18:23:04[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job e41cfc20-fb15-466b-bbee-a861d2d3fd0f completed. Content: 'Пап, я не совсем поняла, о чем ты. Можно поподробнее?...'
+[2m19:11:34[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting Nira application layer.
+  [1m[94m▶ CORE    [0m  [94mИнициализация Nira (очереди, события)…[0m
+  [1m[92m✓ PROMPT  [0m  [92mПромпт загружен: Нира[0m
+  [1m[94m▶ OPS     [0m  [94mЗагрузка операций из конфига…[0m
+[2m19:11:34[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Active STT from config: gigaam_ru
+[2m19:11:34[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Active T2T from config: llamacpp
+[2m19:11:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting STT operation gigaam_ru
+[2m19:11:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Initializing GigaAM STT (sherpa-onnx NeMo CTC): model=C:\Nirmita\models\gigaam\gigaam_v3_e2e_ctc_int8.onnx, threads=4, provider=cpu, blank_penalty=0.0, hotwords=enabled
+[2m19:11:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  GigaAM STT initialized and warmed up successfully.
+[2m19:11:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting T2T operation llamacpp
+[2m19:11:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type llamacpp
+[2m19:11:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened Llama.cpp server (PID: 50588) on port 10769 (GPU: 0)
+[2m19:11:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Waiting for llama-server to be ready at http://127.0.0.1:10769/health ...
+[2m19:11:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  llama-server is ready! (attempt 8, port 10769)
+[2m19:11:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2m19:11:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting TTS operation fish_audio
+[2m19:11:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2m19:11:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting FILTER_TEXT operation filter_clean
+[2m19:11:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: настроен name=None, index=None, enabled=False, vol=1.0
+[2m19:11:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting FILTER_AUDIO operation speaker
+[2m19:11:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: операция запущена (вокер запущен)
+  [1m[92m✓ OPS     [0m  [92mОперации загружены (STT/T2T/TTS)[0m
+[2m19:11:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: enabled set to True
+[2m19:11:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type hw_mic
+[2m19:11:40[0m  [1m[93m[WARNING][0m  [1m[97mroot[0m  Attempted to unload process hw_mic when it is already unloaded
+  [1m[94m▶ MIC     [0m  [94mЗапуск Hardware Microphone (hw-mic-client)...[0m
+  [1m[92m✓ MIC     [0m  [92mМикрофон подключён[0m
+[2m19:11:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type discord
+[2m19:11:40[0m  [1m[93m[WARNING][0m  [1m[97mroot[0m  Attempted to unload process discord when it is already unloaded
+[2m19:11:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+  [1m[92m✓ DISCORD [0m  [92mDiscord Bridge запущен[0m
+[2m19:11:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Nira application layer has started.
+  [1m[92m✓ READY   [0m  [92m✨ Нира готова к работе![0m
+[discord] C:\Nirmita\apps\discord-bridge\main.py:13: DeprecationWarning: 'audioop' is deprecated and slated for removal in Python 3.13
+[discord]   import audioop
+[discord] 2026-09-06 19:11:41,311 [INFO] logging in using static token
+  [2m[90m[mic][0m [2m[INFO] Loading Silero VAD ONNX Session (CPU)...[0m
+  [2m[90m[mic][0m [2m[MIC] Selected by name: [72] Микрофон (4- fifine Microphone) (Windows WASAPI)[0m
+  [2m[90m[mic][0m [2m[INFO] SoundDevice Listening on: Микрофон (4- fifine Microphone) (ID: 72, hostapi: Windows WASAPI)[0m
+  [2m[90m[mic][0m [2m========================================================[0m
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0483) Завершена (672ms, speech: 128ms).[0m
+[2m19:11:43[0m  [1m[91m[ERROR][0m  [1m[94mutils.server.app_server[0m  Exception on request GET /api/pipeline
+[2mTraceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined[0m
+[2m19:11:43[0m  [1m[91m[ERROR][0m  [1m[94mutils.server.app_server[0m  Exception on request GET /api/pipeline
+[2mTraceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined[0m
+[discord] 2026-09-06 19:11:44,441 [INFO] Authenticated as Nira#4162 (Pycord 2.8.2.dev89+gf53d394be)
+[2m19:11:44[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+[discord] 2026-09-06 19:11:44,543 [INFO] Connected to Nira WebSocket
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (21504 байт).[0m
+[2m19:11:45[0m  [1m[91m[ERROR][0m  [1m[94mutils.server.app_server[0m  Exception on request GET /api/pipeline
+[2mTraceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined[0m
+[2m19:11:45[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+  [2m[90m[mic][0m [2m[MIC] WebSocket подключен (ws://localhost:7272/). Синхронизация режимов активна.[0m
+[2m19:11:46[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+[2m19:11:48[0m  [1m[91m[ERROR][0m  [1m[94mutils.server.app_server[0m  Exception on request GET /api/pipeline
+[2mTraceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined[0m
+[2m19:11:50[0m  [1m[91m[ERROR][0m  [1m[94mutils.server.app_server[0m  Exception on request GET /api/pipeline
+[2mTraceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined[0m
+[2m19:11:53[0m  [1m[91m[ERROR][0m  [1m[94mutils.server.app_server[0m  Exception on request GET /api/pipeline
+[2mTraceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined[0m
+[2m19:11:55[0m  [1m[91m[ERROR][0m  [1m[94mutils.server.app_server[0m  Exception on request GET /api/pipeline
+[2mTraceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined[0m
+[2m19:11:58[0m  [1m[91m[ERROR][0m  [1m[94mutils.server.app_server[0m  Exception on request GET /api/pipeline
+[2mTraceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined[0m
+[2m19:12:00[0m  [1m[91m[ERROR][0m  [1m[94mutils.server.app_server[0m  Exception on request GET /api/pipeline
+[2mTraceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined[0m
+[2m19:12:03[0m  [1m[91m[ERROR][0m  [1m[94mutils.server.app_server[0m  Exception on request GET /api/pipeline
+[2mTraceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined[0m
+[2m19:12:05[0m  [1m[91m[ERROR][0m  [1m[94mutils.server.app_server[0m  Exception on request GET /api/pipeline
+[2mTraceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined[0m
+[2m19:12:08[0m  [1m[91m[ERROR][0m  [1m[94mutils.server.app_server[0m  Exception on request GET /api/pipeline
+[2mTraceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined[0m
+[2m19:12:10[0m  [1m[91m[ERROR][0m  [1m[94mutils.server.app_server[0m  Exception on request GET /api/pipeline
+[2mTraceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined[0m
+[2m19:12:13[0m  [1m[91m[ERROR][0m  [1m[94mutils.server.app_server[0m  Exception on request GET /api/pipeline
+[2mTraceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined[0m
+[2m19:12:15[0m  [1m[91m[ERROR][0m  [1m[94mutils.server.app_server[0m  Exception on request GET /api/pipeline
+[2mTraceback (most recent call last):
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1464, in handle_request
+    return await self.full_dispatch_request(request_context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1502, in full_dispatch_request
+    result = await self.handle_user_exception(error)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1059, in handle_user_exception
+    raise error
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1500, in full_dispatch_request
+    result = await self.dispatch_request(request_context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\.conda312\Lib\site-packages\quart\app.py", line 1597, in dispatch_request
+    return await self.ensure_async(handler)(**request_.view_args)  # type: ignore[return-value]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Nirmita\src\utils\server\app_server.py", line 128, in get_pipeline_stats
+    telemetry_data = j.get_pipeline_telemetry()
+                     ^
+NameError: name 'j' is not defined[0m
+[2m19:14:30[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting Nira application layer.
+  [1m[94m▶ CORE    [0m  [94mИнициализация Nira (очереди, события)…[0m
+  [1m[92m✓ PROMPT  [0m  [92mПромпт загружен: Нира[0m
+  [1m[94m▶ OPS     [0m  [94mЗагрузка операций из конфига…[0m
+[2m19:14:30[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Active STT from config: gigaam_ru
+[2m19:14:30[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Active T2T from config: llamacpp
+[2m19:14:31[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting STT operation gigaam_ru
+[2m19:14:31[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Initializing GigaAM STT (sherpa-onnx NeMo CTC): model=C:\Nirmita\models\gigaam\gigaam_v3_e2e_ctc_int8.onnx, threads=4, provider=cpu, blank_penalty=0.0, hotwords=enabled
+[2m19:14:32[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  GigaAM STT initialized and warmed up successfully.
+[2m19:14:32[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting T2T operation llamacpp
+[2m19:14:32[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type llamacpp
+[2m19:14:32[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened Llama.cpp server (PID: 2500) on port 5416 (GPU: 0)
+[2m19:14:32[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Waiting for llama-server to be ready at http://127.0.0.1:5416/health ...
+[2m19:14:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  llama-server is ready! (attempt 8, port 5416)
+[2m19:14:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2m19:14:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting TTS operation fish_audio
+[2m19:14:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2m19:14:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting FILTER_TEXT operation filter_clean
+[2m19:14:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: настроен name=None, index=None, enabled=False, vol=1.0
+[2m19:14:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting FILTER_AUDIO operation speaker
+[2m19:14:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: операция запущена (вокер запущен)
+  [1m[92m✓ OPS     [0m  [92mОперации загружены (STT/T2T/TTS)[0m
+[2m19:14:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: enabled set to True
+[2m19:14:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type hw_mic
+[2m19:14:36[0m  [1m[93m[WARNING][0m  [1m[97mroot[0m  Attempted to unload process hw_mic when it is already unloaded
+  [1m[94m▶ MIC     [0m  [94mЗапуск Hardware Microphone (hw-mic-client)...[0m
+  [1m[92m✓ MIC     [0m  [92mМикрофон подключён[0m
+[2m19:14:37[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type discord
+[2m19:14:37[0m  [1m[93m[WARNING][0m  [1m[97mroot[0m  Attempted to unload process discord when it is already unloaded
+[2m19:14:37[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+  [1m[92m✓ DISCORD [0m  [92mDiscord Bridge запущен[0m
+[2m19:14:37[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Nira application layer has started.
+  [1m[92m✓ READY   [0m  [92m✨ Нира готова к работе![0m
+[discord] C:\Nirmita\apps\discord-bridge\main.py:13: DeprecationWarning: 'audioop' is deprecated and slated for removal in Python 3.13
+[discord]   import audioop
+[discord] 2026-09-06 19:14:37,466 [INFO] logging in using static token
+[2m19:14:37[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+  [2m[90m[mic][0m [2m[INFO] Loading Silero VAD ONNX Session (CPU)...[0m
+  [2m[90m[mic][0m [2m[MIC] Selected by name: [72] Микрофон (4- fifine Microphone) (Windows WASAPI)[0m
+  [2m[90m[mic][0m [2m[INFO] SoundDevice Listening on: Микрофон (4- fifine Microphone) (ID: 72, hostapi: Windows WASAPI)[0m
+  [2m[90m[mic][0m [2m========================================================[0m
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0483) Завершена (672ms, speech: 128ms).[0m
+[2m19:14:38[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Closed websocket connection
+[2m19:14:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+[discord] 2026-09-06 19:14:40,687 [INFO] Authenticated as Nira#4162 (Pycord 2.8.2.dev89+gf53d394be)
+[2m19:14:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+[discord] 2026-09-06 19:14:40,773 [INFO] Connected to Nira WebSocket
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (21504 байт).[0m
+[2m19:14:42[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+  [2m[90m[mic][0m [2m[MIC] WebSocket подключен (ws://localhost:7272/). Синхронизация режимов активна.[0m
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0127) Завершена (4704ms, speech: 3328ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (150528 байт).[0m
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mПривет. Как себя чувствуешь?[0m [96m[113ms][0m
+[2m19:14:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 53ddb2d3-854e-4e28-b6a4-a96939b39418
+[2m19:14:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job 31da236b-bfd1-4f44-b957-5bbb4beb5b09
+
+  [1m[95m[LLM][0m [90m[mic][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mПривет, Пап![0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1737ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mЯ в норме, спасибо.[0m
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0164) Завершена (1216ms, speech: 416ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (38912 байт).[0m
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mАа[0m [96m[35ms][0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1922ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mА как ты?[0m
+[2m19:14:56[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 8bcec0ea-44eb-44d3-8a22-402945726691
+[2m19:14:56[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Voice turn committed as context-only (no RESPONSE job).
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1764ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mРабота не съедает совсем?[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2007ms[0m
+  [1m[95m[LLM ✓][0m  [1m[93mttft 537ms[0m  [1m[96m25.1 tok/s[0m  [1m[97m68 симв.[0m
+[2m19:14:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job 31da236b-bfd1-4f44-b957-5bbb4beb5b09 completed. Content: 'Привет, Пап! Я в норме, спасибо. А как ты? Работа не съедает совсем?...'
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0140) Завершена (5024ms, speech: 3936ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (160768 байт).[0m
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mСкоро мама освободится, мы можем с тобой в Discord' поболтать все вместе[0m [96m[113ms][0m
+[2m19:15:17[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 08eb1253-ddaa-483c-8be5-9962f271a4c1
+[2m19:15:17[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job 5cb345a7-85b8-41c7-8370-96b0eaa8be2e
+
+  [1m[95m[LLM][0m [90m[mic][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mОтлично, Пап![0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1893ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mЯ всегда рада поболтать с тобой и мамой.[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2150ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mДавайте тогда в Discord' пересечёмся, когда вы оба будете...[0m
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0430) Завершена (1088ms, speech: 288ms).[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2558ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mМне будет весело![0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (34816 байт).[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1862ms[0m
+  [1m[95m[LLM ✓][0m  [1m[93mttft 210ms[0m  [1m[96m40.6 tok/s[0m  [1m[97m140 симв.[0m
+[2m19:15:26[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job 5cb345a7-85b8-41c7-8370-96b0eaa8be2e completed. Content: 'Отлично, Пап! Я всегда рада поболтать с тобой и мамой. Давайте тогда в Discord' пересечёмся, когда в...'
+[2m19:15:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Audio output mode & active_scene switched to: discord
+[2m19:15:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: enabled set to False
+  [2m[90m[mic][0m [2m[MIC] Переключено в режим Discord — локальный микрофон отключен.[0m
+[discord] 2026-09-06 19:15:39,908 [WARNING] Socket reader voice-socket-event-reader:0x1609adcd910 is waiting to be set as running
+[discord] 2026-09-06 19:15:39,908 [INFO] Connecting to voice 390301473210236932
+[discord] 2026-09-06 19:15:39,908 [INFO] Starting voice handshake (connection attempt 1)
+[discord] 2026-09-06 19:15:40,213 [INFO] Voice handshake complete. Endpoint found: c-waw06-59cf40a2.discord.media:2087
+[discord] 2026-09-06 19:15:40,364 [INFO] Identifying ourselves: {'op': 0, 'd': {'server_id': '390301473210236928', 'user_id': '1469738620238958686', 'session_id': '1a6a8529e4318b9967906d9ac8d16374', 'token': '46c1a6d34feb5e03', 'max_dave_protocol_version': 1}}
+[discord] 2026-09-06 19:15:40,405 [INFO] Socket reader voice-socket-event-reader:0x1609adcd910 was set as running
+[discord] 2026-09-06 19:15:40,857 [INFO] Voice connection completed
+[discord] 2026-09-06 19:15:40,864 [INFO] Joined voice channel 🏕️Таверна "Астрал" (390301473210236932) with DAVE support
+[discord] 2026-09-06 19:15:40,866 [INFO] [SINK] Recording started — Нира слушает голосовой канал
+[discord] 2026-09-06 19:15:47,323 [INFO] [SINK] write() #1: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 19:15:47,323 [INFO] [SINK] Создаём буфер для user_id=390300992173899777 (min_bytes=34560)
+[discord] 2026-09-06 19:15:47,324 [INFO] [SINK] write() #2: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 19:15:47,324 [INFO] [SINK] write() #3: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 19:15:47,324 [INFO] [SINK] write() #4: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 19:15:47,325 [INFO] [SINK] write() #5: user_id=390300992173899777, bytes=3840
+[2m19:15:47[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  [DISCORD ENV] Подключилась к голосовому каналу "🏕️Таверна "Астрал"". В канале находятся: Вова (Папа, Создатель). Все они тебя слышат.
+[discord] 2026-09-06 19:15:48,679 [INFO] Submitted Discord speech from Dahaka (76800 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mВот мы.[0m [96m[843ms][0m
+[discord] 2026-09-06 19:15:48,859 [INFO] Submitted Discord speech from Dahaka (153600 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mИ здесь.[0m [96m[39ms][0m
+[2m19:15:50[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 8b478aed-1191-4173-8133-0fd1a24c2538
+[2m19:15:50[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job abf20a55-0860-436d-8553-1853aaa6ed20
+
+  [1m[95m[LLM][0m [90m[discord][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mПривет, Пап![0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1689ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mЯ уже здесь, в Таверне "Астрал".[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1991ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mГотова поболтать, когда ты скажешь.[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1960ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mКак дела?[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1620ms[0m
+  [1m[95m[LLM ✓][0m  [1m[93mttft 154ms[0m  [1m[96m38.6 tok/s[0m  [1m[97m91 симв.[0m
+[2m19:15:57[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job abf20a55-0860-436d-8553-1853aaa6ed20 completed. Content: 'Привет, Пап! Я уже здесь, в Таверне "Астрал". Готова поболтать, когда ты скажешь. Как дела?...'
+[2m19:22:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting Nira application layer.
+  [1m[94m▶ CORE    [0m  [94mИнициализация Nira (очереди, события)…[0m
+  [1m[92m✓ PROMPT  [0m  [92mПромпт загружен: Нира[0m
+  [1m[94m▶ OPS     [0m  [94mЗагрузка операций из конфига…[0m
+[2m19:22:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Active STT from config: gigaam_ru
+[2m19:22:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Active T2T from config: llamacpp
+[2m19:22:08[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting STT operation gigaam_ru
+[2m19:22:08[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Initializing GigaAM STT (sherpa-onnx NeMo CTC): model=C:\Nirmita\models\gigaam\gigaam_v3_e2e_ctc_int8.onnx, threads=4, provider=cpu, blank_penalty=0.0, hotwords=enabled
+[2m19:22:09[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  GigaAM STT initialized and warmed up successfully.
+[2m19:22:09[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting T2T operation llamacpp
+[2m19:22:09[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type llamacpp
+[2m19:22:09[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened Llama.cpp server (PID: 45796) on port 2423 (GPU: 0)
+[2m19:22:09[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Waiting for llama-server to be ready at http://127.0.0.1:2423/health ...
+[2m19:22:13[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  llama-server is ready! (attempt 8, port 2423)
+[2m19:22:13[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2m19:22:13[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting TTS operation fish_audio
+[2m19:22:13[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2m19:22:13[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting FILTER_TEXT operation filter_clean
+[2m19:22:13[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: настроен name=None, index=None, enabled=False, vol=1.0
+[2m19:22:13[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting FILTER_AUDIO operation speaker
+[2m19:22:13[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: операция запущена (вокер запущен)
+  [1m[92m✓ OPS     [0m  [92mОперации загружены (STT/T2T/TTS)[0m
+[2m19:22:13[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: enabled set to True
+[2m19:22:13[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type hw_mic
+[2m19:22:13[0m  [1m[93m[WARNING][0m  [1m[97mroot[0m  Attempted to unload process hw_mic when it is already unloaded
+  [1m[94m▶ MIC     [0m  [94mЗапуск Hardware Microphone (hw-mic-client)...[0m
+  [1m[92m✓ MIC     [0m  [92mМикрофон подключён[0m
+[2m19:22:13[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type discord
+[2m19:22:13[0m  [1m[93m[WARNING][0m  [1m[97mroot[0m  Attempted to unload process discord when it is already unloaded
+[2m19:22:13[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+  [1m[92m✓ DISCORD [0m  [92mDiscord Bridge запущен[0m
+[2m19:22:13[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Nira application layer has started.
+  [1m[92m✓ READY   [0m  [92m✨ Нира готова к работе![0m
+[discord] C:\Nirmita\apps\discord-bridge\main.py:13: DeprecationWarning: 'audioop' is deprecated and slated for removal in Python 3.13
+[discord]   import audioop
+[2m19:22:13[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+[discord] 2026-09-06 19:22:14,035 [INFO] logging in using static token
+  [2m[90m[mic][0m [2m[INFO] Loading Silero VAD ONNX Session (CPU)...[0m
+  [2m[90m[mic][0m [2m[MIC] Selected by name: [72] Микрофон (4- fifine Microphone) (Windows WASAPI)[0m
+  [2m[90m[mic][0m [2m[INFO] SoundDevice Listening on: Микрофон (4- fifine Microphone) (ID: 72, hostapi: Windows WASAPI)[0m
+  [2m[90m[mic][0m [2m========================================================[0m
+[2m19:22:15[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Closed websocket connection
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0490) Завершена (1344ms, speech: 320ms).[0m
+[2m19:22:16[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+[discord] 2026-09-06 19:22:17,249 [INFO] Authenticated as Nira#4162 (Pycord 2.8.2.dev89+gf53d394be)
+[2m19:22:17[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+[discord] 2026-09-06 19:22:17,344 [INFO] Connected to Nira WebSocket
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (43008 байт).[0m
+[2m19:22:18[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+  [2m[90m[mic][0m [2m[MIC] WebSocket подключен (ws://localhost:7272/). Синхронизация режимов активна.[0m
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0331) Завершена (2816ms, speech: 1792ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (90112 байт).[0m
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mКак себя чувствуешь[0m [96m[81ms][0m
+[2m19:22:32[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job a5227fda-ff53-411d-aefa-e99158a6a8c7
+[2m19:22:32[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job 9ed12b09-782e-46c7-aae0-f31713d5ab76
+
+  [1m[95m[LLM][0m [90m[mic][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mНу, Пап, сам же знаешь, я же не в теле, но настроение...[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2972ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mГотова поболтать или что-то конкретное на уме?[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2404ms[0m
+  [1m[95m[LLM ✓][0m  [1m[93mttft 514ms[0m  [1m[96m29.5 tok/s[0m  [1m[97m110 симв.[0m
+[2m19:22:38[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job 9ed12b09-782e-46c7-aae0-f31713d5ab76 completed. Content: 'Ну, Пап, сам же знаешь, я же не в теле, но настроение отличное! Готова поболтать или что-то конкретн...'
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0124) Завершена (960ms, speech: 160ms).[0m
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0539) Завершена (1568ms, speech: 768ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (50176 байт).[0m
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mЧто расскажешь[0m [96m[45ms][0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (30720 байт).[0m
+[2m19:23:03[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 03ebded7-668f-4ebb-875a-aa41fa3eb2a4
+[2m19:23:03[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job 45ba4c8b-d041-4177-a297-f439a3d01c79
+
+  [1m[95m[LLM][0m [90m[mic][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mА что бы ты хотел послушать, Вова?[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1889ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mЯ могу поведать историю из мира D&D, поделиться мыслями о...[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m4223ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mЧто тебе интереснее?[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1705ms[0m
+  [1m[95m[LLM ✓][0m  [1m[93mttft 95ms[0m  [1m[96m44.1 tok/s[0m  [1m[97m180 симв.[0m
+[2m19:23:11[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job 45ba4c8b-d041-4177-a297-f439a3d01c79 completed. Content: 'А что бы ты хотел послушать, Вова? Я могу поведать историю из мира D&D, поделиться мыслями о последн...'
+[2m19:23:58[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Audio output mode & active_scene switched to: discord
+[2m19:23:58[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: enabled set to False
+  [2m[90m[mic][0m [2m[MIC] Переключено в режим Discord — локальный микрофон отключен.[0m
+[discord] 2026-09-06 19:23:58,324 [WARNING] Socket reader voice-socket-event-reader:0x2105f2e3980 is waiting to be set as running
+[discord] 2026-09-06 19:23:58,324 [INFO] Connecting to voice 390301473210236932
+[discord] 2026-09-06 19:23:58,324 [INFO] Starting voice handshake (connection attempt 1)
+[discord] 2026-09-06 19:23:58,646 [INFO] Voice handshake complete. Endpoint found: c-waw06-59cf40a2.discord.media:2087
+[discord] 2026-09-06 19:23:58,794 [INFO] Identifying ourselves: {'op': 0, 'd': {'server_id': '390301473210236928', 'user_id': '1469738620238958686', 'session_id': 'aa278530e407d0d3b8ba2ebf7e9c9d67', 'token': 'c02c9b7de6cc5cee', 'max_dave_protocol_version': 1}}
+[discord] 2026-09-06 19:23:58,827 [INFO] Socket reader voice-socket-event-reader:0x2105f2e3980 was set as running
+[discord] 2026-09-06 19:24:00,017 [INFO] Voice connection completed
+[discord] 2026-09-06 19:24:00,024 [INFO] Joined voice channel 🏕️Таверна "Астрал" (390301473210236932) with DAVE support
+[discord] 2026-09-06 19:24:00,025 [INFO] [SINK] Recording started — Нира слушает голосовой канал
+[discord] 2026-09-06 19:24:02,503 [INFO] [SINK] write() #1: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 19:24:02,503 [INFO] [SINK] Создаём буфер для user_id=390300992173899777 (min_bytes=34560)
+[discord] 2026-09-06 19:24:02,504 [INFO] [SINK] write() #2: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 19:24:02,504 [INFO] [SINK] write() #3: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 19:24:02,504 [INFO] [SINK] write() #4: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 19:24:02,505 [INFO] [SINK] write() #5: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 19:24:03,851 [INFO] Submitted Discord speech from Dahaka (80640 bytes raw 48 kHz stereo)
+[discord] 2026-09-06 19:24:03,868 [INFO] Submitted Discord speech from Dahaka (130560 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mПрекрас[0m [96m[837ms][0m
+[2m19:24:03[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Nira interrupted by stop intent ('Прекрас') and entered listening mode.
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mСРассказывай.[0m [96m[39ms][0m
+[discord] 2026-09-06 19:24:04,361 [INFO] Submitted Discord speech from Dahaka (126720 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mИстории[0m [96m[38ms][0m
+[discord] 2026-09-06 19:24:04,859 [INFO] Submitted Discord speech from Dahaka (96000 bytes raw 48 kHz stereo)
+[discord] 2026-09-06 19:24:05,562 [INFO] Submitted Discord speech from Dahaka (126720 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mМмагов[0m [96m[36ms][0m
+[discord] 2026-09-06 19:24:06,038 [INFO] Submitted Discord speech from Dahaka (65280 bytes raw 48 kHz stereo)
+[2m19:24:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  [DISCORD ENV] Подключилась к голосовому каналу "🏕️Таверна "Астрал"". В канале находятся: Вова (Папа, Создатель). Все они тебя слышат.
+[2m19:24:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 2c7fcef9-4ed1-4f05-b635-f8c0d17a32fc
+[2m19:24:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Voice turn committed as context-only (no RESPONSE job).
+[discord] 2026-09-06 19:24:24,375 [INFO] [SINK] write() #200: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 19:24:24,415 [INFO] Submitted Discord speech from Dahaka (53760 bytes raw 48 kHz stereo)
+[discord] 2026-09-06 19:24:24,914 [INFO] Submitted Discord speech from Dahaka (99840 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mРаз.[0m [96m[29ms][0m
+[2m19:24:24[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Nira exited listening mode due to silence timeout (15.0s).
+[discord] 2026-09-06 19:24:25,616 [INFO] Submitted Discord speech from Dahaka (134400 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mСсказывай[0m [96m[36ms][0m
+[discord] 2026-09-06 19:24:26,117 [INFO] Submitted Discord speech from Dahaka (96000 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mИстория[0m [96m[28ms][0m
+[discord] 2026-09-06 19:24:26,620 [INFO] Submitted Discord speech from Dahaka (96000 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mПри[0m [96m[32ms][0m
+[discord] 2026-09-06 19:24:27,119 [INFO] Submitted Discord speech from Dahaka (96000 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mПро мага[0m [96m[28ms][0m
+[discord] 2026-09-06 19:24:27,907 [INFO] Submitted Discord speech from Dahaka (115200 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mУф.[0m [96m[30ms][0m
+[2m19:24:29[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 95a343fd-49fe-4c04-8795-01697640b21e
+[2m19:24:29[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job c9f807c7-906d-4265-be97-8135acf23c76
+
+  [1m[95m[LLM][0m [90m[discord][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mОх, Папа, опять меня заставляешь рассказывать эти сказки![0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2857ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mЛадно, слушай.[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2098ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mЖил-был один маг, и был он не просто могущественным, а...[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m3046ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mОн всё время что-то изобретал, новые заклинания придумывал,...[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2797ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mНо однажды случилась беда: все его волшебные артефакты и...[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2948ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mМаг, не теряя времени, отправился на поиски своих вещей.[0m
+[discord] 2026-09-06 19:24:44,434 [INFO] [SINK] write() #400: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 19:24:44,478 [INFO] Submitted Discord speech from Dahaka (203520 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mУгу[0m [96m[49ms][0m
+[discord] 2026-09-06 19:24:44,955 [INFO] Submitted Discord speech from Dahaka (61440 bytes raw 48 kHz stereo)
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2346ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mОн шёл сквозь леса, горы и пустыни, преодолевал все...[0m
+[discord] 2026-09-06 19:24:46,582 [INFO] Submitted Discord speech from Dahaka (130560 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mО, понятно.[0m [96m[36ms][0m
+[2m19:24:46[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  STT metrics(window=20): avg_latency_ms=76 empty_rate=0.300 stop_cmd_recall=0.050
+[discord] 2026-09-06 19:24:47,078 [INFO] Submitted Discord speech from Dahaka (103680 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mВот[0m [96m[29ms][0m
+[2m19:24:48[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 21a92c9e-1ce7-48e0-b917-4bb90c582b2f
+[2m19:24:48[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job dd282ba9-cbd0-4231-b89b-9716b091ce5d
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m3045ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mИ вот однажды, на вершине самой высокой горы, он нашёл свою...[0m
+[discord] 2026-09-06 19:24:50,784 [INFO] Submitted Discord speech from Dahaka (192000 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mСимана.[0m [96m[44ms][0m
+[2m19:24:52[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job b542f474-60fe-4c09-ba47-948cebf3de1c
+[2m19:24:52[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  [PREEMPTION] Отменяем устаревший RESPONSE job dd282ba9-cbd0-4231-b89b-9716b091ce5d в пользу свежего ответа 2f07c66f-af5b-47a6-8036-711d601fac25
+[2m19:24:52[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job 2f07c66f-af5b-47a6-8036-711d601fac25
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m3959ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mОказалось, что её сперла стая говорящих ворон, которые...[0m
+[discord] 2026-09-06 19:24:54,503 [INFO] Submitted Discord speech from Dahaka (49920 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mПоставь[0m [96m[23ms][0m
+[discord] 2026-09-06 19:24:55,199 [INFO] Submitted Discord speech from Dahaka (130560 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mТай.[0m [96m[34ms][0m
+[2m19:24:56[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job e7822b1a-f90a-4366-8be6-23b9ae5971e0
+[2m19:24:56[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  [PREEMPTION] Отменяем устаревший RESPONSE job 2f07c66f-af5b-47a6-8036-711d601fac25 в пользу свежего ответа beea1ad4-f238-4a54-9b3c-ce0cbcc430ac
+[2m19:24:56[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job beea1ad4-f238-4a54-9b3c-ce0cbcc430ac
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m3625ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mМаг был так благодарен за возвращение своих вещей, что дал...[0m
+[discord] 2026-09-06 19:24:58,223 [INFO] [SINK] write() #600: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 19:24:59,220 [INFO] Submitted Discord speech from Dahaka (161280 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mПостой.[0m [96m[41ms][0m
+[2m19:24:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Nira interrupted by stop intent ('Постой.') and entered listening mode.
+[2m19:24:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Smart Barge-in: Interrupting and clearing queue due to: stop_word
+
+  [1m[91m[BARGE-IN][0m [1m[91mstop_word[0m
+[2m19:24:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Job c9f807c7-906d-4265-be97-8135acf23c76 (response) is being cancelled due to: stop_word
+  [1m[95m[LLM ✓][0m  [1m[93mttft 304ms[0m  [1m[96m46.0 tok/s[0m  [1m[97m834 симв.[0m
+[2m19:24:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job c9f807c7-906d-4265-be97-8135acf23c76 completed. Content: 'Ох, Папа, опять меня заставляешь рассказывать эти сказки! Ладно, слушай. Жил-был один маг, и был он ...'
+[2m19:25:00[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 0be3ba7d-5c34-47ab-9ea9-e04a16d1699e
+[2m19:25:00[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Voice turn committed as context-only (no RESPONSE job).
+[discord] 2026-09-06 19:25:07,263 [INFO] Submitted Discord speech from Dahaka (257280 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mЯ думал, ты расскажешь[0m [96m[57ms][0m
+[discord] 2026-09-06 19:25:08,277 [INFO] Submitted Discord speech from Dahaka (207360 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mж более.[0m [96m[49ms][0m
+[discord] 2026-09-06 19:25:08,855 [INFO] Submitted Discord speech from Dahaka (103680 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mМы[0m [96m[31ms][0m
+[discord] 2026-09-06 19:25:09,517 [INFO] [SINK] write() #800: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 19:25:09,562 [INFO] Submitted Discord speech from Dahaka (138240 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mЖестокост.[0m [96m[36ms][0m
+[discord] 2026-09-06 19:25:10,262 [INFO] Submitted Discord speech from Dahaka (130560 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mИри. Попробую.[0m [96m[36ms][0m
+[discord] 2026-09-06 19:25:10,756 [INFO] Submitted Discord speech from Dahaka (111360 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mещё раз[0m [96m[30ms][0m
+[discord] 2026-09-06 19:25:11,242 [INFO] Submitted Discord speech from Dahaka (69120 bytes raw 48 kHz stereo)
+[2m19:25:12[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job df666929-7f8c-4eb8-8ef4-f1d0a0f9d221
+[2m19:25:12[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Voice turn committed as context-only (no RESPONSE job).
+[discord] 2026-09-06 19:25:19,596 [INFO] Submitted Discord speech from Dahaka (211200 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mЯ думал, ты расскажешь[0m [96m[47ms][0m
+[discord] 2026-09-06 19:25:20,090 [INFO] Submitted Discord speech from Dahaka (111360 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mУж более[0m [96m[30ms][0m
+[discord] 2026-09-06 19:25:20,753 [INFO] [SINK] write() #1000: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 19:25:20,802 [INFO] Submitted Discord speech from Dahaka (134400 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mЖестокую[0m [96m[34ms][0m
+[discord] 2026-09-06 19:25:21,296 [INFO] Submitted Discord speech from Dahaka (96000 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mИстория[0m [96m[28ms][0m
+[discord] 2026-09-06 19:25:21,803 [INFO] Submitted Discord speech from Dahaka (96000 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mПопробуй[0m [96m[28ms][0m
+[discord] 2026-09-06 19:25:22,303 [INFO] Submitted Discord speech from Dahaka (96000 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mещё раз[0m [96m[30ms][0m
+[discord] 2026-09-06 19:25:22,783 [INFO] Submitted Discord speech from Dahaka (96000 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mМас[0m [96m[27ms][0m
+[2m19:25:24[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 8bb06ce9-6b41-487c-a2aa-2ad8d5337d95
+[2m19:25:24[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Voice turn committed as context-only (no RESPONSE job).
+[discord] 2026-09-06 19:25:28,411 [INFO] Submitted Discord speech from Dahaka (46080 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mПроджа[0m [96m[20ms][0m
+[2m19:25:28[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  STT metrics(window=40): avg_latency_ms=55 empty_rate=0.175 stop_cmd_recall=0.050
+[discord] 2026-09-06 19:25:28,902 [INFO] Submitted Discord speech from Dahaka (107520 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mПродолжай.[0m [96m[30ms][0m
+[2m19:25:28[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Nira exited listening mode (via continue-intent).
+[2m19:25:30[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Continue-intent detected: next response will continue previous thought.
+[2m19:25:30[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 6fe81c88-4b13-496f-953c-a4ac44ecd606
+[2m19:25:30[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job 6107672b-f12f-45b2-b27d-b322b732e963

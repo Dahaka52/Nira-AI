@@ -4,6 +4,7 @@ ffprobe.exe
 models/
 bin/
 output/
+scratch/
 *.gguf
 *.pth
 *.wav

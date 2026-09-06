@@ -3,7 +3,7 @@
 Использует py-cord PR#3159 + davey для расшифровки DAVE E2EE пакетов.
 Discord сделал DAVE обязательным с 1 марта 2026 для всех голосовых каналов.
 Передаёт декодированный PCM от каждого пользователя в STT endpoint,
-и воспроизводит TTS из JAIson WebSocket обратно в голосовой канал.
+и воспроизводит TTS из Nira WebSocket обратно в голосовой канал.
 """
 
 from __future__ import annotations
@@ -12,11 +12,9 @@ import argparse
 import asyncio
 import audioop
 import base64
-import io
 import json
 import logging
 import os
-from pathlib import Path
 import threading
 import time
 from typing import Optional
@@ -192,8 +190,9 @@ class NiraRawSink(discord.sinks.Sink):
         self._write_call_count += 1
 
         # Извлекаем PCM из VoiceData или bytes
-        if hasattr(data, "pcm"):
-            pcm = bytes(data.pcm)
+        pcm_attr = getattr(data, "pcm", None)
+        if pcm_attr is not None:
+            pcm = bytes(pcm_attr)
         elif isinstance(data, (bytes, bytearray)):
             pcm = bytes(data)
         else:
@@ -310,7 +309,7 @@ class NiraDiscordBot(discord.Bot):
                         if self.sink:
                             self.sink.cleanup()
                         self.sink = NiraRawSink(self)
-                        self.vc.start_recording(
+                        self.vc.start_recording(  # type: ignore[arg-type]
                             self.sink,
                             self._on_recording_finished,
                         )
@@ -319,7 +318,7 @@ class NiraDiscordBot(discord.Bot):
                 pass
 
     async def _status_heartbeat(self) -> None:
-        """Регулярная отправка телеметрии моста в JAIson."""
+        """Регулярная отправка телеметрии моста в Nira."""
         while not self.is_closed():
             try:
                 await self._send_status_update()
@@ -368,10 +367,11 @@ class NiraDiscordBot(discord.Bot):
             return
         my_channel = self.vc.channel
         if before.channel == my_channel or after.channel == my_channel:
+            channel_name = getattr(my_channel, "name", "channel")
             logging.info(
                 "[PRESENCE] Участник %s изменил статус в канале %s",
                 getattr(member, "display_name", member.name),
-                my_channel.name
+                channel_name
             )
             await self._send_status_update()
 
@@ -400,12 +400,13 @@ class NiraDiscordBot(discord.Bot):
             )
 
             # Запускаем запись с NiraRawSink
-            self.sink = NiraRawSink(self)
-            self.vc.start_recording(
-                self.sink,
-                self._on_recording_finished,
-            )
-            logging.info("[SINK] Recording started — Нира слушает голосовой канал")
+            if self.vc:
+                self.sink = NiraRawSink(self)
+                self.vc.start_recording(  # type: ignore[arg-type]
+                    self.sink,
+                    self._on_recording_finished,
+                )
+                logging.info("[SINK] Recording started — Нира слушает голосовой канал")
             await self._send_status_update()
 
     async def leave_channel(self) -> None:
@@ -427,7 +428,7 @@ class NiraDiscordBot(discord.Bot):
                 logging.info("Disconnected from Discord voice channel (Local mode active)")
             await self._send_status_update()
 
-    def _on_recording_finished(self, sink: NiraRawSink, *args) -> None:
+    def _on_recording_finished(self, sink: discord.sinks.Sink, *args) -> None:
         """Вызывается когда stop_recording() завершён (не используем активно)."""
         logging.info("[SINK] Recording finished")
 
@@ -466,7 +467,7 @@ class NiraDiscordBot(discord.Bot):
         # Диагностика: сохраняем WAV
         try:
             import wave
-            wav_path = r"C:\Nirmita\scratch\discord_bridge_raw.wav"
+            wav_path = r"C:\Nirmita\output\discord_bridge_raw.wav"
             os.makedirs(os.path.dirname(wav_path), exist_ok=True)
             with wave.open(wav_path, "wb") as wf:
                 wf.setnchannels(CHANNELS)
@@ -498,7 +499,7 @@ class NiraDiscordBot(discord.Bot):
                 len(audio),
             )
         except Exception:
-            logging.exception("Could not send Discord speech to JAIson")
+            logging.exception("Could not send Discord speech to Nira")
 
     # ------------------------------------------------------------------
     # TTS playback
@@ -508,7 +509,7 @@ class NiraDiscordBot(discord.Bot):
         if not self.vc or not self.vc.is_connected() or not self.audio_source:
             return
         if not self.vc.is_playing() and self.audio_source.has_frame():
-            self.vc.play(self.audio_source, after=self.audio_finished)
+            self.vc.play(self.audio_source, after=self.audio_finished)  # type: ignore[arg-type]
 
     def audio_finished(self, error: Exception | None) -> None:
         if error:
@@ -532,24 +533,26 @@ class NiraDiscordBot(discord.Bot):
         self.audio_job_id = None
 
     # ------------------------------------------------------------------
-    # JAIson WebSocket listener (TTS events & Control)
+    # Nira WebSocket listener (TTS events & Control)
     # ------------------------------------------------------------------
 
     async def event_listener(self) -> None:
         while not self.is_closed():
             try:
                 async with websockets.connect(self.ws_url, max_size=8 * 1024 * 1024) as ws:
-                    logging.info("Connected to JAIson WebSocket")
+                    logging.info("Connected to Nira WebSocket")
                     async for raw_event in ws:
                         await self.handle_event(raw_event)
             except asyncio.CancelledError:
                 raise
             except Exception:
-                logging.exception("JAIson WebSocket disconnected; retrying in 3 seconds")
+                logging.exception("Nira WebSocket disconnected; retrying in 3 seconds")
                 await asyncio.sleep(3)
 
-    async def handle_event(self, raw_event: str) -> None:
+    async def handle_event(self, raw_event: str | bytes) -> None:
         try:
+            if isinstance(raw_event, bytes):
+                raw_event = raw_event.decode("utf-8")
             event, _status = json.loads(raw_event)
         except (TypeError, ValueError):
             return

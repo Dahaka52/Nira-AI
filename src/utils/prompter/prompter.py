@@ -200,8 +200,8 @@ class Prompter(metaclass=Singleton):
             )
 
         try:
-            from utils.jaison import JAIson
-            presence = JAIson().get_discord_presence_prompt()
+            from utils.nira import Nira
+            presence = Nira().get_discord_presence_prompt()
             if presence:
                 return f"{base_prompt}\n\n{presence}"
         except Exception:

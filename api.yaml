@@ -1,8 +1,8 @@
 openapi: 3.1.0
 info:
-  title: jaison-core REST API overview
+  title: Nira REST API overview
   description: |-
-    This is an overview of the REST API for jaison-core. This is only the REST API endpoints and does not cover websocket or websocket events. For that, see DEVELOPER.md
+    This is an overview of the REST API for Nira core. This is only the REST API endpoints and does not cover websocket or websocket events. For that, see DEVELOPER.md
   version: 1.0.0
 externalDocs:
   description: Find out more in developer docs
