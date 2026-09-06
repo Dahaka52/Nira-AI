@@ -6,11 +6,10 @@ from .base import STTOperation
 
 
 _BUILTIN_STT = {
-    "sherpa": "utils.operations.stt.sherpa:SherpaSTT",
     "gigaam": "utils.operations.stt.gigaam:GigaAMSTT",
     "gigaam_ru": "utils.operations.stt.gigaam:GigaAMSTT",
-    "faster_whisper": "utils.operations.stt.faster_whisper:FasterWhisperSTT",
-    "faster_whisper_ru": "utils.operations.stt.faster_whisper:FasterWhisperSTT",
+    "groq_stt": "utils.operations.stt.openai_api:OpenAISTT",
+    "openai": "utils.operations.stt.openai_api:OpenAISTT",
 }
 
 

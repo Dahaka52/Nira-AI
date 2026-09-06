@@ -1072,9 +1072,9 @@ class JAIson(metaclass=Singleton):
             role = op.get("role")
             oid = op.get("id")
             if role == "stt" and oid == stt_id:
-                stt_info["model"] = op.get("model") or op.get("model_size") or op.get("model_dir")
+                stt_info["model"] = op.get("model") or op.get("model_path") or op.get("model_dir") or op.get("model_size")
                 ep = str(op.get("entrypoint", "")).lower()
-                stt_info["type"] = "local" if ("faster_whisper" in ep or "sherpa" in ep or oid in ("faster_whisper_ru", "sherpa_ru")) else "cloud"
+                stt_info["type"] = "local" if ("gigaam" in ep or oid in ("gigaam", "gigaam_ru")) else "cloud"
             elif role == "t2t" and oid == t2t_id:
                 t2t_info["model"] = op.get("model") or "local-llm"
                 t2t_info["type"] = "local" if oid == "llamacpp" else "cloud"

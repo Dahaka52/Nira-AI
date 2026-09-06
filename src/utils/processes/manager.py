@@ -14,7 +14,6 @@ from .error import UnknownProcessError, UnloadedProcessError
 
 class ProcessType(Enum):
     LLAMACPP = "llamacpp"
-    SHERPA = "sherpa_stt"
     HW_MIC = "hw_mic"
     DISCORD = "discord"
 
@@ -31,12 +30,6 @@ class ProcessManager(metaclass=Singleton):
                 if process_config is not None:
                     self.loaded_processes[ProcessType.LLAMACPP].set_runtime_config(process_config)
                 await self.loaded_processes[ProcessType.LLAMACPP].reload()
-            case ProcessType.SHERPA:
-                from .drivers.sherpa_server import SherpaSTTProcess
-                self.loaded_processes[ProcessType.SHERPA] = SherpaSTTProcess()
-                if process_config is not None:
-                    self.loaded_processes[ProcessType.SHERPA].set_runtime_config(process_config)
-                await self.loaded_processes[ProcessType.SHERPA].reload()
             case ProcessType.HW_MIC:
                 from .drivers.hw_mic import HwMicProcess
                 self.loaded_processes[ProcessType.HW_MIC] = HwMicProcess()

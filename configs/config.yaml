@@ -70,19 +70,7 @@ operations:
       "миры": "Ниры"
     process_autostart: true
 
-  # Faster Whisper — русская транскрипция
-  - role: stt
-    id: faster_whisper_ru
-    entrypoint: "utils.operations.stt.faster_whisper:FasterWhisperSTT"
-    model_size: "large-v3-turbo"
-    device: "cuda"
-    compute_type: "int8_float16"
-    language: "ru"
-    vad_filter: false
-    initial_prompt: "Нира, Вова: постой, стой, подожди, слушай, расскажи, да, нет, привет."
-    process_autostart: true
-
-  # Groq API — облачный STT через OpenAI-совместимый эндпоинт
+  # Groq API — облачный STT через OpenAI-совместимый эндпоинт (резерв)
   - role: stt
     id: groq_stt
     entrypoint: "utils.operations.stt.openai_api:OpenAISTT"
@@ -91,39 +79,6 @@ operations:
     model: "whisper-large-v3-turbo"
     language: "ru"
     process_autostart: true
-
-  # Google Gemini Live — потоковый STT через WebSocket
-  - role: stt
-    id: google_stt
-    entrypoint: "utils.operations.stt.google_live:GoogleLiveSTT"
-    api_key: ""
-    model: "gemini-3.5-transcribe-live"
-    process_autostart: true
-
-  # Sherpa ONNX — резервный потоковый STT (низкая задержка, работает offline)
-  - role: stt
-    id: sherpa_ru
-    entrypoint: "utils.operations.stt.sherpa:SherpaSTT"
-    ws_url: "ws://127.0.0.1:6106"
-    provider: "cpu"              # cpu | cuda
-    language: "ru"
-    normalize_output: true
-    process_autostart: true
-    process_startup_retries: 3
-    process_startup_backoff_s: 0.6
-    process:
-      type: "sherpa_onnx_server"
-      preset: "balanced"         # low_latency | balanced | noisy_room
-      port: 6106
-      provider: "cpu"            # cpu | cuda
-      gpu_id: 1                  # RTX 5060 = 1
-      model_dir: "C:\\Nirmita\\models\\vosk-model-small-streaming-ru"
-      model_variant: "fp32"      # int8 | fp32 | chunk64
-      decoding_method: "modified_beam_search"
-      num_active_paths: 6
-      use_endpoint: 0
-      hotwords_file: "C:\\Nirmita\\models\\hotwords.txt"
-      hotwords_score: 3.5
 
   # --- T2T: Text-to-Text -----------------------------------------------------
 
