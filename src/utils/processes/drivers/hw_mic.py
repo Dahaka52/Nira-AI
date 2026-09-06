@@ -80,7 +80,8 @@ class HwMicProcess(BaseProcess):
             "--vad_floor_rms", str(vad_floor_rms),
             "--rms_bridge_ms", str(rms_bridge_ms),
             "--jaison_api", "http://localhost:7272/api/context/conversation/audio",
-            "--speech_start_api", "http://localhost:7272/api/context/conversation/speech_start"
+            "--speech_start_api", "http://localhost:7272/api/context/conversation/speech_start",
+            "--ws_url", "ws://localhost:7272/"
         ])
 
         self.process = subprocess.Popen(

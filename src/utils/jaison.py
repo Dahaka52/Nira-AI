@@ -930,6 +930,12 @@ class JAIson(metaclass=Singleton):
                     self._pending_voice_response_task = None
 
         self._pending_voice_response_task = asyncio.create_task(_delayed_response())
+
+    def _ensure_pending_voice_response_scheduled(self) -> None:
+        """Гарантирует, что если в _pending_voice_turn есть накопленный текст, таймер ответа активен."""
+        if self._pending_voice_turn is not None and self._pending_voice_turn.get("content"):
+            if self._pending_voice_response_task is None or self._pending_voice_response_task.done():
+                self._schedule_voice_response()
         
     async def _process_job_loop(self):
         while True:
@@ -2048,6 +2054,7 @@ class JAIson(metaclass=Singleton):
             print_stt("", source=source_id)  # тихо пропускаем пустые
 
         if not content or len(content.strip()) == 0:
+            self._ensure_pending_voice_response_scheduled()
             await self._record_stt_metrics(
                 source_id=source_id,
                 turn_id=turn_id,
@@ -2126,10 +2133,12 @@ class JAIson(metaclass=Singleton):
 
         if is_hallucination:
             logging.info("Whisper hallucination filtered: '%s'", content)
+            self._ensure_pending_voice_response_scheduled()
             return
         # ------------------------------------
 
         if not words:
+            self._ensure_pending_voice_response_scheduled()
             await self._record_stt_metrics(
                 source_id=source_id,
                 turn_id=turn_id,
@@ -2298,14 +2307,17 @@ class JAIson(metaclass=Singleton):
     async def on_user_speech_start(self, request_data: Dict[str, Any] | None = None):
         """Early barge-in signal from VAD start (before STT final transcript)."""
         request_data = request_data or {}
-        self._last_speech_start_ts = time.time()
-        self._cancel_pending_voice_response()
         source_id = self._safe_source_id(request_data.get("source_id"))
         current_mode = self.get_audio_output_mode()
+        # Если источник не совпадает с текущим активным режимом, полностью игнорируем!
+        # Не сбрасываем таймер ответа и не обновляем временную метку тишины!
         if current_mode == "discord" and source_id == "mic":
             return
         if current_mode == "local" and source_id == "discord":
             return
+
+        self._last_speech_start_ts = time.time()
+        self._cancel_pending_voice_response()
         turn_id = request_data.get("turn_id")
         speaker_id = request_data.get("speaker_id")
 

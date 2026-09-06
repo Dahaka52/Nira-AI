@@ -78,6 +78,12 @@ class StreamingPCMSource(discord.AudioSource):
             self._closed = True
             self._condition.notify_all()
 
+    def stop(self) -> None:
+        with self._condition:
+            self._closed = True
+            self._buffer.clear()
+            self._condition.notify_all()
+
     def read(self) -> bytes:
         with self._condition:
             while len(self._buffer) < FRAME_BYTES and not self._closed:
@@ -292,8 +298,25 @@ class NiraDiscordBot(discord.Bot):
             await self.join_configured_channel()
 
     async def _recording_watchdog(self) -> None:
-        """Отключено: вызывало баги со спамом пакетов из-за ложных срабатываний в моменты долгой тишины."""
-        pass
+        """Следит, чтобы запись звука (Sink) не падала и всегда была активна при подключении."""
+        while not self.is_closed():
+            await asyncio.sleep(2.5)
+            try:
+                if self.vc and self.vc.is_connected():
+                    reader = getattr(self.vc, "_reader", None)
+                    is_rec = getattr(self.vc, "is_recording", lambda: False)()
+                    if not is_rec or reader is None or reader is discord.utils.MISSING:
+                        logging.warning("[SINK WATCHDOG] Recording reader не активен! Перезапускаем запись...")
+                        if self.sink:
+                            self.sink.cleanup()
+                        self.sink = NiraRawSink(self)
+                        self.vc.start_recording(
+                            self.sink,
+                            self._on_recording_finished,
+                        )
+                        logging.info("[SINK WATCHDOG] Recording успешно перезапущен.")
+            except Exception:
+                pass
 
     async def _status_heartbeat(self) -> None:
         """Регулярная отправка телеметрии моста в JAIson."""
@@ -498,9 +521,16 @@ class NiraDiscordBot(discord.Bot):
 
     def stop_audio(self) -> None:
         if self.audio_source:
-            self.audio_source.close_input()
-        if self.vc and self.vc.is_playing():
-            self.vc.stop()
+            self.audio_source.stop()
+        # В Pycord VoiceClient.stop() убивает self._reader (поток чтения входящего звука).
+        # Поэтому мы останавливаем исключительно плеер воспроизведения, не трогая _reader!
+        if self.vc:
+            player = getattr(self.vc, "_player", None)
+            if player and hasattr(player, "stop"):
+                try:
+                    player.stop()
+                except Exception:
+                    pass
         self.audio_source = None
         self.audio_job_id = None
 

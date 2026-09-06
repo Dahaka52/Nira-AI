@@ -46,6 +46,7 @@ parser.add_argument("--min_silence_ms", type=int, default=500, help="Millisecond
 parser.add_argument("--min_speech_ms", type=int, default=200, help="Minimum ms of speech to send")
 parser.add_argument("--pre_roll_ms", type=int, default=300, help="Milliseconds of audio to keep before speech")
 parser.add_argument("--energy_threshold", type=float, default=0.01, help="RMS threshold (gate)")
+parser.add_argument("--ws_url", type=str, default="ws://localhost:7272/", help="JAIson WebSocket URL for dynamic control")
 args = parser.parse_args()
 
 
@@ -234,6 +235,7 @@ _zi_init = signal.lfilter_zi(_b, _a)
 
 state = {
     "in_speech": False,
+    "active_mode": "local",
     "buffer": [],
     "pre_roll": deque(maxlen=PRE_ROLL_CHUNKS),
     "silence_counter_ms": 0,
@@ -249,6 +251,52 @@ state = {
     "resample_zi": _zi_init,
     "current_agc_gain": 1.0
 }
+
+def _ws_mode_listener():
+    """Слушает события изменения режима вывода из JAIson и глушит микрофон в режиме Discord."""
+    import websockets.sync.client as ws_sync
+    import json
+    
+    # 1. Начальная синхронизация режима через HTTP API
+    try:
+        base_api = args.jaison_api.rsplit("/api", 1)[0]
+        telemetry_url = f"{base_api}/api/pipeline/telemetry"
+        r = session.get(telemetry_url, timeout=2)
+        if r.status_code == 200:
+            data = r.json().get("response") or {}
+            mode = data.get("audio_output_mode", "local")
+            state["active_mode"] = mode
+            if mode == "discord":
+                print("\n[MIC] Начальный режим: discord — локальный микрофон спит.")
+    except Exception:
+        pass
+
+    # 2. Постоянное слушание WebSocket событий
+    while True:
+        try:
+            with ws_sync.connect(args.ws_url) as ws:
+                print(f"[MIC] WebSocket подключен ({args.ws_url}). Синхронизация режимов активна.")
+                for msg in ws:
+                    try:
+                        event, _ = json.loads(msg)
+                    except Exception:
+                        continue
+                    if event.get("message") == "audio_output_mode":
+                        resp = event.get("response") or {}
+                        new_mode = resp.get("mode", "local")
+                        old_mode = state.get("active_mode", "local")
+                        if new_mode != old_mode:
+                            state["active_mode"] = new_mode
+                            if new_mode == "discord":
+                                state["in_speech"] = False
+                                state["buffer"].clear()
+                                state["pre_roll"].clear()
+                                state["speech_start_sent"] = False
+                                print("\n[MIC] Переключено в режим Discord — локальный микрофон отключен.")
+                            else:
+                                print("\n[MIC] Переключено в режим Local — локальный микрофон активирован.")
+        except Exception:
+            time.sleep(3)
 
 # [OPTIMIZE] Use Session for faster subsequent requests
 session = requests.Session()
@@ -374,6 +422,10 @@ def audio_callback(indata, frames, time_info, status):
     if status:
         print(f"[SD STATUS] {status}", file=sys.stderr)
 
+    # Если активен режим Discord — локальный микрофон полностью спит
+    if state.get("active_mode") == "discord":
+        return
+
     # 1. Берем канал (Fifine в моно отдает один или два канала)
     ch_native = indata[:, 0]
     
@@ -408,14 +460,11 @@ def audio_callback(indata, frames, time_info, status):
         state["no_vad_counter_ms"] = 0
         is_active_speech = (vad_prob > args.vad_threshold) or (rms > START_RMS)
     else:
-        hold_vad_threshold = args.vad_threshold * 0.4
+        hold_vad_threshold = max(0.02, args.vad_threshold * 0.4)
         vad_active = vad_prob > hold_vad_threshold
         rms_active = rms > HOLD_RMS
 
         if vad_active or rms_active:
-            # IMPORTANT: reset when RMS is active too.
-            # VAD prob can stay low (~0.001) for this setup, and resetting only on VAD
-            # over-fragmented speech into 1-word chunks.
             state["no_vad_counter_ms"] = 0
             is_active_speech = True
         else:
@@ -445,8 +494,7 @@ def audio_callback(indata, frames, time_info, status):
         state["speech_ms"] += CHUNK_MS # Считаем только активную речь
         state["silence_counter_ms"] = 0
 
-        # Отправляем speech_start только после короткого подтверждения непрерывной речи.
-        # Это уменьшает ложные прерывания от шумов/коротких "угу".
+        # Отправляем speech_start после подтверждения непрерывной речи.
         if (not state["speech_start_sent"]) and state["speech_ms"] >= max(0, args.speech_start_confirm_ms):
             maybe_send_speech_start(state.get("active_turn_id"))
             state["speech_start_sent"] = True
@@ -545,6 +593,8 @@ if __name__ == "__main__":
         if args.list_devices:
             print_input_devices()
             raise SystemExit(0)
+        # Запускаем синхронизацию режима вывода по WebSocket в фоновом потоке
+        threading.Thread(target=_ws_mode_listener, daemon=True).start()
         run_sd()
     except KeyboardInterrupt:
         print("\n[INFO] Stopped by user.")

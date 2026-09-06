@@ -29,7 +29,7 @@ t2t_strict_active_id: true          # Падать при старте если 
 # 2. ГЛОБАЛЬНЫЕ ПАРАМЕТРЫ ГЕНЕРАЦИИ ТЕКСТА (применяются ко всем T2T модулям)
 # -----------------------------------------------------------------------------
 t2t:
-  max_length: 800                    # Достаточный объем для историй, эмоциональной речи и развернутых мыслей
+  max_length: 400                    # Достаточный объем для историй, эмоциональной речи и развернутых мыслей
   temperature: 0.7
   top_p: 0.95
   top_k: 40
@@ -160,7 +160,7 @@ operations:
 
 # LlamaCPP (локальный сервер, RTX 5070 12GB)
 llamacpp_filepath: "C:\\Nirmita\\bin\\llamacpp\\llama-server.exe"
-llamacpp_model_filepath: "C:\\Nirmita\\models\\MN-12B-Runeweaver-RP-RU.i1-Q4_K_M.gguf"
+llamacpp_model_filepath: "C:\\Nirmita\\models\\MN-12B-Hydra-RP-RU.i1-Q4_K_M.gguf"
 llamacpp_ctx: 8192
 llamacpp_ngl: 40
 llamacpp_cache_type_k: "q8_0"   # Квантование K-cache контекста
@@ -182,13 +182,13 @@ microphone:
   device_index: 7                # Fallback если устройство не найдено по имени
 
   # VAD (Voice Activity Detection)
-  vad_threshold: 0.06
-  vad_start_rms: 0.0075
-  vad_hold_rms: 0.0052
-  vad_floor_rms: 0.0012
+  vad_threshold: 0.08
+  vad_start_rms: 0.010
+  vad_hold_rms: 0.005
+  vad_floor_rms: 0.001
   rms_bridge_ms: 96
   min_silence_ms: 500
-  min_speech_ms: 220
+  min_speech_ms: 200
   pre_roll_ms: 300
   resample_mode: "polyphase"     # Качественный ресемпл 48k→16k
 
@@ -207,9 +207,9 @@ microphone:
 
   # Barge-in и прерывание
   speech_start_min_interval_ms: 350
-  speech_start_confirm_ms: 100
+  speech_start_confirm_ms: 200
   min_speech_ms_interrupt: 80
-  speech_start_interrupt_mode: "hard"  # hard: немедленно глушить речь Ниры при начале речи человека
+  speech_start_interrupt_mode: "soft"  # soft: НЕ затыкать Ниру от шорохов! Прерывать только по стоп-словам или осмысленной фразе!
   interrupt_speaker_policy: "same_or_unknown"  # any | same_only | same_or_unknown
 
   # Backpressure STT-воркеров
@@ -238,7 +238,7 @@ discord:
   api_url: "http://127.0.0.1:7272/api/context/conversation/audio"
   ws_url: "ws://127.0.0.1:7272/"
   silence_ms: 1200
-  min_speech_ms: 350
+  min_speech_ms: 150
 
 # -----------------------------------------------------------------------------
 # 7. ПРОМПТЕР И ПЕРСОНАЖ
