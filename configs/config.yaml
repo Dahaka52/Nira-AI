@@ -206,9 +206,9 @@ microphone:
   turn_merge_window_ms: 2500
 
   # Barge-in и прерывание
-  speech_start_min_interval_ms: 900
-  speech_start_confirm_ms: 140
-  min_speech_ms_interrupt: 100
+  speech_start_min_interval_ms: 350
+  speech_start_confirm_ms: 100
+  min_speech_ms_interrupt: 80
   speech_start_interrupt_mode: "hard"  # hard: немедленно глушить речь Ниры при начале речи человека
   interrupt_speaker_policy: "same_or_unknown"  # any | same_only | same_or_unknown
 
@@ -246,7 +246,7 @@ discord:
 prompter:
   instruction_prompt_filename: 'instruction.md'
   character_prompt_filename: 'nira.md'
-  scene_prompt_filename: 'scene.md'
+  scene_prompt_filename: 'scene_local.md'
   character_name: "Нира"
   history_length: 50
 

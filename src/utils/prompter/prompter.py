@@ -1,5 +1,6 @@
 
 import os
+import re
 import logging
 import datetime
 from typing import AsyncGenerator, Dict, List, Any
@@ -145,9 +146,11 @@ class Prompter(metaclass=Singleton):
             if cache and cache["sig"] == sig and cache["content"]:
                 return cache["content"]
 
-            # Иначе перечитываем
+            # Иначе перечитываем и отсекаем любые комментарии <!-- ... -->, чтобы они не тратили токены модели
             with open(file_path, 'r', encoding="utf-8") as f:
-                content = f.read()
+                raw_content = f.read()
+                content = re.sub(r'<!--.*?-->', '', raw_content, flags=re.DOTALL)
+                content = re.sub(r'\n{3,}', '\n\n', content).strip()
                 self._prompt_cache[cache_key] = {"content": content, "sig": sig}
                 return content
         except Exception as e:

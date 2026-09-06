@@ -2598,3 +2598,544 @@ utils.config.UnknownField: Config field active_scene does not exist[0m
   [2m[90m[mic][0m [2m[API] Фраза отправлена (30720 байт).[0m
 [2m02:54:52[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  Processing audio with duration 00:00.960
 [2m02:54:52[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  VAD filter removed 00:00.960 of audio
+[2m03:48:42[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting JAIson application layer.
+  [1m[94m▶ CORE    [0m  [94mИнициализация JAIson (очереди, события)…[0m
+  [1m[92m✓ PROMPT  [0m  [92mПромпт загружен: Нира[0m
+  [1m[94m▶ OPS     [0m  [94mЗагрузка операций из конфига…[0m
+[2m03:48:42[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Active STT from config: faster_whisper_ru
+[2m03:48:42[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Active T2T from config: llamacpp
+[2m03:48:43[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting STT operation faster_whisper_ru
+[2m03:48:43[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading Faster Whisper model 'large-v3-turbo' on cuda (int8_float16)...
+[2m03:48:47[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Faster Whisper model loaded successfully.
+[2m03:48:47[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting T2T operation llamacpp
+[2m03:48:47[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type llamacpp
+[2m03:48:47[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened Llama.cpp server (PID: 13340) on port 14185 (GPU: 0)
+[2m03:48:47[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Waiting for llama-server to be ready at http://127.0.0.1:14185/health ...
+[2m03:48:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  llama-server is ready! (attempt 8, port 14185)
+[2m03:48:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2m03:48:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting TTS operation fish_audio
+[2m03:48:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2m03:48:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting FILTER_TEXT operation filter_clean
+[2m03:48:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: настроен name=None, index=None, enabled=False, vol=1.0
+[2m03:48:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting FILTER_AUDIO operation speaker
+[2m03:48:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: операция запущена (вокер запущен)
+  [1m[92m✓ OPS     [0m  [92mОперации загружены (STT/T2T/TTS)[0m
+[2m03:48:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: enabled set to True
+[2m03:48:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type hw_mic
+[2m03:48:51[0m  [1m[93m[WARNING][0m  [1m[97mroot[0m  Attempted to unload process hw_mic when it is already unloaded
+  [1m[94m▶ MIC     [0m  [94mЗапуск Hardware Microphone (hw-mic-client)...[0m
+  [1m[92m✓ MIC     [0m  [92mМикрофон подключён[0m
+[2m03:48:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type discord
+[2m03:48:51[0m  [1m[93m[WARNING][0m  [1m[97mroot[0m  Attempted to unload process discord when it is already unloaded
+[2m03:48:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+  [1m[92m✓ DISCORD [0m  [92mDiscord Bridge запущен[0m
+[2m03:48:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  JAIson application layer has started.
+  [1m[92m✓ READY   [0m  [92m✨ Нира готова к работе![0m
+[discord] C:\Nirmita\apps\discord-bridge\main.py:13: DeprecationWarning: 'audioop' is deprecated and slated for removal in Python 3.13
+[discord]   import audioop
+[discord] 2026-09-06 03:48:52,118 [INFO] logging in using static token
+  [2m[90m[mic][0m [2m[INFO] Loading Silero VAD ONNX Session (CPU)...[0m
+  [2m[90m[mic][0m [2m[MIC] Selected by name: [72] Микрофон (4- fifine Microphone) (Windows WASAPI)[0m
+  [2m[90m[mic][0m [2m[INFO] SoundDevice Listening on: Микрофон (4- fifine Microphone) (ID: 72, hostapi: Windows WASAPI)[0m
+  [2m[90m[mic][0m [2m========================================================[0m
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0483) Завершена (672ms, speech: 128ms).[0m
+[2m03:48:54[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+[discord] 2026-09-06 03:48:55,381 [INFO] Authenticated as Nira#4162 (Pycord 2.8.2.dev89+gf53d394be)
+[2m03:48:55[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  Processing audio with duration 00:00.672
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (21504 байт).[0m
+[2m03:48:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+[discord] 2026-09-06 03:48:55,485 [INFO] Connected to JAIson WebSocket
+[2m03:48:55[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  VAD filter removed 00:00.672 of audio
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0098) Завершена (4160ms, speech: 2336ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (133120 байт).[0m
+[2m03:49:00[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  Processing audio with duration 00:04.160
+[2m03:49:00[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  VAD filter removed 00:02.096 of audio
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mШо ты рассказывай?[0m [96m[483ms][0m
+[2m03:49:01[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 69b85b48-1b1f-4941-993d-f05a37f2723e
+[2m03:49:01[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job b11aef96-066b-4d58-8a2a-c35607f1c940
+
+  [1m[95m[LLM][0m [90m[mic][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mО, привет![0m
+[2m03:49:03[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.6034000543877482 ms
+[2m03:49:03[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.6289000157266855 ms
+[2m03:49:04[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4808999365195632 ms
+[2m03:49:04[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  T2T operation llamacpp completed in 2183.6357000283897 ms
+[2m03:49:04[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1814.5198000129312 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1814ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mВот, как раз о тебе и хотела поговорить.[0m
+[2m03:49:05[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.42079994454979897 ms
+[2m03:49:05[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.47829991672188044 ms
+[2m03:49:05[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5371000152081251 ms
+[2m03:49:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.1134000960737467 ms
+[2m03:49:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2003.7054000422359 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2003ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mУ меня тут идея накипела - давай запустим свой ДэнДи?[0m
+[2m03:49:07[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.46099990140646696 ms
+[2m03:49:07[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5148999625816941 ms
+[2m03:49:07[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.46630005817860365 ms
+[2m03:49:07[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.308899954892695 ms
+[2m03:49:08[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.7129000732675195 ms
+[2m03:49:08[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2124.52980002854 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2124ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mЯ как раз правила перелопатила, персонажей придумала.[0m
+[2m03:49:09[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4216000670567155 ms
+[2m03:49:09[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4896000027656555 ms
+[2m03:49:09[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5812000017613173 ms
+[2m03:49:10[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.272600027732551 ms
+[2m03:49:10[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.6611000280827284 ms
+[2m03:49:10[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2246.9030000502244 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2246ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mБудем в моем мире играть - там квесты классные![0m
+[2m03:49:11[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.42099994607269764 ms
+[2m03:49:11[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.48539997078478336 ms
+[2m03:49:12[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.47770002856850624 ms
+[2m03:49:12[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.3061999343335629 ms
+[2m03:49:12[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.637599965557456 ms
+[2m03:49:12[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2081.527200061828 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2082ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mИ я обещаю, не буду скучной мастерицей.[0m
+[2m03:49:14[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4240999696776271 ms
+[2m03:49:14[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4229999613016844 ms
+[2m03:49:14[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.44890004210174084 ms
+[2m03:49:14[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.3182000257074833 ms
+[2m03:49:14[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.6354000652208924 ms
+[2m03:49:14[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2052.476199925877 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2053ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mТак что, как тебе предложение?[0m
+[2m03:49:16[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.45870000030845404 ms
+[2m03:49:16[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.47720002476125956 ms
+[2m03:49:16[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5539000267162919 ms
+[2m03:49:16[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5415000487118959 ms
+[2m03:49:16[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1873.7202000338584 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1873ms[0m
+  [1m[95m[LLM ✓][0m  [1m[93mttft 293ms[0m  [1m[96m43.5 tok/s[0m  [1m[97m278 симв.[0m
+[2m03:49:16[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job b11aef96-066b-4d58-8a2a-c35607f1c940 completed. Content: 'О, привет! Вот, как раз о тебе и хотела поговорить. У меня тут идея накипела - давай запустим свой Д...'
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0445) Завершена (3360ms, speech: 2496ms).[0m
+[2m03:49:31[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  Processing audio with duration 00:03.360
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (107520 байт).[0m
+[2m03:49:31[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  VAD filter removed 00:00.000 of audio
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mНеплохо, только не дэнди, а дэндэ[0m [96m[200ms][0m
+[2m03:49:32[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 8b271d77-bf21-4227-af39-44fb8922d936
+[2m03:49:32[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job 02627c97-d41d-46ab-ba0c-3c10a38f571c
+
+  [1m[95m[LLM][0m [90m[mic][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mА, ну да, ну да, ДэнДи![0m
+[2m03:49:34[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.8082999847829342 ms
+[2m03:49:34[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  T2T operation llamacpp completed in 2082.5825999490917 ms
+[2m03:49:34[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.48449996393173933 ms
+[2m03:49:34[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.49160001799464226 ms
+[2m03:49:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.0876000160351396 ms
+[2m03:49:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2281.575500033796 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2281ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mПрости, я жуткий фанат, порой срываюсь.[0m
+[2m03:49:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4267999902367592 ms
+[2m03:49:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.38680003490298986 ms
+[2m03:49:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5119000561535358 ms
+[2m03:49:37[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.171399955637753 ms
+[2m03:49:37[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.606000074185431 ms
+[2m03:49:37[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2228.4971000626683 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2228ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mИ что, ты согласен?[0m
+[2m03:49:38[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4140000091865659 ms
+[2m03:49:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.45629998203366995 ms
+[2m03:49:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5455000791698694 ms
+[2m03:49:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.32970006577670574 ms
+[2m03:49:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1838.576199952513 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1838ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mБудем приключениями заниматься?[0m
+[2m03:49:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.41719991713762283 ms
+[2m03:49:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5408999277278781 ms
+[2m03:49:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5877000512555242 ms
+[2m03:49:41[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.7919999770820141 ms
+[2m03:49:41[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2453.198799979873 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2453ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mЯ уже представляю, как мы будем вместе по миру шастать и...[0m
+[2m03:49:43[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4621000261977315 ms
+[2m03:49:43[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.41120010428130627 ms
+[2m03:49:43[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5312000866979361 ms
+[2m03:49:43[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.1954999063163996 ms
+[2m03:49:44[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 2.412899979390204 ms
+[2m03:49:44[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 3054.976599989459 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m3054ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mА может, и романтику замутим, как в хороших играх.[0m
+[2m03:49:46[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4094999749213457 ms
+[2m03:49:46[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.35859993658959866 ms
+[2m03:49:46[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4816000582650304 ms
+[2m03:49:46[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.2049999786540866 ms
+[2m03:49:46[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.750600011087954 ms
+[2m03:49:47[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2214.485800010152 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2214ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mКонечно, если ты не против.[0m
+[2m03:49:48[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Smart Barge-in: Interrupting and clearing queue due to: user_voice_start
+
+  [1m[91m[BARGE-IN][0m [1m[91muser_voice_start[0m
+[2m03:49:48[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Job 02627c97-d41d-46ab-ba0c-3c10a38f571c (response) is being cancelled due to: user_voice_start
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0322) Завершена (1536ms, speech: 608ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (49152 байт).[0m
+[2m03:49:48[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  Processing audio with duration 00:01.536
+[2m03:49:48[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  VAD filter removed 00:00.016 of audio
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mСтой[0m [96m[181ms][0m
+[2m03:49:48[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Nira interrupted by stop word and entered listening mode.
+[2m03:49:48[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Smart Barge-in: Interrupting and clearing queue due to: stop_word
+
+  [1m[91m[BARGE-IN][0m [1m[91mstop_word[0m
+[2m03:49:48[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Job 02627c97-d41d-46ab-ba0c-3c10a38f571c (response) was cancelled.
+[2m03:49:49[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job b34d01e3-95f3-4c5a-aaf9-2c3a2dcc79f1
+[2m03:49:49[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Voice turn committed as context-only (no RESPONSE job).
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0345) Завершена (2624ms, speech: 1632ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (83968 байт).[0m
+[2m03:50:30[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  Processing audio with duration 00:02.624
+[2m03:50:30[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  VAD filter removed 00:00.000 of audio
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mРасскажи историю про магов[0m [96m[187ms][0m
+[2m03:50:30[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Nira exited listening mode due to silence timeout (15.0s).
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0087) Завершена (1856ms, speech: 864ms).[0m
+[2m03:50:33[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  Processing audio with duration 00:01.856
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (59392 байт).[0m
+[2m03:50:33[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  VAD filter removed 00:00.000 of audio
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mОпять эти маги[0m [96m[157ms][0m
+[2m03:50:33[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 5f1afab2-cbb5-43b1-82ae-152e6e7ba675
+[2m03:50:33[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job c9e81e0d-f608-4a27-9dcd-64b13aa57e8e
+
+  [1m[95m[LLM][0m [90m[mic][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mХм, магов?[0m
+[2m03:50:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 7248d1b4-90b7-41c4-bec5-ea20ed9d926d
+[2m03:50:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job 92e83c66-17d3-46ea-8d03-d1df6007ca4d
+[2m03:50:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4958000499755144 ms
+[2m03:50:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.49730006139725447 ms
+[2m03:50:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.26110000908374786 ms
+[2m03:50:35[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1677.8235000092536 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1677ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mНу ладно, слушай.[0m
+[2m03:50:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Smart Barge-in: Interrupting and clearing queue due to: user_voice_start
+
+  [1m[91m[BARGE-IN][0m [1m[91muser_voice_start[0m
+[2m03:50:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Job c9e81e0d-f608-4a27-9dcd-64b13aa57e8e (response) is being cancelled due to: user_voice_start
+[2m03:50:37[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4218999529257417 ms
+[2m03:50:37[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.40250003803521395 ms
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0198) Завершена (1664ms, speech: 672ms).[0m
+[2m03:50:37[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4458000184968114 ms
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (53248 байт).[0m
+[2m03:50:37[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  Processing audio with duration 00:01.664
+[2m03:50:37[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  VAD filter removed 00:00.464 of audio
+[2m03:50:37[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4232000792399049 ms
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mСтой[0m [96m[167ms][0m
+[2m03:50:37[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Nira interrupted by stop word and entered listening mode.
+[2m03:50:37[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Smart Barge-in: Interrupting and clearing queue due to: stop_word
+
+  [1m[91m[BARGE-IN][0m [1m[91mstop_word[0m
+[2m03:50:37[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2049.861800041981 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2049ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mВ моем мире магия - это не просто фокусы, а настоящая сила.[0m
+[2m03:50:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job fc6b1d3c-c90a-4f9a-aa89-89bdf6ab9c30
+[2m03:50:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Voice turn committed as context-only (no RESPONSE job).
+[2m03:50:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4130000015720725 ms
+[2m03:50:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.47229998745024204 ms
+[2m03:50:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.457499991171062 ms
+[2m03:50:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.2734000338241458 ms
+[2m03:50:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.7105999868363142 ms
+[2m03:50:40[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2914.1301999334246 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2913ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mЕсть три основных класса магов: теурги, которые колдуют с...[0m
+[2m03:50:42[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.41420001070946455 ms
+[2m03:50:42[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.3931000828742981 ms
+[2m03:50:42[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4648999311029911 ms
+[2m03:50:42[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.3511000433936715 ms
+[2m03:50:42[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 2.9950999887660146 ms
+[2m03:50:43[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.41810008790344 ms
+[2m03:50:43[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.394799979403615 ms
+[2m03:50:43[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.44269999489188194 ms
+[2m03:50:44[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4579999949783087 ms
+[2m03:50:44[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.2260000221431255 ms
+[2m03:50:44[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 2.6192000368610024 ms
+[2m03:50:45[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.7671000203117728 ms
+[2m03:50:45[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 4600.379600073211 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m4600ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mКаждый выбирает свой путь, свои заклинания.[0m
+[2m03:50:46[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5178999854251742 ms
+[2m03:50:46[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.44079998042434454 ms
+[2m03:50:46[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5562000442296267 ms
+[2m03:50:47[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.1913999915122986 ms
+[2m03:50:47[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.43260003440082073 ms
+[2m03:50:47[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1973.9564000628889 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1973ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mНо все они живут под гнетом Законов[0m
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0165) Завершена (1440ms, speech: 640ms).[0m
+[2m03:50:48[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5067000165581703 ms
+[2m03:50:48[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4143000114709139 ms
+[2m03:50:48[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.453400076366961 ms
+[2m03:50:49[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.3832999393343925 ms
+[2m03:50:49[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.10730000212788582 ms
+[2m03:50:49[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2031.3630999298766 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2032ms[0m
+[2m03:50:49[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Job c9e81e0d-f608-4a27-9dcd-64b13aa57e8e (response) was cancelled.
+[2m03:50:49[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  Processing audio with duration 00:01.440
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (46080 байт).[0m
+[2m03:50:49[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  VAD filter removed 00:00.000 of audio
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mСтоп[0m [96m[169ms][0m
+[2m03:50:49[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Nira interrupted by stop word and entered listening mode.
+[2m03:50:49[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Smart Barge-in: Interrupting and clearing queue due to: stop_word
+
+  [1m[91m[BARGE-IN][0m [1m[91mstop_word[0m
+[2m03:50:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 9cf9cddd-1a2d-412a-865c-e9dfb5d4156f
+[2m03:50:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Voice turn committed as context-only (no RESPONSE job).
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0440) Завершена (2496ms, speech: 1696ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (79872 байт).[0m
+[2m03:51:14[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  Processing audio with duration 00:02.496
+[2m03:51:14[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  VAD filter removed 00:00.000 of audio
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mРасскажи историю про магов[0m [96m[198ms][0m
+[2m03:51:14[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Nira exited listening mode due to silence timeout (15.0s).
+[2m03:51:16[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 711869ba-d616-462f-b1a3-2a1b476be91a
+[2m03:51:16[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job 76f2529c-0bc1-4573-a37b-a3077eb27d3f
+
+  [1m[95m[LLM][0m [90m[mic][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mНу ладно, слушай.[0m
+[2m03:51:18[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.6062999600544572 ms
+[2m03:51:18[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5359000060707331 ms
+[2m03:51:18[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.49160001799464226 ms
+[2m03:51:18[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1732.4119999539107 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1732ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mВ моем мире магия - это не просто фокусы, а настоящая сила.[0m
+[2m03:51:18[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Smart Barge-in: Interrupting and clearing queue due to: user_voice_start
+
+  [1m[91m[BARGE-IN][0m [1m[91muser_voice_start[0m
+[2m03:51:18[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Job 76f2529c-0bc1-4573-a37b-a3077eb27d3f (response) is being cancelled due to: user_voice_start
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0139) Завершена (1280ms, speech: 480ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (40960 байт).[0m
+[2m03:51:19[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  Processing audio with duration 00:01.280
+[2m03:51:19[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  VAD filter removed 00:00.048 of audio
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mСтоп[0m [96m[169ms][0m
+[2m03:51:19[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Nira interrupted by stop word and entered listening mode.
+[2m03:51:19[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Smart Barge-in: Interrupting and clearing queue due to: stop_word
+
+  [1m[91m[BARGE-IN][0m [1m[91mstop_word[0m
+[2m03:51:19[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5276000592857599 ms
+[2m03:51:19[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4520999500527978 ms
+[2m03:51:19[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5086000310257077 ms
+[2m03:51:20[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.27249991055578 ms
+[2m03:51:20[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 2.2379999281838536 ms
+[2m03:51:20[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job aeb371c8-78a9-4d90-9e7a-01b152702c5c
+[2m03:51:20[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Voice turn committed as context-only (no RESPONSE job).
+[2m03:51:20[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2579.384100041352 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2579ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mЕсть три основных класса магов: теурги, которые колдуют с...[0m
+[2m03:51:22[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4110999871045351 ms
+[2m03:51:22[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4566999850794673 ms
+[2m03:51:22[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4608000162988901 ms
+[2m03:51:22[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.156299957074225 ms
+[2m03:51:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 2.7188999811187387 ms
+[2m03:51:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.6525000790134072 ms
+[2m03:51:24[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.3994000144302845 ms
+[2m03:51:24[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.42010005563497543 ms
+[2m03:51:24[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4759000148624182 ms
+[2m03:51:24[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.2631999561563134 ms
+[2m03:51:25[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 2.190199913457036 ms
+[2m03:51:25[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 4474.900900037028 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m4474ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mКаждый выбирает свой путь, свои заклин[0m
+[2m03:51:26[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.42319996282458305 ms
+[2m03:51:26[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.45659998431801796 ms
+[2m03:51:26[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4314000252634287 ms
+[2m03:51:27[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.209900015965104 ms
+[2m03:51:27[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.17830007709562778 ms
+[2m03:51:27[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1875.7878000615165 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1876ms[0m
+[2m03:51:27[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Job 76f2529c-0bc1-4573-a37b-a3077eb27d3f (response) was cancelled.
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0308) Завершена (5248ms, speech: 4192ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (167936 байт).[0m
+[2m03:51:47[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  Processing audio with duration 00:05.248
+[2m03:51:47[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  VAD filter removed 00:00.000 of audio
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mПрости, у меня ручка упала. Можно же закончить, что ты там рассказывала?[0m [96m[271ms][0m
+[2m03:51:48[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Nira exited listening mode due to silence timeout (15.0s).
+[2m03:51:49[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job eebc030b-a216-429c-aee8-844435dba688
+[2m03:51:49[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job d79f138e-97b7-4b31-8918-dccd1adef0da
+
+  [1m[95m[LLM][0m [90m[mic][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mА, ну да, конечно![0m
+[2m03:51:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5061000119894743 ms
+[2m03:51:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5389999132603407 ms
+[2m03:51:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5630999803543091 ms
+[2m03:51:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.8103000000119209 ms
+[2m03:51:52[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2012.9623000975698 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2013ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mТак вот, каждый выбирает свой путь, свои заклинания.[0m
+[2m03:51:52[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  T2T operation llamacpp completed in 3123.130200081505 ms
+[2m03:51:53[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4112999886274338 ms
+[2m03:51:53[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4607998998835683 ms
+[2m03:51:53[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.557800056412816 ms
+[2m03:51:54[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.1977999238297343 ms
+[2m03:51:54[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.9105000644922256 ms
+[2m03:51:54[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2431.2188999028876 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2431ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mНо все они живут под гнетом Законов Магии, которые охраняют...[0m
+[2m03:51:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5171000957489014 ms
+[2m03:51:56[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.46280003152787685 ms
+[2m03:51:56[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4510000580921769 ms
+[2m03:51:56[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.1880999663844705 ms
+[2m03:51:56[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 2.93810002040118 ms
+[2m03:51:56[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.11180003639310598 ms
+[2m03:51:57[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2689.605899970047 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2689ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mЭти Законы диктуют, как можно и нельзя применять силу.[0m
+[2m03:51:58[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.41690003126859665 ms
+[2m03:51:58[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4066999536007643 ms
+[2m03:51:58[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.45849999878555536 ms
+[2m03:51:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.7630000365898013 ms
+[2m03:51:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.0969999711960554 ms
+[2m03:52:00[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2931.0253999428824 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2930ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mПравда, бывают те, кто хочет обойти их, но это уже другая...[0m
+[2m03:52:01[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.49080001190304756 ms
+[2m03:52:01[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4952000454068184 ms
+[2m03:52:01[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.46719994861632586 ms
+[2m03:52:01[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.29029992967844 ms
+[2m03:52:02[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.7061000689864159 ms
+[2m03:52:02[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2614.3137000035495 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2615ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205m😉 А ты, кстати, какого класса мага был бы?[0m
+[2m03:52:04[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.48750010319054127 ms
+[2m03:52:04[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4018999170511961 ms
+[2m03:52:04[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5292999558150768 ms
+[2m03:52:04[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.4659999869763851 ms
+[2m03:52:04[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.31210004817694426 ms
+[2m03:52:04[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2232.910200022161 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2232ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mИли вообще хотел бы стать магом?[0m
+[2m03:52:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.47740002628415823 ms
+[2m03:52:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4751000087708235 ms
+[2m03:52:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5280000623315573 ms
+[2m03:52:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4731999943032861 ms
+[2m03:52:06[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1738.3705999236554 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1738ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mУ меня для тебя есть несколько классов на выбор.[0m
+[2m03:52:08[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.41779992170631886 ms
+[2m03:52:08[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.42699999175965786 ms
+[2m03:52:08[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4544999683275819 ms
+[2m03:52:08[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.2160999467596412 ms
+[2m03:52:08[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.3611999563872814 ms
+[2m03:52:08[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2232.2010999778286 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2232ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205m[прервано на полуслове][0m
+[2m03:52:10[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.41119998786598444 ms
+[2m03:52:10[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.3958999877795577 ms
+[2m03:52:10[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4638000391423702 ms
+[2m03:52:10[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.267499988898635 ms
+[2m03:52:10[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.15209999401122332 ms
+[2m03:52:10[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1968.8564999960363 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1969ms[0m
+  [1m[95m[LLM ✓][0m  [1m[93mttft 359ms[0m  [1m[96m42.2 tok/s[0m  [1m[97m421 симв.[0m
+[2m03:52:10[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job d79f138e-97b7-4b31-8918-dccd1adef0da completed. Content: 'А, ну да, конечно! Так вот, каждый выбирает свой путь, свои заклинания. Но все они живут под гнетом ...'
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0092) Завершена (960ms, speech: 160ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (30720 байт).[0m
+[2m03:52:25[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  Processing audio with duration 00:00.960
+[2m03:52:25[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  VAD filter removed 00:00.960 of audio
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0466) Завершена (1888ms, speech: 1056ms).[0m
+[2m03:53:34[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  Processing audio with duration 00:01.888
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (60416 байт).[0m
+[2m03:53:34[0m  [1m[92m[INFO ][0m  [1m[96mfaster_whisper[0m  VAD filter removed 00:00.000 of audio
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mВова[0m [96m[488ms][0m
+[2m03:53:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 72e4519a-e236-4347-9ced-546a5da829e9
+[2m03:53:36[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job 0a3382ee-7ed6-4d24-ab6c-b3cee96b9dbe
+
+  [1m[95m[LLM][0m [90m[mic][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mА, это ты, Creator?[0m
+[2m03:53:37[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5315999733284116 ms
+[2m03:53:38[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5299000767990947 ms
+[2m03:53:38[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.7636999944224954 ms
+[2m03:53:38[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.7001999765634537 ms
+[2m03:53:38[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1881.1139999888837 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1881ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mПривет![0m
+[2m03:53:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.7366999052464962 ms
+[2m03:53:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.41720003355294466 ms
+[2m03:53:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  T2T operation llamacpp completed in 3765.9513000398874 ms
+[2m03:53:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1502.4024000158533 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1502ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mСлушай, я как раз с [Имя] тут ДэнДи запускать собиралась.[0m
+[2m03:53:41[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4192999331280589 ms
+[2m03:53:41[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.45199994929134846 ms
+[2m03:53:41[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5626000929623842 ms
+[2m03:53:41[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.260099932551384 ms
+[2m03:53:42[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.2401000130921602 ms
+[2m03:53:42[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2441.6871999856085 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2441ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mИли как там правильно называется?[0m
+[2m03:53:43[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.42019993998110294 ms
+[2m03:53:43[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.39499998092651367 ms
+[2m03:53:44[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5010999739170074 ms
+[2m03:53:44[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.6220999639481306 ms
+[2m03:53:44[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2200.237000011839 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2201ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205m😄 Ну, если ты не против, конечно.[0m
+[2m03:53:45[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4146000137552619 ms
+[2m03:53:46[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4331999225541949 ms
+[2m03:53:46[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5504000000655651 ms
+[2m03:53:46[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.2927999487146735 ms
+[2m03:53:46[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.49650005530565977 ms
+[2m03:53:47[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2525.8254000218585 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2525ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mА то я уже придумала кучу классов и квестов.[0m
+[2m03:53:48[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.41830004192888737 ms
+[2m03:53:48[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4132000030949712 ms
+[2m03:53:48[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4876001039519906 ms
+[2m03:53:48[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.2320999521762133 ms
+[2m03:53:48[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.08140003774315119 ms
+[2m03:53:49[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1988.2484000409022 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1987ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mКстати, я тут рассказывала про магов - ты не подслушивал?[0m
+[2m03:53:50[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.47610001638531685 ms
+[2m03:53:50[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.43349992483854294 ms
+[2m03:53:50[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5575999384745955 ms
+[2m03:53:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.31720001809299 ms
+[2m03:53:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.0281000286340714 ms
+[2m03:53:51[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2396.737900096923 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2397ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205m😉
+
+Ну и как, готовы к приключениям?[0m
+[2m03:53:52[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.47610001638531685 ms
+[2m03:53:53[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.40559994522482157 ms
+[2m03:53:53[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4599000094458461 ms
+[2m03:53:53[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.702600042335689 ms
+[2m03:53:53[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.7207000162452459 ms
+[2m03:53:53[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2316.1322000669315 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2316ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mМожет, ты тоже захочешь поиграть?[0m
+[2m03:53:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.41450001299381256 ms
+[2m03:53:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5006999708712101 ms
+[2m03:53:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4645000444725156 ms
+[2m03:53:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.826300005428493 ms
+[2m03:53:55[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1919.4220999488607 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1919ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mЯ обещаю, будет весело![0m
+[2m03:53:57[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4325000336393714 ms
+[2m03:53:57[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5133000668138266 ms
+[2m03:53:57[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5005999701097608 ms
+[2m03:53:57[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.9294000919908285 ms
+[2m03:53:57[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1873.340000049211 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1874ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205m😄
+
+Кстати, а каких магов ты любишь?[0m
+[2m03:53:58[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4238000838086009 ms
+[2m03:53:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4118001088500023 ms
+[2m03:53:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5140999564900994 ms
+[2m03:53:59[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.5513000544160604 ms
+[2m03:54:00[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 2.756300033070147 ms
+[2m03:54:00[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2594.592700013891 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2594ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mУ меня тут есть классные идеи для новых персонажей.[0m
+[2m03:54:01[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4214000655338168 ms
+[2m03:54:01[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.41420001070946455 ms
+[2m03:54:01[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4778000293299556 ms
+[2m03:54:02[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 1.2938999570906162 ms
+[2m03:54:02[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.5635999841615558 ms
+[2m03:54:02[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 2313.3184999460354 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2312ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mМожет, ты вдохновишь?[0m
+[2m03:54:03[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4333999240770936 ms
+[2m03:54:04[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4178000381216407 ms
+[2m03:54:04[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FILTER_AUDIO operation speaker completed in 0.4020999185740948 ms
+[2m03:54:04[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  TTS operation fish_audio completed in 1702.861300087534 ms
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1703ms[0m
+  [1m[95m[LLM ✓][0m  [1m[93mttft 348ms[0m  [1m[96m42.5 tok/s[0m  [1m[97m460 симв.[0m
+[2m03:54:04[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job 0a3382ee-7ed6-4d24-ab6c-b3cee96b9dbe completed. Content: 'А, это ты, Creator? Привет! Слушай, я как раз с [Имя] тут ДэнДи запускать собиралась. Или как там пр...'

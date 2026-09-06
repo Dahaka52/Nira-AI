@@ -1,4 +1,5 @@
 import os
+import re
 from openai import AsyncOpenAI
 import logging
 
@@ -89,10 +90,13 @@ class UniversalApiT2T(T2TOperation):
         for msg in messages:
             next_hist = None
             if isinstance(msg, ChatMessage) and msg.user == Prompter().character_name:
-                next_hist = { "role": "assistant", "content": msg.message }
+                content = msg.message
+                role = "assistant"
             else:
-                next_hist = { "role": "user", "content": msg.to_line() }
-            history.append(next_hist)
+                content = msg.message if hasattr(msg, 'message') else msg.to_line()
+                role = "user"
+            content = re.sub(r'\s*\[прервано[^\]]*\]', '...', content)
+            history.append({ "role": role, "content": content })
 
         if self.stream:
             stream = await self.client.chat.completions.create(

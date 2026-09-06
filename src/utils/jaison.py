@@ -48,6 +48,32 @@ from utils.operations import (
 from utils.operations.stt.hooks import apply_pre_stt_hooks
 from utils.mcp import MCPManager
 
+# ── Санитайзер текста перед синтезом речи (TTS) ──
+_RE_TTS_BRACKETS = re.compile(r'\[.*?\]')
+_RE_TTS_ASTERISKS = re.compile(r'\*.*?\*')
+_RE_TTS_EMOJIS = re.compile(
+    r'[\U00010000-\U0010ffff'
+    r'\u2600-\u27bf'
+    r'\u2300-\u23ff'
+    r'\u2b50-\u2b55'
+    r'\u200d\ufe0e\ufe0f]'
+)
+_RE_TTS_EMOTICONS = re.compile(r'(?i)(?:[:;=8][-o*]?[)DdpP/\\}\]|[({\[]|XD|xd|\^_\^|>_<|<3)')
+
+def clean_phrase_for_tts(text: str) -> str:
+    """Удаляет из текста для TTS эмодзи, смайлики, псевдо-теги в квадратных скобках и звездочки действий."""
+    if not text:
+        return ""
+    cleaned = _RE_TTS_BRACKETS.sub('', text)
+    cleaned = _RE_TTS_ASTERISKS.sub('', cleaned)
+    cleaned = _RE_TTS_EMOJIS.sub('', cleaned)
+    cleaned = _RE_TTS_EMOTICONS.sub('', cleaned)
+    cleaned = re.sub(r'[ \t]+', ' ', cleaned).strip()
+    # Если не осталось ни одной буквы или цифры — фраза не содержит речи
+    if not re.search(r'[a-zA-Zа-яА-Я0-9]', cleaned):
+        return ""
+    return cleaned
+
 class NonexistantJobException(Exception):
     pass
 
@@ -548,6 +574,18 @@ class JAIson(metaclass=Singleton):
             self.job_current.cancel(reason)
             self.job_current = None
 
+    def _stop_local_speakers(self):
+        """Мгновенный сброс воспроизведения звука на локальных колонках."""
+        try:
+            filters = self.op_manager.get_operation(OpRoles.FILTER_AUDIO)
+            if not isinstance(filters, list):
+                filters = [filters]
+            for f in filters:
+                if hasattr(f, "stop_audio"):
+                    f.stop_audio()
+        except Exception:
+            pass
+
     def _interrupt_jobs(self, reason: str = "user_interruption"):
         """Экстренное прерывание: очистка устаревших ответов и текущей задачи, с сохранением контекста"""
         logging.info(f"Smart Barge-in: Interrupting and clearing queue due to: {reason}")
@@ -589,6 +627,9 @@ class JAIson(metaclass=Singleton):
         logging.debug(f"Interrupting current job for Barge-in")
         # 2. Прерываем текущую задачу через стандартный метод
         self._clear_current_job(reason=reason)
+
+        # 3. Мгновенно глушим локальные колонки
+        self._stop_local_speakers()
 
     def _cancel_pending_voice_response(self):
         task = self._pending_voice_response_task
@@ -902,9 +943,10 @@ class JAIson(metaclass=Singleton):
                         if self._assistant_live_job_id == current_job_id:
                             partial = self._assistant_live_reply.strip()
                             if partial:
-                                self._assistant_last_partial_reply = partial[-2000:]
-                                partial_clean = partial.replace("\n", " ") + " [прервано на полуслове]"
-                                self.prompter.add_chat(self.prompter.character_name, partial_clean)
+                                clean_partial = partial.replace("\n", " ").rstrip(" .")
+                                self._assistant_last_partial_reply = clean_partial[-2000:]
+                                # В историю для модели пишем естественное многоточие без скобок, чтобы она не копировала псевдо-теги
+                                self.prompter.add_chat(self.prompter.character_name, clean_partial + "...")
                                 try:
                                     await self.event_server.broadcast_event(
                                         "context_conversation_add_text",
@@ -913,7 +955,7 @@ class JAIson(metaclass=Singleton):
                                             "job_id": f"interrupted_{int(time.time() * 1000)}",
                                             "result": {
                                                 "user": self.prompter.character_name,
-                                                "content": partial_clean,
+                                                "content": clean_partial + "...",
                                                 "timestamp": time.time(),
                                                 "source_id": "interrupted",
                                             }
@@ -1080,20 +1122,19 @@ class JAIson(metaclass=Singleton):
         members = getattr(self, "_discord_channel_members", {})
         if not members:
             return (
-                f"### Текущее окружение в Discord ###\n"
-                f"Ты находишься в голосовом канале \"{channel_name}\".\n"
-                f"Сейчас в канале никого нет, кроме тебя.\n"
+                f"### Discord Environment ###\n"
+                f"You are connected to Discord voice channel \"{channel_name}\".\n"
+                f"Currently, no other members are present.\n"
             )
 
         lines = [f"- {self._format_discord_member_label(uid, name)}" for uid, name in members.items()]
         members_list_str = "\n".join(lines)
         return (
-            f"### Текущее окружение в Discord ###\n"
-            f"Ты находишься в голосовом канале Discord: \"{channel_name}\".\n"
-            f"Прямо сейчас в канале присутствуют:\n"
+            f"### Discord Environment ###\n"
+            f"You are in Discord voice channel \"{channel_name}\".\n"
+            f"Present members:\n"
             f"{members_list_str}\n"
-            f"Все находящиеся в канале люди слышат каждое твоё произнесённое слово. "
-            f"Помни, кто находится рядом, учитывай их присутствие, обращайся к ним по именам/ролям (Папа, Мама и др.).\n"
+            f"All present members hear your voice. Acknowledge them naturally by their names/roles (Папа, Мама, etc.).\n"
         )
 
     def set_discord_bridge_status(self, status: Dict[str, Any]):
@@ -1269,29 +1310,29 @@ class JAIson(metaclass=Singleton):
         # Get prompts
         instruction_prompt, history = self.prompter.get_sys_prompt(), self.prompter.get_history()
 
-        # ── Осознание прерванной речи и память незаконченных мыслей ──
+        # ── Interrupted speech awareness & unfinished thought memory ──
         interrupted_tail = (getattr(self, "_assistant_last_partial_reply", "") or "").strip()
         if continue_from_text and isinstance(continue_from_text, str) and continue_from_text.strip():
             tail = continue_from_text.strip()[-1200:]
             instruction_prompt = (
                 f"{instruction_prompt}\n\n"
-                "### Прямая просьба продолжить речь ###\n"
-                "Собеседник прямо попросил тебя продолжить то, о чём ты говорила до того, как тебя прервали.\n"
-                f"Твоя незавершенная мысль остановилась на фразе: «{tail}»\n"
-                "Продолжи повествование ровно с того места, где оборвалась речь, плавно развивая мысль дальше.\n"
+                "### Request to Continue ###\n"
+                "The user explicitly asked you to continue what you were saying before being interrupted.\n"
+                f"Your unfinished thought stopped at: «{tail}»\n"
+                "Seamlessly resume your narrative from the exact point you stopped, developing the thought further in natural Russian.\n"
             )
         elif interrupted_tail:
             tail = interrupted_tail[-1200:]
             instruction_prompt = (
                 f"{instruction_prompt}\n\n"
-                "### Осознание прерванной речи ###\n"
-                "В твоей предыдущей реплике тебя перебили или прервали на полуслове, когда ты говорила:\n"
+                "### Interrupted Speech Memory ###\n"
+                "In your previous turn you were cut off mid-sentence while saying:\n"
                 f"«{tail}»\n"
-                "Ты полностью помнишь и осознаёшь то, о чём говорила и к чему вела мысль.\n"
-                "Правила ведения диалога:\n"
-                "1. Если собеседник просто отреагировал (эмоция, короткая фраза, вопрос по теме), или если твоя незавершенная мысль/история важна и интересна — ты можешь органично договорить свою незаконченную мысль и связать её с новой репликой собеседника.\n"
-                "2. Если собеседник кардинально сменил тему или спросил о совершенно другом — отвечай на его слова естественно, не цепляясь за старую тему насильно, но сохраняя понимание контекста.\n"
-                "3. Не извиняйся за прерывание, не произноси фраз вроде 'меня прервали' — веди диалог естественно, как живой человек.\n"
+                "You retain full memory and awareness of your unfinished thought.\n"
+                "Dialogue guidance:\n"
+                "1. If the user made a brief reaction, question, or if your unfinished thought is valuable/relevant: seamlessly finish it and connect to their new remark.\n"
+                "2. If the user shifted to a completely different topic: answer their new input naturally without forcing the old topic, while keeping prior context in mind.\n"
+                "3. Stay natural: never apologize for being interrupted or say robotic clichés like 'as I was saying'.\n"
             )
         
         # Apply t2t and stream to TTS
@@ -1313,60 +1354,67 @@ class JAIson(metaclass=Singleton):
         
         async def tts_worker():
             nonlocal full_filtered_text, first_audio_sent, first_tts_ttfa_ms, first_audio_ts, first_audio_ms, e2e_tts_start_ms
-            while True:
-                phrase = await tts_queue.get()
-                if phrase is None: # Sentinel
-                    break
+            try:
+                while True:
+                    phrase = await tts_queue.get()
+                    if phrase is None: # Sentinel
+                        break
+                        
+                    clean_phrase = clean_phrase_for_tts(phrase)
+                    if not clean_phrase:
+                        tts_queue.task_done()
+                        continue
+                        
+                    if full_filtered_text and not full_filtered_text.endswith((" ", "\n")):
+                        full_filtered_text += " "
+                    full_filtered_text += clean_phrase
                     
-                phrase = phrase.strip()
-                if not phrase:
-                    continue
-                    
-                if full_filtered_text and not full_filtered_text.endswith((" ", "\n")):
-                    full_filtered_text += " "
-                full_filtered_text += phrase
-                
-                if include_audio:
-                    # ── Цветная метка: фраза передана на TTS ──
-                    print_tts_phrase(phrase)
-                    tts_t0 = time.time()
-                    phrase_first_chunk = True
-                    try:
-                        async for audio_chunk_out in self.op_manager.use_operation(OpRoles.TTS, {"content": phrase}):
-                            async for final_audio_chunk_out in self.op_manager.use_operation(OpRoles.FILTER_AUDIO, audio_chunk_out):
-                                now_audio = time.time()
-                                if phrase_first_chunk:
-                                    phrase_first_chunk = False
-                                    phrase_ttfa = int((now_audio - tts_t0) * 1000)
-                                    if first_tts_ttfa_ms is None:
-                                        first_tts_ttfa_ms = phrase_ttfa
+                    if include_audio:
+                        # ── Цветная метка: фраза передана на TTS (очищенная от смайлов и тегов) ──
+                        print_tts_phrase(clean_phrase)
+                        tts_t0 = time.time()
+                        phrase_first_chunk = True
+                        try:
+                            async for audio_chunk_out in self.op_manager.use_operation(OpRoles.TTS, {"content": clean_phrase}):
+                                async for final_audio_chunk_out in self.op_manager.use_operation(OpRoles.FILTER_AUDIO, audio_chunk_out):
+                                    now_audio = time.time()
+                                    if phrase_first_chunk:
+                                        phrase_first_chunk = False
+                                        phrase_ttfa = int((now_audio - tts_t0) * 1000)
+                                        if first_tts_ttfa_ms is None:
+                                            first_tts_ttfa_ms = phrase_ttfa
 
-                                for ws_chunk in chunk_buffer(base64.b64encode(final_audio_chunk_out['audio_bytes']).decode('utf-8')):
-                                    audio_event = {
-                                        "audio_bytes": ws_chunk,
-                                        "sr": final_audio_chunk_out['sr'],
-                                        "sw": final_audio_chunk_out['sw'],
-                                        "ch": final_audio_chunk_out['ch'],
-                                        "event": "audio_chunk"
-                                    }
-                                    if not first_audio_sent:
-                                        first_audio_sent = True
-                                        first_audio_ts = now_audio
-                                        first_audio_ms = int((now_audio - start_time) * 1000)
-                                        audio_event["tts_start_ms"] = first_audio_ms
-                                        audio_event["tts_ttfa_ms"] = first_tts_ttfa_ms
-                                        if input_timestamp is not None:
-                                            try:
-                                                e2e_tts_start_ms = max(0, int((now_audio - float(input_timestamp)) * 1000))
-                                                audio_event["e2e_tts_start_ms"] = e2e_tts_start_ms
-                                            except Exception: pass
-                                    await self._handle_broadcast_event(job_id, job_type, audio_event)
-                        # ── TTS фраза готова ──
-                        print_tts_done(latency_ms=int((time.time() - tts_t0) * 1000))
-                    except Exception as e:
-                        logging.error(f"TTS Worker error: {e}", exc_info=True)
-                
-                tts_queue.task_done()
+                                    for ws_chunk in chunk_buffer(base64.b64encode(final_audio_chunk_out['audio_bytes']).decode('utf-8')):
+                                        audio_event = {
+                                            "audio_bytes": ws_chunk,
+                                            "sr": final_audio_chunk_out['sr'],
+                                            "sw": final_audio_chunk_out['sw'],
+                                            "ch": final_audio_chunk_out['ch'],
+                                            "event": "audio_chunk"
+                                        }
+                                        if not first_audio_sent:
+                                            first_audio_sent = True
+                                            first_audio_ts = now_audio
+                                            first_audio_ms = int((now_audio - start_time) * 1000)
+                                            audio_event["tts_start_ms"] = first_audio_ms
+                                            audio_event["tts_ttfa_ms"] = first_tts_ttfa_ms
+                                            if input_timestamp is not None:
+                                                try:
+                                                    e2e_tts_start_ms = max(0, int((now_audio - float(input_timestamp)) * 1000))
+                                                    audio_event["e2e_tts_start_ms"] = e2e_tts_start_ms
+                                                except Exception: pass
+                                        await self._handle_broadcast_event(job_id, job_type, audio_event)
+                            # ── TTS фраза готова ──
+                            print_tts_done(latency_ms=int((time.time() - tts_t0) * 1000))
+                        except asyncio.CancelledError:
+                            tts_queue.task_done()
+                            break
+                        except Exception as e:
+                            logging.error(f"TTS Worker error: {e}", exc_info=True)
+                    
+                    tts_queue.task_done()
+            except asyncio.CancelledError:
+                pass
                 
         tts_task = asyncio.create_task(tts_worker())
         sentence_buffer = ""
@@ -1375,6 +1423,7 @@ class JAIson(metaclass=Singleton):
         llm_req_start_ts = time.time()
         queue_overhead_ms = int((llm_req_start_ts - float(stt_finish_ts)) * 1000) if stt_finish_ts else int((llm_req_start_ts - start_time) * 1000)
 
+        pipeline_cancelled = False
         try:
             async for chunk_out in self.op_manager.use_operation(OpRoles.T2T, {"instruction_prompt": instruction_prompt, "messages": history}):
                 chunk_content = chunk_out.get('content', '')
@@ -1422,15 +1471,32 @@ class JAIson(metaclass=Singleton):
                             await tts_queue.put(phrase)
                     else:
                         break 
+        except asyncio.CancelledError:
+            pipeline_cancelled = True
+            raise
         finally:
-            if sentence_buffer.strip():
-                if first_sentence_ready_ts is None:
-                    first_sentence_ready_ts = time.time()
-                    first_sentence_ms = int((first_sentence_ready_ts - llm_req_start_ts) * 1000)
-                await tts_queue.put(sentence_buffer.strip())
-            
-            await tts_queue.put(None)
-            await tts_task
+            if pipeline_cancelled:
+                # Мгновенная остановка: отменяем TTS воркер и сбрасываем очередь фраз
+                tts_task.cancel()
+                while not tts_queue.empty():
+                    try:
+                        tts_queue.get_nowait()
+                        tts_queue.task_done()
+                    except Exception:
+                        break
+                try:
+                    await tts_task
+                except asyncio.CancelledError:
+                    pass
+            else:
+                if sentence_buffer.strip():
+                    if first_sentence_ready_ts is None:
+                        first_sentence_ready_ts = time.time()
+                        first_sentence_ms = int((first_sentence_ready_ts - llm_req_start_ts) * 1000)
+                    await tts_queue.put(sentence_buffer.strip())
+                
+                await tts_queue.put(None)
+                await tts_task
 
         debug_prompt_events = False
         try:
@@ -2223,17 +2289,19 @@ class JAIson(metaclass=Singleton):
         if interrupt_mode != "hard":
             return
 
-        if self.job_current is None or self.job_current.done():
-            return
-
-        current_job_type, _ = self.job_map.get(self.job_current_id, (None, None))
-        if current_job_type != JobType.RESPONSE:
-            return
-
         if not self._interrupt_allowed_for_speaker(speaker_id):
             return
 
-        self._interrupt_jobs(reason="user_voice_start")
+        # 1. Если генерация ещё выполняется — прерываем её
+        if self.job_current is not None and not self.job_current.done():
+            current_job_type, _ = self.job_map.get(self.job_current_id, (None, None))
+            if current_job_type == JobType.RESPONSE:
+                self._interrupt_jobs(reason="user_voice_start")
+
+        # 2. Мгновенно сбрасываем локальные колонки
+        self._stop_local_speakers()
+
+        # 3. Мгновенно глушим воспроизведение аудио в Discord и браузере
         await self._handle_broadcast_event("GLOBAL_STOP", JobType.RESPONSE, {
             "event": "stop_audio",
             "reason": "user_voice_start",

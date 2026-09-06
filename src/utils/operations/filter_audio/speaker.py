@@ -35,6 +35,21 @@ class SpeakerOutputFilter(FilterAudioOperation):
                     break
         logging.info(f"SpeakerOutputFilter: enabled set to {self.enabled}")
 
+    def stop_audio(self) -> None:
+        """Мгновенно прерывает текущее воспроизведение и очищает очередь."""
+        while not self.q.empty():
+            try:
+                self.q.get_nowait()
+                self.q.task_done()
+            except Exception:
+                break
+        if self._stream:
+            try:
+                self._stream.abort()
+                self._stream.start()
+            except Exception:
+                pass
+
     async def start(self) -> None:
         await super().start()
         self._stop_event.clear()

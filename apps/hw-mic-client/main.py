@@ -25,10 +25,11 @@ parser.add_argument("--device_hostapi", type=str, default=None, help="Optional h
 parser.add_argument("--list_devices", action="store_true", help="List input devices and exit")
 parser.add_argument("--jaison_api", type=str, default="http://localhost:7272/api/context/conversation/audio", help="JAIson API URL")
 parser.add_argument("--speech_start_api", type=str, default=None, help="Optional early-barge-in URL (default: derived from jaison_api)")
-parser.add_argument("--speech_start_min_interval_ms", type=int, default=900, help="Minimum interval between speech_start signals")
-parser.add_argument("--speech_start_confirm_ms", type=int, default=350, help="Require this much active speech before sending speech_start")
-parser.add_argument("--min_speech_ms_interrupt", type=int, default=120, help="Minimum ms for short interrupt commands to still be sent")
+parser.add_argument("--speech_start_min_interval_ms", type=int, default=350, help="Minimum interval between speech_start signals")
+parser.add_argument("--speech_start_confirm_ms", type=int, default=100, help="Require this much active speech before sending speech_start")
+parser.add_argument("--min_speech_ms_interrupt", type=int, default=80, help="Minimum ms for short interrupt commands to still be sent")
 parser.add_argument("--source_id", type=str, default="mic", help="Audio source identifier")
+parser.add_argument("--user", type=str, default="Вова", help="User name for mic input")
 parser.add_argument("--turn_merge_window_ms", type=int, default=2200, help="Reuse previous turn_id if next phrase starts within this window")
 parser.add_argument("--resample_mode", type=str, default="polyphase", choices=["polyphase", "decimate"], help="Resampling mode 48k->16k")
 parser.add_argument("--mic_gain_db", type=float, default=12.0, help="Fixed software mic gain in dB")
@@ -306,7 +307,7 @@ def send_to_jaison(audio_buffer: list, turn_id: Optional[str] = None, speech_sta
     utterance_id = str(uuid.uuid4())
     turn_id = str(turn_id) if turn_id else begin_turn_id(now_s)
     payload = {
-        "user": "Creator", 
+        "user": args.user, 
         "timestamp": speech_start_ts,
         "speech_start_ts": speech_start_ts,
         "speech_end_ts": speech_end_ts,

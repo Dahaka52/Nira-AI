@@ -1,4 +1,5 @@
 import datetime
+import re
 from .context import ContextMetadata
 
 class Message:
@@ -46,7 +47,10 @@ class ChatMessage(Message):
         assert message is not None and len(message) > 0
         
         self.user = user
-        self.message = message.replace("\n", "")
+        clean_msg = message.replace("\n", "")
+        # Очищаем от любых псевдо-тегов прерывания, чтобы модель не заучивала их в контексте
+        clean_msg = re.sub(r'\s*\[прервано[^\]]*\]', '...', clean_msg)
+        self.message = clean_msg
         self.time = time
         
     def to_line(self):

@@ -28,10 +28,11 @@ class HwMicProcess(BaseProcess):
         min_silence = mic_conf.get("min_silence_ms", 1500)
         min_speech = mic_conf.get("min_speech_ms", 250)
         pre_roll = mic_conf.get("pre_roll_ms", 300)
-        speech_start_min_interval_ms = mic_conf.get("speech_start_min_interval_ms", 900)
-        speech_start_confirm_ms = mic_conf.get("speech_start_confirm_ms", 350)
-        min_speech_ms_interrupt = mic_conf.get("min_speech_ms_interrupt", 120)
+        speech_start_min_interval_ms = mic_conf.get("speech_start_min_interval_ms", 350)
+        speech_start_confirm_ms = mic_conf.get("speech_start_confirm_ms", 100)
+        min_speech_ms_interrupt = mic_conf.get("min_speech_ms_interrupt", 80)
         source_id = mic_conf.get("source_id", "mic")
+        user_name = mic_conf.get("user", "Вова")
         turn_merge_window_ms = mic_conf.get("turn_merge_window_ms", 2200)
         resample_mode = mic_conf.get("resample_mode", "polyphase")
         mic_gain_db = mic_conf.get("mic_gain_db", 12.0)
@@ -66,6 +67,7 @@ class HwMicProcess(BaseProcess):
             "--speech_start_confirm_ms", str(speech_start_confirm_ms),
             "--min_speech_ms_interrupt", str(min_speech_ms_interrupt),
             "--source_id", str(source_id),
+            "--user", str(user_name),
             "--turn_merge_window_ms", str(turn_merge_window_ms),
             "--resample_mode", str(resample_mode),
             "--mic_gain_db", str(mic_gain_db),

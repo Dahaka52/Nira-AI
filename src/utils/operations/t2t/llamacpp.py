@@ -4,6 +4,7 @@ import logging
 import traceback
 import sys
 import os
+import re
 from datetime import datetime
 from typing import AsyncGenerator, Dict, Any
 from utils.args import args
@@ -75,6 +76,7 @@ class LlamaCppT2T(T2TOperation):
                 role = "user"
                 # Use pure message for ChatMessage, to_line for others (MCP, Request)
                 content = msg.message if hasattr(msg, 'message') else msg.to_line()
+            content = re.sub(r'\s*\[прервано[^\]]*\]', '...', content)
             raw_history.append({"role": role, "content": content})
 
         # Merge consecutive roles to satisfy strict alternation requirements (e.g. Mistral-Nemo)
