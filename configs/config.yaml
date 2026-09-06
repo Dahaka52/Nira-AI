@@ -20,9 +20,9 @@ stt_listen_triggers: ["послушай", "послушай меня", "дай �
 stt_release_triggers: ["что думаешь", "как тебе", "что скажешь", "отвечай", "твое мнение", "я все", "я всё", "все", "всё", "конец", "готово"]
 stt_listening_timeout_s: 15          # Сбрасывать режим слушателя в обычный диалог через 15 сек тишины
 
-stt_active_id: "faster_whisper_ru"   # Выбери id из секции operations.stt
+stt_active_id: "gigaam_ru"   # Выбери id из секции operations.stt
 stt_strict_active_id: true          # Падать при старте если id не найден
-t2t_active_id: "llamacpp"           # Выбери id из секции operations.t2t
+t2t_active_id: "llamacpp"        # Выбери id из секции operations.t2t
 t2t_strict_active_id: true          # Падать при старте если id не найден
 
 # -----------------------------------------------------------------------------
@@ -45,7 +45,32 @@ operations:
 
   # --- STT: Speech-to-Text ---------------------------------------------------
 
-  # Faster Whisper — высокоточная русская транскрипция (рекомендуется)
+  # GigaAM-v3 (NeMo CTC) — сверхбыстрый (<50мс) офлайн STT для русского языка от Сбера (рекомендуется)
+  - role: stt
+    id: gigaam_ru
+    entrypoint: "utils.operations.stt.gigaam:GigaAMSTT"
+    model_path: "C:\\Nirmita\\models\\gigaam\\gigaam_v3_e2e_ctc_int8.onnx"
+    tokens_path: "C:\\Nirmita\\models\\gigaam\\gigaam_v3_e2e_ctc_tokens.txt"
+    num_threads: 4               # Потоки CPU для инференса (4-6 оптимально для 5700X3D)
+    provider: "cpu"
+    sample_rate: 16000
+    feature_dim: 64
+    decoding_method: "greedy_search"
+    blank_penalty: 0.0           # Штраф бланков CTC (0.0 по умолчанию; 0.2-0.5 если "съедаются" буквы)
+    hotwords_file: "C:\\Nirmita\\models\\hotwords.txt" # Список приоритетных ключевых слов
+    hotwords_score: 2.0          # Вес приоритета горячих слов
+    gain_normalization: true     # Авто-нормализация громкости слабого звука / тихого голоса (AGC)
+    target_peak: 0.95            # Целевой пиковый уровень амплитуды
+    max_gain: 4.0                # Максимальный коэффициент усиления
+    alias_map:                   # Словарь исправления омофонов и частых ошибок транскрипции
+      "мира": "Нира"
+      "миру": "Ниру"
+      "миром": "Нирой"
+      "мире": "Нире"
+      "миры": "Ниры"
+    process_autostart: true
+
+  # Faster Whisper — русская транскрипция
   - role: stt
     id: faster_whisper_ru
     entrypoint: "utils.operations.stt.faster_whisper:FasterWhisperSTT"
@@ -53,10 +78,8 @@ operations:
     device: "cuda"
     compute_type: "int8_float16"
     language: "ru"
-    vad_filter: true
-    vad_parameters:
-      min_silence_duration_ms: 1000
-      speech_pad_ms: 400
+    vad_filter: false
+    initial_prompt: "Нира, Вова: постой, стой, подожди, слушай, расскажи, да, нет, привет."
     process_autostart: true
 
   # Groq API — облачный STT через OpenAI-совместимый эндпоинт
@@ -237,8 +260,8 @@ discord:
   source_id: "discord"
   api_url: "http://127.0.0.1:7272/api/context/conversation/audio"
   ws_url: "ws://127.0.0.1:7272/"
-  silence_ms: 1200
-  min_speech_ms: 150
+  silence_ms: 450
+  min_speech_ms: 180
 
 # -----------------------------------------------------------------------------
 # 7. ПРОМПТЕР И ПЕРСОНАЖ

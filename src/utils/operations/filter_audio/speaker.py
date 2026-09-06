@@ -11,6 +11,7 @@ class SpeakerOutputFilter(FilterAudioOperation):
     """
     Фильтр аудио, который воспроизводит проходящий через него звук на выбранное устройство 
     (например, стандартное аудиоустройство Windows или виртуальный кабель), при этом пропуская чанки дальше без изменений.
+    Включает потокобезопасный механизм мгновенного прерывания (Barge-in) и автоматическое восстановление при ошибках PortAudio.
     """
     def __init__(self):
         super().__init__("speaker")
@@ -22,43 +23,49 @@ class SpeakerOutputFilter(FilterAudioOperation):
         self.q = queue.Queue()
         self._playback_thread = None
         self._stop_event = threading.Event()
+        self._flush_event = threading.Event()
+        self._stream_lock = threading.Lock()
         self._stream = None
 
     def set_enabled(self, enabled: bool) -> None:
         self.enabled = bool(enabled)
         if not self.enabled:
-            # Очищаем очередь, чтобы не доигрывать старый звук
-            while not self.q.empty():
-                try:
-                    self.q.get_nowait()
-                except queue.Empty:
-                    break
+            self.stop_audio()
         logging.info(f"SpeakerOutputFilter: enabled set to {self.enabled}")
 
     def stop_audio(self) -> None:
-        """Мгновенно прерывает текущее воспроизведение и очищает очередь."""
+        """Мгновенно прерывает текущее воспроизведение и очищает очередь без падения драйвера."""
+        self._flush_event.set()
         while not self.q.empty():
             try:
                 self.q.get_nowait()
                 self.q.task_done()
             except Exception:
                 break
-        if self._stream:
-            try:
-                self._stream.abort()
-                self._stream.start()
-            except Exception:
-                pass
+        with self._stream_lock:
+            if self._stream and not self._stream.closed:
+                try:
+                    self._stream.stop()
+                    self._stream.start()
+                except Exception as e:
+                    logging.debug(f"SpeakerOutputFilter: сброс стрима при прерывании: {e}")
+                    try:
+                        self._stream.close()
+                    except Exception:
+                        pass
+                    self._stream = None
 
     async def start(self) -> None:
         await super().start()
         self._stop_event.clear()
+        self._flush_event.clear()
         self._playback_thread = threading.Thread(target=self._playback_worker, daemon=True)
         self._playback_thread.start()
         logging.info("SpeakerOutputFilter: операция запущена (вокер запущен)")
 
     async def close(self) -> None:
         self._stop_event.set()
+        self._flush_event.set()
         
         # Flush queue
         while not self.q.empty():
@@ -70,10 +77,14 @@ class SpeakerOutputFilter(FilterAudioOperation):
         if self._playback_thread and self._playback_thread.is_alive():
             self._playback_thread.join(timeout=2.0)
             
-        if self._stream:
-            self._stream.stop()
-            self._stream.close()
-            self._stream = None
+        with self._stream_lock:
+            if self._stream:
+                try:
+                    self._stream.stop()
+                    self._stream.close()
+                except Exception:
+                    pass
+                self._stream = None
             
         await super().close()
         logging.info("SpeakerOutputFilter: операция остановлена")
@@ -107,7 +118,7 @@ class SpeakerOutputFilter(FilterAudioOperation):
         return None # Default Windows sound device
 
     def _playback_worker(self):
-        """Фоновый поток для воспроизведения аудио через sounddevice."""
+        """Фоновый поток для воспроизведения аудио через sounddevice с авто-восстановлением."""
         current_sr = None
         current_ch = None
         
@@ -115,44 +126,87 @@ class SpeakerOutputFilter(FilterAudioOperation):
         
         while not self._stop_event.is_set():
             try:
-                # Ждем новых чанков с небольшим таймаутом, чтобы можно было проверить stop_event
-                audio_bytes, sr, sw, ch = self.q.get(timeout=0.1)
-                
-                # Если сменилась частота или каналы — пересоздаем стрим
-                if self._stream is None or sr != current_sr or ch != current_ch:
-                    if self._stream:
-                        self._stream.stop()
-                        self._stream.close()
-                    current_sr = sr
-                    current_ch = ch
-                    try:
-                        self._stream = sd.OutputStream(
-                            samplerate=sr,
-                            channels=ch,
-                            dtype='float32',
-                            device=device
-                        )
-                        self._stream.start()
-                    except Exception as e:
-                        logging.error(f"SpeakerOutputFilter: Ошибка открытия аудиопотока: {e}")
-                        self._stream = None
-                        continue
+                # Ждем новых чанков с небольшим таймаутом
+                try:
+                    audio_bytes, sr, sw, ch = self.q.get(timeout=0.08)
+                except queue.Empty:
+                    continue
 
-                # Пишем float32 PCM фреймы в стрим
-                if self._stream and self.enabled:
+                if self._flush_event.is_set():
+                    self._flush_event.clear()
+                    self.q.task_done()
+                    continue
+
+                # Проверяем или пересоздаем стрим под блокировкой
+                with self._stream_lock:
+                    if self._stream is None or self._stream.closed or sr != current_sr or ch != current_ch:
+                        if self._stream and not self._stream.closed:
+                            try:
+                                self._stream.stop()
+                                self._stream.close()
+                            except Exception:
+                                pass
+                        current_sr = sr
+                        current_ch = ch
+                        try:
+                            self._stream = sd.OutputStream(
+                                samplerate=sr,
+                                channels=ch,
+                                dtype='float32',
+                                device=device
+                            )
+                            self._stream.start()
+                        except Exception as e:
+                            logging.error(f"SpeakerOutputFilter: Ошибка открытия аудиопотока: {e}")
+                            self._stream = None
+                            self.q.task_done()
+                            continue
+                    elif self._stream.stopped:
+                        try:
+                            self._stream.start()
+                        except Exception as e:
+                            logging.warning(f"SpeakerOutputFilter: не удалось перезапустить стрим, пересоздаем: {e}")
+                            try:
+                                self._stream.close()
+                            except Exception:
+                                pass
+                            self._stream = None
+                            self.q.task_done()
+                            continue
+
+                # Пишем float32 PCM фреймы в стрим небольшими блоками по ~46мс (2048 сэмплов)
+                if self.enabled:
                     try:
                         pcm_array = np.frombuffer(audio_bytes, dtype=np.int16).astype(np.float32) / 32768.0
                         if self.vol != 1.0:
                             pcm_array = pcm_array * self.vol
-                        pcm_array = pcm_array.reshape(-1, ch) # OutputStream требует 2D массив
-                        self._stream.write(pcm_array)
+                        pcm_array = pcm_array.reshape(-1, ch)
+
+                        chunk_samples = 2048
+                        for idx in range(0, len(pcm_array), chunk_samples):
+                            if self._flush_event.is_set():
+                                self._flush_event.clear()
+                                break
+                            sub_chunk = pcm_array[idx : idx + chunk_samples]
+                            with self._stream_lock:
+                                if self._stream and not self._stream.closed and not self._stream.stopped:
+                                    self._stream.write(sub_chunk)
                     except sd.PortAudioError as e:
-                        logging.error(f"SpeakerOutputFilter: Ошибка воспроизведения (underflow/overflow): {e}")
-                        
+                        logging.error(f"SpeakerOutputFilter: Ошибка воспроизведения PortAudio: {e}, авто-восстановление...")
+                        with self._stream_lock:
+                            if self._stream:
+                                try:
+                                    self._stream.close()
+                                except Exception:
+                                    pass
+                                self._stream = None
+                                current_sr = None
+                                current_ch = None
+                    except Exception as e:
+                        logging.error(f"SpeakerOutputFilter: Ошибка записи аудио: {e}")
+
                 self.q.task_done()
                 
-            except queue.Empty:
-                continue
             except Exception as e:
                 logging.error(f"SpeakerOutputFilter: Непредвиденная ошибка в вокере: {e}")
 
@@ -163,7 +217,6 @@ class SpeakerOutputFilter(FilterAudioOperation):
         ch = kwargs.get('ch')
 
         if self.enabled and audio_bytes is not None:
-            # Кладем чанк в очередь на воспроизведение в фоновом потоке
             try:
                 self.q.put_nowait((audio_bytes, sr, sw, ch))
             except queue.Full:

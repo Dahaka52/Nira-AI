@@ -441,9 +441,6 @@ class NiraDiscordBot(discord.Bot):
     async def submit_speech_start(self, member, timestamp: float) -> None:
         if not self.vc or not self.vc.is_connected():
             return
-        # Аппаратный barge-in: если Нира воспроизводит что-то в данный момент, мгновенно глушим плеер
-        if self.vc.is_playing():
-            self.stop_audio()
 
         base_api = self.api_url.rsplit("/api", 1)[0]
         url = f"{base_api}/api/context/conversation/speech_start"

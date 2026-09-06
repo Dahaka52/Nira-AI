@@ -21,6 +21,7 @@ class FasterWhisperSTT(STTOperation):
         self.language = config_d.get("language", "ru")
         self.vad_filter = config_d.get("vad_filter", True)
         self.vad_parameters = config_d.get("vad_parameters", None)
+        self.initial_prompt = config_d.get("initial_prompt", "Нира, Вова: постой, стой, подожди, слушай, расскажи, да, нет, привет.")
 
     async def get_configuration(self) -> Dict[str, Any]:
         return {
@@ -30,6 +31,7 @@ class FasterWhisperSTT(STTOperation):
             "language": self.language,
             "vad_filter": self.vad_filter,
             "vad_parameters": self.vad_parameters,
+            "initial_prompt": getattr(self, "initial_prompt", None),
         }
 
     async def start(self) -> None:
@@ -77,15 +79,22 @@ class FasterWhisperSTT(STTOperation):
         if input_sr != 16000:
             audio_float32 = librosa.resample(audio_float32, orig_sr=input_sr, target_sr=16000)
 
+        # Пиковая нормализация (Gain Normalization) для улучшения распознавания тихих согласных
+        max_val = float(np.max(np.abs(audio_float32))) if len(audio_float32) > 0 else 0.0
+        if max_val > 1e-4:
+            gain = min(4.0, 0.95 / max_val)
+            audio_float32 = audio_float32 * gain
+
         # 5. Функция для запуска распознавания (будет выполнена в пуле потоков)
         def _transcribe():
+            init_prompt = getattr(self, "initial_prompt", None) or "Нира, Вова: постой, стой, подожди, слушай, расскажи, да, нет, привет."
             segments, info = self.model.transcribe(
                 audio_float32, 
                 language=self.language, 
                 vad_filter=self.vad_filter,
-                vad_parameters=self.vad_parameters if self.vad_parameters else None,
+                vad_parameters=self.vad_parameters if (self.vad_filter and self.vad_parameters) else None,
                 condition_on_previous_text=False,
-                initial_prompt="Нира, Вова"
+                initial_prompt=init_prompt
             )
             # Собираем все кусочки текста в одну строку
             text = " ".join([segment.text for segment in segments]).strip()

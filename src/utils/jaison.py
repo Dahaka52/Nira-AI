@@ -594,6 +594,21 @@ class JAIson(metaclass=Singleton):
         except Exception:
             pass
 
+    def _can_interrupt_assistant(self, speaker_id: str = None, reason: str = "barge_in") -> bool:
+        """
+        Проверяет, разрешено ли прервать речь Ниры.
+        Оставляет возможность проигнорировать прерывание при определенном условии
+        (например, в будущем при эмоциональном аффекте, упрямстве или режиме монолога).
+        """
+        if getattr(self, "suppress_interruptions", False):
+            logging.info("Interruption suppressed by assistant condition (suppress_interruptions=True).")
+            return False
+        return True
+
+    def _interrupt_allowed_for_speaker(self, speaker_id: str = None) -> bool:
+        """Совместимость: проверяет права спикера через _can_interrupt_assistant."""
+        return self._can_interrupt_assistant(speaker_id=speaker_id)
+
     def _interrupt_jobs(self, reason: str = "user_interruption"):
         """Экстренное прерывание: очистка устаревших ответов и текущей задачи, с сохранением контекста"""
         logging.info(f"Smart Barge-in: Interrupting and clearing queue due to: {reason}")
@@ -2069,12 +2084,26 @@ class JAIson(metaclass=Singleton):
 
         # 2. Barge-in / intent classification.
         words = re.findall(r"[0-9a-zA-Zа-яА-ЯёЁ-]+", content.lower().strip())
-        fillers = {"угу", "ага", "понятно", "ясно", "да", "так", "хорошо", "ок", "слышу", "мгм", "ладно", "понял", "ого", "ммм", "эмм", "хмм", "интересно"}
+        fillers = {
+            "угу", "ага", "понятно", "ясно", "да", "так", "хорошо", "ок", "слышу", "мгм", "ладно",
+            "понял", "ого", "ммм", "эмм", "хмм", "интересно", "спасибо", "спасибки", "круто", "кайф",
+            "вау", "прикольно", "отлично", "здорово", "агась", "угум", "да-да", "ну да", "ага-ага",
+            "ой", "ай", "упс", "ох", "эх", "ух"
+        }
         cfg_globals = getattr(Config(), "_config", {})
         
-        stop_words = set(cfg_globals.get("stt_stop_words", ["стой", "стоп", "хватит", "замолчи", "подожди", "тихо", "молчи", "выключи"]))
-        # Оставим базовые основы на случай опечаток, но если заданы кастомные, пользователь может добавить их целиком
-        stop_stems = ("стоп", "стой", "подож", "хват", "замолч", "тихо", "молч", "выключ")
+        stop_words = set(cfg_globals.get("stt_stop_words", [
+            "стой", "стойте", "постой", "постойте", "остой", "стай", "сто", "ста",
+            "стоп", "стопэ", "стопе", "стопчик",
+            "хватит", "хорош", "замолчи", "молчи", "помолчи", "молчать",
+            "подожди", "погоди", "погодите", "подождите",
+            "тихо", "тише", "остановись", "останови", "тормози", "притормози", "выключи", "отключи"
+        ]))
+        stop_stems = (
+            "стоп", "стой", "постой", "остой", "стай", "подож", "погод",
+            "хват", "хорош", "замолч", "молч", "тихо", "тише", "останов",
+            "тормоз", "выключ", "отключ"
+        )
         wake_words = {
             "нира", "нера", "nira",
             # Typical Sherpa misses for "Нира"
@@ -2121,9 +2150,26 @@ class JAIson(metaclass=Singleton):
         # --- Whisper Hallucination Filter ---
         hallucination_markers = [
             "jurisprudence", "kanami", "rison", "nood", "compon", "oard", "irmi", "о чём ты",
-            "ᵉ", "ᵒ", "убтрайт", "субтитры", "amara.org", "спасибо за просмотр", "сказать?"
+            "ᵉ", "ᵒ", "убтрайт", "субтитры", "amara.org", "спасибо за просмотр", "сказать?",
+            "продолжение следует", "редактор субтитров", "дима торзок", "диматорзок", "dimatorzok", "торзок",
+            "игорь негода", "игорь нигода", "негода", "нигода",
+            "до скорой встречи", "до новых встреч", "ставьте лайки", "подписывайтесь",
+            "конец связи", "конец фильма", "всем пока", "приятного просмотра",
+            "спасибо за внимание", "спасибо за урок", "продолжение в описании",
         ]
         is_hallucination = any(marker in content.lower() for marker in hallucination_markers)
+        
+        # Точное совпадение типовых галлюцинаций Whisper на вздохах и тишине
+        clean_norm_text = re.sub(r"[^\w\s]", "", content.lower()).strip()
+        common_hallucinations = {
+            "продолжение следует", "субтитры", "субтитры сделал", "субтитры создавал", "субтитры делал",
+            "дима торзок", "диматорзок", "торзок", "игорь негода", "игорь нигода", "негода", "нигода",
+            "спасибо за просмотр", "до скорой встречи", "до свидания", "всем привет", "пока пока", "конец",
+            "спасибо за внимание", "редактор субтитров", "переводчик", "озвучено"
+        }
+        if clean_norm_text in common_hallucinations or any(clean_norm_text.startswith(h) for h in ("субтитры", "редактор субтитров")):
+            is_hallucination = True
+
         if not is_hallucination and len(words) <= 4:
             # Если в короткой фразе от русской модели больше английских букв, чем русских - это мусор
             en_chars = len(re.findall(r'[a-zA-Z]', content))
@@ -2151,23 +2197,71 @@ class JAIson(metaclass=Singleton):
             )
             return
 
-        def _is_stop_like(word: str) -> bool:
-            w = word.strip().lower().replace("ё", "е")
-            if not w:
-                return False
-            norm_stop_words = {s.lower().replace("ё", "е") for s in stop_words}
-            if w in norm_stop_words:
+        # 1. Проверка на чистое мычание/филлеры/паралингвистику (м-м-м, эээ, хм, ага, угу, ну, да, ой, ай)
+        def _check_pure_filler(text_raw: str, word_list: list) -> bool:
+            clean_s = re.sub(r"[^\w\s]", " ", text_raw.lower().replace("ё", "е")).strip()
+            if not clean_s:
                 return True
-            if w in ("сто", "стой", "остановись"):
-                return True
-            return any(w.startswith(stem) for stem in stop_stems)
+            parts = clean_s.split()
+            all_filler_words = {
+                "м", "мм", "ммм", "э", "ээ", "эээ", "хм", "хмм", "гм",
+                "ага", "угу", "ну", "да", "мда", "эх", "ох", "ок", "а", "ам", "эм",
+                "ой", "ай", "яй", "упс", "ого", "ух", "ах", "ха", "хе", "мгм"
+            }
+            return all((p in all_filler_words or bool(re.fullmatch(r"^[мmэeаaоo]+$", p))) for p in parts)
 
-        stop_like_count = sum(1 for w in words if _is_stop_like(w))
-        contains_stop_word = stop_like_count > 0
-        non_filler_words = [w for w in words if w not in fillers]
-        non_stop_words = [w for w in non_filler_words if not _is_stop_like(w)]
+        is_pure_filler = _check_pure_filler(content, words)
+
+        # 2. Семантический Stop-детектор (без жесткого словаря: корни + fuzzy Levenshtein)
+        def _check_stop_intent(text_raw: str, word_list: list) -> bool:
+            # Стоп-команда обычно короткая (1-3 слова)
+            if len(word_list) > 3:
+                return False
+            stop_prefixes = (
+                "стой", "стойте", "стоп", "stop", "стай", "остой", "постой", "пастой",
+                "останов", "приостанов",
+                "хват", "хорош",
+                "молч", "тиш", "тихо", "замолк", "помолч", "заткн", "цыц",
+                "погод", "обожд", "подожд",
+                "баст", "прекрат", "пауз", "отстав"
+            )
+            stop_targets = ["постой", "хватит", "подожди", "замолчи", "погоди", "остановись", "прекрати", "stop"]
+            import difflib
+            for w in word_list:
+                w_norm = w.lower().replace("ё", "е").strip()
+                if not w_norm:
+                    continue
+                if w_norm in ("сто", "стоп", "стой", "stop") or any(w_norm.startswith(pre) for pre in stop_prefixes):
+                    return True
+                if len(w_norm) >= 5:
+                    for target in stop_targets:
+                        if difflib.SequenceMatcher(None, w_norm, target).ratio() >= 0.78:
+                            return True
+            return False
+
+        is_stop_cmd = _check_stop_intent(content, words)
+
+        # 3. Содержательная (осмысленная) речь vs одиночные звуки/шорохи
+        non_filler_words = [w for w in words if w.lower().replace("ё", "е") not in fillers and not re.fullmatch(r"^[мmэe]+$", w.lower())]
         wake_word_hit = any(w in wake_words for w in non_filler_words)
-        is_wake_word_only = wake_word_hit and len(non_filler_words) == 1 and not contains_stop_word
+        is_wake_word_only = wake_word_hit and len(non_filler_words) == 1 and not is_stop_cmd
+
+        def _check_substantive_speech(text_raw: str, word_list: list, non_fillers: list, is_wake_hit: bool, is_filler: bool) -> bool:
+            if is_filler:
+                return False
+            # 1. Обращение к Нире по имени
+            if is_wake_hit:
+                return True
+            # 2. Вопрос к Нире
+            q_words = ("скажи", "расскажи", "какой", "какая", "почему", "зачем", "где", "когда", "кто", "сколько", "что", "как", "куда", "откуда")
+            if "?" in text_raw or any(w.lower().replace("ё", "е") in q_words for w in word_list):
+                return True
+            # 3. Связная фраза от 3 содержательных слов
+            if len(non_fillers) >= 3:
+                return True
+            return False
+
+        is_substantive = _check_substantive_speech(content, words, non_filler_words, wake_word_hit, is_pure_filler)
 
         def _is_laughter_like(word: str) -> bool:
             w = word.strip().lower().replace("-", "")
@@ -2222,8 +2316,12 @@ class JAIson(metaclass=Singleton):
                 # Обновляем таймер активности, чтобы тишина считалась от последней фразы
                 self._listening_mode_last_activity = now
 
-        # В режиме слушателя мы собираем контекст, но не отвечаем, пока нас не попросят
-        should_respond = not getattr(self, "is_listening", False)
+        # Решение о генерации ответа:
+        # На чистое мычание/филлеры Нира НИКОГДА не генерирует ответ!
+        if is_pure_filler:
+            should_respond = False
+        else:
+            should_respond = not getattr(self, "is_listening", False)
         
         # Активна ли Нира в данный момент (синтез TTS или генерация LLM)
         is_assistant_speaking_or_thinking = (
@@ -2231,30 +2329,29 @@ class JAIson(metaclass=Singleton):
             and not self.job_current.done() 
             and self.job_map.get(self.job_current_id, (None, None))[0] == JobType.RESPONSE
         )
-        # Осмысленная речь человека (не пустая и не просто филлер "угу/ага")
-        is_user_substantive = len(non_filler_words) >= 1 or len(content.strip()) >= 3
 
         # Прерывание (barge-in):
-        # 1) На стоп-слова ("стоп", "помолчи", "тихо" и т.д.)
-        # 2) Когда Нира говорит или думает, а пользователь начал говорить осмысленную фразу
-        is_significant = contains_stop_word or (is_assistant_speaking_or_thinking and is_user_substantive)
+        # Прерываем речь Ниры ТОЛЬКО если:
+        # 1) Пользователь просит остановиться (is_stop_cmd)
+        # 2) ИЛИ пользователь говорит что-то осмысленное (is_substantive)
+        # Одиночные случайные слова, шумы или шорохи НЕ ПРЕРЫВАЮТ!
+        is_significant = is_assistant_speaking_or_thinking and (is_stop_cmd or is_substantive)
         
-        # При команде "Стоп / Подожди / Помолчи":
-        # 1) Обрываем текущую речь Ниры
-        # 2) Переводим её в режим слушателя
-        # 3) Не генерируем ответ на само стоп-слово
-        if contains_stop_word:
+        # При команде остановки («постой», «бастай», «стой», «стоп», «хватит»):
+        # 1) Переводим её в режим слушателя
+        # 2) Нира замолкает и не комментирует саму команду остановки
+        if is_stop_cmd:
             should_respond = False
             self.is_listening = True
             self._listening_mode_last_activity = now
-            logging.info("Nira interrupted by stop word and entered listening mode.")
+            logging.info("Nira interrupted by stop intent ('%s') and entered listening mode.", content)
 
         if is_wake_word_only:
             content = canonical_wake_word
 
         if is_significant:
-            if self._interrupt_allowed_for_speaker(speaker_id):
-                reason = "stop_word" if contains_stop_word else "user_barge_in"
+            if self._can_interrupt_assistant(speaker_id=speaker_id, reason="stop_intent" if is_stop_cmd else "user_barge_in"):
+                reason = "stop_word" if is_stop_cmd else "user_barge_in"
                 self._interrupt_jobs(reason=reason)
                 asyncio.create_task(self._handle_broadcast_event("GLOBAL_STOP", JobType.RESPONSE, {
                     "event": "stop_audio",
@@ -2265,9 +2362,10 @@ class JAIson(metaclass=Singleton):
                     "speaker_id": speaker_id,
                 }))
             else:
+                logging.info("Interruption ignored by speaker policy or assistant condition.")
                 await self._emit_stt_status(
                     "interrupt_ignored",
-                    reason="speaker_policy",
+                    reason="condition_suppressed",
                     source_id=source_id,
                     turn_id=turn_id,
                     utterance_id=utterance_id,
@@ -2281,7 +2379,7 @@ class JAIson(metaclass=Singleton):
             provider=stt_provider,
             latency_ms=stt_latency_ms,
             text=content,
-            detected_stop_cmd=contains_stop_word,
+            detected_stop_cmd=is_stop_cmd,
             expected_stop_cmd=bool(expected_stop_cmd) if isinstance(expected_stop_cmd, bool) else None,
         )
 
