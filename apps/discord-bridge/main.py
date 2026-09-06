@@ -102,12 +102,13 @@ class StreamingPCMSource(discord.AudioSource):
 class SpeakerBuffer:
     """Накапливает PCM от одного пользователя и сбрасывает по тишине."""
 
-    def __init__(self, member, loop, silence_s: float, min_bytes: int, callback):
+    def __init__(self, member, loop, silence_s: float, min_bytes: int, callback, on_speech_start=None):
         self.member = member
         self.loop = loop
         self.silence_s = silence_s
         self.min_bytes = min_bytes
         self.callback = callback
+        self.on_speech_start = on_speech_start
         self.audio = bytearray()
         self.started_at = 0.0
         self.last_packet_time = 0.0
@@ -119,14 +120,19 @@ class SpeakerBuffer:
 
     def append(self, pcm: bytes) -> None:
         with self.lock:
-            if not self.audio:
-                self.started_at = time.time()
+            first_packet = len(self.audio) == 0
+            now = time.time()
+            if first_packet:
+                self.started_at = now
             if len(pcm) % 4 != 0:
                 logging.warning(
                     "[SINK] PCM length %d is not a multiple of 4! Byte alignment corrupted!", len(pcm)
                 )
             self.audio.extend(pcm)
-            self.last_packet_time = time.time()
+            self.last_packet_time = now
+
+            if first_packet and self.on_speech_start:
+                self.loop.call_soon_threadsafe(self.on_speech_start, self.member, self.started_at)
 
     def _monitor_loop(self) -> None:
         while not self._closing:
@@ -140,8 +146,10 @@ class SpeakerBuffer:
     def _do_flush(self) -> None:
         total = len(self.audio)
         if total >= self.min_bytes:
-            audio, started_at = bytes(self.audio), self.started_at
-            self.loop.call_soon_threadsafe(self.callback, self.member, audio, started_at)
+            audio = bytes(self.audio)
+            started_at = self.started_at
+            ended_at = self.last_packet_time
+            self.loop.call_soon_threadsafe(self.callback, self.member, audio, started_at, ended_at)
         self.audio.clear()
 
     def close(self) -> None:
@@ -223,6 +231,7 @@ class NiraRawSink(discord.sinks.Sink):
                     self.bot.silence_ms / 1000,
                     minimum,
                     self.bot.submit_speech_from_thread,
+                    on_speech_start=self.bot.submit_speech_start_from_thread,
                 )
                 self.buffers[user_id] = buffer
 
@@ -403,10 +412,34 @@ class NiraDiscordBot(discord.Bot):
     # Speech submission
     # ------------------------------------------------------------------
 
-    def submit_speech_from_thread(self, member, audio: bytes, timestamp: float) -> None:
-        asyncio.create_task(self.submit_speech(member, audio, timestamp))
+    def submit_speech_start_from_thread(self, member, timestamp: float) -> None:
+        asyncio.create_task(self.submit_speech_start(member, timestamp))
 
-    async def submit_speech(self, member, audio: bytes, timestamp: float) -> None:
+    async def submit_speech_start(self, member, timestamp: float) -> None:
+        if not self.vc or not self.vc.is_connected():
+            return
+        # Аппаратный barge-in: если Нира воспроизводит что-то в данный момент, мгновенно глушим плеер
+        if self.vc.is_playing():
+            self.stop_audio()
+
+        base_api = self.api_url.rsplit("/api", 1)[0]
+        url = f"{base_api}/api/context/conversation/speech_start"
+        payload = {
+            "speaker_id": str(member.id),
+            "user": getattr(member, "display_name", None) or getattr(member, "name", f"user_{member.id}"),
+            "source_id": self.source_id,
+            "timestamp": timestamp,
+        }
+        try:
+            async with httpx.AsyncClient(timeout=1.5) as client:
+                await client.post(url, json=payload)
+        except Exception:
+            pass
+
+    def submit_speech_from_thread(self, member, audio: bytes, started_at: float, ended_at: float) -> None:
+        asyncio.create_task(self.submit_speech(member, audio, started_at, ended_at))
+
+    async def submit_speech(self, member, audio: bytes, started_at: float, ended_at: float) -> None:
         if not self.vc or not self.vc.is_connected():
             return
 
@@ -426,7 +459,9 @@ class NiraDiscordBot(discord.Bot):
         payload = {
             "user": getattr(member, "display_name", None) or getattr(member, "name", f"user_{member.id}"),
             "speaker_id": str(member.id),
-            "timestamp": timestamp,
+            "timestamp": ended_at,
+            "speech_start_ts": started_at,
+            "speech_end_ts": ended_at,
             "audio_bytes": base64.b64encode(audio).decode("ascii"),
             "sr": SAMPLE_RATE,
             "sw": SAMPLE_WIDTH,

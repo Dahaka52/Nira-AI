@@ -50,6 +50,13 @@ class ChatMessage(Message):
         clean_msg = message.replace("\n", "")
         # Очищаем от любых псевдо-тегов прерывания, чтобы модель не заучивала их в контексте
         clean_msg = re.sub(r'\s*\[прервано[^\]]*\]', '...', clean_msg)
+        # Очищаем от мета-тегов REQUEST, чтобы они никогда не оседали в истории диалога
+        clean_msg = re.sub(r'\s*\([^)]*REQUEST[^)]*\)', '', clean_msg, flags=re.IGNORECASE)
+        clean_msg = re.sub(r'\s*\[[^\]]*REQUEST[^\]]*\]', '', clean_msg, flags=re.IGNORECASE)
+        clean_msg = re.sub(r'(?i)\bREQUEST:\s*.*$', '', clean_msg)
+        clean_msg = re.sub(r'[\s(\[{]+$', '', clean_msg).strip()
+        if not clean_msg:
+            clean_msg = "..."
         self.message = clean_msg
         self.time = time
         

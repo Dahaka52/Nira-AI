@@ -61,13 +61,21 @@ _RE_TTS_EMOJIS = re.compile(
 _RE_TTS_EMOTICONS = re.compile(r'(?i)(?:[:;=8][-o*]?[)DdpP/\\}\]|[({\[]|XD|xd|\^_\^|>_<|<3)')
 
 def clean_phrase_for_tts(text: str) -> str:
-    """Удаляет из текста для TTS эмодзи, смайлики, псевдо-теги в квадратных скобках и звездочки действий."""
+    """Удаляет из текста для TTS эмодзи, смайлики, псевдо-теги в квадратных скобках, звездочки и REQUEST-мусор."""
     if not text:
         return ""
+    # Отрезаем скобочные конструкции с REQUEST: (например (REQUEST: ВОЛЕЙБОЛ) или [REQUEST: ...])
+    text = re.sub(r'\s*\([^)]*REQUEST[^)]*\)', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'\s*\[[^\]]*REQUEST[^\]]*\]', '', text, flags=re.IGNORECASE)
+    # Отрезаем любые мета-инструкции REQUEST
+    if "REQUEST:" in text:
+        text = text.split("REQUEST:")[0]
     cleaned = _RE_TTS_BRACKETS.sub('', text)
     cleaned = _RE_TTS_ASTERISKS.sub('', cleaned)
     cleaned = _RE_TTS_EMOJIS.sub('', cleaned)
     cleaned = _RE_TTS_EMOTICONS.sub('', cleaned)
+    # Подчищаем висячие открывающие скобки в конце
+    cleaned = re.sub(r'[\s(\[{]+$', '', cleaned)
     cleaned = re.sub(r'[ \t]+', ' ', cleaned).strip()
     # Если не осталось ни одной буквы или цифры — фраза не содержит речи
     if not re.search(r'[a-zA-Zа-яА-Я0-9]', cleaned):
@@ -815,13 +823,22 @@ class JAIson(metaclass=Singleton):
                 "is_direct_question": is_direct_question,
             }
         else:
-            same_user = pending.get("user") == user
-            try:
-                gap_ms = max(0.0, (float(timestamp) - float(pending.get("last_timestamp", timestamp))) * 1000.0)
-            except Exception:
-                gap_ms = merge_window_ms + 1
+            same_user = pending.get("user") == user or (speaker_id and pending.get("speaker_id") == speaker_id)
+            
+            # 1. Проверяем аудио-паузу (интервал между окончанием предыдущего фрагмента и началом нового)
+            prev_end = float(pending.get("speech_end_ts") or pending.get("last_timestamp") or timestamp)
+            cur_start = float(speech_start_ts or timestamp)
+            audio_gap_ms = max(0.0, (cur_start - prev_end) * 1000.0)
+            
+            # 2. Проверяем системное время (сколько прошло с момента завершения STT предыдущего фрагмента)
+            last_stt_finish = float(pending.get("stt_finish_ts") or time.time())
+            wall_gap_ms = max(0.0, (time.time() - last_stt_finish) * 1000.0)
+            
+            # 3. Активен ли ещё таймер ответа Ниры (дебаунс тишины ещё не истёк, Нира молчит)
+            is_timer_active = (self._pending_voice_response_task is not None and not self._pending_voice_response_task.done())
+            within_merge_window = (audio_gap_ms <= merge_window_ms or wall_gap_ms <= merge_window_ms)
 
-            if same_user and gap_ms <= merge_window_ms:
+            if same_user and (within_merge_window or is_timer_active):
                 prev = str(pending.get("content", "")).strip()
                 cur = str(content).strip()
                 pending["content"] = (prev + " " + cur).strip() if prev else cur
@@ -848,6 +865,7 @@ class JAIson(metaclass=Singleton):
                 self._pending_voice_turn = {
                     "user": user,
                     "timestamp": timestamp,
+                    "speech_start_ts": speech_start_ts or timestamp,
                     "speech_end_ts": speech_end_ts or timestamp,
                     "last_timestamp": timestamp,
                     "content": content,
@@ -1432,6 +1450,20 @@ class JAIson(metaclass=Singleton):
                 
                 if chunk_content:
                     self._assistant_live_reply += chunk_content
+                
+                # Ранняя остановка при попытке вывода системных тегов REQUEST:
+                if "REQUEST:" in sentence_buffer or "REQUEST:" in chunk_content:
+                    logging.info("[LLM Early-Stop] Пресечена генерация тега 'REQUEST:', поток остановлен.")
+                    if "REQUEST:" in sentence_buffer:
+                        valid_tail = sentence_buffer.split("REQUEST:")[0].strip()
+                        sentence_buffer = ""
+                        if valid_tail:
+                            await tts_queue.put(valid_tail)
+                    if "REQUEST:" in t2t_result:
+                        t2t_result = t2t_result.split("REQUEST:")[0].strip()
+                    if "REQUEST:" in self._assistant_live_reply:
+                        self._assistant_live_reply = self._assistant_live_reply.split("REQUEST:")[0].strip()
+                    break
                 
                 token_count += len(chunk_content.split())
                 elapsed = time.time() - llm_req_start_ts
