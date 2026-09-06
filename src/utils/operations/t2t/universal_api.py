@@ -29,14 +29,23 @@ class UniversalApiT2T(T2TOperation):
         # Ищем ключ API (из конфига или переменных окружения)
         api_key = self.api_key
         if not api_key:
-            api_key = (
-                os.environ.get("OPENAI_API_KEY") or
-                os.environ.get("GEMINI_API_KEY") or
-                os.environ.get("GROQ_API_KEY") or
-                os.environ.get("OPENROUTER_API_KEY") or
-                os.environ.get("CEREBRAS_API_KEY") or
-                ""
-            )
+            if "groq.com" in self.base_url or "groq" in getattr(self, "id", ""):
+                api_key = os.environ.get("GROQ_API_KEY") or ""
+            elif "googleapis.com" in self.base_url or "google" in getattr(self, "id", ""):
+                api_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY") or ""
+            elif "openrouter.ai" in self.base_url:
+                api_key = os.environ.get("OPENROUTER_API_KEY") or ""
+            elif "cerebras" in self.base_url:
+                api_key = os.environ.get("CEREBRAS_API_KEY") or ""
+            else:
+                api_key = (
+                    os.environ.get("OPENAI_API_KEY") or
+                    os.environ.get("GEMINI_API_KEY") or
+                    os.environ.get("GROQ_API_KEY") or
+                    os.environ.get("OPENROUTER_API_KEY") or
+                    os.environ.get("CEREBRAS_API_KEY") or
+                    ""
+                )
             
         if not api_key and "api.openai.com" in self.base_url:
             logging.warning("API key is not set. OpenAI API requests will likely fail.")
