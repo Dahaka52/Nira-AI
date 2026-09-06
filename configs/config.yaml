@@ -141,8 +141,6 @@ operations:
     api_key: ""
     # base_url: "https://generativelanguage.googleapis.com/v1beta/openai/"
 
-
-
   # LlamaCPP — локальная LLM через llama-server (offline, RTX 5070)
   - role: t2t
     id: llamacpp

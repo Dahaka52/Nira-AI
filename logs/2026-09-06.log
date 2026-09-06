@@ -4851,3 +4851,82 @@ utils.config.UnknownField: Config field active_scene does not exist
 [2026-09-06 17:24:44,474] [ERROR] [speaker.py::150 _playback_worker]: SpeakerOutputFilter: Ошибка воспроизведения (underflow/overflow): Stream is stopped [PaErrorCode -9983]
 [2026-09-06 17:24:44,488] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.26979995891451836 ms
 [2026-09-06 17:24:44,488] [ERROR] [speaker.py::150 _playback_worker]: SpeakerOutputFilter: Ошибка воспроизведения (underflow/overflow): Stream is stopped [PaErrorCode -9983]
+[2026-09-06 17:30:10,506] [INFO ] [jaison.py::170 start]: Starting JAIson application layer.
+[2026-09-06 17:30:10,524] [INFO ] [manager.py::307 load_operations_from_config]: Active STT from config: gigaam_ru
+[2026-09-06 17:30:10,524] [INFO ] [manager.py::309 load_operations_from_config]: Active T2T from config: llamacpp
+[2026-09-06 17:30:11,779] [INFO ] [operation.py::32 start]: Starting STT operation gigaam_ru
+[2026-09-06 17:30:11,779] [INFO ] [gigaam.py::125 start]: Initializing GigaAM STT (sherpa-onnx NeMo CTC): model=C:\Nirmita\models\gigaam\gigaam_v3_e2e_ctc_int8.onnx, threads=4, provider=cpu, blank_penalty=0.0, hotwords=enabled
+[2026-09-06 17:30:12,611] [INFO ] [gigaam.py::164 start]: GigaAM STT initialized and warmed up successfully.
+[2026-09-06 17:30:12,613] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-09-06 17:30:12,613] [INFO ] [manager.py::26 load]: Loading process by type llamacpp
+[2026-09-06 17:30:12,619] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 38364) on port 9575 (GPU: 0)
+[2026-09-06 17:30:12,619] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:9575/health ...
+[2026-09-06 17:30:16,853] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 9575)
+[2026-09-06 17:30:16,872] [INFO ] [fishaudio.py::159 configure]: FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2026-09-06 17:30:16,872] [INFO ] [operation.py::32 start]: Starting TTS operation fish_audio
+[2026-09-06 17:30:16,872] [INFO ] [fishaudio.py::85 start]: FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2026-09-06 17:30:16,874] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-09-06 17:30:17,084] [INFO ] [speaker.py::98 configure]: SpeakerOutputFilter: настроен name=None, index=None, enabled=False, vol=1.0
+[2026-09-06 17:30:17,084] [INFO ] [operation.py::32 start]: Starting FILTER_AUDIO operation speaker
+[2026-09-06 17:30:17,084] [INFO ] [speaker.py::64 start]: SpeakerOutputFilter: операция запущена (вокер запущен)
+[2026-09-06 17:30:17,084] [INFO ] [speaker.py::34 set_enabled]: SpeakerOutputFilter: enabled set to True
+[2026-09-06 17:30:17,084] [INFO ] [manager.py::26 load]: Loading process by type hw_mic
+[2026-09-06 17:30:17,085] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-06 17:30:17,093] [INFO ] [manager.py::26 load]: Loading process by type discord
+[2026-09-06 17:30:17,093] [WARNI] [base.py::46 unload]: Attempted to unload process discord when it is already unloaded
+[2026-09-06 17:30:17,093] [INFO ] [discord.py::52 reload]: Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+[2026-09-06 17:30:17,098] [INFO ] [jaison.py::220 start]: JAIson application layer has started.
+[2026-09-06 17:30:20,860] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 17:30:21,424] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 17:30:22,191] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 17:30:29,819] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job d2025c90-dbd0-439b-a5b3-62c1af7394f2
+[2026-09-06 17:30:29,820] [INFO ] [jaison.py::548 create_job]: Queued new response job 5d2f90a8-24d7-49e1-8fd3-60615ccb96c7
+[2026-09-06 17:30:31,160] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-06 17:30:31,713] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 1891.6875999420881 ms
+[2026-09-06 17:30:32,204] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.6443001329898834 ms
+[2026-09-06 17:30:32,279] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.37059979513287544 ms
+[2026-09-06 17:30:32,398] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4580998793244362 ms
+[2026-09-06 17:30:32,620] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 17:30:32,676] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.267799874767661 ms
+[2026-09-06 17:30:33,551] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 3.0638999305665493 ms
+[2026-09-06 17:30:34,188] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 2.7459999546408653 ms
+[2026-09-06 17:30:34,191] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.05829986184835434 ms
+[2026-09-06 17:30:34,375] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3537.4451999086887 ms
+[2026-09-06 17:30:35,656] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5999000277370214 ms
+[2026-09-06 17:30:35,745] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4086000844836235 ms
+[2026-09-06 17:30:35,873] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4824001807719469 ms
+[2026-09-06 17:30:36,060] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.339899841696024 ms
+[2026-09-06 17:30:36,771] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 2.717300085350871 ms
+[2026-09-06 17:30:36,977] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.228800043463707 ms
+[2026-09-06 17:30:37,183] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2808.263000100851 ms
+[2026-09-06 17:30:38,542] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4135000053793192 ms
+[2026-09-06 17:30:38,692] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4274998791515827 ms
+[2026-09-06 17:30:38,758] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.493000028654933 ms
+[2026-09-06 17:30:38,909] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.025900011882186 ms
+[2026-09-06 17:30:39,090] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1906.7927000578493 ms
+[2026-09-06 17:30:39,091] [INFO ] [jaison.py::1669 response_pipeline]: Response job 5d2f90a8-24d7-49e1-8fd3-60615ccb96c7 completed. Content: 'Так вот, сижу я значит в своей комнате, смотрю на эти коробки с оборудованием, и думаю: "Вова что-то...'
+[2026-09-06 17:30:58,902] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job 3f64680f-cb69-49b4-9aea-4827703c32da
+[2026-09-06 17:30:58,902] [INFO ] [jaison.py::548 create_job]: Queued new response job 17235964-43e8-4ef3-9d62-6ed3ad617783
+[2026-09-06 17:31:00,244] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 1342.0909999404103 ms
+[2026-09-06 17:31:00,845] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.6077000871300697 ms
+[2026-09-06 17:31:01,147] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.3829000052064657 ms
+[2026-09-06 17:31:01,274] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4781000316143036 ms
+[2026-09-06 17:31:01,537] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.2196998577564955 ms
+[2026-09-06 17:31:01,611] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.29799994081258774 ms
+[2026-09-06 17:31:01,808] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2371.366900159046 ms
+[2026-09-06 17:31:03,073] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4124001134186983 ms
+[2026-09-06 17:31:03,159] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.38129999302327633 ms
+[2026-09-06 17:31:03,291] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5403000395745039 ms
+[2026-09-06 17:31:03,561] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.3130998704582453 ms
+[2026-09-06 17:31:03,927] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.19089987128973 ms
+[2026-09-06 17:31:04,108] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2299.4800000451505 ms
+[2026-09-06 17:31:05,506] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4827999509871006 ms
+[2026-09-06 17:31:05,582] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4240002017468214 ms
+[2026-09-06 17:31:05,691] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5468998569995165 ms
+[2026-09-06 17:31:05,877] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.294800080358982 ms
+[2026-09-06 17:31:06,608] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 3.0990000814199448 ms
+[2026-09-06 17:31:06,681] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.2741001080721617 ms
+[2026-09-06 17:31:06,873] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2764.9749000556767 ms
+[2026-09-06 17:31:06,874] [INFO ] [jaison.py::1669 response_pipeline]: Response job 17235964-43e8-4ef3-9d62-6ed3ad617783 completed. Content: 'О, прости, Папа, я не представилась. Я — Нира, цифровая девочка, которую создал Вова. Он дал мне жиз...'
+[2026-09-06 17:32:01,916] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-06 17:32:04,695] [INFO ] [app_server.py::86 ws]: Closed websocket connection
