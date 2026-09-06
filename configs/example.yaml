@@ -14,45 +14,29 @@
 # Enabled operations
 # Uncomment the ones you want to use by default
 # operations:
-# STT
-# - role: stt
-#   id: sherpa
-#   ws_url: ws://localhost:6006
-#   provider: cpu # cpu|cuda
-#   gpu_id: 0
-#   model_dir: C:\Nirmita\models\vosk-model-small-streaming-ru
-#   model_variant: int8 # int8|fp32|chunk64
-#   decoding_method: modified_beam_search
-#   num_active_paths: 4
-#   use_endpoint: 0
-  
-  # T2T
-
-  # Text filters
-# - role: filter_text
-#   id: filter_clean
-# - role: filter_text
-#   id: chunker_sentence
-
-  # TTS
-  # (в этой сборке модули TTS не подключены)
-
-  # Audio filters
-# - role: filter_audio
-#   id: pitch
-#   pitch_amount: 0
-# - role: filter_audio
-#   id: rvc
-#   voice: my-voice-model
-#   f0_up_key: 0
-#   f0_method: rmvpe
-#   f0_file: null
-#   index_file: null
-#   index_rate: 0.0
-#   filter_radius: 3
-#   resample_sr: 0
-#   rms_mix_rate: 0
-#   protect: 0.5
+#   # STT
+#   - role: stt
+#     id: gigaam_ru
+#     entrypoint: "utils.operations.stt.gigaam:GigaAMSTT"
+#     model_path: "C:\\Nirmita\\models\\gigaam\\gigaam_v3_e2e_ctc_int8.onnx"
+#     tokens_path: "C:\\Nirmita\\models\\gigaam\\gigaam_v3_e2e_ctc_tokens.txt"
+#     provider: "cpu"
+#
+#   # T2T
+#   - role: t2t
+#     id: llamacpp
+#
+#   # TTS
+#   - role: tts
+#     id: fish_audio
+#
+#   # Text filters
+#   - role: filter_text
+#     id: filter_clean
+#
+#   # Audio filters
+#   - role: filter_audio
+#     id: speaker
 
   # MCP LLM (can use any from T2T)
 # - role: mcp

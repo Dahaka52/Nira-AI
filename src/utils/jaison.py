@@ -2178,7 +2178,7 @@ class JAIson(metaclass=Singleton):
                 is_hallucination = True
 
         if is_hallucination:
-            logging.info("Whisper hallucination filtered: '%s'", content)
+            logging.info("STT hallucination filtered: '%s'", content)
             self._ensure_pending_voice_response_scheduled()
             return
         # ------------------------------------

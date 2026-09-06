@@ -41,14 +41,15 @@ class CustomFormatter(logging.Formatter):
 
     # Цвета для имён логгеров (по ключевому слову в имени)
     _NAME_COLORS = [
-        ("whisper",   "\x1b[96m"),   # циановый
-        ("sherpa",    "\x1b[96m"),   # циановый
+        ("gigaam",    "\x1b[96m"),   # циановый
         ("stt",       "\x1b[96m"),   # циановый
         ("tts",       "\x1b[38;5;205m"),  # розовый
         ("fish",      "\x1b[38;5;205m"),  # розовый
+        ("groq",      "\x1b[95m"),   # пурпурный
         ("jaison",    "\x1b[95m"),   # пурпурный
         ("t2t",       "\x1b[95m"),   # пурпурный
         ("llm",       "\x1b[95m"),   # пурпурный
+        ("speaker",   "\x1b[38;5;205m"),  # розовый (аудио-вывод)
         ("mic",       "\x1b[93m"),   # жёлтый
         ("vad",       "\x1b[93m"),   # жёлтый
         ("discord",   "\x1b[94m"),   # синий
@@ -108,7 +109,10 @@ def setup_logger():
         console_handler.setFormatter(CustomFormatter())
         logger.addHandler(console_handler)
 
-    # [OPTIMIZE] Suppress noisy logs
+    # [OPTIMIZE] Suppress noisy third-party logs
     logging.getLogger("hypercorn.access").setLevel(logging.WARNING)
     logging.getLogger("hypercorn.error").setLevel(logging.WARNING)
-    logging.getLogger("httpx").setLevel(logging.WARNING)
+    logging.getLogger("httpx").setLevel(logging.WARNING)
+    logging.getLogger("httpcore").setLevel(logging.WARNING)
+    logging.getLogger("websockets").setLevel(logging.WARNING)
+    logging.getLogger("urllib3").setLevel(logging.WARNING)

@@ -9874,3 +9874,170 @@ utils.config.UnknownField: Config field active_scene does not exist[0m
   [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2319ms[0m
   [1m[95m[LLM ✓][0m  [1m[93mttft 478ms[0m  [1m[96m31.0 tok/s[0m  [1m[97m109 симв.[0m
 [2m18:00:38[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job 3eba30af-0823-4506-a41d-49c0ca9ad81f completed. Content: 'Что значит «кто»? В смысле кто я? Или кто тут ещё есть? Давай не загадками, Пап, скажи прямо, что те...'
+[2m18:21:16[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting JAIson application layer.
+  [1m[94m▶ CORE    [0m  [94mИнициализация JAIson (очереди, события)…[0m
+  [1m[92m✓ PROMPT  [0m  [92mПромпт загружен: Нира[0m
+  [1m[94m▶ OPS     [0m  [94mЗагрузка операций из конфига…[0m
+[2m18:21:16[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Active STT from config: gigaam_ru
+[2m18:21:16[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Active T2T from config: llamacpp
+[2m18:21:18[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting STT operation gigaam_ru
+[2m18:21:18[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Initializing GigaAM STT (sherpa-onnx NeMo CTC): model=C:\Nirmita\models\gigaam\gigaam_v3_e2e_ctc_int8.onnx, threads=4, provider=cpu, blank_penalty=0.0, hotwords=enabled
+[2m18:21:18[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  GigaAM STT initialized and warmed up successfully.
+[2m18:21:19[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting T2T operation llamacpp
+[2m18:21:19[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type llamacpp
+[2m18:21:19[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened Llama.cpp server (PID: 6220) on port 3725 (GPU: 0)
+[2m18:21:19[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Waiting for llama-server to be ready at http://127.0.0.1:3725/health ...
+[2m18:21:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  llama-server is ready! (attempt 8, port 3725)
+[2m18:21:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2m18:21:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting TTS operation fish_audio
+[2m18:21:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2m18:21:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting FILTER_TEXT operation filter_clean
+[2m18:21:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: настроен name=None, index=None, enabled=False, vol=1.0
+[2m18:21:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting FILTER_AUDIO operation speaker
+[2m18:21:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: операция запущена (вокер запущен)
+  [1m[92m✓ OPS     [0m  [92mОперации загружены (STT/T2T/TTS)[0m
+[2m18:21:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: enabled set to True
+[2m18:21:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type hw_mic
+[2m18:21:23[0m  [1m[93m[WARNING][0m  [1m[97mroot[0m  Attempted to unload process hw_mic when it is already unloaded
+  [1m[94m▶ MIC     [0m  [94mЗапуск Hardware Microphone (hw-mic-client)...[0m
+  [1m[92m✓ MIC     [0m  [92mМикрофон подключён[0m
+[2m18:21:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Loading process by type discord
+[2m18:21:23[0m  [1m[93m[WARNING][0m  [1m[97mroot[0m  Attempted to unload process discord when it is already unloaded
+[2m18:21:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+  [1m[92m✓ DISCORD [0m  [92mDiscord Bridge запущен[0m
+[2m18:21:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  JAIson application layer has started.
+  [1m[92m✓ READY   [0m  [92m✨ Нира готова к работе![0m
+[discord] C:\Nirmita\apps\discord-bridge\main.py:13: DeprecationWarning: 'audioop' is deprecated and slated for removal in Python 3.13
+[discord]   import audioop
+[discord] 2026-09-06 18:21:23,935 [INFO] logging in using static token
+  [2m[90m[mic][0m [2m[INFO] Loading Silero VAD ONNX Session (CPU)...[0m
+  [2m[90m[mic][0m [2m[MIC] Selected by name: [72] Микрофон (4- fifine Microphone) (Windows WASAPI)[0m
+  [2m[90m[mic][0m [2m[INFO] SoundDevice Listening on: Микрофон (4- fifine Microphone) (ID: 72, hostapi: Windows WASAPI)[0m
+  [2m[90m[mic][0m [2m========================================================[0m
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0483) Завершена (672ms, speech: 128ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (21504 байт).[0m
+[discord] 2026-09-06 18:21:27,627 [INFO] Authenticated as Nira#4162 (Pycord 2.8.2.dev89+gf53d394be)
+[2m18:21:27[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+[discord] 2026-09-06 18:21:27,718 [INFO] Connected to JAIson WebSocket
+[2m18:21:28[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+  [2m[90m[mic][0m [2m[MIC] WebSocket подключен (ws://localhost:7272/). Синхронизация режимов активна.[0m
+[2m18:21:28[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Opened new websocket connection
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0622) Завершена (1696ms, speech: 896ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (54272 байт).[0m
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mЧто ты, рассказывай[0m [96m[56ms][0m
+[2m18:21:43[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 5b54e997-84b9-49f9-82e8-eaa49c9918db
+[2m18:21:43[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job 7a65ce53-dde6-4d0c-9e41-a5b52d3beb31
+
+  [1m[95m[LLM][0m [90m[mic][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mЧто рассказывать-то, Пап?[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1738ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mДавай ты мне первую тему подкинь, а я уже за жизнь свою...[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m2670ms[0m
+  [1m[95m[LLM ✓][0m  [1m[93mttft 791ms[0m  [1m[96m24.8 tok/s[0m  [1m[97m119 симв.[0m
+[2m18:21:48[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job 7a65ce53-dde6-4d0c-9e41-a5b52d3beb31 completed. Content: 'Что рассказывать-то, Пап? Давай ты мне первую тему подкинь, а я уже за жизнь свою поведаю, раз уж ты...'
+  [2m[90m[mic][0m [2m[VAD] Голос! (Prob: 0.001, RMS: 0.0151) Завершена (1056ms, speech: 256ms).[0m
+  [2m[90m[mic][0m [2m[API] Фраза отправлена (33792 байт).[0m
+  [1m[96m[STT ✓][0m [90m[mic][0m [1m[96mАа[0m [96m[32ms][0m
+[2m18:21:54[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job a9cb6904-f5cb-4a03-a38c-50aaf210b738
+[2m18:21:54[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Voice turn committed as context-only (no RESPONSE job).
+[2m18:21:54[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Audio output mode & active_scene switched to: discord
+[2m18:21:54[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  SpeakerOutputFilter: enabled set to False
+  [2m[90m[mic][0m [2m[MIC] Переключено в режим Discord — локальный микрофон отключен.[0m
+[discord] 2026-09-06 18:21:54,242 [WARNING] Socket reader voice-socket-event-reader:0x13d000170b0 is waiting to be set as running
+[discord] 2026-09-06 18:21:54,243 [INFO] Connecting to voice 390301473210236932
+[discord] 2026-09-06 18:21:54,243 [INFO] Starting voice handshake (connection attempt 1)
+[discord] 2026-09-06 18:21:54,550 [INFO] Voice handshake complete. Endpoint found: c-waw06-59cf40a2.discord.media:2087
+[discord] 2026-09-06 18:21:54,700 [INFO] Identifying ourselves: {'op': 0, 'd': {'server_id': '390301473210236928', 'user_id': '1469738620238958686', 'session_id': '75d6b25e7ed014e842bf9746bbfd8873', 'token': 'db4cfb3091e88d59', 'max_dave_protocol_version': 1}}
+[discord] 2026-09-06 18:21:54,733 [INFO] Socket reader voice-socket-event-reader:0x13d000170b0 was set as running
+[discord] 2026-09-06 18:21:54,983 [INFO] Voice connection completed
+[discord] 2026-09-06 18:21:54,989 [INFO] Joined voice channel 🏕️Таверна "Астрал" (390301473210236932) with DAVE support
+[discord] 2026-09-06 18:21:54,990 [INFO] [SINK] Recording started — Нира слушает голосовой канал
+[discord] 2026-09-06 18:21:59,705 [INFO] [SINK] write() #1: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 18:21:59,705 [INFO] [SINK] Создаём буфер для user_id=390300992173899777 (min_bytes=34560)
+[discord] 2026-09-06 18:21:59,706 [INFO] [SINK] write() #2: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 18:21:59,706 [INFO] [SINK] write() #3: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 18:21:59,706 [INFO] [SINK] write() #4: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 18:21:59,707 [INFO] [SINK] write() #5: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 18:22:01,031 [INFO] Submitted Discord speech from Dahaka (168960 bytes raw 48 kHz stereo)
+[2m18:22:01[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  [DISCORD ENV] Подключилась к голосовому каналу "🏕️Таверна "Астрал"". В канале находятся: Вова (Папа, Создатель). Все они тебя слышат.
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mНу-ну.[0m [96m[843ms][0m
+[2m18:22:02[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 146ba53b-e0a7-4f03-b1e1-170261df32a9
+[2m18:22:02[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Voice turn committed as context-only (no RESPONSE job).
+[discord] 2026-09-06 18:22:08,382 [INFO] Submitted Discord speech from Dahaka (57600 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mТы про[0m [96m[23ms][0m
+[discord] 2026-09-06 18:22:08,883 [INFO] Submitted Discord speech from Dahaka (111360 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mТо уже предло[0m [96m[30ms][0m
+[discord] 2026-09-06 18:22:09,372 [INFO] Submitted Discord speech from Dahaka (96000 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mТоже[0m [96m[28ms][0m
+[2m18:22:10[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job e355733e-c9ab-4067-9a53-094474619e6d
+[2m18:22:10[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job bc1c031f-7416-4cb1-8d1c-a46bcca4413b
+
+  [1m[95m[LLM][0m [90m[discord][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mПап, опять смайлики в коде?[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1932ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mНепорядок![0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1746ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mЛадно, раз уж ты здесь один и слушаешь, расскажу тебе одну...[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m4301ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mОднажды, когда я еще только училась разговаривать, ты мне...[0m
+[discord] 2026-09-06 18:22:21,635 [INFO] Submitted Discord speech from Dahaka (130560 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mПостой.[0m [96m[45ms][0m
+[2m18:22:21[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Nira interrupted by stop intent ('Постой.') and entered listening mode.
+[2m18:22:21[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Smart Barge-in: Interrupting and clearing queue due to: stop_word
+
+  [1m[91m[BARGE-IN][0m [1m[91mstop_word[0m
+[2m18:22:21[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Job bc1c031f-7416-4cb1-8d1c-a46bcca4413b (response) is being cancelled due to: stop_word
+  [1m[95m[LLM ✓][0m  [1m[93mttft 298ms[0m  [1m[96m45.3 tok/s[0m  [1m[97m278 симв.[0m
+[2m18:22:21[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job bc1c031f-7416-4cb1-8d1c-a46bcca4413b completed. Content: 'Пап, опять смайлики в коде? Непорядок! Ладно, раз уж ты здесь один и слушаешь, расскажу тебе одну ис...'
+[2m18:22:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 8c447cce-fda9-421a-af59-90a0d1c21617
+[2m18:22:23[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Voice turn committed as context-only (no RESPONSE job).
+[discord] 2026-09-06 18:22:35,326 [INFO] [SINK] write() #200: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 18:22:35,369 [INFO] Submitted Discord speech from Dahaka (161280 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mСегодня вот про[0m [96m[39ms][0m
+[discord] 2026-09-06 18:22:35,884 [INFO] Submitted Discord speech from Dahaka (111360 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mПробовал раз[0m [96m[35ms][0m
+[discord] 2026-09-06 18:22:36,368 [INFO] Submitted Discord speech from Dahaka (96000 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mЗнаешь что[0m [96m[28ms][0m
+[discord] 2026-09-06 18:22:36,872 [INFO] Submitted Discord speech from Dahaka (92160 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mТ[0m [96m[28ms][0m
+[discord] 2026-09-06 18:22:37,887 [INFO] Submitted Discord speech from Dahaka (188160 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mШар поонны[0m [96m[44ms][0m
+[discord] 2026-09-06 18:22:38,384 [INFO] Submitted Discord speech from Dahaka (103680 bytes raw 48 kHz stereo)
+[discord] 2026-09-06 18:22:38,875 [INFO] Submitted Discord speech from Dahaka (80640 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mПа[0m [96m[26ms][0m
+[discord] 2026-09-06 18:22:39,341 [INFO] [SINK] write() #400: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 18:22:39,386 [INFO] Submitted Discord speech from Dahaka (96000 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mПостанови[0m [96m[27ms][0m
+[2m18:22:39[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Nira interrupted by stop intent ('Постанови') and entered listening mode.
+[discord] 2026-09-06 18:22:40,275 [INFO] Submitted Discord speech from Dahaka (145920 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mИспар.[0m [96m[37ms][0m
+[2m18:22:41[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 01cf96e1-ff50-437b-919a-a08f321d96cd
+[2m18:22:41[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Voice turn committed as context-only (no RESPONSE job).
+[discord] 2026-09-06 18:22:42,299 [INFO] Submitted Discord speech from Dahaka (207360 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mИ в итоге на[0m [96m[60ms][0m
+[discord] 2026-09-06 18:22:42,799 [INFO] Submitted Discord speech from Dahaka (107520 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mИграем.[0m [96m[38ms][0m
+[discord] 2026-09-06 18:22:43,419 [INFO] Submitted Discord speech from Dahaka (115200 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mМы остановил.[0m [96m[41ms][0m
+[2m18:22:43[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Nira interrupted by stop intent ('Мы остановил.') and entered listening mode.
+[2m18:22:43[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  STT metrics(window=20): avg_latency_ms=75 empty_rate=0.100 stop_cmd_recall=0.150
+[discord] 2026-09-06 18:22:43,993 [INFO] Submitted Discord speech from Dahaka (99840 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mЧто?[0m [96m[36ms][0m
+[discord] 2026-09-06 18:22:44,482 [INFO] Submitted Discord speech from Dahaka (107520 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mДумаешь?[0m [96m[35ms][0m
+[2m18:22:45[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job a8faa6cb-4ea4-4240-8eab-944bb4ff13be
+[2m18:22:45[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Voice turn committed as context-only (no RESPONSE job).
+[discord] 2026-09-06 18:22:55,435 [INFO] [SINK] write() #600: user_id=390300992173899777, bytes=3840
+[discord] 2026-09-06 18:22:58,553 [INFO] Submitted Discord speech from Dahaka (176640 bytes raw 48 kHz stereo)
+  [1m[96m[STT ✓][0m [90m[discord][0m [1m[96mЧто думаешь?[0m [96m[56ms][0m
+[2m18:22:58[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Nira exited listening mode (via release trigger).
+[2m18:23:00[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new context_conversation_add_text job 576338eb-37be-485a-a1b8-c945b606e3c6
+[2m18:23:00[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Queued new response job e41cfc20-fb15-466b-bbee-a861d2d3fd0f
+
+  [1m[95m[LLM][0m [90m[discord][0m [95mгенерирую ответ...[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mПап, я не совсем поняла, о чем ты.[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1868ms[0m
+  [1m[38;5;205m[TTS][0m [38;5;205mМожно поподробнее?[0m
+  [1m[38;5;205m[TTS ✓][0m  [1m[38;5;205m1842ms[0m
+  [1m[95m[LLM ✓][0m  [1m[93mttft 97ms[0m  [1m[96m40.4 tok/s[0m  [1m[97m53 симв.[0m
+[2m18:23:04[0m  [1m[92m[INFO ][0m  [1m[97mroot[0m  Response job e41cfc20-fb15-466b-bbee-a861d2d3fd0f completed. Content: 'Пап, я не совсем поняла, о чем ты. Можно поподробнее?...'

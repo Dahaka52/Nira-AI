@@ -22,7 +22,7 @@ class Operation:
             # yield chunk_in | chunk_out
             yield chunk_out
         end_time = time.perf_counter()
-        logging.info("{} operation {} completed in {} ms".format(self.op_type, self.op_id, (end_time-start_time)*1000))
+        logging.debug("{} operation {} completed in {:.3f} ms".format(self.op_type, self.op_id, (end_time-start_time)*1000))
     
     
     ## TO BE OVERRIDEN ####

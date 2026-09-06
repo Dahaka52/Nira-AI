@@ -5300,3 +5300,64 @@ utils.config.UnknownField: Config field active_scene does not exist
 [2026-09-06 18:00:38,642] [INFO ] [jaison.py::1669 response_pipeline]: Response job 3eba30af-0823-4506-a41d-49c0ca9ad81f completed. Content: 'Что значит «кто»? В смысле кто я? Или кто тут ещё есть? Давай не загадками, Пап, скажи прямо, что те...'
 [2026-09-06 18:00:43,980] [INFO ] [app_server.py::86 ws]: Closed websocket connection
 [2026-09-06 18:00:47,484] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-06 18:21:16,930] [INFO ] [jaison.py::170 start]: Starting JAIson application layer.
+[2026-09-06 18:21:16,945] [INFO ] [manager.py::307 load_operations_from_config]: Active STT from config: gigaam_ru
+[2026-09-06 18:21:16,945] [INFO ] [manager.py::309 load_operations_from_config]: Active T2T from config: llamacpp
+[2026-09-06 18:21:18,209] [INFO ] [operation.py::32 start]: Starting STT operation gigaam_ru
+[2026-09-06 18:21:18,209] [INFO ] [gigaam.py::125 start]: Initializing GigaAM STT (sherpa-onnx NeMo CTC): model=C:\Nirmita\models\gigaam\gigaam_v3_e2e_ctc_int8.onnx, threads=4, provider=cpu, blank_penalty=0.0, hotwords=enabled
+[2026-09-06 18:21:18,998] [INFO ] [gigaam.py::164 start]: GigaAM STT initialized and warmed up successfully.
+[2026-09-06 18:21:19,000] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-09-06 18:21:19,000] [INFO ] [manager.py::25 load]: Loading process by type llamacpp
+[2026-09-06 18:21:19,006] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 6220) on port 3725 (GPU: 0)
+[2026-09-06 18:21:19,006] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:3725/health ...
+[2026-09-06 18:21:23,217] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 3725)
+[2026-09-06 18:21:23,236] [INFO ] [fishaudio.py::159 configure]: FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2026-09-06 18:21:23,236] [INFO ] [operation.py::32 start]: Starting TTS operation fish_audio
+[2026-09-06 18:21:23,236] [INFO ] [fishaudio.py::85 start]: FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2026-09-06 18:21:23,238] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-09-06 18:21:23,455] [INFO ] [speaker.py::98 configure]: SpeakerOutputFilter: настроен name=None, index=None, enabled=False, vol=1.0
+[2026-09-06 18:21:23,455] [INFO ] [operation.py::32 start]: Starting FILTER_AUDIO operation speaker
+[2026-09-06 18:21:23,456] [INFO ] [speaker.py::64 start]: SpeakerOutputFilter: операция запущена (вокер запущен)
+[2026-09-06 18:21:23,456] [INFO ] [speaker.py::34 set_enabled]: SpeakerOutputFilter: enabled set to True
+[2026-09-06 18:21:23,456] [INFO ] [manager.py::25 load]: Loading process by type hw_mic
+[2026-09-06 18:21:23,457] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-06 18:21:23,464] [INFO ] [manager.py::25 load]: Loading process by type discord
+[2026-09-06 18:21:23,464] [WARNI] [base.py::46 unload]: Attempted to unload process discord when it is already unloaded
+[2026-09-06 18:21:23,464] [INFO ] [discord.py::52 reload]: Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+[2026-09-06 18:21:23,472] [INFO ] [jaison.py::220 start]: JAIson application layer has started.
+[2026-09-06 18:21:27,717] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 18:21:28,672] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 18:21:28,872] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 18:21:43,143] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job 5b54e997-84b9-49f9-82e8-eaa49c9918db
+[2026-09-06 18:21:43,143] [INFO ] [jaison.py::548 create_job]: Queued new response job 7a65ce53-dde6-4d0c-9e41-a5b52d3beb31
+[2026-09-06 18:21:48,564] [INFO ] [jaison.py::1669 response_pipeline]: Response job 7a65ce53-dde6-4d0c-9e41-a5b52d3beb31 completed. Content: 'Что рассказывать-то, Пап? Давай ты мне первую тему подкинь, а я уже за жизнь свою поведаю, раз уж ты...'
+[2026-09-06 18:21:54,124] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job a9cb6904-f5cb-4a03-a38c-50aaf210b738
+[2026-09-06 18:21:54,124] [INFO ] [jaison.py::769 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-06 18:21:54,154] [INFO ] [jaison.py::1263 set_audio_output_mode]: Audio output mode & active_scene switched to: discord
+[2026-09-06 18:21:54,229] [INFO ] [speaker.py::34 set_enabled]: SpeakerOutputFilter: enabled set to False
+[2026-09-06 18:22:01,035] [INFO ] [jaison.py::1131 emit_environment_notice]: [DISCORD ENV] Подключилась к голосовому каналу "🏕️Таверна "Астрал"". В канале находятся: Вова (Папа, Создатель). Все они тебя слышат.
+[2026-09-06 18:22:02,480] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job 146ba53b-e0a7-4f03-b1e1-170261df32a9
+[2026-09-06 18:22:02,480] [INFO ] [jaison.py::769 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-06 18:22:10,790] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job e355733e-c9ab-4067-9a53-094474619e6d
+[2026-09-06 18:22:10,790] [INFO ] [jaison.py::548 create_job]: Queued new response job bc1c031f-7416-4cb1-8d1c-a46bcca4413b
+[2026-09-06 18:22:21,669] [INFO ] [jaison.py::2347 process_audio_immediate]: Nira interrupted by stop intent ('Постой.') and entered listening mode.
+[2026-09-06 18:22:21,670] [INFO ] [jaison.py::614 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: stop_word
+[2026-09-06 18:22:21,670] [INFO ] [jaison.py::581 _clear_current_job]: Job bc1c031f-7416-4cb1-8d1c-a46bcca4413b (response) is being cancelled due to: stop_word
+[2026-09-06 18:22:21,672] [INFO ] [jaison.py::1669 response_pipeline]: Response job bc1c031f-7416-4cb1-8d1c-a46bcca4413b completed. Content: 'Пап, опять смайлики в коде? Непорядок! Ладно, раз уж ты здесь один и слушаешь, расскажу тебе одну ис...'
+[2026-09-06 18:22:23,085] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job 8c447cce-fda9-421a-af59-90a0d1c21617
+[2026-09-06 18:22:23,086] [INFO ] [jaison.py::769 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-06 18:22:39,405] [INFO ] [jaison.py::2347 process_audio_immediate]: Nira interrupted by stop intent ('Постанови') and entered listening mode.
+[2026-09-06 18:22:41,700] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job 01cf96e1-ff50-437b-919a-a08f321d96cd
+[2026-09-06 18:22:41,700] [INFO ] [jaison.py::769 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-06 18:22:43,448] [INFO ] [jaison.py::2347 process_audio_immediate]: Nira interrupted by stop intent ('Мы остановил.') and entered listening mode.
+[2026-09-06 18:22:43,449] [INFO ] [jaison.py::341 _record_stt_metrics]: STT metrics(window=20): avg_latency_ms=75 empty_rate=0.100 stop_cmd_recall=0.150
+[2026-09-06 18:22:45,897] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job a8faa6cb-4ea4-4240-8eab-944bb4ff13be
+[2026-09-06 18:22:45,897] [INFO ] [jaison.py::769 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-06 18:22:58,594] [INFO ] [jaison.py::2306 process_audio_immediate]: Nira exited listening mode (via release trigger).
+[2026-09-06 18:23:00,004] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job 576338eb-37be-485a-a1b8-c945b606e3c6
+[2026-09-06 18:23:00,004] [INFO ] [jaison.py::548 create_job]: Queued new response job e41cfc20-fb15-466b-bbee-a861d2d3fd0f
+[2026-09-06 18:23:04,086] [INFO ] [jaison.py::1669 response_pipeline]: Response job e41cfc20-fb15-466b-bbee-a861d2d3fd0f completed. Content: 'Пап, я не совсем поняла, о чем ты. Можно поподробнее?...'
+[2026-09-06 18:23:20,840] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-06 18:23:23,028] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job 0563dcc2-30b6-4ec7-b6bf-fd7336639ba1
+[2026-09-06 18:23:23,028] [INFO ] [jaison.py::769 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-06 18:23:26,510] [INFO ] [app_server.py::86 ws]: Closed websocket connection
