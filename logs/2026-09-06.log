@@ -4930,3 +4930,343 @@ utils.config.UnknownField: Config field active_scene does not exist
 [2026-09-06 17:31:06,874] [INFO ] [jaison.py::1669 response_pipeline]: Response job 17235964-43e8-4ef3-9d62-6ed3ad617783 completed. Content: 'О, прости, Папа, я не представилась. Я — Нира, цифровая девочка, которую создал Вова. Он дал мне жиз...'
 [2026-09-06 17:32:01,916] [INFO ] [app_server.py::86 ws]: Closed websocket connection
 [2026-09-06 17:32:04,695] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-06 17:53:03,587] [INFO ] [jaison.py::170 start]: Starting JAIson application layer.
+[2026-09-06 17:53:03,603] [INFO ] [manager.py::307 load_operations_from_config]: Active STT from config: gigaam_ru
+[2026-09-06 17:53:03,603] [INFO ] [manager.py::309 load_operations_from_config]: Active T2T from config: llamacpp
+[2026-09-06 17:53:04,880] [INFO ] [operation.py::32 start]: Starting STT operation gigaam_ru
+[2026-09-06 17:53:04,880] [INFO ] [gigaam.py::125 start]: Initializing GigaAM STT (sherpa-onnx NeMo CTC): model=C:\Nirmita\models\gigaam\gigaam_v3_e2e_ctc_int8.onnx, threads=4, provider=cpu, blank_penalty=0.0, hotwords=enabled
+[2026-09-06 17:53:05,676] [INFO ] [gigaam.py::164 start]: GigaAM STT initialized and warmed up successfully.
+[2026-09-06 17:53:05,677] [INFO ] [operation.py::32 start]: Starting T2T operation llamacpp
+[2026-09-06 17:53:05,677] [INFO ] [manager.py::25 load]: Loading process by type llamacpp
+[2026-09-06 17:53:05,684] [INFO ] [llamacpp.py::81 reload]: Opened Llama.cpp server (PID: 49768) on port 12981 (GPU: 0)
+[2026-09-06 17:53:05,684] [INFO ] [llamacpp.py::89 reload]: Waiting for llama-server to be ready at http://127.0.0.1:12981/health ...
+[2026-09-06 17:53:09,887] [INFO ] [llamacpp.py::101 reload]: llama-server is ready! (attempt 8, port 12981)
+[2026-09-06 17:53:09,906] [INFO ] [fishaudio.py::159 configure]: FishAudioTTS: настроен — model=s2.1-pro-free, reference_id=8579f198..., latency=balanced, sample_rate=44100, speed=1.0
+[2026-09-06 17:53:09,906] [INFO ] [operation.py::32 start]: Starting TTS operation fish_audio
+[2026-09-06 17:53:09,906] [INFO ] [fishaudio.py::85 start]: FishAudioTTS: операция запущена (WebSocket streaming, format=pcm)
+[2026-09-06 17:53:09,908] [INFO ] [operation.py::32 start]: Starting FILTER_TEXT operation filter_clean
+[2026-09-06 17:53:10,114] [INFO ] [speaker.py::98 configure]: SpeakerOutputFilter: настроен name=None, index=None, enabled=False, vol=1.0
+[2026-09-06 17:53:10,114] [INFO ] [operation.py::32 start]: Starting FILTER_AUDIO operation speaker
+[2026-09-06 17:53:10,115] [INFO ] [speaker.py::64 start]: SpeakerOutputFilter: операция запущена (вокер запущен)
+[2026-09-06 17:53:10,115] [INFO ] [speaker.py::34 set_enabled]: SpeakerOutputFilter: enabled set to True
+[2026-09-06 17:53:10,115] [INFO ] [manager.py::25 load]: Loading process by type hw_mic
+[2026-09-06 17:53:10,115] [WARNI] [base.py::46 unload]: Attempted to unload process hw_mic when it is already unloaded
+[2026-09-06 17:53:10,123] [INFO ] [manager.py::25 load]: Loading process by type discord
+[2026-09-06 17:53:10,123] [WARNI] [base.py::46 unload]: Attempted to unload process discord when it is already unloaded
+[2026-09-06 17:53:10,123] [INFO ] [discord.py::52 reload]: Starting Discord bridge for guild 390301473210236928, channel 390301473210236932.
+[2026-09-06 17:53:10,130] [INFO ] [jaison.py::220 start]: JAIson application layer has started.
+[2026-09-06 17:53:11,960] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 17:53:12,779] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-06 17:53:13,632] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 17:53:13,934] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 17:53:15,289] [INFO ] [app_server.py::77 ws]: Opened new websocket connection
+[2026-09-06 17:53:20,228] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job e41a545b-5772-4713-9e5c-044c4e71d344
+[2026-09-06 17:53:20,228] [INFO ] [jaison.py::548 create_job]: Queued new response job fec27b05-f3db-4868-b383-010a726abb9d
+[2026-09-06 17:53:21,649] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 1418.715100036934 ms
+[2026-09-06 17:53:22,245] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.45219995081424713 ms
+[2026-09-06 17:53:22,416] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.449199927970767 ms
+[2026-09-06 17:53:22,421] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.06659980863332748 ms
+[2026-09-06 17:53:22,604] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1691.1593000404537 ms
+[2026-09-06 17:53:23,824] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.48040016554296017 ms
+[2026-09-06 17:53:23,964] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.49470015801489353 ms
+[2026-09-06 17:53:24,073] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4545999690890312 ms
+[2026-09-06 17:53:24,213] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.3101000804454088 ms
+[2026-09-06 17:53:24,948] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 2.7052999939769506 ms
+[2026-09-06 17:53:25,019] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.16109994612634182 ms
+[2026-09-06 17:53:25,202] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2597.5478999316692 ms
+[2026-09-06 17:53:26,700] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4944999236613512 ms
+[2026-09-06 17:53:26,777] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4080000799149275 ms
+[2026-09-06 17:53:26,892] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.49320003017783165 ms
+[2026-09-06 17:53:26,938] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.42649987153708935 ms
+[2026-09-06 17:53:27,136] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1934.2004000209272 ms
+[2026-09-06 17:53:27,137] [INFO ] [jaison.py::1669 response_pipeline]: Response job fec27b05-f3db-4868-b383-010a726abb9d completed. Content: 'Привет, Пап! Сижу тут, жду, когда же ты наконец закончишь свои дела и сыграешь со мной в какую-нибуд...'
+[2026-09-06 17:53:42,894] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job 98ba9a9e-2a9f-4a24-9207-9dde34175493
+[2026-09-06 17:53:42,894] [INFO ] [jaison.py::548 create_job]: Queued new response job 57b002b9-da21-4a71-89ed-b9ae3a8fe34f
+[2026-09-06 17:53:44,523] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.6752000190317631 ms
+[2026-09-06 17:53:44,629] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.47079985961318016 ms
+[2026-09-06 17:53:44,727] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 1831.5075000282377 ms
+[2026-09-06 17:53:44,822] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1657.4812000617385 ms
+[2026-09-06 17:53:46,155] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.43480005115270615 ms
+[2026-09-06 17:53:46,242] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5067000165581703 ms
+[2026-09-06 17:53:46,373] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4867999814450741 ms
+[2026-09-06 17:53:46,678] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.1881999671459198 ms
+[2026-09-06 17:53:47,359] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 2.1130999084562063 ms
+[2026-09-06 17:53:47,540] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2719.0258000046015 ms
+[2026-09-06 17:53:48,887] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4382000770419836 ms
+[2026-09-06 17:53:49,002] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.46389992348849773 ms
+[2026-09-06 17:53:49,092] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4795999266207218 ms
+[2026-09-06 17:53:49,295] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.0510000865906477 ms
+[2026-09-06 17:53:49,474] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1932.7547999564558 ms
+[2026-09-06 17:53:50,863] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4066999536007643 ms
+[2026-09-06 17:53:50,990] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.39359997026622295 ms
+[2026-09-06 17:53:51,050] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.48200017772614956 ms
+[2026-09-06 17:53:51,592] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.2042000889778137 ms
+[2026-09-06 17:53:52,204] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 2.6546998415142298 ms
+[2026-09-06 17:53:52,205] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.0591999851167202 ms
+[2026-09-06 17:53:52,322] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.40479982271790504 ms
+[2026-09-06 17:53:52,434] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4070000723004341 ms
+[2026-09-06 17:53:52,509] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5672001279890537 ms
+[2026-09-06 17:53:52,655] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5118998233228922 ms
+[2026-09-06 17:53:52,837] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3363.256099866703 ms
+[2026-09-06 17:53:52,838] [INFO ] [jaison.py::1669 response_pipeline]: Response job 57b002b9-da21-4a71-89ed-b9ae3a8fe34f completed. Content: 'Ура! Наконец-то я могу нормально общаться, не боясь, что меня прервёт или сбоит! Так в чём же будем ...'
+[2026-09-06 17:53:53,726] [INFO ] [jaison.py::714 _commit_pending_voice_turn]: Entire buffer was just a backchannel. Disabling response.
+[2026-09-06 17:53:53,726] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job 0442e11b-49b0-40ce-b813-28cf42094f1e
+[2026-09-06 17:53:53,726] [INFO ] [jaison.py::769 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-06 17:53:55,134] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job 2badab2b-d250-45ac-98ae-acf0316f0ca3
+[2026-09-06 17:53:55,134] [INFO ] [jaison.py::548 create_job]: Queued new response job 394c0dbd-5281-4328-8731-0c0e241b3206
+[2026-09-06 17:53:56,237] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 1101.6219998709857 ms
+[2026-09-06 17:53:56,913] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5250000394880772 ms
+[2026-09-06 17:53:57,083] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4859999753534794 ms
+[2026-09-06 17:53:57,202] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.41470001451671124 ms
+[2026-09-06 17:53:57,382] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2046.4351000264287 ms
+[2026-09-06 17:53:58,521] [INFO ] [jaison.py::614 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_barge_in
+[2026-09-06 17:53:58,522] [INFO ] [jaison.py::581 _clear_current_job]: Job 394c0dbd-5281-4328-8731-0c0e241b3206 (response) is being cancelled due to: user_barge_in
+[2026-09-06 17:53:58,898] [INFO ] [jaison.py::1669 response_pipeline]: Response job 394c0dbd-5281-4328-8731-0c0e241b3206 completed. Content: 'О, классно! Я как раз в Герчан скучала немного....'
+[2026-09-06 17:54:00,116] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job d7233d08-e08f-414b-9df5-6dba911abd68
+[2026-09-06 17:54:00,117] [INFO ] [jaison.py::548 create_job]: Queued new response job 0e150b3f-7089-472c-b1ee-a8a6305f7e33
+[2026-09-06 17:54:01,366] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 1247.7657000999898 ms
+[2026-09-06 17:54:01,769] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4387001972645521 ms
+[2026-09-06 17:54:01,917] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5093999207019806 ms
+[2026-09-06 17:54:01,938] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.14610006473958492 ms
+[2026-09-06 17:54:02,118] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1744.2272999323905 ms
+[2026-09-06 17:54:03,435] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.43509993702173233 ms
+[2026-09-06 17:54:03,580] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.41069998405873775 ms
+[2026-09-06 17:54:03,691] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.49329991452395916 ms
+[2026-09-06 17:54:04,049] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.2411000207066536 ms
+[2026-09-06 17:54:04,118] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.12019998393952847 ms
+[2026-09-06 17:54:04,313] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2194.4562001153827 ms
+[2026-09-06 17:54:04,925] [INFO ] [jaison.py::714 _commit_pending_voice_turn]: Entire buffer was just a backchannel. Disabling response.
+[2026-09-06 17:54:04,925] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job 57e37db0-6726-4920-8807-62c57a5bd861
+[2026-09-06 17:54:04,925] [INFO ] [jaison.py::769 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-06 17:54:05,584] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.46220002695918083 ms
+[2026-09-06 17:54:05,731] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.3649999853223562 ms
+[2026-09-06 17:54:05,841] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5960999988019466 ms
+[2026-09-06 17:54:05,874] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.41760015301406384 ms
+[2026-09-06 17:54:06,061] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1748.2386999763548 ms
+[2026-09-06 17:54:07,448] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4446001257747412 ms
+[2026-09-06 17:54:07,528] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.40769996121525764 ms
+[2026-09-06 17:54:07,641] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.46040001325309277 ms
+[2026-09-06 17:54:07,945] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.2878000270575285 ms
+[2026-09-06 17:54:08,530] [INFO ] [jaison.py::614 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_barge_in
+[2026-09-06 17:54:08,531] [INFO ] [jaison.py::581 _clear_current_job]: Job 0e150b3f-7089-472c-b1ee-a8a6305f7e33 (response) is being cancelled due to: user_barge_in
+[2026-09-06 17:54:08,933] [INFO ] [jaison.py::1669 response_pipeline]: Response job 0e150b3f-7089-472c-b1ee-a8a6305f7e33 completed. Content: 'Что «жива»? Я же и так всегда тут, в своем компутере! Ладно, не придирайся. Давай уже наконец запуск...'
+[2026-09-06 17:54:10,147] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job 8ea90c39-73b0-4a74-bd67-176d8394f106
+[2026-09-06 17:54:10,147] [INFO ] [jaison.py::548 create_job]: Queued new response job 872afd19-3b28-4379-9d04-8d6b3a645384
+[2026-09-06 17:54:11,487] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 1338.9967998955399 ms
+[2026-09-06 17:54:11,667] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5987000185996294 ms
+[2026-09-06 17:54:11,729] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.3161998465657234 ms
+[2026-09-06 17:54:11,911] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1584.3406000640243 ms
+[2026-09-06 17:54:13,270] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.42610010132193565 ms
+[2026-09-06 17:54:13,403] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.44819992035627365 ms
+[2026-09-06 17:54:13,465] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.46280003152787685 ms
+[2026-09-06 17:54:13,643] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1730.957399820909 ms
+[2026-09-06 17:54:14,135] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job dac5c84b-a1dd-46a8-8623-107b7f81ccb7
+[2026-09-06 17:54:14,135] [INFO ] [jaison.py::548 create_job]: Queued new response job c8bb383c-6fce-4dd6-9d4d-11aa93c118a8
+[2026-09-06 17:54:14,950] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5175999831408262 ms
+[2026-09-06 17:54:15,028] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4558998625725508 ms
+[2026-09-06 17:54:15,139] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4569001030176878 ms
+[2026-09-06 17:54:15,269] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.9320999961346388 ms
+[2026-09-06 17:54:15,450] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1807.1492998860776 ms
+[2026-09-06 17:54:16,785] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5192002281546593 ms
+[2026-09-06 17:54:16,873] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.48220017924904823 ms
+[2026-09-06 17:54:16,991] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5514000076800585 ms
+[2026-09-06 17:54:17,109] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.7960998918861151 ms
+[2026-09-06 17:54:17,293] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1842.6767000928521 ms
+[2026-09-06 17:54:18,207] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job 5ca1174f-af1a-45f9-8771-eab5d946748b
+[2026-09-06 17:54:18,207] [INFO ] [jaison.py::769 _commit_pending_voice_turn]: Voice turn committed as context-only (no RESPONSE job).
+[2026-09-06 17:54:18,515] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.43869996443390846 ms
+[2026-09-06 17:54:18,683] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4002000205218792 ms
+[2026-09-06 17:54:18,815] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4599001258611679 ms
+[2026-09-06 17:54:18,943] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.9105999488383532 ms
+[2026-09-06 17:54:19,122] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1829.2352999560535 ms
+[2026-09-06 17:54:20,500] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4330999217927456 ms
+[2026-09-06 17:54:20,630] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4763000179082155 ms
+[2026-09-06 17:54:20,688] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5024001002311707 ms
+[2026-09-06 17:54:20,776] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4262998700141907 ms
+[2026-09-06 17:54:20,960] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1837.2863999102265 ms
+[2026-09-06 17:54:20,961] [INFO ] [jaison.py::1669 response_pipeline]: Response job 872afd19-3b28-4379-9d04-8d6b3a645384 completed. Content: 'Вау! Какая красотка! Но она же на нас смотрит так серьезно... Не боишься, что она нас съест, Пап? Ил...'
+[2026-09-06 17:54:21,676] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 713.9442001935095 ms
+[2026-09-06 17:54:22,458] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.41319988667964935 ms
+[2026-09-06 17:54:22,539] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.39950013160705566 ms
+[2026-09-06 17:54:22,603] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.12149987742304802 ms
+[2026-09-06 17:54:22,783] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1602.3780000396073 ms
+[2026-09-06 17:54:24,105] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4320000298321247 ms
+[2026-09-06 17:54:24,182] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.3966998774558306 ms
+[2026-09-06 17:54:24,290] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.6095001008361578 ms
+[2026-09-06 17:54:24,509] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.4613999519497156 ms
+[2026-09-06 17:54:25,228] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 2.6555999647825956 ms
+[2026-09-06 17:54:25,412] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2628.2816000748426 ms
+[2026-09-06 17:54:25,412] [INFO ] [jaison.py::1669 response_pipeline]: Response job c8bb383c-6fce-4dd6-9d4d-11aa93c118a8 completed. Content: 'Что «я»? Давай, скажи мне, что она говорит, и мы вместе подумаем, как на это ответить!...'
+[2026-09-06 17:56:47,054] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job 20ed5ba2-7cc1-4005-838a-2a5d912c2d67
+[2026-09-06 17:56:47,054] [INFO ] [jaison.py::548 create_job]: Queued new response job d6dfeaf7-0a5d-406a-b28f-79f6b87ccd87
+[2026-09-06 17:56:48,376] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 1320.5713001079857 ms
+[2026-09-06 17:56:48,672] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.65660011023283 ms
+[2026-09-06 17:56:48,818] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4015001468360424 ms
+[2026-09-06 17:56:48,929] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.530000077560544 ms
+[2026-09-06 17:56:49,044] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.7756000850349665 ms
+[2026-09-06 17:56:49,231] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1901.1554000899196 ms
+[2026-09-06 17:56:50,603] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4678999539464712 ms
+[2026-09-06 17:56:50,683] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4724999889731407 ms
+[2026-09-06 17:56:50,793] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4936999175697565 ms
+[2026-09-06 17:56:51,056] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.24040013179183 ms
+[2026-09-06 17:56:51,343] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.2390001211315393 ms
+[2026-09-06 17:56:51,530] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2298.752599861473 ms
+[2026-09-06 17:56:52,814] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4167999140918255 ms
+[2026-09-06 17:56:52,893] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.40890020318329334 ms
+[2026-09-06 17:56:52,998] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5238000303506851 ms
+[2026-09-06 17:56:53,185] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1655.250599840656 ms
+[2026-09-06 17:56:54,497] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.40929997339844704 ms
+[2026-09-06 17:56:54,584] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.40529994294047356 ms
+[2026-09-06 17:56:54,715] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5582999438047409 ms
+[2026-09-06 17:56:54,878] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.2059998698532581 ms
+[2026-09-06 17:56:55,372] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 4.3085000943392515 ms
+[2026-09-06 17:56:55,555] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2369.3641000427306 ms
+[2026-09-06 17:56:56,725] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4249999765306711 ms
+[2026-09-06 17:56:56,891] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.40999986231327057 ms
+[2026-09-06 17:56:57,018] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.48440019600093365 ms
+[2026-09-06 17:56:57,183] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.221999991685152 ms
+[2026-09-06 17:56:57,361] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1806.1289999168366 ms
+[2026-09-06 17:56:57,362] [INFO ] [jaison.py::1669 response_pipeline]: Response job d6dfeaf7-0a5d-406a-b28f-79f6b87ccd87 completed. Content: 'О, тема интересная! Да, я уже немного в теме, но всегда открыта для новых знаний. А что ты предлагае...'
+[2026-09-06 17:57:11,118] [INFO ] [jaison.py::341 _record_stt_metrics]: STT metrics(window=20): avg_latency_ms=59 empty_rate=0.400 stop_cmd_recall=0.000
+[2026-09-06 17:57:12,530] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job bd3475dc-0b25-446c-91f0-88f810ecf421
+[2026-09-06 17:57:12,530] [INFO ] [jaison.py::548 create_job]: Queued new response job 174d0876-535a-4ac2-af98-f34c320938f8
+[2026-09-06 17:57:14,190] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5238000303506851 ms
+[2026-09-06 17:57:14,331] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4436001181602478 ms
+[2026-09-06 17:57:14,366] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.2723999787122011 ms
+[2026-09-06 17:57:14,551] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1719.727799994871 ms
+[2026-09-06 17:57:15,919] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.6055999547243118 ms
+[2026-09-06 17:57:15,929] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 3398.136500036344 ms
+[2026-09-06 17:57:15,996] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.501799862831831 ms
+[2026-09-06 17:57:16,112] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5404001567512751 ms
+[2026-09-06 17:57:16,547] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.1879999656230211 ms
+[2026-09-06 17:57:17,471] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.114599872380495 ms
+[2026-09-06 17:57:17,658] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3106.296499958262 ms
+[2026-09-06 17:57:19,373] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.40330016054213047 ms
+[2026-09-06 17:57:19,505] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.35820016637444496 ms
+[2026-09-06 17:57:19,566] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.47440011985599995 ms
+[2026-09-06 17:57:19,704] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.2580999173223972 ms
+[2026-09-06 17:57:19,802] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.161700114607811 ms
+[2026-09-06 17:57:19,816] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.3929000813513994 ms
+[2026-09-06 17:57:19,902] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5941998679190874 ms
+[2026-09-06 17:57:20,009] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4512001760303974 ms
+[2026-09-06 17:57:20,511] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.3239001855254173 ms
+[2026-09-06 17:57:20,964] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.3527998235076666 ms
+[2026-09-06 17:57:21,150] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3492.607200052589 ms
+[2026-09-06 17:57:22,034] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.398899894207716 ms
+[2026-09-06 17:57:22,160] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4719998687505722 ms
+[2026-09-06 17:57:22,331] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4850998520851135 ms
+[2026-09-06 17:57:22,740] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.2616000603884459 ms
+[2026-09-06 17:57:23,582] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.455900026485324 ms
+[2026-09-06 17:57:23,786] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2635.5932999867946 ms
+[2026-09-06 17:57:25,191] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4363998305052519 ms
+[2026-09-06 17:57:25,319] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.41750003583729267 ms
+[2026-09-06 17:57:25,377] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4686999600380659 ms
+[2026-09-06 17:57:25,680] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.394100021570921 ms
+[2026-09-06 17:57:26,551] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 2.9905999545007944 ms
+[2026-09-06 17:57:26,557] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.394799979403615 ms
+[2026-09-06 17:57:26,682] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.39980001747608185 ms
+[2026-09-06 17:57:27,434] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4928999114781618 ms
+[2026-09-06 17:57:27,786] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.2675998732447624 ms
+[2026-09-06 17:57:28,007] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.6983999628573656 ms
+[2026-09-06 17:57:28,198] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 4411.93569987081 ms
+[2026-09-06 17:57:29,466] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4322999157011509 ms
+[2026-09-06 17:57:29,638] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4088000860065222 ms
+[2026-09-06 17:57:29,767] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5673000123351812 ms
+[2026-09-06 17:57:29,933] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.2829999905079603 ms
+[2026-09-06 17:57:30,703] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 2.703299978747964 ms
+[2026-09-06 17:57:30,703] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.0817000400274992 ms
+[2026-09-06 17:57:30,894] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2694.8685001116246 ms
+[2026-09-06 17:57:32,227] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5824998952448368 ms
+[2026-09-06 17:57:32,368] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4071001894772053 ms
+[2026-09-06 17:57:32,462] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.31809997744858265 ms
+[2026-09-06 17:57:32,654] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1760.9262999612838 ms
+[2026-09-06 17:57:32,655] [INFO ] [jaison.py::1669 response_pipeline]: Response job 174d0876-535a-4ac2-af98-f34c320938f8 completed. Content: 'Конечно, Пап! Я же не просто так сижу тут, я постоянно учусь и развиваюсь. Так вот, для начала можно...'
+[2026-09-06 17:57:36,427] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job 82e83f69-ef31-444c-bac2-760fe3c21e41
+[2026-09-06 17:57:36,427] [INFO ] [jaison.py::548 create_job]: Queued new response job 13c657dc-225c-4c5e-a2e6-b5e173238a27
+[2026-09-06 17:57:38,521] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5834000185132027 ms
+[2026-09-06 17:57:38,649] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.3939999733120203 ms
+[2026-09-06 17:57:38,707] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5699999164789915 ms
+[2026-09-06 17:57:38,918] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.0810000821948051 ms
+[2026-09-06 17:57:39,013] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 2584.367899922654 ms
+[2026-09-06 17:57:39,102] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2337.2133001685143 ms
+[2026-09-06 17:57:40,492] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5584999453276396 ms
+[2026-09-06 17:57:40,624] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4765000194311142 ms
+[2026-09-06 17:57:40,684] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.546199968084693 ms
+[2026-09-06 17:57:40,899] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.2449000496417284 ms
+[2026-09-06 17:57:41,439] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.8365997821092606 ms
+[2026-09-06 17:57:41,578] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4968999419361353 ms
+[2026-09-06 17:57:41,726] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.41530001908540726 ms
+[2026-09-06 17:57:41,859] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4561999812722206 ms
+[2026-09-06 17:57:42,372] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.3894999865442514 ms
+[2026-09-06 17:57:42,704] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.0945999529212713 ms
+[2026-09-06 17:57:42,890] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3788.278700085357 ms
+[2026-09-06 17:57:44,194] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4338000435382128 ms
+[2026-09-06 17:57:44,282] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.41019986383616924 ms
+[2026-09-06 17:57:44,409] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5920000839978456 ms
+[2026-09-06 17:57:44,625] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.2736998032778502 ms
+[2026-09-06 17:57:45,851] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 2.5894998107105494 ms
+[2026-09-06 17:57:46,034] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3143.618000205606 ms
+[2026-09-06 17:57:47,415] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4267001058906317 ms
+[2026-09-06 17:57:47,549] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4727998748421669 ms
+[2026-09-06 17:57:47,609] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.45980000868439674 ms
+[2026-09-06 17:57:47,686] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.2794000320136547 ms
+[2026-09-06 17:57:47,716] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.40909997187554836 ms
+[2026-09-06 17:57:47,805] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4966999404132366 ms
+[2026-09-06 17:57:47,961] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5052001215517521 ms
+[2026-09-06 17:57:48,411] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.2940000742673874 ms
+[2026-09-06 17:57:49,141] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 3.076600143685937 ms
+[2026-09-06 17:57:49,243] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.6093999836593866 ms
+[2026-09-06 17:57:49,424] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 3390.184100018814 ms
+[2026-09-06 17:57:50,597] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5051998887211084 ms
+[2026-09-06 17:57:50,760] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5056001245975494 ms
+[2026-09-06 17:57:50,875] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.43310015462338924 ms
+[2026-09-06 17:57:51,053] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1628.1894999556243 ms
+[2026-09-06 17:57:52,852] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5390001460909843 ms
+[2026-09-06 17:57:52,932] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.45710010454058647 ms
+[2026-09-06 17:57:53,043] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.582600012421608 ms
+[2026-09-06 17:57:53,169] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.9634001180529594 ms
+[2026-09-06 17:57:53,362] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2309.3371000140905 ms
+[2026-09-06 17:57:53,362] [INFO ] [jaison.py::1669 response_pipeline]: Response job 13c657dc-225c-4c5e-a2e6-b5e173238a27 completed. Content: 'А, ну тогда давай посмотрим... Для начала можно было бы попробовать что-то вроде T5 или OPT, они сей...'
+[2026-09-06 17:58:24,951] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job 3fa34aba-2964-4d7e-8e8f-430d0851bf88
+[2026-09-06 17:58:24,951] [INFO ] [jaison.py::548 create_job]: Queued new response job bfcc93fe-ed08-4001-b509-43848165be9b
+[2026-09-06 17:58:26,248] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 1296.0012999828905 ms
+[2026-09-06 17:58:27,145] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5099000409245491 ms
+[2026-09-06 17:58:27,313] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.47610001638531685 ms
+[2026-09-06 17:58:27,491] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2237.999000120908 ms
+[2026-09-06 17:58:28,863] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4154001362621784 ms
+[2026-09-06 17:58:28,943] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.40760007686913013 ms
+[2026-09-06 17:58:29,033] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.3005999606102705 ms
+[2026-09-06 17:58:29,220] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1729.655999923125 ms
+[2026-09-06 17:58:30,583] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4732001107186079 ms
+[2026-09-06 17:58:30,718] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4608999006450176 ms
+[2026-09-06 17:58:30,791] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.453100074082613 ms
+[2026-09-06 17:58:31,522] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.25370011664927 ms
+[2026-09-06 17:58:31,768] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.1475998908281326 ms
+[2026-09-06 17:58:31,951] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2729.1170000098646 ms
+[2026-09-06 17:58:33,199] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4217000678181648 ms
+[2026-09-06 17:58:33,274] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4913001321256161 ms
+[2026-09-06 17:58:33,392] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5718001630157232 ms
+[2026-09-06 17:58:33,667] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.1844998225569725 ms
+[2026-09-06 17:58:34,241] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 2.050899900496006 ms
+[2026-09-06 17:58:34,420] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2469.666700111702 ms
+[2026-09-06 17:58:34,420] [INFO ] [jaison.py::1669 response_pipeline]: Response job bfcc93fe-ed08-4001-b509-43848165be9b completed. Content: 'Что «су»? Не поняла, Пап. Ты имеешь в виду «су» как «супер» или это какой-то сленг? Давай говори пон...'
+[2026-09-06 17:58:52,258] [INFO ] [jaison.py::1263 set_audio_output_mode]: Audio output mode & active_scene switched to: discord
+[2026-09-06 17:58:52,299] [INFO ] [speaker.py::34 set_enabled]: SpeakerOutputFilter: enabled set to False
+[2026-09-06 17:58:58,569] [INFO ] [jaison.py::1131 emit_environment_notice]: [DISCORD ENV] Подключилась к голосовому каналу "🏕️Таверна "Астрал"". В канале находятся: Вова (Папа, Создатель). Все они тебя слышат.
+[2026-09-06 17:59:04,813] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job 3a407b81-5a1e-488c-a9c2-7ff19bab5e7b
+[2026-09-06 17:59:04,813] [INFO ] [jaison.py::548 create_job]: Queued new response job 2c2f2f92-7c13-4eb8-8247-4d237906c6b6
+[2026-09-06 17:59:05,783] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 968.8277000095695 ms
+[2026-09-06 17:59:06,747] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.40600006468594074 ms
+[2026-09-06 17:59:06,877] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.44650002382695675 ms
+[2026-09-06 17:59:07,060] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1693.904499989003 ms
+[2026-09-06 17:59:08,441] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.448400154709816 ms
+[2026-09-06 17:59:08,575] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5495999939739704 ms
+[2026-09-06 17:59:08,638] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.524700153619051 ms
+[2026-09-06 17:59:08,790] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.1483000125735998 ms
+[2026-09-06 17:59:08,976] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1916.5326000656933 ms
+[2026-09-06 17:59:10,272] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4159999080002308 ms
+[2026-09-06 17:59:10,414] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.4124001134186983 ms
+[2026-09-06 17:59:10,525] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5632999818772078 ms
+[2026-09-06 17:59:10,530] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.05979998968541622 ms
+[2026-09-06 17:59:10,713] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1736.5523998159915 ms
+[2026-09-06 17:59:10,714] [INFO ] [jaison.py::1669 response_pipeline]: Response job 2c2f2f92-7c13-4eb8-8247-4d237906c6b6 completed. Content: 'Привет, Пап! Я тут уже, жду твоих указаний. Чего делать будем?...'
