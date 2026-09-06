@@ -5270,3 +5270,33 @@ utils.config.UnknownField: Config field active_scene does not exist
 [2026-09-06 17:59:10,530] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.05979998968541622 ms
 [2026-09-06 17:59:10,713] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1736.5523998159915 ms
 [2026-09-06 17:59:10,714] [INFO ] [jaison.py::1669 response_pipeline]: Response job 2c2f2f92-7c13-4eb8-8247-4d237906c6b6 completed. Content: 'Привет, Пап! Я тут уже, жду твоих указаний. Чего делать будем?...'
+[2026-09-06 18:00:27,248] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job 27b5da44-d066-4091-a563-4967e731ef9c
+[2026-09-06 18:00:27,249] [INFO ] [jaison.py::548 create_job]: Queued new response job 53167aab-5316-4276-9ac2-65480eee7937
+[2026-09-06 18:00:28,096] [INFO ] [jaison.py::614 _interrupt_jobs]: Smart Barge-in: Interrupting and clearing queue due to: user_barge_in
+[2026-09-06 18:00:28,096] [INFO ] [jaison.py::581 _clear_current_job]: Job 53167aab-5316-4276-9ac2-65480eee7937 (response) is being cancelled due to: user_barge_in
+[2026-09-06 18:00:28,305] [INFO ] [jaison.py::1007 _process_job_loop]: Job 53167aab-5316-4276-9ac2-65480eee7937 (response) was cancelled.
+[2026-09-06 18:00:29,503] [INFO ] [jaison.py::548 create_job]: Queued new context_conversation_add_text job b31db51a-b9de-4d51-b0fd-d83afb68bb9e
+[2026-09-06 18:00:29,503] [INFO ] [jaison.py::548 create_job]: Queued new response job 3eba30af-0823-4506-a41d-49c0ca9ad81f
+[2026-09-06 18:00:30,754] [INFO ] [operation.py::25 __call__]: T2T operation llamacpp completed in 1249.2428999394178 ms
+[2026-09-06 18:00:31,388] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.40829996578395367 ms
+[2026-09-06 18:00:31,555] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.49390015192329884 ms
+[2026-09-06 18:00:31,683] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5791999865323305 ms
+[2026-09-06 18:00:31,862] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1715.0768998544663 ms
+[2026-09-06 18:00:34,202] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.40200003422796726 ms
+[2026-09-06 18:00:34,331] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.3923999611288309 ms
+[2026-09-06 18:00:34,383] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.453100074082613 ms
+[2026-09-06 18:00:34,560] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2697.6046999916434 ms
+[2026-09-06 18:00:35,857] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.49809995107352734 ms
+[2026-09-06 18:00:35,997] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.42140018194913864 ms
+[2026-09-06 18:00:36,106] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5239001475274563 ms
+[2026-09-06 18:00:36,132] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.2756998874247074 ms
+[2026-09-06 18:00:36,322] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 1762.0626001153141 ms
+[2026-09-06 18:00:37,605] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.41200011037290096 ms
+[2026-09-06 18:00:37,684] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.43160002678632736 ms
+[2026-09-06 18:00:37,797] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 0.5031998734921217 ms
+[2026-09-06 18:00:38,338] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.1801999062299728 ms
+[2026-09-06 18:00:38,460] [INFO ] [operation.py::25 __call__]: FILTER_AUDIO operation speaker completed in 1.298299990594387 ms
+[2026-09-06 18:00:38,642] [INFO ] [operation.py::25 __call__]: TTS operation fish_audio completed in 2319.009599974379 ms
+[2026-09-06 18:00:38,642] [INFO ] [jaison.py::1669 response_pipeline]: Response job 3eba30af-0823-4506-a41d-49c0ca9ad81f completed. Content: 'Что значит «кто»? В смысле кто я? Или кто тут ещё есть? Давай не загадками, Пап, скажи прямо, что те...'
+[2026-09-06 18:00:43,980] [INFO ] [app_server.py::86 ws]: Closed websocket connection
+[2026-09-06 18:00:47,484] [INFO ] [app_server.py::86 ws]: Closed websocket connection
