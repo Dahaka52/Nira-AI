@@ -13,7 +13,7 @@ known_users:
   # "discord_user_id": "Alex"
 
 # [Barge-in Rework] Буферизация и фильтрация STT
-stt_buffer_timeout_ms: 800          # Ждать 800мс тишины перед отправкой реплики в LLM
+stt_buffer_timeout_ms: 1400         # Ждать 1400мс тишины перед отправкой реплики в LLM (защита от перебивания на паузах)
 stt_filter_mode: "algorithm"        # "algorithm" или "llm" (если "llm", потребуется модуль stt_summarizer)
 stt_stop_words: ["стоп", "подожди", "хватит", "замолчи", "тихо", "молчи", "выключи", "помолчи", "остановись", "стой"]
 stt_listen_triggers: ["послушай", "послушай меня", "дай я расскажу", "хочу рассказать", "сейчас расскажу", "слушай"]
@@ -29,7 +29,7 @@ t2t_strict_active_id: true          # Падать при старте если 
 # 2. ГЛОБАЛЬНЫЕ ПАРАМЕТРЫ ГЕНЕРАЦИИ ТЕКСТА (применяются ко всем T2T модулям)
 # -----------------------------------------------------------------------------
 t2t:
-  max_length: 1000
+  max_length: 800                    # Достаточный объем для историй, эмоциональной речи и развернутых мыслей
   temperature: 0.7
   top_p: 0.95
   top_k: 40
@@ -200,16 +200,16 @@ microphone:
   soft_limit: 0.97               # Лимитер от клиппинга
 
   # Слияние и debounce
-  voice_merge_window_ms: 2200    # Окно склейки STT-сегментов в один ход
+  voice_merge_window_ms: 2500    # Окно склейки STT-сегментов в один ход
   response_debounce_ms: 500      # Задержка перед запуском RESPONSE
   response_min_quiet_ms_after_speech_start: 350
-  turn_merge_window_ms: 2200
+  turn_merge_window_ms: 2500
 
   # Barge-in и прерывание
   speech_start_min_interval_ms: 900
   speech_start_confirm_ms: 140
   min_speech_ms_interrupt: 100
-  speech_start_interrupt_mode: "soft"  # soft | hard
+  speech_start_interrupt_mode: "hard"  # hard: немедленно глушить речь Ниры при начале речи человека
   interrupt_speaker_policy: "same_or_unknown"  # any | same_only | same_or_unknown
 
   # Backpressure STT-воркеров
@@ -237,7 +237,7 @@ discord:
   source_id: "discord"
   api_url: "http://127.0.0.1:7272/api/context/conversation/audio"
   ws_url: "ws://127.0.0.1:7272/"
-  silence_ms: 800
+  silence_ms: 1200
   min_speech_ms: 350
 
 # -----------------------------------------------------------------------------

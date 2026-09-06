@@ -229,11 +229,31 @@ function App() {
                     setStatus('idle');
                     setPipelineStage('idle');
 
+                    // Если для этого ответа уже печатался текст, отмечаем его как прерванный
+                    if (jobId) {
+                        setMessages(prev => {
+                            const idx = prev.findIndex(m => m.id === jobId);
+                            if (idx !== -1) {
+                                const newMessages = [...prev];
+                                const current = newMessages[idx];
+                                if (!current.text.includes('[прервано')) {
+                                    newMessages[idx] = {
+                                        ...current,
+                                        text: current.text.trim() + ' [прервано на полуслове]'
+                                    };
+                                }
+                                return newMessages;
+                            }
+                            return prev;
+                        });
+                    }
+
                     // Показываем системное сообщение только для ручной/внешней отмены
                     const reason = String(result?.reason || '');
                     const isVoiceInterrupt =
                         reason.includes('user_speaking_significant') ||
-                        reason.includes('user_voice_start');
+                        reason.includes('user_voice_start') ||
+                        reason.includes('superceded');
 
                     if (!isVoiceInterrupt) {
                         setMessages(prev => [...prev, {

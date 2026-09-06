@@ -582,7 +582,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--api-url", required=True)
     parser.add_argument("--ws-url", required=True)
     parser.add_argument("--source-id", default="discord")
-    parser.add_argument("--silence-ms", type=int, default=800)
+    parser.add_argument("--silence-ms", type=int, default=1200)
     parser.add_argument("--min-speech-ms", type=int, default=220)
     parser.add_argument("--no-auto-join", dest="auto_join", action="store_false")
     parser.set_defaults(auto_join=True)

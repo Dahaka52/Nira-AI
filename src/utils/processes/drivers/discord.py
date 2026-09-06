@@ -43,7 +43,7 @@ class DiscordProcess(BaseProcess):
             "--api-url", str(config.get("api_url", "http://127.0.0.1:7272/api/context/conversation/audio")),
             "--ws-url", str(config.get("ws_url", "ws://127.0.0.1:7272/")),
             "--source-id", str(config.get("source_id", "discord")),
-            "--silence-ms", str(config.get("silence_ms", 500)),
+            "--silence-ms", str(config.get("silence_ms", 1200)),
             "--min-speech-ms", str(config.get("min_speech_ms", 220)),
         ]
         if not config.get("auto_join", True):

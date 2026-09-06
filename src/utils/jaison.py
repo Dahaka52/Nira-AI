@@ -482,7 +482,15 @@ class JAIson(metaclass=Singleton):
         job_type_enum = JobType(job_type)
         
         coro = None
-        if job_type_enum == JobType.RESPONSE: coro = self.response_pipeline(new_job_id, job_type_enum, **kwargs)
+        if job_type_enum == JobType.RESPONSE:
+            # Очередь не должна накапливать устаревшие RESPONSE задачи.
+            # Если в очереди уже ждут неотвеченные RESPONSE, отменяем их в пользу самого свежего ответа.
+            for queued_id, (q_type, _) in list(self.job_map.items()):
+                if q_type == JobType.RESPONSE and queued_id != self.job_current_id and queued_id not in self.job_skips:
+                    self.job_skips[queued_id] = "superceded_by_newer_response"
+                    logging.info(f"[PREEMPTION] Отменяем устаревший RESPONSE job {queued_id} в пользу свежего ответа {new_job_id}")
+
+            coro = self.response_pipeline(new_job_id, job_type_enum, **kwargs)
         elif job_type_enum == JobType.CONTEXT_REQUEST_ADD: coro = self.append_request_context(new_job_id, job_type_enum, **kwargs)
         elif job_type_enum == JobType.CONTEXT_CONVERSATION_ADD_TEXT: coro = self.append_conversation_context_text(new_job_id, job_type_enum, **kwargs)
         elif job_type_enum == JobType.CONTEXT_CONVERSATION_ADD_AUDIO: coro = self.append_conversation_context_audio(new_job_id, job_type_enum, **kwargs)
@@ -541,34 +549,42 @@ class JAIson(metaclass=Singleton):
             self.job_current = None
 
     def _interrupt_jobs(self, reason: str = "user_interruption"):
-        """Экстренное прерывание: очистка очереди и текущей задачи"""
+        """Экстренное прерывание: очистка устаревших ответов и текущей задачи, с сохранением контекста"""
         logging.info(f"Smart Barge-in: Interrupting and clearing queue due to: {reason}")
         print_interrupt(reason=reason)
         self._cancel_pending_voice_response()
         
-        # 1. Очищаем очередь и связанные coroutine в job_map
+        # 1. Извлекаем задачи из очереди: отменяем ТОЛЬКО устаревшие RESPONSE,
+        # а все контекстные задачи (добавление реплик пользователей, системные события) сохраняем!
+        preserved_jobs = []
         while True:
             try:
                 queued_job_id = self.job_queue.get_nowait()
             except asyncio.QueueEmpty:
                 break
 
-            job_type_coro = self.job_map.pop(queued_job_id, None)
-            self.job_skips.pop(queued_job_id, None)
-            self._response_job_speakers.pop(queued_job_id, None)
-
-            # Close queued coroutine to avoid "coroutine was never awaited" warnings
+            job_type_coro = self.job_map.get(queued_job_id)
             if job_type_coro:
-                _, coro = job_type_coro
-                try:
-                    coro.close()
-                except Exception:
-                    pass
+                job_type, coro = job_type_coro
+                if job_type == JobType.RESPONSE:
+                    self.job_map.pop(queued_job_id, None)
+                    self.job_skips.pop(queued_job_id, None)
+                    self._response_job_speakers.pop(queued_job_id, None)
+                    try:
+                        coro.close()
+                    except Exception:
+                        pass
+                else:
+                    preserved_jobs.append(queued_job_id)
 
             try:
                 self.job_queue.task_done()
             except Exception:
                 pass
+
+        # Возвращаем все контекстные задачи обратно в очередь
+        for preserved_id in preserved_jobs:
+            self.job_queue.put_nowait(preserved_id)
         
         logging.debug(f"Interrupting current job for Barge-in")
         # 2. Прерываем текущую задачу через стандартный метод
@@ -726,11 +742,13 @@ class JAIson(metaclass=Singleton):
         stt_latency_ms: int = None,
         speech_start_ts: float = None,
         speech_end_ts: float = None,
+        is_direct_question: bool = False,
     ):
-        merge_window_ms = 2200
+        merge_window_ms = 2500
         try:
-            mic_cfg = Config().microphone or {}
-            merge_window_ms = int(mic_cfg.get("voice_merge_window_ms", 2200))
+            cfg = Config()
+            mic_cfg = cfg.microphone or {}
+            merge_window_ms = int(getattr(cfg, "turn_merge_window_ms", None) or mic_cfg.get("voice_merge_window_ms", 2500))
         except Exception:
             pass
 
@@ -753,6 +771,7 @@ class JAIson(metaclass=Singleton):
                 "stt_finish_ts": time.time(),
                 "continue_intent": continue_intent,
                 "should_respond": bool(should_respond),
+                "is_direct_question": is_direct_question,
             }
         else:
             same_user = pending.get("user") == user
@@ -768,6 +787,8 @@ class JAIson(metaclass=Singleton):
                 pending["last_timestamp"] = timestamp
                 pending["continue_intent"] = bool(pending.get("continue_intent", False) or continue_intent)
                 pending["should_respond"] = bool(pending.get("should_respond", False) or should_respond)
+                if is_direct_question:
+                    pending["is_direct_question"] = True
                 pending["stt_finish_ts"] = time.time()
                 if speech_end_ts:
                     pending["speech_end_ts"] = speech_end_ts
@@ -799,6 +820,7 @@ class JAIson(metaclass=Singleton):
                     "stt_finish_ts": time.time(),
                     "continue_intent": continue_intent,
                     "should_respond": bool(should_respond),
+                    "is_direct_question": is_direct_question,
                 }
 
         self._schedule_voice_response()
@@ -811,11 +833,14 @@ class JAIson(metaclass=Singleton):
         try:
             cfg = Config()
             mic_cfg = cfg.microphone or {}
-            # Читаем новый параметр stt_buffer_timeout_ms (по умолчанию 800мс)
-            debounce_ms = int(getattr(cfg, "stt_buffer_timeout_ms", 800))
+            base_debounce_ms = int(getattr(cfg, "stt_buffer_timeout_ms", 1400))
+            is_direct = bool(self._pending_voice_turn and self._pending_voice_turn.get("is_direct_question"))
+            # Если задан прямой вопрос к Нире — отвечаем быстрее (750мс).
+            # Если идет связная речь или рассказ — ждем 1400мс тишины, чтобы не перебивать.
+            debounce_ms = min(base_debounce_ms, 750) if is_direct else base_debounce_ms
             min_quiet_ms_after_speech_start = int(mic_cfg.get("response_min_quiet_ms_after_speech_start", 350))
         except Exception:
-            debounce_ms = 800
+            debounce_ms = 1400
             min_quiet_ms_after_speech_start = 350
 
         async def _delayed_response():
@@ -880,6 +905,22 @@ class JAIson(metaclass=Singleton):
                                 self._assistant_last_partial_reply = partial[-2000:]
                                 partial_clean = partial.replace("\n", " ") + " [прервано на полуслове]"
                                 self.prompter.add_chat(self.prompter.character_name, partial_clean)
+                                try:
+                                    await self.event_server.broadcast_event(
+                                        "context_conversation_add_text",
+                                        {
+                                            "finished": True,
+                                            "job_id": f"interrupted_{int(time.time() * 1000)}",
+                                            "result": {
+                                                "user": self.prompter.character_name,
+                                                "content": partial_clean,
+                                                "timestamp": time.time(),
+                                                "source_id": "interrupted",
+                                            }
+                                        }
+                                    )
+                                except Exception:
+                                    pass
                             self._assistant_live_job_id = None
                             self._assistant_live_reply = ""
                         logging.info(f"Job {current_job_id} ({job_type.value}) was cancelled.")
@@ -1227,14 +1268,30 @@ class JAIson(metaclass=Singleton):
 
         # Get prompts
         instruction_prompt, history = self.prompter.get_sys_prompt(), self.prompter.get_history()
+
+        # ── Осознание прерванной речи и память незаконченных мыслей ──
+        interrupted_tail = (getattr(self, "_assistant_last_partial_reply", "") or "").strip()
         if continue_from_text and isinstance(continue_from_text, str) and continue_from_text.strip():
             tail = continue_from_text.strip()[-1200:]
             instruction_prompt = (
                 f"{instruction_prompt}\n\n"
-                "### Continuation Guidance ###\n"
-                "Пользователь просит продолжить предыдущую мысль. "
-                "Начни ответ с естественного продолжения прерванной фразы, затем мягко учти новый пользовательский ввод.\n"
-                f"Незавершенный фрагмент: {tail}\n"
+                "### Прямая просьба продолжить речь ###\n"
+                "Собеседник прямо попросил тебя продолжить то, о чём ты говорила до того, как тебя прервали.\n"
+                f"Твоя незавершенная мысль остановилась на фразе: «{tail}»\n"
+                "Продолжи повествование ровно с того места, где оборвалась речь, плавно развивая мысль дальше.\n"
+            )
+        elif interrupted_tail:
+            tail = interrupted_tail[-1200:]
+            instruction_prompt = (
+                f"{instruction_prompt}\n\n"
+                "### Осознание прерванной речи ###\n"
+                "В твоей предыдущей реплике тебя перебили или прервали на полуслове, когда ты говорила:\n"
+                f"«{tail}»\n"
+                "Ты полностью помнишь и осознаёшь то, о чём говорила и к чему вела мысль.\n"
+                "Правила ведения диалога:\n"
+                "1. Если собеседник просто отреагировал (эмоция, короткая фраза, вопрос по теме), или если твоя незавершенная мысль/история важна и интересна — ты можешь органично договорить свою незаконченную мысль и связать её с новой репликой собеседника.\n"
+                "2. Если собеседник кардинально сменил тему или спросил о совершенно другом — отвечай на его слова естественно, не цепляясь за старую тему насильно, но сохраняя понимание контекста.\n"
+                "3. Не извиняйся за прерывание, не произноси фраз вроде 'меня прервали' — веди диалог естественно, как живой человек.\n"
             )
         
         # Apply t2t and stream to TTS
@@ -2061,8 +2118,19 @@ class JAIson(metaclass=Singleton):
         # В режиме слушателя мы собираем контекст, но не отвечаем, пока нас не попросят
         should_respond = not getattr(self, "is_listening", False)
         
-        # Хард-прерывание (barge-in) срабатывает ТОЛЬКО на стоп-слова
-        is_significant = contains_stop_word
+        # Активна ли Нира в данный момент (синтез TTS или генерация LLM)
+        is_assistant_speaking_or_thinking = (
+            self.job_current is not None 
+            and not self.job_current.done() 
+            and self.job_map.get(self.job_current_id, (None, None))[0] == JobType.RESPONSE
+        )
+        # Осмысленная речь человека (не пустая и не просто филлер "угу/ага")
+        is_user_substantive = len(non_filler_words) >= 1 or len(content.strip()) >= 3
+
+        # Прерывание (barge-in):
+        # 1) На стоп-слова ("стоп", "помолчи", "тихо" и т.д.)
+        # 2) Когда Нира говорит или думает, а пользователь начал говорить осмысленную фразу
+        is_significant = contains_stop_word or (is_assistant_speaking_or_thinking and is_user_substantive)
         
         # При команде "Стоп / Подожди / Помолчи":
         # 1) Обрываем текущую речь Ниры
@@ -2079,10 +2147,11 @@ class JAIson(metaclass=Singleton):
 
         if is_significant:
             if self._interrupt_allowed_for_speaker(speaker_id):
-                self._interrupt_jobs(reason="user_speaking_significant")
+                reason = "stop_word" if contains_stop_word else "user_barge_in"
+                self._interrupt_jobs(reason=reason)
                 asyncio.create_task(self._handle_broadcast_event("GLOBAL_STOP", JobType.RESPONSE, {
                     "event": "stop_audio",
-                    "reason": "user_speaking_significant",
+                    "reason": reason,
                     "source_id": source_id,
                     "turn_id": turn_id,
                     "utterance_id": utterance_id,
@@ -2125,6 +2194,7 @@ class JAIson(metaclass=Singleton):
             stt_latency_ms=stt_latency_ms,
             speech_start_ts=speech_start_ts,
             speech_end_ts=speech_end_ts,
+            is_direct_question=is_direct_question,
         )
 
     async def on_user_speech_start(self, request_data: Dict[str, Any] | None = None):
@@ -2366,7 +2436,8 @@ class JAIson(metaclass=Singleton):
             "success": True,
             "result": {
                 "event": "cancelled",
-                "reason": reason
+                "reason": reason,
+                "partial": getattr(self, "_assistant_last_partial_reply", "")
             }
         }
         logging.debug("Broadcasting cancelled ({}) {} {}".format(job_id, job_type.value, str(to_broadcast)))
